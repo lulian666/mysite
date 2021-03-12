@@ -9,7 +9,7 @@
 <li>{% my_tag1 11 22 33 %}</li>
 <ul class="nav navbar-nav navbar-right">
 <li>欢迎你，<a herf="#">{{username}}</a></li>
-<li><a href="/logout/">退出</a></li>
+<li><a href="{% url 'apptest:logout'%}">退出</a></li>
 {{ 1|my_filter }}
     {% try_context "11" %}
 </ul>
