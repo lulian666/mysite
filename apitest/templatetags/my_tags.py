@@ -18,7 +18,7 @@ def try_context(context, anything):
     username = context['username']
     return username + anything
 
-@register.inclusion_tag('apptest/result.html')
+@register.inclusion_tag('apitest/result.html')
 def test():
     a = ['first','second','third']
     return {'choices':a}

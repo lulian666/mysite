@@ -7,7 +7,7 @@
 <body>
 <h1>login</h1>
 
-<form method="post" action="{% url 'apptest/home'%}">
+<form method="post" action="{% url 'apitest:home'%}">
     {% csrf_token %}
     <br> <input name="username" type="text" placeholder="username">
     <br> <input name="password" type="password" placeholder="password">

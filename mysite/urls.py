@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-# from apptest import views
+# from apitest import views
 # from polls import views
 
 urlpatterns = [
@@ -26,7 +26,7 @@ urlpatterns = [
     # path('home/', views.home),
     # path('test/', views.test),
     path('polls/', include('polls.urls')),
-    path('apptest/', include('apptest.urls')),
+    path('apitest/', include('apitest.urls')),
     path('product/', include('product.urls')),
     # # ex: /polls/5/
     # path('<int:question_id>/', views.detail, name='detail'),
