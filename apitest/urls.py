@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('apitest_manage/',views.apitest_manage, name = 'apitest_manage'),
     path('apistep_manage/',views.apistep_manage, name = 'apistep_manage'),
+    path('apis_manage/',views.apis_manage, name = 'apis_manage'),
 ]

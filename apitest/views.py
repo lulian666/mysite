@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 from django.urls import reverse
 
-from apitest.models import Apitest, Apistep
+from apitest.models import Apitest, Apistep, Apis
 
 
 def index(request):
@@ -56,3 +56,9 @@ def apistep_manage(request):
     apistep_list = Apistep.objects.all()
     username = request.session.get('user','')
     return render(request, "apitest/apistep_manage.html", {"user":username, "apisteps": apistep_list})
+
+@login_required
+def apis_manage(request):
+    username = request.session.get('user','')
+    apislist = Apis.objects.all()
+    return render(request, "apitest/apis_manage.html", {"user":username, "apiss": apislist})
