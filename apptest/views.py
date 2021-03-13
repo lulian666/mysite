@@ -40,4 +40,4 @@ def test(request):
     return render(request, 'apptest/test.html')
 
 def logout(request):
-    return HttpResponse("Hello, world. You're at the apptest's logout page.")
+    return render(request, 'apptest/login.html')

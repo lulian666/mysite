@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     # 'apptest',
     'polls.apps.PollsConfig',
     'apptest.apps.ApptestConfig',
-
+    'product.apps.ProductConfig',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
