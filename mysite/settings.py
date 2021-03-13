@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'polls.apps.PollsConfig',
     'apitest.apps.ApitestConfig',
     'product.apps.ProductConfig',
+    'bug.apps.BugsConfig',
     'bootstrap4',
 ]
 

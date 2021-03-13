@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bug 管理</title>
+</head>
+<body role="document">
+<!-- 导航栏-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">bug 管理平台</a>
+        <ul class="nav justify-content-end"></ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-link"><a style="color: red" href="#">{{ user }}</a> </li>
+            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout' %}">退出</a> </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- bug 列表-->
+<div class="row" style="padding-top: 70px;">
+    <div class="col-md-11">
+        <table class="table table-striped">
+            <thead>
+            <tr style="text-align:left">
+                <th>ID</th>
+                <th>产品</th>
+                <th>bug 名称</th>
+                <th>bug 详情</th>
+                <th>解决状态</th>
+                <th>严重程度</th>
+                <th>创建人</th>
+                <th>分配给</th>
+                <th>创建时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for bug in bugs %}
+                <tr>
+                    <td width=100px>{{ bug.id }}</td>
+                    <td width=200px>{{ bug.Product.productname }}</td>
+                    <td width=300px>{{ bug.bugname }}</td>
+                    <td title="{{ bug.bugdetail }}" width=500px>{{ bug.bugdetail }}</td>
+                    <td width=300px>{{ bug.bugstatus }}</td>
+                    <td width=150px>{{ bug.buglevel }}</td>
+                    <td width=300px>{{ bug.bugcreater }}</td>
+                    <td width=200px>{{ bug.bugassign }}</td>
+                    <td width=200px>{{ bug.create_time }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
