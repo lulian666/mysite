@@ -4,6 +4,8 @@ from apitest.models import Apis
 from apptest.models import Appcase
 from product.models import Product
 # Register your models here.
+from webtest.models import Webcase
+
 
 class ApisAdmin(admin.TabularInline):
     list_display = ['apiname', 'apiurl', 'apiparamvalue', 'apimethod', 'apiresult', 'apistatus', 'create_time', 'id', 'product']
@@ -18,12 +20,17 @@ class AppcaseAdmin(admin.TabularInline):
     model = Appcase
     extra = 1
 
+class WebtestAdmin(admin.TabularInline):
+    list_display = ['webcasename','webtestresult','create_time','id', 'product']
+    model = Webcase
+    extra = 1
+
 class ProductAdmin(admin.ModelAdmin):
     list_display =  ['productname', 'productdesc', 'producter', 'create_time', 'id']
     list_filter = ['create_time']
     search_fields = ['productname', 'productdesc']
     list_per_page = 10
-    inlines = [ApisAdmin,AppcaseAdmin]
+    inlines = [ApisAdmin,AppcaseAdmin,WebtestAdmin]
 
 admin.site.register(Product, ProductAdmin)
 

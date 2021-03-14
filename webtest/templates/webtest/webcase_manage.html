@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>app 测试</title>
+    <title>web 测试</title>
 </head>
 <body role="document">
 <!-- 导航栏-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">app 测试</a>
+        <a class="navbar-brand" href="#">web 测试</a>
         <ul class="nav justify-content-end"></ul>
         <ul class="nav justify-content-end">
             <li class="nav-link"><a style="color: red" href="#">{{ user }}</a> </li>
@@ -16,8 +16,8 @@
         </ul>
     </div>
 </nav>
-<!-- app 测试步骤-->
-<div class="row" style="padding-top: 10px;">
+<!-- web 测试用例列表-->
+<div class="row" style="padding-top: 20px;">
     <div class="col-md-11">
         <table class="table table-striped">
             <style>
@@ -35,16 +35,16 @@
             </tr>
             </thead>
             <tbody>
-            {% for appcase in appcases %}
+            {% for webcase in webcases %}
                 <tr>
-                    <td width=200px>{{ appcase.id }}</td>
-                    <td width=500px>{{ appcase.Product.productname }}</td>
-                    <td width=500px>{{ appcase.appcasename }}</td>
-                    <td width=500px>{{ appcase.apptestresult }}</td>
-                    <td width=500px>{{ appcase.apptester }}</td>
-                    <td width=500px>{{ appcase.create_time }}</td>
-                    <td width=500px><a href="#">{{ appcase.appcasestep }}</a></td>
-                    <td width=500px>{{ appcase.appcasestep }}</td>
+                    <td width=200px>{{ webcase.id }}</td>
+                    <td width=500px>{{ webcase.Product.productname }}</td>
+                    <td width=500px>{{ webcase.webcasename }}</td>
+                    <td width=500px>{{ webcase.webtestresult }}</td>
+                    <td width=500px>{{ webcase.webtester }}</td>
+                    <td width=500px>{{ webcase.create_time }}</td>
+                    <td width=500px><a href="#">{{ webcase.webcasestep }}</a></td>
+                    <td width=500px>{{ webcase.webcasestep }}</td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web 测试步骤</title>
+</head>
+<body role="document">
+<!-- Web 测试步骤-->
+<div class="row" style="padding-top: 20px;">
+    <div class="col-md-11">
+        <table class="table table-striped">
+            <style>
+                td{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+            </style>
+            <thead>
+            <tr style="text-align:left">
+                <th>所属产品</th>
+                <th>所属用例</th>
+                <th>步骤</th>
+                <th>定位方式</th>
+                <th>控件元素</th>
+                <th>操作方法</th>
+                <th>测试数据</th>
+                <th>验证数据</th>
+                <th>测试结果</th>
+                <th>时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for webcasestep in webcasesteps %}
+                <tr>
+                    <td width=200px>{{ webcasestep.Webcase.Product.productname }}</td>
+                    <td width=500px>case{{ webcasestep.Webcase.id }}:{{ webcasestep.Webcase.webcasename }}</td>
+                    <td width=500px>{{ webcasestep.webcasestep }}:{{ webcasestep.webtestobjname }}</td>
+                    <td width=500px>{{ webcasestep.webfindmethod }}</td>
+                    <td width=500px>{{ webcasestep.webevelement }}</td>
+                    <td width=500px>{{ webcasestep.weboptmethod }}</td>
+                    <td width=500px>{{ webcasestep.webtestdata }}</td>
+                    <td width=500px>{{ webcasestep.webassertdata }}</td>
+                    <td width=500px>{% if webcasestep.webtestresult == 1 %}<a style="color: green">{{ webcasestep.webtestresult }}</a>{% else %}<a style="color: red"></a>{% endif %}</td>
+                    <td width=500px>{{ webcasestep.create_time }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
