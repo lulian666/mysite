@@ -1,3 +1,4 @@
+import pymysql
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -60,5 +61,21 @@ def apistep_manage(request):
 @login_required
 def apis_manage(request):
     username = request.session.get('user','')
-    apislist = Apis.objects.all()
-    return render(request, "apitest/apis_manage.html", {"user":username, "apiss": apislist})
+    apis_list = Apis.objects.all()
+    return render(request, "apitest/apis_manage.html", {"user":username, "apiss": apis_list})
+
+@login_required
+def test_report(request):
+    username = request.session.get('user','')
+    apis_list = Apis.objects.all()
+    apis_count = Apis.objects.all().count()
+    db = pymysql.connect(user='root', db='dj',passwd='52france',host='127.0.0.1')
+    cursor = db.cursor()
+    sql1 = 'SELECT count(id) FROM apitest_apis WHERE apitest_apis.apistatus=1'
+    aa = cursor.execute(sql1)
+    apis_pass_count = [row[0] for row in cursor.fetchmany(aa)][0]
+    sql2 = 'SELECT count(id) FROM apitest_apis WHERE apitest_apis.apistatus=0'
+    bb = cursor.execute(sql2)
+    apis_fail_count = [row[0] for row in cursor.fetchmany(bb)][0]
+    db.close()
+    return render(request, "apitest/report.html", {"user":username, "apiss": apis_list, "apiscounts": apis_count, "apis_pass_count":apis_pass_count, "apis_fail_count":apis_fail_count})
