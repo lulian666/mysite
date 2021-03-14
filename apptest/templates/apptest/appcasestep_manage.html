@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>app 测试步骤</title>
+</head>
+<body role="document">
+<!-- 导航栏-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">app 测试步骤</a>
+        <ul class="nav justify-content-end"></ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-link"><a style="color: red" href="#">{{ user }}</a> </li>
+            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout' %}">退出</a> </li>
+        </ul>
+    </div>
+</nav>
+<!-- app 测试步骤-->
+<div class="row" style="padding-top: 70px;">
+    <div class="col-md-11">
+        <table class="table table-striped">
+            <style>
+                td{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+            </style>
+            <thead>
+            <tr style="text-align:left">
+                <th>所属产品</th>
+                <th>所属用例</th>
+                <th>步骤</th>
+                <th>定位方式</th>
+                <th>控件元素</th>
+                <th>操作方法</th>
+                <th>测试数据</th>
+                <th>验证数据</th>
+                <th>测试结果</th>
+                <th>时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for appcasestep in appcasesteps %}
+                <tr>
+                    <td width=200px>{{ appcasestep.Appcase.Product.productname }}</td>
+                    <td width=500px>case{{ appcasestep.Appcase.id }}:{{ appcasestep.Appcase.appcasename }}</td>
+                    <td width=500px>{{ appcasestep.appcasestep }}:{{ appcasestep.apptestobjname }}</td>
+                    <td width=500px>{{ appcasestep.appfindmethod }}</td>
+                    <td width=500px>{{ appcasestep.appevelement }}</td>
+                    <td width=500px>{{ appcasestep.appoptmethod }}</td>
+                    <td width=500px>{{ appcasestep.apptestdata }}</td>
+                    <td width=500px>{{ appcasestep.appassertdata }}</td>
+                    <td width=500px>{% if appcasestep.apptestresult == 1 %}<a style="color: green">{{ appcasestep.apptestresult }}</a>{% else %}<a style="color: red"></a>{% endif %}</td>
+                    <td width=500px>{{ appcasestep.create_time }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

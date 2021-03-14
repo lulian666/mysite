@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>app 测试</title>
+</head>
+<body role="document">
+<!-- 导航栏-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">app 测试</a>
+        <ul class="nav justify-content-end"></ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-link"><a style="color: red" href="#">{{ user }}</a> </li>
+            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout' %}">退出</a> </li>
+        </ul>
+    </div>
+</nav>
+<!-- app 测试步骤-->
+<div class="row" style="padding-top: 10px;">
+    <div class="col-md-11">
+        <table class="table table-striped">
+            <style>
+                td{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+            </style>
+            <thead>
+            <tr style="text-align:left">
+                <th>ID</th>
+                <th>产品</th>
+                <th>测试用例名称</th>
+                <th>测试结果</th>
+                <th>测试负责人</th>
+                <th>时间</th>
+                <th>测试用例步骤</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for appcase in appcases %}
+                <tr>
+                    <td width=200px>{{ appcase.id }}</td>
+                    <td width=500px>{{ appcase.Product.product }}</td>
+                    <td width=500px>{{ appcase.appcasename }}</td>
+                    <td width=500px>{{ appcase.apptestresult }}</td>
+                    <td width=500px>{{ appcase.apptester }}</td>
+                    <td width=500px>{{ appcase.create_time }}</td>
+                    <td width=500px><a href="#">{{ appcase.appcasestep }}</a></td>
+                    <td width=500px>{{ appcase.appcasestep }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'bug.apps.BugsConfig',
     'set.apps.SetConfig',
+    'apptest.apps.ApptestConfig',
     'bootstrap4',
 ]
 
