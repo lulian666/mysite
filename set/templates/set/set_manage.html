@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>系统设置</title>
+</head>
+<body role="document">
+<!-- 导航栏-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">系统设置</a>
+        <ul class="nav justify-content-end"></ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-link"><a style="color: red" href="#">{{ user }}</a> </li>
+            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout' %}">退出</a> </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 设置列表-->
+<div class="row" style="padding-top: 70px;">
+    <div class="col-md-11">
+        <table class="table table-striped">
+            <thead>
+            <tr style="text-align:left">
+                <th>ID</th>
+                <th>设置名称</th>
+                <th>设置的值</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for set in sets %}
+                <tr>
+                    <td width=200px>{{ set.id }}</td>
+                    <td width=500px>{{ set.setname }}</td>
+                    <td width=500px>{{ set.setvalue }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

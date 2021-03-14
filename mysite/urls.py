@@ -29,6 +29,7 @@ urlpatterns = [
     path('apitest/', include('apitest.urls')),
     path('product/', include('product.urls')),
     path('bug/', include('bug.urls')),
+    path('set/', include('set.urls')),
     # # ex: /polls/5/
     # path('<int:question_id>/', views.detail, name='detail'),
     # # ex: /polls/5/results/
