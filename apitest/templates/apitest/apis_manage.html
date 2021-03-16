@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <meta charset="UTF-8">
-    <title>api test</title>
+    <title>api 测试</title>
 </head>
 <body role="document">
 <!-- 导航栏-->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">自动化测试平台</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{% url 'apitest:apis_manage' %}">单一接口测试</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nac navbar-right">
-                <li><a href="#">{{ user }}</a> </li>
-                <li><a href="{% url 'apitest:logout'%}">退出</a> </li>
-            </ul>
-        </div>
+        <a class="navbar-brand" href="#">&nbsp;</a>
+        <ul class="nav justify-content-center">
+            <li><a style="color: white" href="{% url 'apitest:apitest_manage' %}">流程接口测试用例</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:apistep_manage' %}">流程接口测试步骤</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:apis_manage' %}">单一接口测试用例</a></li>
+        </ul>
+        <ul class="nav justify-content-center">
+            <li class="nav-link"><a style="color: white" href="{% url 'apitest:apitest_manage' %}">{{ user }}</a></li>
+            <li class="nav-link"><a style="color: white" href="{% url 'apitest:logout'%}">退出</a></li>
+        </ul>
     </div>
 </nav>
-
 <!-- 单一接口测试用例-->
-<div class="row" style="padding-top: 20px;">
+<div class="row" style="padding-top: 70px;">
     <div class="col-md-11">
         <table class="table table-striped">
             <thead>

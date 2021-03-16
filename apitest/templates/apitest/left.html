@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <meta charset="UTF-8">
     <title>test</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top"></nav>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="../apistep_manage" target="mainFrame">《自动化平台测试开发》书</a>
+    </div>
+</nav>
 <table border="0">
-    <tr><td>&nbsp;</td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td>&nbsp;</td></tr>
@@ -16,20 +22,28 @@
         <td><a href="{% url 'apitest:apitest_manage' %}" target="mainFrame">&nbsp;&nbsp;项目管理</a></td>
     </tr>
     <tr><td>&nbsp;</td></tr>
-    <tr><td>-----------------------------------</td></tr>
+    <tr><td>------------------------</td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td><a href="{% url 'apitest:apitest_manage' %}" target="mainFrame">&nbsp;&nbsp;用例管理</a></td></tr>
     <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="{% url 'apitest:apitest_manage' %}" target="mainFrame">&nbsp;&nbsp;api接口测试用例列表</a></td></tr>
+    <tr><td><a href="{% url 'apitest:apitest_manage' %}" target="mainFrame">&nbsp;&nbsp;流程接口测试用例</a></td></tr>
     <tr><td>&nbsp;</td></tr>
+    <tr><td>------------------------</td></tr>
+    <tr><td><a href="{% url 'apptest:appcase_manage' %}" target="mainFrame">&nbsp;&nbsp;app 用例管理</a></td></tr>
     <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="http://127.0.0.1:8000/admin/apitest/apitest/add/" target="mainFrame">&nbsp;&nbsp;新增api接口测试用例</a></td></tr>
+    <tr><td><a href="{% url 'apptest:appcase_manage' %}" target="mainFrame">&nbsp;&nbsp;app 测试用例</a></td></tr>
     <tr><td>&nbsp;</td></tr>
-    <tr><td>-----------------------------------</td></tr>
+    <tr><td>------------------------</td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td><a href="{% url 'webtest:webcase_manage' %}" target="mainFrame">&nbsp;&nbsp;web 用例管理</a></td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td><a href="{% url 'webtest:webcase_manage' %}" target="mainFrame">&nbsp;&nbsp;web 测试用例</a></td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>------------------------</td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td><a href="http://127.0.0.1:8000/admin/apitest/apitest/add/" target="mainFrame">&nbsp;&nbsp;任务管理</a></td></tr>
     <tr><td>&nbsp;</td></tr>
-    <tr><td>-----------------------------------</td></tr>
+    <tr><td>------------------------</td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td><a href="http://127.0.0.1:8000/admin/apitest/apitest/add/" target="mainFrame">&nbsp;&nbsp;测试报告</a></td></tr>
 </table>

@@ -9,7 +9,14 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">app 测试步骤</a>
-        <ul class="nav justify-content-end"></ul>
+        <ul class="nav justify-content-center">
+            <li><a style="color: white" href="{% url 'apptest:appcase_manage' %}">app 测试用例</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apptest:appcasestep_manage' %}">app 测试用例步骤</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </ul>
         <ul class="nav justify-content-end">
             <li class="nav-link"><a style="color: red" href="#">{{ user }}</a> </li>
             <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout' %}">退出</a> </li>
