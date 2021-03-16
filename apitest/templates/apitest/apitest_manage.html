@@ -31,9 +31,9 @@
 <!-- 流程接口列表-->
 <div class="row" style="padding-top: 20px;">
     <div class="col-md-11">
-        <table class="table table-striped">
+        <table class="table table-striped" >
             <thead>
-            <tr>
+            <tr style="text-align:left" width=200px>
                 <th>ID</th>
                 <th>产品</th>
                 <th>流程接口测试用例名称</th>
@@ -46,13 +46,18 @@
             <tbody>
             {% for apitest in apitests %}
             <tr>
-                <td>{{ apitest.id }}</td>
-                <td>{{ apitest.Product.productname }}</td>
-                <td>{{ apitest.apitestname }}</td>
-                <td>{{ apitest.apitestdesc }}</td>
-                <td>{{ apitest.apitester }}</td>
-                <td>{{ apitest.apitestresult }}</td>
-                <td>{{ apitest.Apistep.apiteststep }}</td>
+                <td style="text-align:left" width=200px>{{ apitest.id }}</td>
+                <td style="text-align:left" width=200px>{{ apitest.Product.productname }}</td>
+                <td style="text-align:left" width=200px>{{ apitest.apitestname }}</td>
+                <td style="text-align:left" width=200px>{{ apitest.apitestdesc }}</td>
+                <td style="text-align:left" width=200px>{{ apitest.apitester }}</td>
+                <td style="text-align:left" width=100px>{% if apitest.apitestresult == 1 %}
+                    <a style="color: green">{{ apitest.apitestresult }}</a>
+                {% else %}
+                    <a style="color: #ff0000">{{ apitest.apitestresult }}</a>
+                {% endif %}
+                </td>
+                <td style="text-align:left" width=200px>{{ apitest.Apistep.apiteststep }}</td>
             </tr>
             {% endfor %}
             </tbody>

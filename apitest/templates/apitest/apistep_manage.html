@@ -55,7 +55,7 @@
                     <td style="text-align:left" width=200px>{{ apistep.apiparamvalue }}</td>
                     <td style="text-align:left" width=100px>{{ apistep.apimethod }}</td>
                     <td style="text-align:left" width=100px>{{ apistep.apiresult }}</td>
-                    <td style="text-align:left" width=100px>{% if apistep.apiresult == 1 %}
+                    <td style="text-align:left" width=100px>{% if apistep.apistatus == 1 %}
                         <a style="color: green">{{ apistep.apistatus }}</a>
                         {% else %}
                         <a style="color: #ff0000">{{ apistep.apistatus }}</a>

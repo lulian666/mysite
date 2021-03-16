@@ -40,7 +40,12 @@
                     <td width=200px>{{ appcase.id }}</td>
                     <td width=500px>{{ appcase.Product.productname }}</td>
                     <td width=500px>{{ appcase.appcasename }}</td>
-                    <td width=500px>{{ appcase.apptestresult }}</td>
+                    <td style="text-align:left" width=100px>{% if appcase.apptestresult == 1 %}
+                        <a style="color: green">{{ appcase.apptestresult }}</a>
+                    {% else %}
+                        <a style="color: #ff0000">{{ appcase.apptestresult }}</a>
+                    {% endif %}
+                    </td>
                     <td width=500px>{{ appcase.apptester }}</td>
                     <td width=500px>{{ appcase.create_time }}</td>
                     <td width=500px><a href="#">{{ appcase.appcasestep }}</a></td>
