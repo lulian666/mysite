@@ -55,13 +55,14 @@
                     <td style="text-align:left" width=200px>{{ apistep.apiparamvalue }}</td>
                     <td style="text-align:left" width=100px>{{ apistep.apimethod }}</td>
                     <td style="text-align:left" width=100px>{{ apistep.apiresult }}</td>
-                    <td style="text-align:left" width=100px>{% if apistep.apiresult == 1 %}
+                    <td>{% if apistep.apistatus == 1 %}
                         <a style="color: green">{{ apistep.apistatus }}</a>
-                        {% else %}
-                        <a style="color: #ff0000">{{ apistep.apistatus }}</a>
-                        {% endif %}
+                    {% else %}
+                        <a style="color: red">{{ apistep.apistatus }}</a>
+                    {% endif %}
                     </td>
-                    <td style="text-align:left" width=200px>{{ apistep.create_time }}</td>
+
+                    <td>{{ apistep.create_time }}</td>
                 </tr>
             {% endfor %}
             </tbody>
