@@ -1,3 +1,4 @@
+
 import pymysql
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -82,3 +83,11 @@ def test_report(request):
 
 def left(request):
     return render(request, "apitest/left.html")
+
+@login_required
+def search(request):
+    username = request.session.get('user','')
+    search_apitestname = request.GET.get("apitestname","")
+    apitest_list = Apitest.objects.filter(apitestname__icontains=search_apitestname)
+    # apitest_list = Apitest.objects.filter(apitestname=search_apitestname)
+    return render(request,"apitest/apitest_manage.html",{"user":username,"apitests":apitest_list})

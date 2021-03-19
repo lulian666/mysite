@@ -14,4 +14,5 @@ urlpatterns = [
     path('apis_manage/',views.apis_manage, name = 'apis_manage'),
     path('test_report/',views.test_report, name = 'test_report'),
     path('left/',views.left, name = 'left'),
+    path('apisearch/',views.search, name = 'search'),
 ]
