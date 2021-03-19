@@ -26,7 +26,7 @@ def appsearch(request):
     return render(request,"apptest/appcase_manage.html",{"user":username,"appcases":appcase_list})
 
 @login_required
-def appstepsearch(request):
+def appstepsearch(request): # tobe continued!!!!!!!!1
     username = request.session.get('user','')
     appcasename = request.GET.get("appcasename","")
     # appcase_list = Appcase.objects.filter(appcasename__icontains=appcasename)
