@@ -15,4 +15,5 @@ urlpatterns = [
     path('test_report/',views.test_report, name = 'test_report'),
     path('left/',views.left, name = 'left'),
     path('apisearch/',views.search, name = 'search'),
+    path('apissearch/',views.apissearch, name = 'apissearch'),
 ]

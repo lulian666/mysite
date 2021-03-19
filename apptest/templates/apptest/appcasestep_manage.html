@@ -23,6 +23,14 @@
         </ul>
     </div>
 </nav>
+<!-- 搜索栏-->
+<div class="page-header" style="padding-top: 70px">
+    <form class="navbar-form" method="get" action="{% url 'apptest:appstepsearch' %}">
+        {%  csrf_token %}
+        <input type="search" name="appcasename" placeholder="名称" required>
+        <button type="submit">搜索</button>
+    </form>
+</div>
 <!-- app 测试步骤-->
 <div class="row" style="padding-top: 70px;">
     <div class="col-md-11">

@@ -91,3 +91,10 @@ def search(request):
     apitest_list = Apitest.objects.filter(apitestname__icontains=search_apitestname)
     # apitest_list = Apitest.objects.filter(apitestname=search_apitestname)
     return render(request,"apitest/apitest_manage.html",{"user":username,"apitests":apitest_list})
+
+@login_required
+def apissearch(request):
+    username = request.session.get('user','')
+    apiname = request.GET.get("apiname","")
+    apits_list = Apis.objects.filter(apiname__icontains=apiname)
+    return render(request,"apitest/apis_manage.html",{"user":username,"apiss":apits_list})
