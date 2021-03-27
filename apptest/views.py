@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import models
 from django.shortcuts import render
 
@@ -10,12 +11,30 @@ from apptest.models import Appcase, Appcasestep
 def appcase_manage(request):
     appcase_list = Appcase.objects.all()
     username = request.session.get('user','')
+    paginator = Paginator(appcase_list, 8)
+    page = request.GET.get('page',1)
+    currentPage = int(page)
+    try:
+        appcase_list = paginator.page(page)
+    except PageNotAnInteger:
+        appcase_list = paginator.page(1)
+    except EmptyPage:
+        appcase_list = paginator.page(paginator.num_pages)
     return render(request,'apptest/appcase_manage.html', {"user":username, "appcases":appcase_list})
 
 @login_required
 def appcasestep_manage(request):
     appcasestep_list = Appcasestep.objects.all()
     username = request.session.get('user','')
+    paginator = Paginator(appcasestep_list, 8)
+    page = request.GET.get('page',1)
+    currentPage = int(page)
+    try:
+        appcasestep_list = paginator.page(page)
+    except PageNotAnInteger:
+        appcasestep_list = paginator.page(1)
+    except EmptyPage:
+        appcasestep_list = paginator.page(paginator.num_pages)
     return render(request,'apptest/appcasestep_manage.html', {"user":username, "appcasesteps":appcasestep_list})
 
 @login_required

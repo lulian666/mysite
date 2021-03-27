@@ -1,5 +1,6 @@
 
 import pymysql
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -51,18 +52,45 @@ def logout(request):
 def apitest_manage(request):
     apitest_list = Apitest.objects.all()
     username = request.session.get('user','')
+    paginator = Paginator(apitest_list, 8)
+    page = request.GET.get('page',1)
+    currentPage = int(page)
+    try:
+        apitest_list = paginator.page(page)
+    except PageNotAnInteger:
+        apitest_list = paginator.page(1)
+    except EmptyPage:
+        apitest_list = paginator.page(paginator.num_pages)
     return render(request, "apitest/apitest_manage.html", {"user":username, "apitests": apitest_list})
 
 @login_required
 def apistep_manage(request):
     apistep_list = Apistep.objects.all()
     username = request.session.get('user','')
+    paginator = Paginator(apistep_list, 8)
+    page = request.GET.get('page',1)
+    currentPage = int(page)
+    try:
+        apistep_list = paginator.page(page)
+    except PageNotAnInteger:
+        apistep_list = paginator.page(1)
+    except EmptyPage:
+        apistep_list = paginator.page(paginator.num_pages)
     return render(request, "apitest/apistep_manage.html", {"user":username, "apisteps": apistep_list})
 
 @login_required
 def apis_manage(request):
     username = request.session.get('user','')
     apis_list = Apis.objects.all()
+    paginator = Paginator(apis_list, 8)
+    page = request.GET.get('page',1)
+    currentPage = int(page)
+    try:
+        apis_list = paginator.page(page)
+    except PageNotAnInteger:
+        apis_list = paginator.page(1)
+    except EmptyPage:
+        apis_list = paginator.page(paginator.num_pages)
     return render(request, "apitest/apis_manage.html", {"user":username, "apiss": apis_list})
 
 @login_required

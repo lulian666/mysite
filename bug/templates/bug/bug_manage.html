@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <meta charset="UTF-8">
-    <title>bug 管理</title>
+    <title>api 测试</title>
 </head>
 <body role="document">
 <!-- 导航栏-->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">bug 管理平台</a>
-        <ul class="nav justify-content-end"></ul>
-        <ul class="nav justify-content-end">
-            <li class="nav-link"><a style="color: red" href="#">{{ user }}</a> </li>
-            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout' %}">退出</a> </li>
+        <a class="navbar-brand" href="#">&nbsp;</a>
+        <ul class="nav justify-content-center">
+
+        </ul>
+        <ul class="nav justify-content-center">
+            <li class="nav-link"><a style="color: white" href="{% url 'apitest:apitest_manage' %}">{{ user }}</a></li>
+            <li class="nav-link"><a style="color: white" href="{% url 'apitest:logout'%}">退出</a></li>
         </ul>
     </div>
 </nav>
+
 <!-- 搜索栏-->
 <div class="page-header" style="padding-top: 70px">
     <form class="navbar-form" method="get" action="{% url 'bug:search' %}">
@@ -58,6 +64,34 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<!-- 翻页功能-->
+<span style="position: absolute; right: 150px; bottom: 100px;">
+<div class="container">
+    <ul class="pagination" id="pager">
+        {# 上一页链接开始 #}
+        {% if bugs.has_previous %}
+            <li class="previous"><a href="/bug/bug_manage/?page={{ bugs.previous_page_number }}">上一页</a></li>
+        {% else %}
+            <li class="previous disabled"><a href="#">上一页</a></li>
+        {% endif %}
+
+        {% for num in bugs.paginator.page_range %}
+            {% if num == currentPage %}
+                <li class="item active"><a href="/bug/bug_manage/?page={{ num }}">{{ num }}</a></li>
+            {% else %}
+                <li class="item"><a href="/bug/bug_manage/?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {# 下一页链接开始 #}
+        {% if bugs.has_next %}
+            <li class="next"><a href="/bug/bug_manage/?page={{ bugs.next_page_number }}">下一页</a></li>
+        {% else %}
+            <li class="next disabled"><a href="#">下一页</a></li>
+        {% endif %}
+    </ul>
 </div>
 </body>
 </html>

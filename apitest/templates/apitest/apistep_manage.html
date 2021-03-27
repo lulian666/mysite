@@ -68,6 +68,32 @@
         </table>
     </div>
 </div>
+<!-- 翻页功能-->
+<span style="position: absolute; right: 150px; bottom: 100px;">
+<div class="container">
+    <ul class="pagination" id="pager">
+        {# 上一页链接开始 #}
+        {% if apisteps.has_previous %}
+            <li class="previous"><a href="/apitest/apistep_manage/?page={{ apisteps.previous_page_number }}">上一页</a></li>
+        {% else %}
+            <li class="previous disabled"><a href="#">上一页</a></li>
+        {% endif %}
 
+        {% for num in apisteps.paginator.page_range %}
+            {% if num == currentPage %}
+                <li class="item active"><a href="/apitest/apistep_manage/?page={{ num }}">{{ num }}</a></li>
+            {% else %}
+                <li class="item"><a href="/apitest/apistep_manage/?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {# 下一页链接开始 #}
+        {% if apisteps.has_next %}
+            <li class="next"><a href="/apitest/apistep_manage/?page={{ apisteps.next_page_number }}">下一页</a></li>
+        {% else %}
+            <li class="next disabled"><a href="#">下一页</a></li>
+        {% endif %}
+    </ul>
+</div>
 </body>
 </html>

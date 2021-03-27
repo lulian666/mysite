@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <meta charset="UTF-8">
     <title>app 测试步骤</title>
 </head>
@@ -70,6 +73,33 @@
             </tbody>
         </table>
     </div>
+</div>
+<!-- 翻页功能-->
+<span style="position: absolute; right: 150px; bottom: 100px;">
+<div class="container">
+    <ul class="pagination" id="pager">
+        {# 上一页链接开始 #}
+        {% if appcasesteps.has_previous %}
+            <li class="previous"><a href="/apptest/appcasestep_manage/?page={{ appcasesteps.previous_page_number }}">上一页</a></li>
+        {% else %}
+            <li class="previous disabled"><a href="#">上一页</a></li>
+        {% endif %}
+
+        {% for num in appcasesteps.paginator.page_range %}
+            {% if num == currentPage %}
+                <li class="item active"><a href="/apptest/appcasestep_manage/?page={{ num }}">{{ num }}</a></li>
+            {% else %}
+                <li class="item"><a href="/apptest/appcasestep_manage/?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {# 下一页链接开始 #}
+        {% if appcasesteps.has_next %}
+            <li class="next"><a href="/apptest/appcasestep_manage/?page={{ appcasesteps.next_page_number }}">下一页</a></li>
+        {% else %}
+            <li class="next disabled"><a href="#">下一页</a></li>
+        {% endif %}
+    </ul>
 </div>
 </body>
 </html>
