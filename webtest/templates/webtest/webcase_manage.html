@@ -79,6 +79,7 @@
                 <th>时间</th>
                 <th>测试用例步骤</th>
                 <th>编辑</th>
+                <th>删除</th>
             </tr>
             </thead>
             <tbody>
@@ -91,7 +92,8 @@
                     <td width=500px>{{ webcase.webtester }}</td>
                     <td width=500px>{{ webcase.create_time }}</td>
                     <td width=500px><a href="#">{{ webcase.webcasestep }}</a></td>
-                    <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apitest" href="/admin/webtest/webcase/{{ webcase.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                    <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Webcase" href="/admin/webtest/webcase/{{ webcase.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                    <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Webcase" href="/admin/webtest/webcase/{{ webcase.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                 </tr>
             {% endfor %}
             </tbody>
