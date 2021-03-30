@@ -16,4 +16,5 @@ urlpatterns = [
     path('left/',views.left, name = 'left'),
     path('apisearch/',views.search, name = 'search'),
     path('apissearch/',views.apissearch, name = 'apissearch'),
+    # path('apistepsearch/',views.apistepsearch, name = 'apistepsearch'),
 ]

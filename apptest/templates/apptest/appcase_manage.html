@@ -6,6 +6,19 @@
     {% bootstrap_javascript %}
     <meta charset="UTF-8">
     <title>app 测试</title>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+    <script rel="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="/static/admin/js/actions.js"></script>
+    <script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+    <script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maxinum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css" />
+    <meta name="robots" content="NONE,NOARCHIVE" />
 </head>
 <body role="document">
 <!-- 导航栏-->
@@ -33,6 +46,21 @@
         <input type="search" name="appcasename" placeholder="名称" required>
         <button type="submit">搜索</button>
     </form>
+</div>
+<!-- 添加数据-->
+<div style="float: top">
+    <select name="Appcase" id="id_Appcase">
+        <option value="" selected>-----单一接口测试用例-----</option>
+        {% for appcase in appcases %}
+            <option value={{ appcase.id }}>{{ appcase.appcasename }}</option>
+        {% endfor %}
+    </select>
+    <a class="related-widget-wrapper-link change-related" id="change_id_Apitest" data-href-template="/admin/apitest/apitest/?????/change/?_to_field=id&amp;_popup=1" title="更改选中的测试用例">
+        <img src="/static/admin/img/icon-changelink.svg" alt="修改"/>修改
+    </a>
+    <a class="related-widget-wrapper-link change-related" id="add_id_Apitest" href="/admin/apptest/appcase/add/?_to_filed=id&amp;_popup=1" title="增加一个测试用例">
+        <img src="/static/admin/img/icon-addlink.svg" alt="增加"/>增加
+    </a>
 </div>
 <!-- app 测试步骤-->
 <div class="row" style="padding-top: 10px;">
