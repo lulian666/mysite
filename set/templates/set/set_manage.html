@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <meta charset="UTF-8">
     <title>系统设置</title>
 </head>
@@ -73,6 +76,12 @@
             <li class="next disabled"><a href="#">下一页</a></li>
         {% endif %}
     </ul>
+</div>
+<div style="position: absolute; right:800px; width:100px;">
+    <tr>
+        <th>总数</th>
+        <td>{{ setcounts }}</td>
+    </tr>
 </div>
 </body>
 </html>

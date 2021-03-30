@@ -9,13 +9,14 @@ def bug_manage(request):
     paginator = Paginator(bug_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    bug_count = Bug.objects.all().count()
     try:
         bug_list = paginator.page(page)
     except PageNotAnInteger:
         bug_list = paginator.page(1)
     except EmptyPage:
         bug_list = paginator.page(paginator.num_pages)
-    return render(request, 'bug/bug_manage.html', {"user":username, "bugs": bug_list})
+    return render(request, 'bug/bug_manage.html', {"user":username, "bugs": bug_list, "bugcounts": bug_count})
 
 @login_required
 def search(request):

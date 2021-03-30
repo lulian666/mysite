@@ -14,13 +14,14 @@ def appcase_manage(request):
     paginator = Paginator(appcase_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    appcase_count = Appcase.objects.all().count()
     try:
         appcase_list = paginator.page(page)
     except PageNotAnInteger:
         appcase_list = paginator.page(1)
     except EmptyPage:
         appcase_list = paginator.page(paginator.num_pages)
-    return render(request,'apptest/appcase_manage.html', {"user":username, "appcases":appcase_list})
+    return render(request,'apptest/appcase_manage.html', {"user":username, "appcases":appcase_list, "appcasecounts": appcase_count})
 
 @login_required
 def appcasestep_manage(request):
@@ -29,13 +30,14 @@ def appcasestep_manage(request):
     paginator = Paginator(appcasestep_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    appcasestep_count = Appcasestep.objects.all().count()
     try:
         appcasestep_list = paginator.page(page)
     except PageNotAnInteger:
         appcasestep_list = paginator.page(1)
     except EmptyPage:
         appcasestep_list = paginator.page(paginator.num_pages)
-    return render(request,'apptest/appcasestep_manage.html', {"user":username, "appcasesteps":appcasestep_list})
+    return render(request,'apptest/appcasestep_manage.html', {"user":username, "appcasesteps":appcasestep_list, "appcasestepcounts": appcasestep_count})
 
 @login_required
 def appsearch(request):

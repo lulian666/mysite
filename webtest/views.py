@@ -10,13 +10,14 @@ def webcase_manage(request):
     paginator = Paginator(webcase_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    webcase_count = Webcase.objects.all().count()
     try:
         webcase_list = paginator.page(page)
     except PageNotAnInteger:
         webcase_list = paginator.page(1)
     except EmptyPage:
         webcase_list = paginator.page(paginator.num_pages)
-    return render(request,'webtest/webcase_manage.html', {"user":username, "webcases":webcase_list})
+    return render(request,'webtest/webcase_manage.html', {"user":username, "webcases":webcase_list, "webcasecounts": webcase_count})
 
 @login_required
 def webcasestep_manage(request):
@@ -25,13 +26,14 @@ def webcasestep_manage(request):
     paginator = Paginator(webcasestep_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    webcasestep_count = Webcasestep.objects.all().count()
     try:
         webcasestep_list = paginator.page(page)
     except PageNotAnInteger:
         webcasestep_list = paginator.page(1)
     except EmptyPage:
         webcasestep_list = paginator.page(paginator.num_pages)
-    return render(request,'webtest/webcasestep_manage.html', {"user":username, "webcasesteps":webcasestep_list})
+    return render(request,'webtest/webcasestep_manage.html', {"user":username, "webcasesteps":webcasestep_list, "webcasestepcounts": webcasestep_count})
 
 @login_required
 def websearch(request):

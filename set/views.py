@@ -11,13 +11,14 @@ def set_manage(request):
     paginator = Paginator(set_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    set_count = Set.objects.all().count()
     try:
         set_list = paginator.page(page)
     except PageNotAnInteger:
         set_list = paginator.page(1)
     except EmptyPage:
         set_list = paginator.page(paginator.num_pages)
-    return render(request, 'set/set_manage.html', {"user":username, "sets": set_list})
+    return render(request, 'set/set_manage.html', {"user":username, "sets": set_list, "setcounts": set_count})
 
 def set_user(request):
     username = request.session.get('user', '')

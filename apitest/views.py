@@ -55,13 +55,14 @@ def apitest_manage(request):
     paginator = Paginator(apitest_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    apitest_count = Apitest.objects.all().count()
     try:
         apitest_list = paginator.page(page)
     except PageNotAnInteger:
         apitest_list = paginator.page(1)
     except EmptyPage:
         apitest_list = paginator.page(paginator.num_pages)
-    return render(request, "apitest/apitest_manage.html", {"user":username, "apitests": apitest_list})
+    return render(request, "apitest/apitest_manage.html", {"user":username, "apitests": apitest_list, "apitestcounts": apitest_count})
 
 @login_required
 def apistep_manage(request):
@@ -70,13 +71,14 @@ def apistep_manage(request):
     paginator = Paginator(apistep_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    apistep_count = Apistep.objects.all().count()
     try:
         apistep_list = paginator.page(page)
     except PageNotAnInteger:
         apistep_list = paginator.page(1)
     except EmptyPage:
         apistep_list = paginator.page(paginator.num_pages)
-    return render(request, "apitest/apistep_manage.html", {"user":username, "apisteps": apistep_list})
+    return render(request, "apitest/apistep_manage.html", {"user":username, "apisteps": apistep_list, "apistepcounts": apistep_count})
 
 @login_required
 def apis_manage(request):
@@ -85,13 +87,14 @@ def apis_manage(request):
     paginator = Paginator(apis_list, 8)
     page = request.GET.get('page',1)
     currentPage = int(page)
+    apis_count = Apis.objects.all().count()
     try:
         apis_list = paginator.page(page)
     except PageNotAnInteger:
         apis_list = paginator.page(1)
     except EmptyPage:
         apis_list = paginator.page(paginator.num_pages)
-    return render(request, "apitest/apis_manage.html", {"user":username, "apiss": apis_list})
+    return render(request, "apitest/apis_manage.html", {"user":username, "apiss": apis_list,"apicounts":apis_count})
 
 @login_required
 def test_report(request):
