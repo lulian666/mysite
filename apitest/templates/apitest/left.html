@@ -5,47 +5,47 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <meta charset="UTF-8">
-    <title>test</title>
+    <title>auto test</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="../apistep_manage" target="mainFrame">《自动化平台测试开发》书</a>
+        <a class="navbar-brand" href="../welcome" target="mainFrame">自动化平台测试开发</a>
     </div>
 </nav>
 <table border="0">
     <tr><td>&nbsp;</td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td>&nbsp;</td></tr>
-    <tr><td>&nbsp;</td></tr>
     <tr>
-        <td><a href="{% url 'apitest:apitest_manage' %}" target="mainFrame">&nbsp;&nbsp;项目管理</a></td>
+        <td><a href="{% url 'product:product_manage' %}" target="mainFrame">&nbsp;&nbsp;项目管理</a></td>
     </tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td>------------------------</td></tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="{% url 'apitest:apitest_manage' %}" target="mainFrame">&nbsp;&nbsp;用例管理</a></td></tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="{% url 'apitest:apitest_manage' %}" target="mainFrame">&nbsp;&nbsp;流程接口测试用例</a></td></tr>
+    <tr><td><a href="{% url 'bug:bug_manage' %}" target="mainFrame">&nbsp;&nbsp;bug 管理</a></td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td>------------------------</td></tr>
-    <tr><td><a href="{% url 'apptest:appcase_manage' %}" target="mainFrame">&nbsp;&nbsp;app 用例管理</a></td></tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="{% url 'apptest:appcase_manage' %}" target="mainFrame">&nbsp;&nbsp;app 测试用例</a></td></tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr><td>------------------------</td></tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="{% url 'webtest:webcase_manage' %}" target="mainFrame">&nbsp;&nbsp;web 用例管理</a></td></tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="{% url 'webtest:webcase_manage' %}" target="mainFrame">&nbsp;&nbsp;web 测试用例</a></td></tr>
+    <tr><td><a href="{% url 'apitest:apis_manage' %}" target="mainFrame">&nbsp;&nbsp;api 用例管理</a></td></tr>
+    <tr><td><a href="{% url 'apitest:apitest_manage' %}" target="mainFrame">&nbsp;&nbsp;流程接口测试用例管理</a></td></tr>
+    <tr><td><a href="{% url 'apitest:apistep_manage' %}" target="mainFrame">&nbsp;&nbsp;流程接口测试步骤</a></td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td>------------------------</td></tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="http://127.0.0.1:8000/admin/apitest/apitest/add/" target="mainFrame">&nbsp;&nbsp;任务管理</a></td></tr>
+    <tr><td><a href="{% url 'apptest:appcase_manage' %}" target="mainFrame">&nbsp;&nbsp;app 自动化测试用例</a></td></tr>
+    <tr><td><a href="{% url 'apptest:appcasestep_manage' %}" target="mainFrame">&nbsp;&nbsp;app 自动化测试步骤</a></td></tr>
     <tr><td>&nbsp;</td></tr>
     <tr><td>------------------------</td></tr>
+    <tr><td><a href="{% url 'webtest:webcase_manage' %}" target="mainFrame">&nbsp;&nbsp;web 自动化测试用例</a></td></tr>
+    <tr><td><a href="{% url 'webtest:webcasstep_manage' %}" target="mainFrame">&nbsp;&nbsp;web 自动化测试步骤</a></td></tr>
     <tr><td>&nbsp;</td></tr>
-    <tr><td><a href="http://127.0.0.1:8000/admin/apitest/apitest/add/" target="mainFrame">&nbsp;&nbsp;测试报告</a></td></tr>
+    <tr><td>------------------------</td></tr>
+    <tr><td><a href="http://127.0.0.1:8080" target="mainFrame">&nbsp;&nbsp;计划任务</a></td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>------------------------</td></tr>
+    <tr><td><a href="{% url 'apitest:test_report' %}" target="mainFrame">&nbsp;&nbsp;测试报告</a></td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>------------------------</td></tr>
+    <tr><td><a href="{% url 'set:set_manage' %}" target="mainFrame">&nbsp;&nbsp;系统设置</a></td></tr>
+    <tr><td><a href="{% url 'set:user' %}" target="mainFrame">&nbsp;&nbsp;用户管理</a></td></tr>
 </table>
 
 </body>

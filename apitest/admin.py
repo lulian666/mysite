@@ -25,3 +25,5 @@ class ApisAdmin(admin.TabularInline):
 
 admin.site.register(Apis)
 
+admin.site.site_header = 'AutotestPlat'
+admin.site.site_title = 'AutotestPlat'

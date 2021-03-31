@@ -136,3 +136,6 @@ def apissearch(request):
 #     apistepname = request.GET.get("apistepname","")
 #     apitstep_list = Apistep.objects.filter(apiname__icontains=apistepname)
 #     return render(request,"apitest/apistep_manage.html",{"user":username,"apisteps":apitstep_list})
+
+def welcome(request):
+    return render(request, "apitest/welcome.html")
