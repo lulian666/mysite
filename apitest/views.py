@@ -37,7 +37,6 @@ def login(request):
 @login_required
 def home(request):
     context = {}
-    # context['username'] = 'lulian !'
     context['username'] = request.session.get('user','')
     return render(request, 'apitest/home.html', context)
 
@@ -83,6 +82,7 @@ def apistep_manage(request):
 @login_required
 def apis_manage(request):
     username = request.session.get('user','')
+
     apis_list = Apis.objects.all()
     paginator = Paginator(apis_list, 8)
     page = request.GET.get('page',1)
@@ -94,7 +94,7 @@ def apis_manage(request):
         apis_list = paginator.page(1)
     except EmptyPage:
         apis_list = paginator.page(paginator.num_pages)
-    return render(request, "apitest/apis_manage.html", {"user":username, "apiss": apis_list,"apicounts":apis_count})
+    return render(request, "apitest/apis_manage.html", {"user": username, "apiss": apis_list,"apicounts": apis_count})
 
 @login_required
 def test_report(request):

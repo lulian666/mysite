@@ -25,18 +25,24 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">&nbsp;</a>
-        <ul class="nav justify-content-center">
-            <li><a style="color: white" href="{% url 'apitest:apitest_manage' %}">流程接口测试用例</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:apistep_manage' %}">流程接口测试步骤</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:apis_manage' %}">单一接口测试用例</a></li>
+        <ul class="nav justify-content-start">
+            <li class="active"><a style="color: white" href="{% url 'apitest:apis_manage' %}">单一接口</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:apitest_manage' %}">流程接口</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apptest:appcase_manage' %}">app 用例</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'webtest:webcase_manage' %}">web 用例</a></li>
         </ul>
-        <ul class="nav justify-content-center">
-            <li class="nav-link"><a style="color: white" href="{% url 'apitest:apitest_manage' %}">{{ user }}</a></li>
-            <li class="nav-link"><a style="color: white" href="{% url 'apitest:logout'%}">退出</a></li>
+        <ul class="nav justify-content-end">
+            <li class="nav-link"><a style="color: white" href="#">{{ user }}</a></li>
+            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout'%}">退出</a></li>
         </ul>
     </div>
 </nav>
