@@ -71,13 +71,15 @@ def apistep_manage(request):
     page = request.GET.get('page',1)
     currentPage = int(page)
     apistep_count = Apistep.objects.all().count()
+    # apitestid = request.GET.get('apitest.id', None)
+    # apitest = Apitest.objects.get(id=apitestid)
     try:
         apistep_list = paginator.page(page)
     except PageNotAnInteger:
         apistep_list = paginator.page(1)
     except EmptyPage:
         apistep_list = paginator.page(paginator.num_pages)
-    return render(request, "apitest/apistep_manage.html", {"user":username, "apisteps": apistep_list, "apistepcounts": apistep_count})
+    return render(request, "apitest/apistep_manage.html", {"user":username, "apisteps": apistep_list, "apistepcounts": apistep_count,})
 
 @login_required
 def apis_manage(request):
@@ -139,3 +141,7 @@ def apissearch(request):
 
 def welcome(request):
     return render(request, "apitest/welcome.html")
+
+def testapi(request):
+    print('i test.')
+    return render(request, "apitest/apis_manage.html")

@@ -71,6 +71,10 @@
     <a class="related-widget-wrapper-link change-related" id="add_id_Apitest" href="/admin/apitest/apis/add/?_to_filed=id&amp;_popup=1" title="增加一个测试用例">
         <img src="/static/admin/img/icon-addlink.svg" alt="增加"/>增加
     </a>
+    &nbsp;&nbsp;
+    <a class="button" id="run_test" href="{% url 'apitest:test_api' %}">
+        <img src="/static/admin/img/icon-alert.svg">测试
+    </a>
 </div>
 <!-- 单一接口测试用例-->
 <div class="row" style="padding-top: 70px;">

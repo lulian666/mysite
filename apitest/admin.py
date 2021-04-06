@@ -9,6 +9,7 @@ class ApistepAdmin(admin.TabularInline):
     model = Apistep
     extra = 1
 
+# admin.site.register(Apistep, ApistepAdmin)
 
 class ApitestAdmin(admin.ModelAdmin):
     list_display = ['apitestname', 'apitester', 'apitestresult', 'create_time', 'id']
