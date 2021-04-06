@@ -139,3 +139,9 @@ def apissearch(request):
 
 def welcome(request):
     return render(request, "apitest/welcome.html")
+
+def testapi(request):
+    print('i test.')
+    # 开始你的测试逻辑
+    
+    return render(request, "apitest/apis_manage.html")

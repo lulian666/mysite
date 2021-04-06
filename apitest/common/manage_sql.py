@@ -1,0 +1,50 @@
+# coding:utf-8
+import pymysql
+
+# list = [['/userRelation/fans/paginate', 'post', {}, {'limit': 10}, 400],
+#         ['/user/favours/update', 'post', {}, {}, 400],
+#         ['/userMonitor/message/search', 'get', {'limit': 10}, {}, 400],]
+
+class Manage_sql:
+    # def writeToSQL_singlecase(self):
+    #     # sql = "update apitest_apis set apitest_apis.apiurl=%s, apitest_apis.apimethod=%s, apitest_apis.apiparamvalue=%s, apitest_apis.apibodyvalue=%s, apitest_apis.apiexpectstatus=%s"
+    #     sql = "insert into apitest_apis(apiname,apiurl,apimethod,apiparamvalue,apibodyvalue,apiexpectstatus,Product_id) values(%s,%s,%s,%s,%s,%s,%s);"
+    #     param = ('test', '/userRelation/fans/paginate', 'get', '{\'limit\': 10}', '{}', '400', '1')
+    #     coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+    #     cursor = coon.cursor()
+    #     cursor.execute(sql, param)
+    #     coon.commit()
+    #     cursor.close()
+    #     coon.close()
+    #     return
+
+    def writeCaseToSQL(self, caselist):
+        # sql = "update apitest_apis set apitest_apis.apiurl=%s, apitest_apis.apimethod=%s, apitest_apis.apiparamvalue=%s, apitest_apis.apibodyvalue=%s, apitest_apis.apiexpectstatus=%s"
+        sql = "insert into apitest_apis(apiname,apiurl,apimethod,apiparamvalue,apibodyvalue,apiexpectstatus,Product_id) values(%s,%s,%s,%s,%s,%s,%s);"
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+
+        # 这里开始循环写入表
+        for case in caselist:
+            param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(), '2') #不转换成str会出错，因为值里面有引号
+            cursor.execute(sql, param)
+            coon.commit()
+
+        cursor.close()
+        coon.close()
+        return
+
+    def deleteCaseInSQL(self):
+        sql = 'delete from apitest_apis'
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        cursor.execute(sql)
+        coon.commit()
+        cursor.close()
+        coon.close()
+        return
+
+if __name__ == '__main__':
+    Manage_sql().writeCaseToSQL(list)
+    # Manage_sql().deleteCaseInSQL()
+    print('Done!')
