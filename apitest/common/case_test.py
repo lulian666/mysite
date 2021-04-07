@@ -5,6 +5,8 @@ import sys
 import time
 from json import JSONDecodeError
 
+from apitest.common.manage_sql import *
+
 dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(dir)
 sys.path.append('/usr/lib/python2.7/site-packages (2.22.0)')
@@ -20,8 +22,6 @@ from reporter import Template_mixin
 '''
 requests.post()用data参数提交数据时，request.body的内容则为a=1&b=2的这种形式，用json参数提交数据时，request.body的内容则为'{"a": 1, "b": 2}'的这种形式
 '''
-
-
 
 class Case_request:
     def __init__(self):
@@ -45,19 +45,23 @@ class Case_request:
                 result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
             elif case[2] == 'post' or case[2] == 'POST':
                 result = requests.post(host + case[1], json=case[4], headers=header)
-                print(type(case[4]))
-                print('url:', host + case[1])
-                print('case[4]:', case[4])
+                # print(type(case[4]))
+                # print('url:', host + case[1])
+                # print('case[4]:', case[4])
             if result.status_code == 401:
                 print('401了')
                 Refresh_token().refresh()
                 with open('../config/header_kuainiao.json', 'r', encoding='utf8')as fp:
                     header = json.load(fp)
-                if case[3] == 'get':
+                if case[2] == 'get' or case[2] == 'GET':
                     result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
                 else:
                     result = requests.post(host + case[1], json=case[4], headers=header)
+
+
+            # 下面是存报告信息的
             if result.status_code != case[5]:
+                apistatus = False
                 print('测试失败')
                 self.numfail +=1
                 print('case:', case)
@@ -80,6 +84,7 @@ class Case_request:
                                                             btw=btw)
                 self.table_tr_fail += table_td
             else:
+                apistatus = True
                 print('测试成功')
                 self.numsucc +=1
                 table_td = self.html.TABLE_TMPL_SUCC % dict(runtime=time.strftime('%Y-%m-%d %H:%M:%S'), interface=case[1],
@@ -87,8 +92,19 @@ class Case_request:
                                                             testresult='测试成功', testcode=result.status_code,)
                 self.table_tr_succ += table_td
             print('---------')
+            # 存数据库信息
+            apiresponsestatuscode = result.status_code
+            # try:
+            #     apiresponse = result.json()
+            # except JSONDecodeError:
+            #     apiresponse = '由于异常，无法读取结果'
+            apiresponse = "这里我有解决不了的问题，先放着"
+            case.append(apiresponsestatuscode)
+            case.append(apiresponse)
+            case.append(apistatus)
+            Manage_sql().updateCaseToSQL([case,])
         self.report()
-        return
+        return case_list
 
     def report(self):
 

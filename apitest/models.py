@@ -43,7 +43,7 @@ class Apis(models.Model):
     apimethod = models.CharField('请求方法', choices=REQUEST_METHOD, default='0', max_length=200)
     apiexpectresponse = models.CharField('预期结果', max_length=500, null=True)
     apiexpectstatuscode = models.IntegerField('预期状态码', default=200)
-    apiresponse = models.CharField('测试结果', max_length=500, null=True)
+    apiresponse = models.CharField('测试结果', max_length=100000, null=True)
     apiresponsestatuscode = models.IntegerField('预期状态码', null=True)
     apistatus = models.BooleanField('是否通过', null=True)
     create_time = models.DateTimeField('创建时间', auto_now=True,null=True)
