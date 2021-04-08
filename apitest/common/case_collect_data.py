@@ -1,7 +1,7 @@
 # coding:utf-8
 from fnmatch import fnmatch
 import json
-
+import  os
 from apitest.common.case_generate_cases import Case_generate
 from apitest.common.case_readyfortest import Case_ready
 from apitest.common.manage_sql import Manage_sql
@@ -135,19 +135,21 @@ class Case_collect:
                 #先把数据变成一个数组把（第二步）
                 case_list = Case_generate(url, method, parameters, body).generate()
                 n += 1  # 忽略，debug用的
-        for case in case_list:
-            print(case)
+        # for case in case_list:
+        #     print(case)
         print('总共多少case：', len(case_list))  # 这个数字绝壁有毛病吧！
 
         #第三步，处理数据
         case_list = Case_ready(case_list).data_form
-        print(case_list)
+        # print(case_list)
 
         # 第四步，写进表
         Manage_sql().deleteCaseInSQL()
         Manage_sql().writeCaseToSQL(case_list)
 
 
-if __name__ == '__main__':
-    # url = read_config.generat
-    Case_collect('../config/swagger.json').collect_data()
+# if __name__ == '__main__':
+    # root = os.path.abspath('.') #获取当前工作目录路径
+    # filepath = os.path.join(root, 'swagger.json')
+    # print(filepath)
+    # Case_collect(filepath).collect_data()

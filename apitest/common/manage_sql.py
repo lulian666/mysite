@@ -7,8 +7,7 @@ import pymysql
 # list = [['/userRelation/fans/paginate', 'post', {}, {'limit': 10}, 400],
 #         ['/user/favours/update', 'post', {}, {}, 400],
 #         ['/userMonitor/message/search', 'get', {'limit': 10}, {}, 400],]
-# from apitest.common.case_test import Case_request
-from apitest.common.case_test import *
+from apitest.common.case_test import Case_request
 
 
 class Manage_sql:
@@ -90,14 +89,14 @@ class Manage_sql:
         coon.close()
         return
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # Manage_sql().writeCaseToSQL(list)
     # Manage_sql().deleteCaseInSQL()
-    caselist = Manage_sql().readCaseFromSQL()
+    # caselist = Manage_sql().readCaseFromSQL()
     # caselist = [[334, '/2.0/user/logout', 'post', '{}', {'vendor': 'PUSH_VENDOR_UNSPECIFIED'}, 200, None, 200, 1234],]
-    tester = Case_request()
+    # tester = Case_request()
 
     # for case in caselist:
     #     print(case)
-    tester.send_request(caselist)
-    print('Done!')
+    # tester.send_request(caselist)
+    # print('Done!')

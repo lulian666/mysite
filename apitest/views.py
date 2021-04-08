@@ -1,3 +1,4 @@
+import os
 
 import pymysql
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -11,6 +12,8 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 from django.urls import reverse
 
+from apitest.common.case_collect_data import Case_collect
+from apitest.common.manage_sql import Manage_sql, Case_request
 from apitest.models import Apitest, Apistep, Apis
 
 
@@ -143,5 +146,33 @@ def welcome(request):
 def testapi(request):
     print('i test.')
     # 开始你的测试逻辑
-    
-    return render(request, "apitest/apis_manage.html")
+    # 先清空数据库的数据
+    Manage_sql().deleteCaseInSQL()
+    # 写进新的数据
+    root = os.path.abspath('.') #获取当前工作目录路径
+    filepath = os.path.join(root, 'apitest/config/swagger.json')
+    print(filepath)
+    Case_collect(filepath).collect_data()
+    # 读取数据
+    caselist = Manage_sql().readCaseFromSQL()
+
+    # 进行测试
+    tester = Case_request()
+    caselist = tester.send_request(caselist)
+
+    Manage_sql().updateCaseToSQL(caselist)
+    print('Done!')
+
+    username = request.session.get('user','')
+    apis_list = Apis.objects.all()
+    paginator = Paginator(apis_list, 8)
+    page = request.GET.get('page',1)
+    currentPage = int(page)
+    apis_count = Apis.objects.all().count()
+    try:
+        apis_list = paginator.page(page)
+    except PageNotAnInteger:
+        apis_list = paginator.page(1)
+    except EmptyPage:
+        apis_list = paginator.page(paginator.num_pages)
+    return render(request, "apitest/apis_manage.html", {"user": username, "apiss": apis_list,"apicounts": apis_count})

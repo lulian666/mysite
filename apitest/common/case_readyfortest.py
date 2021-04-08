@@ -2,7 +2,7 @@
 import copy
 from random import Random
 
-from read_config import Read_config
+from apitest.common.read_config import Read_config
 
 '''
 这个类用来把生成case准备好：

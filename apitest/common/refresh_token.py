@@ -1,8 +1,10 @@
 # coding:utf-8
+import os
+
 import requests
 import json
 
-from read_config import Read_config
+from apitest.common.read_config import Read_config
 
 
 class Refresh_token:
@@ -10,7 +12,9 @@ class Refresh_token:
         #refresh的url：
         #https://bitter.orangelovely.com/app_auth_tokens.refresh
         #post
-        with open('../config/header_kuainiao.json', 'r', encoding='utf8')as fp:
+        root = os.path.abspath('.') #获取当前工作目录路径
+        filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
+        with open(filepath, 'r', encoding='utf8')as fp:
             header = json.load(fp)
         fp.close()
         # header = {
@@ -43,8 +47,9 @@ class Refresh_token:
         print(access_token)
         print(refresh_token)
 
-
-        with open("../config/header_kuainiao.json", "w", encoding="utf-8") as f:
+        # root = os.path.abspath('.') #获取当前工作目录路径
+        # filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
+        with open(filepath, "w", encoding="utf-8") as f:
             json.dump(header, f)
         fp.close()
         print('刷新了token')

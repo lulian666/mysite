@@ -10,7 +10,7 @@ from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 import threading
 
-from read_config import Read_config
+from apitest.common.read_config import Read_config
 
 localReadConfig = Read_config()
 filename = '{date}_TestReport.html'.format(date=time.strftime('%Y%m%d%H'))

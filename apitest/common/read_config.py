@@ -4,12 +4,11 @@ import os
 
 class Read_config:
     def get_value(self, section, item):
-        # root_dir = os.path.dirname(os.path.abspath('.'))
-        #不知道为什么写成上面这样的时候，emailer,py调用的时候地址会出错，于是改成下面写死的样子
-        # root_dir1 = '/Users/lulian/AutoAPICases' + "/config_kuainiao.ini"
-        # root_dir2 = '' + "/config_kuainiao.ini"
+        root = os.path.abspath('.') #获取当前工作目录路径
+        filepath = os.path.join(root, 'apitest/config/config_kuainiao.ini')
+        # print(filepath)
         cf = configparser.ConfigParser()
-        cf.read("../config/config_kuainiao.ini")
+        cf.read(filepath)
 
         if item == 'favours':
             return ['MU_YING_YONG_PIN', 'NAN_ZHUANG', 'GE_HU_QING_JIE_NAN']

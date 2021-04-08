@@ -5,8 +5,6 @@ import sys
 import time
 from json import JSONDecodeError
 
-from apitest.common.manage_sql import *
-
 dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(dir)
 sys.path.append('/usr/lib/python2.7/site-packages (2.22.0)')
@@ -14,10 +12,11 @@ sys.path.append('/usr/lib/python2.7/site-packages (2.22.0)')
 import requests
 import json
 
-from emailer import Email
-from read_config import Read_config
-from refresh_token import Refresh_token
-from reporter import Template_mixin
+from apitest.common.emailer import Email
+from apitest.common.read_config import Read_config
+from apitest.common.refresh_token import Refresh_token
+from apitest.common.reporter import Template_mixin
+# from apitest.common.manage_sql import Manage_sql
 
 '''
 requests.post()用data参数提交数据时，request.body的内容则为a=1&b=2的这种形式，用json参数提交数据时，request.body的内容则为'{"a": 1, "b": 2}'的这种形式
@@ -36,7 +35,9 @@ class Case_request:
     def send_request(self, case_list):
         host = Read_config().get_value('REQUEST', 'host')
         #还需要header
-        with open('../config/header_kuainiao.json', 'r', encoding='utf8')as fp:
+        root = os.path.abspath('.') #获取当前工作目录路径
+        filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
+        with open(filepath, 'r', encoding='utf8')as fp:
             header = json.load(fp)
             print('header：', header)
         fp.close()
@@ -51,7 +52,9 @@ class Case_request:
             if result.status_code == 401:
                 print('401了')
                 Refresh_token().refresh()
-                with open('../config/header_kuainiao.json', 'r', encoding='utf8')as fp:
+                root = os.path.abspath('.') #获取当前工作目录路径
+                filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
+                with open(filepath, 'r', encoding='utf8')as fp:
                     header = json.load(fp)
                 if case[2] == 'get' or case[2] == 'GET':
                     result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
@@ -102,7 +105,7 @@ class Case_request:
             case.append(apiresponsestatuscode)
             case.append(apiresponse)
             case.append(apistatus)
-            Manage_sql().updateCaseToSQL([case,])
+            # Manage_sql().updateCaseToSQL([case,])
         self.report()
         return case_list
 
@@ -115,11 +118,10 @@ class Case_request:
         filename = '{date}_TestReport.html'.format(date=time.strftime('%Y%m%d%H'))
 
         # 获取report的路径
-        # dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '../report')
-        # filename = os.path.join(dir, filename)
-        filename
+        root = os.path.abspath('.') #获取当前工作目录路径
+        filepath = os.path.join(root, 'apitest/report/'+filename)
 
-        with open('../report/'+filename, 'wb') as f:
+        with open(filepath, 'wb') as f:
             f.write(output.encode('utf8'))
 
         if self.numfail > 0:
