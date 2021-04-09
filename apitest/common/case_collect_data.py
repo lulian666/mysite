@@ -33,6 +33,7 @@ class Case_collect:
         # 读取json文件内容,返回字典格式
         self.json_path = json_path
 
+    # 这里会删除所有老的case，把新的case写进数据库里面
     def collect_data(self):
         n = 0 #忽略，debug用的
 

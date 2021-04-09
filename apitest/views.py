@@ -1,3 +1,4 @@
+import json
 import os
 
 import pymysql
@@ -148,7 +149,8 @@ def testapi(request):
     # 开始你的测试逻辑
     # 先清空数据库的数据
     Manage_sql().deleteCaseInSQL()
-    # 写进新的数据
+    # 写进新的数据，这里有个问题就是，在web更新了用例的话，这里实际上跑的还是老用例
+    # 所以需要支持前端更新用例，这里每次都直接从数据库读取就好了，todo
     root = os.path.abspath('.') #获取当前工作目录路径
     filepath = os.path.join(root, 'apitest/config/swagger.json')
     print(filepath)
@@ -176,3 +178,40 @@ def testapi(request):
     except EmptyPage:
         apis_list = paginator.page(paginator.num_pages)
     return render(request, "apitest/apis_manage.html", {"user": username, "apiss": apis_list,"apicounts": apis_count})
+
+# 处理源数据
+def datasource(request):
+    source = request.POST.get('source','').strip()
+    error = ''
+    if not check_json_format(source):
+        error = 'not a legal json'
+    else:
+        error = 'this is a legal json'
+        # source = list(source)
+        root = os.path.abspath('.') #获取当前工作目录路径
+        filepath = os.path.join(root, 'apitest/config/temp.json')
+        with open(filepath, "w", encoding="utf-8") as f:
+            # json.dump(source, f, ensure_ascii=False,  indent=4, separators=(". ", " = "))
+            f.write(str(source))
+        f.close()
+        # 把新的数据写进表里
+        Case_collect(filepath).collect_data()
+
+    print("source:", source)
+    return render(request, "apitest/datasource_manage.html", {'error': error, 'data': source})
+
+def check_json_format(raw_msg):
+    """
+    用于判断一个字符串是否符合Json格式
+    :param self:
+    :return:
+    """
+    if isinstance(raw_msg, str) and not raw_msg.isdigit():
+        raw_msg.strip()
+        try:
+          json.loads(raw_msg)
+        except ValueError:
+            return False
+        return True
+    else:
+        return False
