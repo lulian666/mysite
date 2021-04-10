@@ -139,10 +139,11 @@
 
         {% for num in apiss.paginator.page_range %}
             {% if num == currentPage %}
-                <li class="item active"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>
+                <li class="item active" style="color: red"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>
             {% else %}
                 <li class="item"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>
             {% endif %}
+            &nbsp;&nbsp;
         {% endfor %}
 
         {# 下一页链接开始 #}

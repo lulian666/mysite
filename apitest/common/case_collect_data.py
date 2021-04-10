@@ -144,10 +144,7 @@ class Case_collect:
         case_list = Case_ready(case_list).data_form
         # print(case_list)
 
-        # 第四步，写进表
-        Manage_sql().deleteCaseInSQL()
-        Manage_sql().writeCaseToSQL(case_list)
-
+        return case_list
 
 # if __name__ == '__main__':
     # root = os.path.abspath('.') #获取当前工作目录路径

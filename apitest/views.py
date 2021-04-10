@@ -154,7 +154,12 @@ def testapi(request):
     root = os.path.abspath('.') #获取当前工作目录路径
     filepath = os.path.join(root, 'apitest/config/swagger.json')
     print(filepath)
-    Case_collect(filepath).collect_data()
+    case_list = Case_collect(filepath).collect_data()
+
+    # 第四步，写进表
+    Manage_sql().deleteCaseInSQL()
+    Manage_sql().writeCaseToSQL(case_list)
+
     # 读取数据
     caselist = Manage_sql().readCaseFromSQL()
 
@@ -183,22 +188,45 @@ def testapi(request):
 def datasource(request):
     source = request.POST.get('source','').strip()
     error = ''
-    if not check_json_format(source):
-        error = 'not a legal json'
-    else:
-        error = 'this is a legal json'
-        # source = list(source)
+    # 区分两个按钮
+    if 'analysis' in request.POST:
+        if not check_json_format(source):
+            error = 'not a legal json'
+        else:
+            error = 'this is a legal json'
+    elif 'save' in request.POST:
         root = os.path.abspath('.') #获取当前工作目录路径
-        filepath = os.path.join(root, 'apitest/config/temp.json')
-        with open(filepath, "w", encoding="utf-8") as f:
-            # json.dump(source, f, ensure_ascii=False,  indent=4, separators=(". ", " = "))
-            f.write(str(source))
-        f.close()
-        # 把新的数据写进表里
-        Case_collect(filepath).collect_data()
+        if not check_json_format(source):
+            error = 'not a legal json'
+        elif source != "{}":
+            error = 'this is a legal json'
+            filepath = os.path.join(root, 'apitest/config/temp.json')
+            with open(filepath, "w", encoding="utf-8") as f:
+                f.write(str(source))
+            f.close()
+            # 把新的数据写进表里
+            case_list = Case_collect(filepath).collect_data()
+            Manage_sql().deleteCaseInSQL()
+            Manage_sql().writeCaseToSQL(case_list)
+        else:
+            error = 'this is empty!!'
 
-    print("source:", source)
-    return render(request, "apitest/datasource_manage.html", {'error': error, 'data': source})
+    username = request.session.get('user','')
+    apis_list = Apis.objects.all()
+    paginator = Paginator(apis_list, 8)
+    page = request.GET.get('page', 1)
+    currentPage = int(page)
+    apis_count = Apis.objects.all().count()
+    try:
+        apis_list = paginator.page(page)
+    except PageNotAnInteger:
+        apis_list = paginator.page(1)
+    except EmptyPage:
+        apis_list = paginator.page(paginator.num_pages)
+    # print("source:", source)
+    return render(request, "apitest/datasource_manage.html", {'error': error, 'data': source, "user": username, "apiss": apis_list,"apicounts": apis_count})
+
+
 
 def check_json_format(raw_msg):
     """

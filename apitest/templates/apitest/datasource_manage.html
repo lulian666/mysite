@@ -10,13 +10,24 @@
         .box {
             display: flex;
             flex-wrap: wrap;
+            justify-content: flex-start;
+            padding-left: 1px;
         }
         .row{
             flex-basis: 100%;
             display:flex;
-            justify-content: center;
-            padding-top: 70px;
-
+            padding-top: 50px;
+            padding-left: 1px;
+        }
+        .item1{
+            width: 30%;
+        }
+        .item2{
+            width: 70%;
+        }
+        .page-content{
+            padding-left: 30px;
+            padding-top: 5px;
         }
     </style>
 </head>
@@ -51,36 +62,92 @@
         </ul>
     </div>
 </nav>
-
 <div class="box">
     <div class="row">
-        <span class="item">
+        <span class="item1">
             <!-- 输入文本进去的-->
-            <div class="page-content" style="padding-left: 100px;">
+            <div class="page-content">
                 <form class="navbar-form" method="post" action="{% url 'apitest:api_datasource' %}">
                     {%  csrf_token %}
                     <br> <label>把 JSON 格式的数据源粘贴进来</label>
                     <br> <textarea rows="30" cols="50" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none">{{ data }}</textarea>
                     <br> {{ error }}
-                    <br> <button type="submit">解析case</button>
+                    <br> <button type="submit" name="analysis">检查</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" name="save">保存case</button>
                 </form>
             </div>
         </span>
-        <span>
+        <span class="item2">
             <!-- 显示生成的用例-->
-            <div class="page-content" style="padding-left: 100px;">
+            <div class="page-content">
                 {%  csrf_token %}
-                <br> <label>解析出来的 case</label>
-                <br> <textarea rows="30" cols="50" name="source" placeholder="解析出来的 case" style="resize:none">{{ data }}</textarea>
+                <br> <label>生成的 case</label>
                 <br>
-                <br> <button type="submit">保存case</button>
+                <div class="row" style="padding-top: 5px;">
+                    <div class="col-md-11">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>产品</th>
+                                <th>接口名称</th>
+                                <th>URL 地址</th>
+                                <th>请求参数</th>
+                                <th>请求 body</th>
+                                <th>方法</th>
+                                <th>预期状态码</th>
+                                <th>预期结果</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for apis in apiss %}
+                                <tr>
+                                    <td>{{ apis.Product.productname }}</td>
+                                    <td>{{ apis.apiname }}</td>
+                                    <td>{{ apis.apiurl }}</td>
+                                    <td>{{ apis.apiparamvalue }}</td>
+                                    <td>{{ apis.apibodyvalue }}</td>
+                                    <td>{{ apis.apimethod }}</td>
+                                    <td>{{ apis.apiexpectstatuscode }}</td>
+                                    <td>{{ apis.apiexpectresponse }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- 翻页功能-->
+                <span style="padding-right: 5px; padding-bottom: 5px">
+                <div class="container">
+                    <ul class="pagination" id="pager">
+                        {# 上一页链接开始 #}
+                        {% if apiss.has_previous %}
+                            <li class="previous"><a href="/apitest/apis_manage/?page={{ apiss.previous_page_number }}">上一页</a></li>
+                        {% else %}
+                            <li class="previous disabled"><a href="#">上一页</a></li>
+                        {% endif %}
+
+                        {% for num in apiss.paginator.page_range %}
+                            {% if num == currentPage %}
+                                <li class="item active" style="color: red"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>
+                            {% else %}
+                                <li class="item"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                            &nbsp;&nbsp;
+                        {% endfor %}
+
+                        {# 下一页链接开始 #}
+                        {% if apiss.has_next %}
+                            <li class="next"><a href="/apitest/apis_manage/?page={{ apiss.next_page_number }}">下一页</a></li>
+                        {% else %}
+                            <li class="next disabled"><a href="#">下一页</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <br>
             </div>
         </span>
     </div>
 </div>
-
-
-
-
 </body>
 </html>

@@ -81,5 +81,7 @@ class Read_config:
                 return False
             elif value == '0':
                 return 0
+            elif value == '1':
+                return 1
             else:
                 return value
