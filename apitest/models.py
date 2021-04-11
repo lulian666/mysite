@@ -54,3 +54,15 @@ class Apis(models.Model):
 
     def __str__(self):
         return self.apiname
+
+class Headers(models.Model):
+    Product = models.ForeignKey('product.Product', on_delete=models.CASCADE, null=True)
+    header_key = models.CharField('变量名', max_length=100)
+    header_value = models.CharField('变量值', max_length=1000)
+
+    class Meta:
+        verbose_name = 'header'
+        verbose_name_plural = 'header'
+
+    def __str__(self):
+        return self.header_key

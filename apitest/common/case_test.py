@@ -5,18 +5,18 @@ import sys
 import time
 from json import JSONDecodeError
 
+from apitest.common.header_mange import HeaderManage
+
 dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(dir)
 sys.path.append('/usr/lib/python2.7/site-packages (2.22.0)')
 
 import requests
-import json
 
 from apitest.common.emailer import Email
 from apitest.common.read_config import Read_config
 from apitest.common.refresh_token import Refresh_token
 from apitest.common.reporter import Template_mixin
-# from apitest.common.manage_sql import Manage_sql
 
 '''
 requests.post()用data参数提交数据时，request.body的内容则为a=1&b=2的这种形式，用json参数提交数据时，request.body的内容则为'{"a": 1, "b": 2}'的这种形式
@@ -34,13 +34,15 @@ class Case_request:
 
     def send_request(self, case_list):
         host = Read_config().get_value('REQUEST', 'host')
-        #还需要header
+        #还需要header，这里的header是从文件中读取
         root = os.path.abspath('.') #获取当前工作目录路径
         filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
-        with open(filepath, 'r', encoding='utf8')as fp:
-            header = json.load(fp)
-            print('header：', header)
-        fp.close()
+        # with open(filepath, 'r', encoding='utf8')as fp:
+        #     header = json.load(fp)
+        #     print('header：', header)
+        # fp.close()
+        header = HeaderManage().readHeader(2)
+        print(type(header))
         for case in case_list:
             if case[2] == 'get' or case[2] == 'GET':
                 result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
@@ -51,11 +53,13 @@ class Case_request:
                 # print('case[4]:', case[4])
             if result.status_code == 401:
                 print('401了')
-                Refresh_token().refresh()
-                root = os.path.abspath('.') #获取当前工作目录路径
-                filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
-                with open(filepath, 'r', encoding='utf8')as fp:
-                    header = json.load(fp)
+                # Refresh_token().refresh()
+                # root = os.path.abspath('.') #获取当前工作目录路径
+                # filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
+                # with open(filepath, 'r', encoding='utf8')as fp:
+                #     header = json.load(fp)
+                HeaderManage().updateHeader(2)
+                header = HeaderManage().readHeader(2)
                 if case[2] == 'get' or case[2] == 'GET':
                     result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
                 else:

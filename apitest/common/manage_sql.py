@@ -1,6 +1,7 @@
 # coding:utf-8
 import ast
 import json
+import requests
 
 import pymysql
 
@@ -8,6 +9,7 @@ import pymysql
 #         ['/user/favours/update', 'post', {}, {}, 400],
 #         ['/userMonitor/message/search', 'get', {'limit': 10}, {}, 400],]
 from apitest.common.case_test import Case_request
+from apitest.common.read_config import Read_config
 
 
 class Manage_sql:

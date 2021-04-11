@@ -36,7 +36,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:apitest_manage' %}">流程接口</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">header 管理</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -136,7 +136,7 @@
         {% else %}
             <li class="previous disabled"><a href="#">上一页</a></li>
         {% endif %}
-
+        &nbsp;&nbsp;
         {% for num in apiss.paginator.page_range %}
             {% if num == currentPage %}
                 <li class="item active" style="color: red"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>

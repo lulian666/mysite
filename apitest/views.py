@@ -15,7 +15,7 @@ from django.urls import reverse
 
 from apitest.common.case_collect_data import Case_collect
 from apitest.common.manage_sql import Manage_sql, Case_request
-from apitest.models import Apitest, Apistep, Apis
+from apitest.models import Apitest, Apistep, Apis, Headers
 
 
 def index(request):
@@ -226,6 +226,21 @@ def datasource(request):
     # print("source:", source)
     return render(request, "apitest/datasource_manage.html", {'error': error, 'data': source, "user": username, "apiss": apis_list,"apicounts": apis_count})
 
+# header 管理
+def api_header(request):
+    username = request.session.get('user','')
+    headers_list = Headers.objects.all()
+    paginator = Paginator(headers_list, 9)
+    page = request.GET.get('page', 1)
+    currentPage = int(page)
+    headers_count = Headers.objects.all().count()
+    try:
+        headers_list = paginator.page(page)
+    except PageNotAnInteger:
+        headers_list = paginator.page(1)
+    except EmptyPage:
+        headers_list = paginator.page(paginator.num_pages)
+    return render(request, "apitest/api_header.html", {"user": username, "headers": headers_list, "apicounts": headers_count})
 
 
 def check_json_format(raw_msg):
