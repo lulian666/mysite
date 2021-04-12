@@ -1,5 +1,6 @@
 from django.contrib import admin
-from apitest.models import Apitest, Apistep, Apis, Headers
+from apitest.models import Apitest, Apistep, Apis, Headers, Variables
+
 
 # Register your models here.
 
@@ -25,9 +26,13 @@ class ApisAdmin(admin.TabularInline):
 admin.site.register(Apis)
 
 class HeadersAdmin(admin.TabularInline):
-    list_display = ['key', 'value']
+    list_display = ['header_key', 'header_value']
+
+class VariableAdmin(admin.TabularInline):
+    list_display = ['variable_key', 'variable_value']
 
 admin.site.register(Headers)
+admin.site.register(Variables)
 
 admin.site.site_header = 'AutotestPlat'
 admin.site.site_title = 'AutotestPlat'

@@ -15,7 +15,7 @@ from django.urls import reverse
 
 from apitest.common.case_collect_data import Case_collect
 from apitest.common.manage_sql import Manage_sql, Case_request
-from apitest.models import Apitest, Apistep, Apis, Headers
+from apitest.models import Apitest, Apistep, Apis, Headers, Variables
 
 
 def index(request):
@@ -204,10 +204,41 @@ def datasource(request):
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(str(source))
             f.close()
-            # 把新的数据写进表里
-            case_list = Case_collect(filepath).collect_data()
-            Manage_sql().deleteCaseInSQL()
-            Manage_sql().writeCaseToSQL(case_list)
+            # 把接口里的变量保存下来
+            basic_case_list, case_list = Case_collect(filepath).collect_data()
+            variables_dict = {}
+            for case in basic_case_list:
+                print('case:',case)  # 这个是还没有替换值的case
+                if case[3] != {}: #处理body的
+                    para_info_list = list(case[3].values())  # 这个list里的每一个值都是个dict
+                    para_list = list(case[3].keys())
+                    param_list = []
+                    for key in para_info_list:
+                        param = para_list[para_info_list.index(key)]
+                        if 'enum' not in key:
+                            # 如果这个参数的智利吗，有enum这个字段，就不需要存了
+                            param_list.append(param)
+                    if len(param_list) >= 0:
+                        print("param_list:", param_list)
+                        variables_dict.update({case[0]:param_list})
+                elif case[2] != {}:
+                    #处理parameters的
+                    para_info_list = list(case[2].values())  # 这个list里的每一个值都是个dict
+                    para_list = list(case[2].keys())
+                    param_list = []
+                    for key in para_info_list:
+                        param = para_list[para_info_list.index(key)]
+                        if 'enum' not in key:
+                            # 如果这个参数的智利吗，有enum这个字段，就不需要存了
+                            param_list.append(param)
+                    if len(param_list) >= 0:
+                        print("param_list:", param_list)
+                        variables_dict.update({case[0]:param_list})
+            print("variables_list:", variables_dict)
+            Manage_sql().deleteVariablesInSQL()
+            Manage_sql().writeVariablesToSQL(2, variables_dict)
+            # Manage_sql().deleteCaseInSQL()
+            # Manage_sql().writeCaseToSQL(case_list)
         else:
             error = 'this is empty!!'
 
@@ -242,6 +273,22 @@ def api_header(request):
         headers_list = paginator.page(paginator.num_pages)
     return render(request, "apitest/api_header.html", {"user": username, "headers": headers_list, "apicounts": headers_count})
 
+# 变量管理
+def variables_manage(request):
+    username = request.session.get('user','')
+    variables_list = Variables.objects.all()
+    paginator = Paginator(variables_list, 15)
+    page = request.GET.get('page', 1)
+    currentPage = int(page)
+    variables_count = Variables.objects.all().count()
+    try:
+        variables_list = paginator.page(page)
+    except PageNotAnInteger:
+        variables_list = paginator.page(1)
+    except EmptyPage:
+        variables_list = paginator.page(paginator.num_pages)
+
+    return render(request, "apitest/variables_manage.html", {"user": username, "variables": variables_list, "variablecounts": variables_count})
 
 def check_json_format(raw_msg):
     """

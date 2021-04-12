@@ -20,6 +20,7 @@ urlpatterns = [
     path('testapi/',views.testapi, name = 'test_api'),
     path('api_datasource/',views.datasource, name = 'api_datasource'),
     path('api_header/',views.api_header, name = 'api_header'),
+    path('variables_manage/',views.variables_manage, name = 'variables_manage'),
     # path('api_savecase/',views.savacase, name = 'api_savecase'),
     # path('apistepsearch/',views.apistepsearch, name = 'apistepsearch'),
 ]

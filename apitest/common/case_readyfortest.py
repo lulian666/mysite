@@ -22,7 +22,7 @@ class Case_ready:
         #其实就是把{"required": false, "type": "string"} 这部分替换成真正的值
         for case in self.case_list:
             n += 1
-            print('case_original:',case)
+            # print('case_original:',case)  # 这个是还没有替换值的case
             if case[3] != {}: #处理body的
                 self.enum_data(case[3],n,case,new_case_list,3)
             elif case[2] != {}:
@@ -31,9 +31,9 @@ class Case_ready:
             else:
                 #如果body和param都是空的，那就直接变成case
                 new_case_list.append(self.case_list[n-1])
-        for case in new_case_list:
-            print('new_case：', case)
-        return new_case_list
+        # for case in new_case_list:
+            # print('new_case：', case)
+        return new_case_list  # 这个list是最终的case
 
     def data_replace(self,param, param_value):
         # print(param,param_value)
@@ -70,6 +70,9 @@ class Case_ready:
         #这个方法是处理接口参数里的enum
         para_info_list = list(case.values())  # 这个list里的每一个值都是个dict
         para_list = list(case.keys())
+        # 好像上面这个就是变量列表，试试，是的
+        # print('para_list:', para_list)
+
         enum_count = 0;
         enum_dict = {}
         for key in para_info_list:

@@ -41,7 +41,7 @@
         }
     </style>
 </head>
-<body role="document">
+<body>
 <!-- 导航栏-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container">
@@ -63,7 +63,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:apistep_manage' %}">流程接口</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">header 管理</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -82,7 +82,7 @@
 <div class="box">
     <div class="row">
         <span class="item1">
-        <!-- header-->
+        <!-- 参数管理-->
         <div class="row" style="padding-top: 50px;">
         <div class="col-md-11">
             <table class="table table-striped">
@@ -92,19 +92,21 @@
                     <th>所属产品</th>
                     <th>变量名</th>
                     <th>变量值</th>
+                    <th>所属接口</th>
                     <th>编辑</th>
                     <th>删除</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for header in headers %}
+                {% for variable in variables %}
                     <tr>
-                        <td width=100px>{{ header.id }}</td>
-                        <td width=100px>{{ header.Product.productname }}</td>
-                        <td width=200px>{{ header.header_key }}</td>
-                        <td width=300px>{{ header.header_value }}</td>
-                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
-                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
+                        <td width=100px>{{ variable.id }}</td>
+                        <td width=100px>{{ variable.Product.productname }}</td>
+                        <td width=200px>{{ variable.variable_key }}</td>
+                        <td width=300px>{{ variable.variable_value }}</td>
+                        <td width=300px>{{ variable.from_api }}</td>
+                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -118,24 +120,24 @@
         <div class="container">
             <ul class="pagination" id="pager">
                 {# 上一页链接开始 #}
-                {% if headers.has_previous %}
-                    <li class="previous"><a href="/apitest/api_header/?page={{ headers.previous_page_number }}">上一页</a></li>
+                {% if variables.has_previous %}
+                    <li class="previous"><a href="/apitest/variables_manage/?page={{ variables.previous_page_number }}">上一页</a></li>
                 {% else %}
                     <li class="previous disabled"><a href="#">上一页</a></li>
                 {% endif %}
                 &nbsp;&nbsp;
-                {% for num in headers.paginator.page_range %}
+                {% for num in variables.paginator.page_range %}
                     {% if num == currentPage %}
-                        <li class="item active" style="color: red"><a href="/apitest/api_header/?page={{ num }}">{{ num }}</a></li>
+                        <li class="item active" style="color: red"><a href="/apitest/variables_manage/?page={{ num }}">{{ num }}</a></li>
                     {% else %}
-                        <li class="item"><a href="/apitest/api_header/?page={{ num }}">{{ num }}</a></li>
+                        <li class="item"><a href="/apitest/variables_manage/?page={{ num }}">{{ num }}</a></li>
                     {% endif %}
                     &nbsp;&nbsp;
                 {% endfor %}
 
                 {# 下一页链接开始 #}
-                {% if headers.has_next %}
-                    <li class="next"><a href="/apitest/api_header/?page={{ headers.next_page_number }}">下一页</a></li>
+                {% if variables.has_next %}
+                    <li class="next"><a href="/apitest/variables_manage/?page={{ variables.next_page_number }}">下一页</a></li>
                 {% else %}
                     <li class="next disabled"><a href="#">下一页</a></li>
                 {% endif %}

@@ -66,3 +66,16 @@ class Headers(models.Model):
 
     def __str__(self):
         return self.header_key
+
+class Variables(models.Model):
+    Product = models.ForeignKey('product.Product', on_delete=models.CASCADE, null=True)
+    variable_key = models.CharField('变量名', max_length=100)
+    variable_value = models.CharField('变量值', max_length=1000, null=True)
+    from_api = models.CharField('所属接口', max_length=1000, null=True)
+
+    class Meta:
+        verbose_name = '参数'
+        verbose_name_plural = '参数'
+
+    def __str__(self):
+        return self.variable_key

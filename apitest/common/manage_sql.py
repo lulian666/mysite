@@ -91,6 +91,30 @@ class Manage_sql:
         coon.close()
         return
 
+    def writeVariablesToSQL(self, productId, variables_dict):
+        sql = "INSERT INTO apitest_variables(from_api,Product_id,variable_key) VALUES(%s,%s,%s)"
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        for api, variable_list in variables_dict.items():
+            print(api,variable_list)
+            for variable in variable_list:
+                param = (api, productId, variable)
+                cursor.execute(sql, param)
+                coon.commit()
+        cursor.close()
+        coon.close()
+        return
+
+    def deleteVariablesInSQL(self):
+        sql = 'delete from apitest_variables'
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        cursor.execute(sql)
+        coon.commit()
+        cursor.close()
+        coon.close()
+        return
+
 # if __name__ == '__main__':
     # Manage_sql().writeCaseToSQL(list)
     # Manage_sql().deleteCaseInSQL()
