@@ -65,7 +65,7 @@ class Manage_sql:
         coon.commit()
         cursor.close()
         coon.close()
-        # 这里需要处理一下数据
+        # 这里需要处理一下数据，让body和param都变回字典格式
         caselist = self.handleDataType(caselist)
         return caselist
 
@@ -114,6 +114,23 @@ class Manage_sql:
         cursor.close()
         coon.close()
         return
+
+    def getVariablesFromSQL(self):
+        # 把数据库里变量的值存在本地
+        sql = 'select Product_id,from_api,variable_key,variable_value from apitest_variables'
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        aa = cursor.execute(sql)
+        info = cursor.fetchmany(aa)
+
+        variable_list = []
+        for ii in info: # 读出来的是元组类型的字典
+            variable_list.append(list(ii))
+        coon.commit()
+        cursor.close()
+        coon.close()
+
+        return variable_list
 
 # if __name__ == '__main__':
     # Manage_sql().writeCaseToSQL(list)

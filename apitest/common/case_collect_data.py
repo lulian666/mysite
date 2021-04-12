@@ -1,4 +1,5 @@
 # coding:utf-8
+import os
 from fnmatch import fnmatch
 import json
 
@@ -29,17 +30,21 @@ class Case_collect:
                                  '1.0/im/message/exchangeWechat','1.0/im/conversation/get','1.0/account/requestCancellation',
                                  '1.0/draw/drawPrize','1.0/draw/drop','comment/creat','user/sms/unbin']
 
-    def __init__(self, json_path):
-        # 读取json文件内容,返回字典格式
-        self.json_path = json_path
+    # def __init__(self, json_path):
+    #     # 读取json文件内容,返回字典格式
+    #     self.json_path = json_path
+        # self.case_list = []
+        # self.variable_list = variable_list
 
     # 这里会删除所有老的case，把新的case写进数据库里面
     def collect_data(self):
         n = 0 #忽略，debug用的
-
+        root = os.path.abspath('.') #获取当前工作目录路径
+        filepath = os.path.join(root, 'apitest/config/temp.json')
+        print(filepath)
 
         #第一步，拉取数据
-        with open(self.json_path, 'r', encoding='utf8')as fp:
+        with open(filepath, 'r', encoding='utf8')as fp:
             json_data = json.load(fp)
             path_data = json_data['paths']
 
@@ -135,24 +140,21 @@ class Case_collect:
                         parameters = {}
                         body = {}
                 #先把数据变成一个数组把（第二步）
-                # print("parameters:", parameters)
-                # print("body:", body)
                 self.basic_case_list.append([url, method, parameters, body])
-                # print("self.basic_case_list:", self.basic_case_list)
                 case_list = Case_generate(url, method, parameters, body).generate()
                 n += 1  # 忽略，debug用的
         # for case in case_list:
-        #     print(case)
+        #     print('before', case)
         print('总共多少case：', len(case_list))  # 这个数字绝壁有毛病吧！
+        # print('case_list from case_collect_data', case_list)
 
         #第三步，处理数据
-        # case_list = Case_ready(case_list).data_form
-        # print(case_list)
-        # print("basic_case_list：", self.basic_case_list)
+        # case_list = Case_ready(case_list, self.variable_list).data_form
+
         return self.basic_case_list, case_list
 
 # if __name__ == '__main__':
-    # root = os.path.abspath('.') #获取当前工作目录路径
-    # filepath = os.path.join(root, 'swagger.json')
-    # print(filepath)
-    # Case_collect(filepath).collect_data()
+#     root = os.path.abspath('..') #获取当前工作目录路径
+#     filepath = os.path.join(root, 'config/swagger.json')
+#     print(filepath)
+#     Case_collect(filepath).collect_data()

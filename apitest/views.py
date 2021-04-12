@@ -14,6 +14,7 @@ from django.contrib.auth import authenticate, login
 from django.urls import reverse
 
 from apitest.common.case_collect_data import Case_collect
+from apitest.common.case_readyfortest import Case_ready
 from apitest.common.manage_sql import Manage_sql, Case_request
 from apitest.models import Apitest, Apistep, Apis, Headers, Variables
 
@@ -85,6 +86,20 @@ def apistep_manage(request):
 
 @login_required
 def apis_manage(request):
+    if 'birth' in request.POST:
+        # 这里要生成case了哦！
+        Manage_sql().deleteCaseInSQL()
+        variable_list = Manage_sql().getVariablesFromSQL()
+
+        basic_case_list, case_list = Case_collect().collect_data()
+        print(type(case_list))
+        case_list = Case_ready(case_list, variable_list).data_form()
+        for case in case_list:
+            print('case are ready:',case)
+
+        Manage_sql().deleteCaseInSQL()
+        Manage_sql().writeCaseToSQL(case_list)
+
     username = request.session.get('user','')
 
     apis_list = Apis.objects.all()
@@ -205,36 +220,29 @@ def datasource(request):
                 f.write(str(source))
             f.close()
             # 把接口里的变量保存下来
-            basic_case_list, case_list = Case_collect(filepath).collect_data()
+            basic_case_list, case_list = Case_collect().collect_data()
             variables_dict = {}
             for case in basic_case_list:
-                print('case:',case)  # 这个是还没有替换值的case
+                print('basic case:',case)  # 这个是还没有替换值的case
                 if case[3] != {}: #处理body的
-                    para_info_list = list(case[3].values())  # 这个list里的每一个值都是个dict
-                    para_list = list(case[3].keys())
                     param_list = []
-                    for key in para_info_list:
-                        param = para_list[para_info_list.index(key)]
-                        if 'enum' not in key:
-                            # 如果这个参数的智利吗，有enum这个字段，就不需要存了
-                            param_list.append(param)
+                    for num, keys in list(enumerate(case[3])):
+                        if 'enum' not in case[3][keys]:
+                            # 如果这个参数的值里面，有enum这个字段，就不需要存了
+                            param_list.append(keys)
                     if len(param_list) >= 0:
                         print("param_list:", param_list)
                         variables_dict.update({case[0]:param_list})
                 elif case[2] != {}:
                     #处理parameters的
-                    para_info_list = list(case[2].values())  # 这个list里的每一个值都是个dict
-                    para_list = list(case[2].keys())
                     param_list = []
-                    for key in para_info_list:
-                        param = para_list[para_info_list.index(key)]
-                        if 'enum' not in key:
-                            # 如果这个参数的智利吗，有enum这个字段，就不需要存了
-                            param_list.append(param)
+                    for num, keys in list(enumerate(case[2])):
+                        if 'enum' not in case[2][keys]:
+                            # 如果这个参数的值里面，有enum这个字段，就不需要存了
+                            param_list.append(keys)
                     if len(param_list) >= 0:
                         print("param_list:", param_list)
                         variables_dict.update({case[0]:param_list})
-            print("variables_list:", variables_dict)
             Manage_sql().deleteVariablesInSQL()
             Manage_sql().writeVariablesToSQL(2, variables_dict)
             # Manage_sql().deleteCaseInSQL()
@@ -277,7 +285,7 @@ def api_header(request):
 def variables_manage(request):
     username = request.session.get('user','')
     variables_list = Variables.objects.all()
-    paginator = Paginator(variables_list, 15)
+    paginator = Paginator(variables_list, 14)
     page = request.GET.get('page', 1)
     currentPage = int(page)
     variables_count = Variables.objects.all().count()
@@ -288,7 +296,7 @@ def variables_manage(request):
     except EmptyPage:
         variables_list = paginator.page(paginator.num_pages)
 
-    return render(request, "apitest/variables_manage.html", {"user": username, "variables": variables_list, "variablecounts": variables_count})
+    return render(request, "apitest/variables_manage.html", {"user": username, "variables": variables_list, "variablecounts": variables_count, "warning": "只点击一次就好，会跳转到用例列表"})
 
 def check_json_format(raw_msg):
     """

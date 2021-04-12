@@ -1,6 +1,10 @@
 # coding:utf-8
+import configparser
 import copy
+import os
 from random import Random
+
+import pymysql
 
 from apitest.common.read_config import Read_config
 
@@ -12,10 +16,10 @@ enum_data()把接口参数里的enum给整好
 '''
 
 class Case_ready:
-    def __init__(self, case_list):
+    def __init__(self, case_list, variable_list):
         self.case_list = case_list
+        self.variable_list = variable_list
 
-    @property
     def data_form(self):
         n = 0
         new_case_list = [] #新建一个列表存case
@@ -24,9 +28,11 @@ class Case_ready:
             n += 1
             # print('case_original:',case)  # 这个是还没有替换值的case
             if case[3] != {}: #处理body的
+                # print('case[3]:', case[3])
                 self.enum_data(case[3],n,case,new_case_list,3)
             elif case[2] != {}:
                 #处理parameters的
+                # print('case[2]:', case[2])
                 self.enum_data(case[2],n,case,new_case_list,2)
             else:
                 #如果body和param都是空的，那就直接变成case
@@ -35,18 +41,19 @@ class Case_ready:
             # print('new_case：', case)
         return new_case_list  # 这个list是最终的case
 
-    def data_replace(self,param, param_value):
-        # print(param,param_value)
+    def data_replace(self,param, param_value, productId, api):
         #这个方法是制定了一系列复杂的规则，以替换参数的值（其实也不复杂）
         if param == 'keyword':
             value = Random().randint(0,100000)
         elif len(param_value) > 2: #二级json来了
             for item in param_value:
-                item_value = Read_config().get_value('PARAMETERS', item)
+                # item_value = Read_config().get_value('PARAMETERS', item)
+                item_value = Read_config().get_variable(self.variable_list, productId, api, item)
                 param_value[item] = item_value
             return param_value #直接返回一个dict
         else:
-            value = Read_config().get_value('PARAMETERS', param)
+            # value = Read_config().get_value('PARAMETERS', param)
+            value = Read_config().get_variable(self.variable_list, productId, api, param)
         return value
 
         '''
@@ -66,12 +73,10 @@ class Case_ready:
         '''
 
     def enum_data(self,case,n,case_full_info,new_case_list,nn):
-
+        # print('case:', case)
         #这个方法是处理接口参数里的enum
         para_info_list = list(case.values())  # 这个list里的每一个值都是个dict
         para_list = list(case.keys())
-        # 好像上面这个就是变量列表，试试，是的
-        # print('para_list:', para_list)
 
         enum_count = 0;
         enum_dict = {}
@@ -100,14 +105,12 @@ class Case_ready:
         '''
         if enum_count == 0:  # 参数里面没有enum类型的时候，只要正常替换参数就好
             for param in case:
-                value = self.data_replace(param,case[param]) #二级json的逻辑都在data_replace里处理
+                value = self.data_replace(param,case[param],2,case_full_info[0]) #二级json的逻辑都在data_replace里处理
                 case[param] = value
-                # if 'type' in case[param]:
-                #     value = self.data_replace(param, case[param]['type'])
-                #     case[param] = value
             new_case_list.append(copy.deepcopy(self.case_list[n - 1]))
 
         if enum_count > 1:
+            print("enum_count > 1")
             # 用到enum_dict
             enum_list = list(enum_dict.values())
             # 这里思路是把所有是enum的参数的可取值都列出来，然后排列组合
@@ -126,7 +129,7 @@ class Case_ready:
                         new_case_m.update({param: new_value})
                     else:
                         #当我再次看到这里的时候，我已经不记得这些参数是什么意思了，但不妨碍我进行修改
-                        new_case_m.update({param: self.data_replace(param, case[param])})
+                        new_case_m.update({param: self.data_replace(param, case[param],2,case_full_info[0])})
 
                 if nn == 3:
                     new_case_list.append([case_full_info[0], case_full_info[1], case_full_info[2], new_case_m, case_full_info[4]])
@@ -134,7 +137,10 @@ class Case_ready:
                     new_case_list.append([case_full_info[0], case_full_info[1], new_case_m, case_full_info[3], case_full_info[4]])
 
         if enum_count == 1:
+            # print("enum_count == 1")
             for param in case:
+                # print(param)
+                # print(case[param])
                 if 'enum' in case[param]:
                     enum = case[param]['enum']
                     how_many = len(enum)
@@ -144,7 +150,7 @@ class Case_ready:
             for item in new_case_list[-how_many:]:  # 这里终于对了
                 for param in item[nn]:
                     if 'type' in item[nn][param]:
-                        value = self.data_replace(param, item[nn][param])
+                        value = self.data_replace(param, item[nn][param], 2, case_full_info[0])
                         item[nn][param] = value
 
 

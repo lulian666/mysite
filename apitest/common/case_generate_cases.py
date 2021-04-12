@@ -69,6 +69,7 @@ class Case_generate:
 
     def generate(self):
         self.basic_case.append([self.url, self.method, self.parameters, self.body,200])
+        print('0:', [self.url, self.method, self.parameters, self.body,200])
         self.miss_unrequired()
         self.miss_required()
         all_case = self.basic_case + self.ok_case + self._400_case
@@ -95,6 +96,7 @@ class Case_generate:
                     has_unrequired = True
         if has_unrequired: #如果没有unrequired的就不生成case了，避免和basic_case重复
             self.ok_case.append([self.url, self.method, parameters, body,200])
+
         return self.ok_case
 
     # 统计有多少个required，有n个就会生成n个case，每个case少一个必要参数
@@ -107,8 +109,9 @@ class Case_generate:
         self._400_case = self._400_case1 + self._400_case2
         return self._400_case
 
-    def data_trans(self, whichpart, serial):
-        #serial是2就代表是parameter，3就代表body
+    def data_trans(self, whichpart, serial):  # 才发现这里居然把enum信息全部丢了！！
+        # serial是2就代表是parameter，3就代表body
+        # whichpart 意思是body或者param
         m = 0  # m是必要参数的数量
         for each in whichpart:
             if whichpart[each]['required'] is True:
@@ -116,6 +119,7 @@ class Case_generate:
         if m > 0:
             # 得到的是body中所有参数的一个排列组合（准确地说是body中key值的排列组合
             parameters_list = list(itertools.combinations(whichpart, len(whichpart) - 1))
+            print("parameters_list:", parameters_list)
             for params_combi in parameters_list:
                 n = 0
                 temp = {}
@@ -125,15 +129,25 @@ class Case_generate:
                 if len(params_combi) == 0:
                     if serial == 2:
                         self._400_case1.append([self.url, self.method, {}, self.body, 400])
+                        # print('1:',[self.url, self.method, temp, self.body, 400])
                     else:
                         self._400_case2.append([self.url, self.method, self.parameters, {}, 400])
+                        print('2:',[self.url, self.method, self.parameters, {}, 400])
                 if n == m - 1 and len(params_combi) != 0:
                     # 如果正好小1，那就是我们想要的case
                     # 需要把params_combi变回原来的格式
                     for i in range(len(params_combi)):
-                        temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
+                        # 哈！就是在这里把enum丢了的！！！
+                        if 'enum' in whichpart[params_combi[i]]:
+                            temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
+                                                           'type': whichpart[params_combi[i]]['type'],
+                                                           'enum': whichpart[params_combi[i]]['enum']}})
+                        else:
+                            temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
                                                        'type': whichpart[params_combi[i]]['type']}})
                     if serial == 2:
                         self._400_case1.append([self.url, self.method, temp, self.body, 400])
+                        # print('3:',[self.url, self.method, temp, self.body, 400])
                     else:
                         self._400_case2.append([self.url, self.method, self.parameters, temp, 400])
+                        print('4:',[self.url, self.method, self.parameters, {}, 400])
