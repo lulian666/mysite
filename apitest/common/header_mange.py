@@ -3,10 +3,6 @@ import os
 
 import pymysql
 import requests
-import json
-
-from apitest.common.read_config import Read_config
-
 
 class HeaderManage():
     def readHeader(self, productId):

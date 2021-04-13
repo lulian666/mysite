@@ -39,6 +39,7 @@
         .item2{
             width: 70%;
         }
+
     </style>
 </head>
 <body role="document">
@@ -47,15 +48,15 @@
     <div class="container">
         <a class="navbar-brand" href="#">&nbsp;</a>
         <ul class="nav justify-content-start">
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_datasource' %}">数据源管理</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_datasource' %}">step1：数据源管理</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">header 管理</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:variables_manage' %}">step2：变量值管理</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:variables_manage' %}">变量值管理</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">step3：header 管理</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -67,11 +68,6 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apptest:appcase_manage' %}">app 用例</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'webtest:webcase_manage' %}">web 用例</a></li>
         </ul>
         <ul class="nav justify-content-end">
             <li class="nav-link"><a style="color: white" href="#">{{ user }}</a></li>
@@ -85,7 +81,7 @@
         <!-- header-->
         <div class="row" style="padding-top: 50px;">
         <div class="col-md-11">
-            <table class="table table-striped">
+            <table class="table table-striped" style="table-layout:fixed;">
                 <thead>
                 <tr style="text-align:left">
                     <th>ID</th>
@@ -99,12 +95,12 @@
                 <tbody>
                 {% for header in headers %}
                     <tr>
-                        <td width=100px>{{ header.id }}</td>
-                        <td width=100px>{{ header.Product.productname }}</td>
-                        <td width=200px>{{ header.header_key }}</td>
-                        <td width=300px>{{ header.header_value }}</td>
-                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
-                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
+                        <td>{{ header.id }}</td>
+                        <td>{{ header.Product.productname }}</td>
+                        <td>{{ header.header_key }}</td>
+                        <td>{{ header.header_value }}</td>
+                        <td><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                        <td><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

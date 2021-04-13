@@ -51,15 +51,15 @@
     <div class="container">
         <a class="navbar-brand" href="#">&nbsp;</a>
         <ul class="nav justify-content-start">
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_datasource' %}">数据源管理</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_datasource' %}">step1：数据源管理</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">header 管理</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:variables_manage' %}">step2：变量值管理</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:variables_manage' %}">变量值管理</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">step3：header 管理</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -67,15 +67,10 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">header 管理</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:apistep_manage' %}">流程接口</a></li>
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apptest:appcase_manage' %}">app 用例</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'webtest:webcase_manage' %}">web 用例</a></li>
         </ul>
         <ul class="nav justify-content-end">
             <li class="nav-link"><a style="color: white" href="#">{{ user }}</a></li>
@@ -91,15 +86,14 @@
                 <button type="submit" name="birth">用这些数据生成case</button>
                 <label style="color: gray">{{ warning }}</label>
             </form>
-
         </span>
         <span class="item1">
         <!-- 参数管理-->
         <div class="row" style="padding-top: 10px;">
         <div class="col-md-11">
-            <table class="table table-striped">
+            <table class="table table-striped" style="table-layout:fixed;">
                 <thead>
-                <tr style="text-align:left">
+                <tr style="text-align:left;">
                     <th>ID</th>
                     <th>所属产品</th>
                     <th>变量名</th>

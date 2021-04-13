@@ -5,13 +5,6 @@ import requests
 
 import pymysql
 
-# list = [['/userRelation/fans/paginate', 'post', {}, {'limit': 10}, 400],
-#         ['/user/favours/update', 'post', {}, {}, 400],
-#         ['/userMonitor/message/search', 'get', {'limit': 10}, {}, 400],]
-from apitest.common.case_test import Case_request
-from apitest.common.read_config import Read_config
-
-
 class Manage_sql:
     # def writeToSQL_singlecase(self):
     #     # sql = "update apitest_apis set apitest_apis.apiurl=%s, apitest_apis.apimethod=%s, apitest_apis.apiparamvalue=%s, apitest_apis.apibodyvalue=%s, apitest_apis.apiexpectstatus=%s"

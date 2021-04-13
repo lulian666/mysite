@@ -15,7 +15,8 @@ from django.urls import reverse
 
 from apitest.common.case_collect_data import Case_collect
 from apitest.common.case_readyfortest import Case_ready
-from apitest.common.manage_sql import Manage_sql, Case_request
+from apitest.common.case_test import Case_request
+from apitest.common.manage_sql import Manage_sql
 from apitest.models import Apitest, Apistep, Apis, Headers, Variables
 
 
@@ -32,8 +33,6 @@ def login(request):
         if user is not None and user.is_active:
             auth.login(request, user)
             request.session['user'] = username
-            # response = HttpResponseRedirect('apitest/home')
-            # return response
             return HttpResponseRedirect(reverse('apitest/home'))
         else:
             return render(request, 'apitest/login.html', {'error': 'username or password error'})
@@ -103,7 +102,7 @@ def apis_manage(request):
     username = request.session.get('user','')
 
     apis_list = Apis.objects.all()
-    paginator = Paginator(apis_list, 8)
+    paginator = Paginator(apis_list, 6)
     page = request.GET.get('page',1)
     currentPage = int(page)
     apis_count = Apis.objects.all().count()
@@ -149,12 +148,6 @@ def apissearch(request):
     apits_list = Apis.objects.filter(apiname__icontains=apiname)
     return render(request,"apitest/apis_manage.html",{"user":username,"apiss":apits_list})
 
-# @login_required
-# def apistepsearch(request):
-#     username = request.session.get('user','')
-#     apistepname = request.GET.get("apistepname","")
-#     apitstep_list = Apistep.objects.filter(apiname__icontains=apistepname)
-#     return render(request,"apitest/apistep_manage.html",{"user":username,"apisteps":apitstep_list})
 
 def welcome(request):
     return render(request, "apitest/welcome.html")
@@ -275,7 +268,7 @@ def datasource(request):
 def api_header(request):
     username = request.session.get('user','')
     headers_list = Headers.objects.all()
-    paginator = Paginator(headers_list, 9)
+    paginator = Paginator(headers_list, 12)
     page = request.GET.get('page', 1)
     currentPage = int(page)
     headers_count = Headers.objects.all().count()
@@ -291,7 +284,7 @@ def api_header(request):
 def variables_manage(request):
     username = request.session.get('user','')
     variables_list = Variables.objects.all()
-    paginator = Paginator(variables_list, 14)
+    paginator = Paginator(variables_list, 12)
     page = request.GET.get('page', 1)
     currentPage = int(page)
     variables_count = Variables.objects.all().count()
