@@ -132,6 +132,19 @@ class Manage_sql:
 
         return variable_list
 
+    def getHostofProduct(self, productId):
+        sql = 'select producthost from product_product where id = %s'
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        param = (productId)
+        aa = cursor.execute(sql, param)
+        host = cursor.fetchone()[0]
+        print(host, type(host))
+        coon.commit()
+        cursor.close()
+        coon.close()
+        return host
+
 # if __name__ == '__main__':
     # Manage_sql().writeCaseToSQL(list)
     # Manage_sql().deleteCaseInSQL()

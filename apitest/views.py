@@ -162,25 +162,31 @@ def welcome(request):
 def testapi(request):
     print('i test.')
     # 开始你的测试逻辑
-    # 先清空数据库的数据
+    '''
     Manage_sql().deleteCaseInSQL()
     # 写进新的数据，这里有个问题就是，在web更新了用例的话，这里实际上跑的还是老用例
     # 所以需要支持前端更新用例，这里每次都直接从数据库读取就好了，todo
-    root = os.path.abspath('.') #获取当前工作目录路径
-    filepath = os.path.join(root, 'apitest/config/swagger.json')
-    print(filepath)
-    case_list = Case_collect(filepath).collect_data()
+    variable_list = Manage_sql().getVariablesFromSQL()
+
+    basic_case_list, case_list = Case_collect().collect_data()
+
+    case_list = Case_ready(case_list, variable_list).data_form()
+    # for case in case_list:
+    #     print('case are ready:',case)
 
     # 第四步，写进表
-    Manage_sql().deleteCaseInSQL()
     Manage_sql().writeCaseToSQL(case_list)
-
+    '''
+    # 实际上测试的逻辑应该只有选取已存在的case进行测试，生成case的逻辑应该写在别处
     # 读取数据
     caselist = Manage_sql().readCaseFromSQL()
 
+    # 获取host
+    host = Manage_sql().getHostofProduct(2)
+
     # 进行测试
     tester = Case_request()
-    caselist = tester.send_request(caselist)
+    caselist = tester.send_request(caselist, host)
 
     Manage_sql().updateCaseToSQL(caselist)
     print('Done!')

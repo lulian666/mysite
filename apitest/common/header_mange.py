@@ -26,8 +26,8 @@ class HeaderManage():
         coon.close()
         return headers
 
-    def updateHeader(self, productId):
-        url = Read_config().get_value('REQUEST','host')+'/app_auth_tokens.refresh'
+    def updateHeader(self, productId,host):
+        url = host+'/app_auth_tokens.refresh'
         headers = self.readHeader(productId)
         result = requests.post(url, headers=headers, json={})
         print('刷新token成功了吗？',result.status_code)
@@ -47,8 +47,8 @@ class HeaderManage():
         coon.close()
         return
 
-if __name__ == '__main__':
-    headers = Header_Manage().get_header(2)
-    for header in headers:
-        print(header)
-    print('Fine!')
+# if __name__ == '__main__':
+#     headers = Header_Manage().get_header(2)
+#     for header in headers:
+#         print(header)
+#     print('Fine!')

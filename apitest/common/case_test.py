@@ -15,7 +15,6 @@ import requests
 
 from apitest.common.emailer import Email
 from apitest.common.read_config import Read_config
-from apitest.common.refresh_token import Refresh_token
 from apitest.common.reporter import Template_mixin
 
 '''
@@ -32,15 +31,17 @@ class Case_request:
         self.html = Template_mixin()
 
 
-    def send_request(self, case_list):
-        host = Read_config().get_value('REQUEST', 'host')
+    def send_request(self, case_list, host):
+        # host 改从数据库中获取
+        # host = Read_config().get_value('REQUEST', 'host')
         #还需要header，这里的header是从文件中读取
-        root = os.path.abspath('.') #获取当前工作目录路径
-        filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
+        # root = os.path.abspath('.') #获取当前工作目录路径
+        # filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
         # with open(filepath, 'r', encoding='utf8')as fp:
         #     header = json.load(fp)
         #     print('header：', header)
         # fp.close()
+        # header 改从数据库里获取
         header = HeaderManage().readHeader(2)
         print(type(header))
         for case in case_list:
@@ -58,7 +59,7 @@ class Case_request:
                 # filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
                 # with open(filepath, 'r', encoding='utf8')as fp:
                 #     header = json.load(fp)
-                HeaderManage().updateHeader(2)
+                HeaderManage().updateHeader(2,host)
                 header = HeaderManage().readHeader(2)
                 if case[2] == 'get' or case[2] == 'GET':
                     result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
