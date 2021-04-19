@@ -38,7 +38,11 @@ class Case_collect:
 
     # 这里会删除所有老的case，把新的case写进数据库里面
     def collect_data(self):
-        n = 0 #忽略，debug用的
+        """
+
+        :return:
+        """
+        n = 0  # 忽略，debug用的
         root = os.path.abspath('.') #获取当前工作目录路径
         filepath = os.path.join(root, 'apitest/config/temp.json')
         print(filepath)

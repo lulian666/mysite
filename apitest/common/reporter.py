@@ -23,16 +23,16 @@ class Template_mixin(object):
                     <col align='left' />
                     <col align='right' />
                     <col align='right' />
-                    <col align='right' />
-                </colgroup>
-                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
-                    <th>测试时间</th>
-                    <th>测试接口</th>
-                    <th>接口方法</th>
-                    <th>url参数</th>
-                    <th>body内容</th>
-                    <th >预期状态码</th>
-                    <th>测试结果</th>
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
                     <th>实际状态码</th>
                     <th>返回结果</th>
                     <th>备注</th>

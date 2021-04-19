@@ -14,7 +14,6 @@ sys.path.append('/usr/lib/python2.7/site-packages (2.22.0)')
 import requests
 
 from apitest.common.emailer import Email
-from apitest.common.read_config import Read_config
 from apitest.common.reporter import Template_mixin
 
 '''
@@ -49,16 +48,8 @@ class Case_request:
                 result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
             elif case[2] == 'post' or case[2] == 'POST':
                 result = requests.post(host + case[1], json=case[4], headers=header)
-                # print(type(case[4]))
-                # print('url:', host + case[1])
-                # print('case[4]:', case[4])
             if result.status_code == 401:
                 print('401了')
-                # Refresh_token().refresh()
-                # root = os.path.abspath('.') #获取当前工作目录路径
-                # filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
-                # with open(filepath, 'r', encoding='utf8')as fp:
-                #     header = json.load(fp)
                 HeaderManage().updateHeader(2,host)
                 header = HeaderManage().readHeader(2)
                 if case[2] == 'get' or case[2] == 'GET':
@@ -87,7 +78,7 @@ class Case_request:
                       '2、参数类型传错了（请联系QA）\n' \
                       '3、真bug'
                 table_td = self.html.TABLE_TMPL_FAIL % dict(runtime=time.strftime('%Y-%m-%d %H:%M:%S'), interface=case[1],
-                                                            method=case[1], parameters=case[3], body=case[4], expectcode=case[5],
+                                                            method=case[2], parameters=case[3], body=case[4], expectcode=case[5],
                                                             testresult='测试失败', testcode=result.status_code,resultbody=result_json,
                                                             btw=btw)
                 self.table_tr_fail += table_td
@@ -102,15 +93,10 @@ class Case_request:
             print('---------')
             # 存数据库信息
             apiresponsestatuscode = result.status_code
-            # try:
-            #     apiresponse = result.json()
-            # except JSONDecodeError:
-            #     apiresponse = '由于异常，无法读取结果'
             apiresponse = "这里我有解决不了的问题，先放着"
             case.append(apiresponsestatuscode)
             case.append(apiresponse)
             case.append(apistatus)
-            # Manage_sql().updateCaseToSQL([case,])
         self.report()
         return case_list
 

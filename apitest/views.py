@@ -139,6 +139,7 @@ def search(request):
     search_apitestname = request.GET.get("apitestname","")
     apitest_list = Apitest.objects.filter(apitestname__icontains=search_apitestname)
     # apitest_list = Apitest.objects.filter(apitestname=search_apitestname)
+
     return render(request,"apitest/apitest_manage.html",{"user":username,"apitests":apitest_list})
 
 @login_required

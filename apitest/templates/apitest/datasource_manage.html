@@ -73,7 +73,7 @@
                 <form class="navbar-form" method="post" action="{% url 'apitest:api_datasource' %}">
                     {%  csrf_token %}
                     <br> <label>把 JSON 格式的数据源粘贴进来</label>
-                    <br> <textarea rows="30" cols="50" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none">{{ data }}</textarea>
+                    <br> <textarea rows="20" cols="30" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none">{{ data }}</textarea>
                     <br> {{ error }}
                     <br> <button type="submit" name="analysis">检查</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
