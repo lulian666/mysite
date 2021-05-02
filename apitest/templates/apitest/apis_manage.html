@@ -39,7 +39,7 @@
             align-items: flex-start;
         }
         .item4 {
-            align-items: flex-end;
+            align-items: flex-start;
         }
 
         .row:nth-child(2){
@@ -100,21 +100,38 @@
         <span class="item2">
             <!-- 添加数据-->
             <div class="page-header">
-                <select name="Apis" id="id_Apis">
-                    <option value="" selected>-----单一接口测试用例-----</option>
-                    {% for apis in apiss %}
-                        <option value={{ apis.id }}>{{ apis.apiname }}</option>
-                    {% endfor %}
-                </select>
-                <a class="related-widget-wrapper-link change-related" id="change_id_Apitest" data-href-template="/admin/apitest/apitest/?????/change/?_to_field=id&amp;_popup=1" title="更改选中的测试用例">
-                    <img src="/static/admin/img/icon-changelink.svg" alt="修改"/>修改
-                </a>
-                <a class="related-widget-wrapper-link change-related" id="add_id_Apitest" href="/admin/apitest/apis/add/?_to_filed=id&amp;_popup=1" title="增加一个测试用例">
-                    <img src="/static/admin/img/icon-addlink.svg" alt="增加"/>增加
-                </a>
-                <a class="button" id="run_test" href="{% url 'apitest:test_api' %}">
-                    <img src="/static/admin/img/icon-alert.svg">测试
-                </a>
+                <form class="column" method="post" action="{% url 'apitest:test' %}">
+                    {%  csrf_token %}
+                    <label>选择测试范围：</label>
+                    <br> <label>所属项目：</label>
+                         <select style="padding: 1px; width: 150px;" name="productId">
+{#                            {% if selectedProduct != "可不选" %}#}
+                            {% if selectedProduct == "可不选" %}
+
+                                <option value ="-1">可不选</option>
+                            {% else %}
+                                <option value="{{ selectedProduct.id }}">{{ selectedProduct }}</option>
+                            <option value ="-1">可不选</option>
+                            {% endif %}
+                             {% for product in products %}
+                              <option value ="{{ product.id }}">{{ product.productname }}</option>
+                             {% endfor %}
+                        </select>
+                    <br> <label>测试结果：</label>
+                        <select style="padding: 1px; width: 150px;" name="testresult">
+                            {% if selectedTestResult != "可不选" %}
+                                <option value="{% if selectedTestResult == "0" %} 0 {% else %} 1 {% endif %}">{{ selectedTestResult }}</option>
+                                <option value ="-1">可不选</option>
+                            {% else %}
+                                <option value ="-1">可不选</option>
+                            {% endif %}
+                            <option value ="0">测试不通过</option>
+                            <option value ="1">测试通过</option>
+                        </select>
+                    <br> <button type="submit" name="filter">查看所选测试用例</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" name="runtest">执行测试</button>
+                </form>
             </div>
         </span>
     <div class="row">

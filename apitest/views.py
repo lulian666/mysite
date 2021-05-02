@@ -3,6 +3,7 @@ import os
 
 import pymysql
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -18,6 +19,7 @@ from apitest.common.case_readyfortest import Case_ready
 from apitest.common.case_test import Case_request
 from apitest.common.manage_sql import Manage_sql
 from apitest.models import Apitest, Apistep, Apis, Headers, Variables
+from product.models import Product
 
 
 def index(request):
@@ -45,8 +47,7 @@ def home(request):
     return render(request, 'apitest/home.html', context)
 
 
-def test(request):
-    return render(request, 'apitest/test.html')
+
 
 def logout(request):
     return render(request, 'apitest/login.html')
@@ -100,7 +101,7 @@ def apis_manage(request):
         Manage_sql().writeCaseToSQL(case_list)
 
     username = request.session.get('user','')
-
+    productList = Product.objects.all()
     apis_list = Apis.objects.all()
     paginator = Paginator(apis_list, 6)
     page = request.GET.get('page',1)
@@ -112,7 +113,7 @@ def apis_manage(request):
         apis_list = paginator.page(1)
     except EmptyPage:
         apis_list = paginator.page(paginator.num_pages)
-    return render(request, "apitest/apis_manage.html", {"user": username, "apiss": apis_list,"apicounts": apis_count})
+    return render(request, "apitest/apis_manage.html", {"user": username, "apiss": apis_list, "apicounts": apis_count, "products": productList})
 
 @login_required
 def test_report(request):
@@ -146,33 +147,48 @@ def search(request):
 def apissearch(request):
     username = request.session.get('user','')
     apiname = request.GET.get("apiname","")
-    apits_list = Apis.objects.filter(apiname__icontains=apiname)
-    return render(request,"apitest/apis_manage.html",{"user":username,"apiss":apits_list})
+    apis_list = Apis.objects.filter(apiname__icontains=apiname)
+    return render(request,"apitest/apis_manage.html",{"user":username,"apiss":apis_list})
 
 
 def welcome(request):
     return render(request, "apitest/welcome.html")
 
+def test(request):
+    productId = request.POST.get('productId')
+    testResult = request.POST.get('testresult')
+    # testResult = True if testResult == 1 else False
+    print(productId)
+    print(testResult)
+    productList = Product.objects.all()
+    print(productList)
+
+    selectedProduct = "可不选"
+
+    selector = {"-1": "可不选",
+                "0": "测试不通过",
+                "1": "测试通过"}
+    selectedTestResult = selector.get(testResult)
+    # testResultValue = selector.
+    apisList = Apis.objects.all()
+    if productId != '-1':
+        apisList = apisList.filter(Product_id=productId)
+        selectedProduct = productList.get(id=productId)
+    if testResult == '-1':
+        apisList = apisList.filter(apistatus__isnull=True)
+        print('x')
+    else:
+        apisList = apisList.filter(apistatus=True if testResult == '1' else False)
+        # selectedTestResult = "测试不通过" if testResult == "0" else "测试通过"
+        print('y')
+    # print(len(apisList))
+    return render(request, 'apitest/apis_manage.html', {'apiss': apisList, "products": productList, "selectedProduct": selectedProduct, "selectedTestResult": selectedTestResult, "selector": selector})
+
 def testapi(request):
     print('i test.')
     # 开始你的测试逻辑
-    '''
-    Manage_sql().deleteCaseInSQL()
-    # 写进新的数据，这里有个问题就是，在web更新了用例的话，这里实际上跑的还是老用例
-    # 所以需要支持前端更新用例，这里每次都直接从数据库读取就好了，todo
-    variable_list = Manage_sql().getVariablesFromSQL()
 
-    basic_case_list, case_list = Case_collect().collect_data()
-
-    case_list = Case_ready(case_list, variable_list).data_form()
-    # for case in case_list:
-    #     print('case are ready:',case)
-
-    # 第四步，写进表
-    Manage_sql().writeCaseToSQL(case_list)
-    '''
-    # 实际上测试的逻辑应该只有选取已存在的case进行测试，生成case的逻辑应该写在别处
-    # 读取数据
+    # 读取数据（根据给出的条件）
     caselist = Manage_sql().readCaseFromSQL()
 
     # 获取host
