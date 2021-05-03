@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'set.apps.SetConfig',
     'apptest.apps.ApptestConfig',
     'webtest.apps.WebtestConfig',
+    'account.apps.AccountConfig',
+    'blog.apps.BlogConfig',
     'bootstrap4',
 ]
 
@@ -135,13 +137,13 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 HERE = os.path.join(HERE, '../')
@@ -151,3 +153,6 @@ STATICFILES_DIRS = (os.path.join(HERE, 'static/'),)
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/blog/'
+LOGOUT_REDIRECT_URL = '/account/login'

@@ -32,6 +32,8 @@ urlpatterns = [
     path('set/', include('set.urls')),
     path('apptest/', include('apptest.urls')),
     path('webtest/', include('webtest.urls')),
+    path('account/', include('account.urls')),
+    path('blog/', include('blog.urls')),
     # # ex: /polls/5/
     # path('<int:question_id>/', views.detail, name='detail'),
     # # ex: /polls/5/results/
