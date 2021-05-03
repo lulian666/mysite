@@ -28,12 +28,4 @@ def user_login(request):
         return render(request, "account/login.html", {"form": login_form})
 
 
-class LoginUser(LoginView):
-    template_name = 'account/login.html'
-
-
-@login_required
-class LogoutUser(LogoutView):
-    print('logout')
-    # template_name = 'account/login.html'
 
