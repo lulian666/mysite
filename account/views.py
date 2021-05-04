@@ -1,14 +1,13 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetConfirmView
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
-from django.urls import reverse_lazy
 
 from account.forms import LoginForm, RegistrationForm, UserProfileForm
-from blog.models import BlogArticles
+from account.models import UserProfile, UserInfo
 
 
 def user_login(request):
@@ -42,6 +41,7 @@ def register(request):
             new_profile = userprofile_form.save(commit=False)
             new_profile.user = new_user
             new_profile.save()
+            UserInfo.objects.create(user=new_user)
             return HttpResponse('Successfully')
         else:
             return HttpResponse('Sorry, you can not register.')
@@ -56,5 +56,11 @@ def register(request):
 #     blogs = BlogArticles.objects.all()
 #     return render(request, "blog/titles.html", {"blogs": blogs})
 
-# class MyPasswordResetConfirmView(PasswordResetConfirmView):
-#
+
+@login_required(login_url='/account/login/')
+def myself(request):
+    user = User.objects.get(username=request.user.username)
+    userprofile = UserProfile.objects.filter(user=user)
+    userinfo = UserInfo.objects.filter(user=user)
+    return render(request, 'account/myself.html', {"user": user, "userprofile": userprofile, "userinfo": userinfo})
+
