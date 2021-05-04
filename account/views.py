@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetConfirmView
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -52,6 +52,9 @@ def register(request):
 
 
 
-def bug(request):
-    blogs = BlogArticles.objects.all()
-    return render(request, "blog/titles.html", {"blogs": blogs})
+# def bug(request):
+#     blogs = BlogArticles.objects.all()
+#     return render(request, "blog/titles.html", {"blogs": blogs})
+
+# class MyPasswordResetConfirmView(PasswordResetConfirmView):
+#
