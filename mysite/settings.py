@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'webtest.apps.WebtestConfig',
     'account.apps.AccountConfig',
     'blog.apps.BlogConfig',
+    'article.apps.ArticleConfig',
     'bootstrap4',
 ]
 
