@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from article.forms import ArticleColumnForm, ArticlePostForm
-from article.models import ArticleColumn
+from article.models import ArticleColumn, ArticlePost
 
 
 @login_required(login_url='/account/login/')
@@ -79,3 +79,10 @@ def article_post(request):
         article_post_form = ArticlePostForm()
         article_columns = request.user.article_column.all()
         return render(request, 'article/article_post.html', {'article_post_form': article_post_form, 'article_columns': article_columns})
+
+
+
+@login_required(login_url='/account/login/')
+def article_list(request):
+    articles = ArticlePost.objects.filter(author=request.user)
+    return render(request, 'article/article_list.html', {'articles': articles})
