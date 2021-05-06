@@ -92,3 +92,17 @@ def article_list(request):
 def article_detail(request, id, slug):
     article = get_object_or_404(ArticlePost, id=id, slug=slug)
     return render(request, 'article/article_detail.html', {'article': article})
+
+
+
+@login_required(login_url='/account/login/')
+@csrf_exempt
+@require_POST
+def del_article(request):
+    article_id = request.POST['article_id']
+    try:
+        article = ArticlePost.objects.get(id=article_id)
+        article.delete()
+        return HttpResponse('1')
+    except:
+        return HttpResponse('0')
