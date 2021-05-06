@@ -94,7 +94,6 @@ def article_detail(request, id, slug):
     return render(request, 'article/article_detail.html', {'article': article})
 
 
-
 @login_required(login_url='/account/login/')
 @csrf_exempt
 @require_POST
@@ -106,3 +105,17 @@ def del_article(request):
         return HttpResponse('1')
     except:
         return HttpResponse('0')
+
+
+@login_required(login_url='/account/login/')
+@csrf_exempt
+def redit_article(request, article_id):
+    if request.method == 'GET':
+        article_columns = request.user.article_column.all()
+        article = ArticlePost.objects.get(id=article_id)
+        this_article_form = ArticlePostForm(initial={'title': article.title})
+        this_article_column = article.column
+        return render(request, 'article/redit_article.html',
+                      {'article': article, 'article_columns': article_columns,
+                       'this_article_form': this_article_form, 'this_article_column': this_article_column})
+
