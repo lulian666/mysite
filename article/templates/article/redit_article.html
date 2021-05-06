@@ -5,6 +5,7 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'editor/css/style.css' %}"/>
     <link rel="stylesheet" href="{% static 'editor/css/editormd.css' %}"/>
+    <link rel="stylesheet" href="{% static 'editor/css/editormd.min.css' %}"/>
     <div class="container">
         <div class="col-md-10">
             <div style="margin-left: 10px">
@@ -54,5 +55,24 @@
                 path: "{% static "editor/lib/" %}",
             });
         });
+
+        function redit_article(){
+            var title = $('#id_title').val();
+            var column_id = $('#which_column').val();
+            var body = $('#id_body').val();
+            $.ajax({
+                url: '{% url 'article:redit_article' article.id %}',
+                type: 'POST',
+                data: {'title': title, 'column_id': column_id, 'body': body},
+                success: function (e){
+                    if (e=='1'){
+                        layer.msg('success');
+                        location.href = '{% url 'article:article_list' %}';
+                    }else {
+                        layer.msg('fail');
+                    }
+                },
+            });
+        }
     </script>
 {% endblock %}
