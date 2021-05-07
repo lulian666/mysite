@@ -1,7 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from article.models import ArticlePost
 
@@ -39,3 +42,24 @@ def article_titles(request, username=None):
 def article_detail(request, id, slug):
     article = get_object_or_404(ArticlePost, id=id, slug=slug)
     return render(request, 'article/list_article_detail.html', {'article': article})
+
+
+@login_required(login_url='/account/login/')
+@csrf_exempt
+@require_POST
+def like_article(request):
+    article_id = request.POST.get('id')
+    action = request.POST.get('action')
+
+    if article_id and action:
+        try:
+            article = ArticlePost.objects.get(id=article_id)
+            if action == 'like':
+                article.user_like.add(request.user)
+                return HttpResponse('1')
+            else:
+                article.user_like.remove(request.user)
+                return HttpResponse('2')
+        except:
+            return HttpResponse('0')
+

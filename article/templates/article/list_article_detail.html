@@ -3,15 +3,39 @@
 
 {% block title %}article detail{% endblock %}
 {% block content %}
-
+{% with total_likes=article.user_like.count user_like=article.user_like.all %}
     <div>
         <header>
             <h1>{{ article.title }}</h1>
-            <p><a href="{% url 'article:list_author_article' article.author.username %}">{{ user.username }}</a></p>
+            <p><a href="{% url 'article:list_author_article' article.author.username %}">{{ user.username }}</a>
+                <span style="margin-left: 20px" class="glyphicon glyphicon-thumbs-up">{{ total_likes }}&nbsp;like{{ total_likes | pluralize }}</span>
+            </p>
         </header>
         <link rel="stylesheet" href="{% static 'editor/css/editormd.preview.css' %}"/>
         <div id="editormd-view">
             <textarea id="append-test" style="display: none">{{ article.body }}</textarea>
+        </div>
+        <div>
+            <p class="text-center">
+                <a onclick="like_article({{ article.id }}, 'like')" href="#"><span class="glyphicon glyphicon-thumbs-up">like</span></a>
+                <a onclick="like_article({{ article.id }}, 'unlike')" href="#"><span class="glyphicon glyphicon-thumbs-down" style="margin-left: 10px">unlike</span></a>
+            </p>
+        </div>
+        <div>
+            <p class="text-center"><strong>点赞本文的读者</strong></p>
+            <div class="text-center">
+                {% for user in article.user_like.all %}
+                    {% if userinfo.photo %}
+                        <img src="{{ userinfo.photo | striptags }}" class="img-circle" id="my_photo" name="user_face" width="20px" height="20px">
+                    {% else %}
+                        <img src="{% static 'newton.jpeg' %}" name="user_face" class="img-circle" id="my_photo" width="20px" height="20px">
+                    {% endif %}
+                    <p class="text-center">{{ user.username }}</p>
+                {% empty %}
+                    <p class="text-center">还没有人对此文章表态</p>
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 
@@ -24,6 +48,7 @@
     <script type="text/javascript" src="{% static 'editor/lib/flowchart.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'editor/lib/jquery.flowchart.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'editor/editormd.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
 
     <script type="text/javascript">
         $(function (){
@@ -36,5 +61,25 @@
                 sequenceDiagram: true,
             });
         });
+
+        function like_article(id, action) {
+            $.ajax({
+                url: '{% url 'article:list_like_article' %}',
+                type: 'POST',
+                data: {'id': id, 'action': action},
+                success: function (e) {
+                    if (e=='1'){
+                        layer.msg('😄');
+                        window.location.reload();
+                    }else if (e=='2') {
+                        layer.msg('我会继续努力的');
+                        window.location.reload();
+                    }else {
+                        layer.msg('fail')
+                    }
+                },
+            });
+        }
     </script>
+{% endwith %}
 {% endblock %}
