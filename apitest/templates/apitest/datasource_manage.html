@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dj私域</title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            padding-left: 1px;
+        }
+        .row{
+            flex-basis: 100%;
+            display:flex;
+            padding-top: 50px;
+            padding-left: 1px;
+        }
+        .item1{
+            width: 30%;
+        }
+        .item2{
+            width: 70%;
+        }
+        .page-content{
+            padding-left: 30px;
+            padding-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 导航栏-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">&nbsp;</a>
+        <ul class="nav justify-content-start">
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_datasource' %}">step1：数据源管理</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:variables_manage' %}">step2：变量值管理</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">step3：header 管理</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:apis_manage' %}">单一接口</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:apistep_manage' %}">流程接口</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        </ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-link"><a style="color: white" href="#">{{ user }}</a></li>
+            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout'%}">退出</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="box">
+    <div class="row">
+        <span class="item1">
+            <!-- 输入文本进去的-->
+            <div class="page-content">
+                <form class="navbar-form" method="post" action="{% url 'apitest:api_datasource' %}">
+                    {%  csrf_token %}
+                    <br> <label>把 JSON 格式的数据源粘贴进来</label>
+                    <br> <textarea rows="20" cols="30" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none">{{ data }}</textarea>
+                    <br> {{ error }}
+                    <br> <button type="submit" name="analysis">检查</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" name="save">保存case</button>
+                </form>
+            </div>
+        </span>
+        <span class="item2">
+            <!-- 未替换数据的用例-->
+            <div class="page-content">
+
+            </div>
+            <!-- 显示生成的用例-->
+{#            <div class="page-content">#}
+{#                {%  csrf_token %}#}
+{#                <br> <label>生成的 case</label>#}
+{#                <br>#}
+{#                <div class="row" style="padding-top: 5px;">#}
+{#                    <div class="col-md-11">#}
+{#                        <table class="table table-striped">#}
+{#                            <thead>#}
+{#                            <tr>#}
+{#                                <th>产品</th>#}
+{#                                <th>接口名称</th>#}
+{#                                <th>URL 地址</th>#}
+{#                                <th>请求参数</th>#}
+{#                                <th>请求 body</th>#}
+{#                                <th>方法</th>#}
+{#                                <th>预期状态码</th>#}
+{#                                <th>预期结果</th>#}
+{#                            </tr>#}
+{#                            </thead>#}
+{#                            <tbody>#}
+{#                            {% for apis in apiss %}#}
+{#                                <tr>#}
+{#                                    <td>{{ apis.Product.productname }}</td>#}
+{#                                    <td>{{ apis.apiname }}</td>#}
+{#                                    <td>{{ apis.apiurl }}</td>#}
+{#                                    <td>{{ apis.apiparamvalue }}</td>#}
+{#                                    <td>{{ apis.apibodyvalue }}</td>#}
+{#                                    <td>{{ apis.apimethod }}</td>#}
+{#                                    <td>{{ apis.apiexpectstatuscode }}</td>#}
+{#                                    <td>{{ apis.apiexpectresponse }}</td>#}
+{#                                </tr>#}
+{#                            {% endfor %}#}
+{#                            </tbody>#}
+{#                        </table>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <!-- 翻页功能-->#}
+{#                <span style="padding-right: 5px; padding-bottom: 5px">#}
+{#                <div class="container">#}
+{#                    <ul class="pagination" id="pager">#}
+                        {# 上一页链接开始 #}
+{#                        {% if apiss.has_previous %}#}
+{#                            <li class="previous"><a href="/apitest/apis_manage/?page={{ apiss.previous_page_number }}">上一页</a></li>#}
+{#                        {% else %}#}
+{#                            <li class="previous disabled"><a href="#">上一页</a></li>#}
+{#                        {% endif %}#}
+{##}
+{#                        {% for num in apiss.paginator.page_range %}#}
+{#                            {% if num == currentPage %}#}
+{#                                <li class="item active" style="color: red"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>#}
+{#                            {% else %}#}
+{#                                <li class="item"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>#}
+{#                            {% endif %}#}
+{#                            &nbsp;&nbsp;#}
+{#                        {% endfor %}#}
+{##}
+                        {# 下一页链接开始 #}
+{#                        {% if apiss.has_next %}#}
+{#                            <li class="next"><a href="/apitest/apis_manage/?page={{ apiss.next_page_number }}">下一页</a></li>#}
+{#                        {% else %}#}
+{#                            <li class="next disabled"><a href="#">下一页</a></li>#}
+{#                        {% endif %}#}
+{#                    </ul>#}
+{#                </div>#}
+{#                <br>#}
+{#            </div>#}
+        </span>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dj 私域</title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+    <script rel="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="/static/admin/js/actions.js"></script>
+    <script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+    <script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maxinum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css" />
+    <meta name="robots" content="NONE,NOARCHIVE" />
+    <style>
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            padding-left: 1px;
+        }
+        .row{
+            flex-basis: 100%;
+            display:flex;
+            padding-top: 30px;
+            padding-left: 1px;
+        }
+        .item1{
+            width: 100%;
+            padding-left: 50px;
+        }
+        .item2{
+            width: 70%;
+        }
+        .item0{
+            padding-left: 70px;
+            padding-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">&nbsp;</a>
+        <ul class="nav justify-content-start">
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_datasource' %}">step1：数据源管理</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:variables_manage' %}">step2：变量值管理</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">step3：header 管理</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:apis_manage' %}">单一接口</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="active"><a style="color: white" href="{% url 'apitest:apistep_manage' %}">流程接口</a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        </ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-link"><a style="color: white" href="#">{{ user }}</a></li>
+            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout'%}">退出</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="box">
+    <div class="row">
+        <span class="item0">
+            <form class="navbar-form" method="post" action="{% url 'apitest:apis_manage' %}">
+                {%  csrf_token %}
+                <button type="submit" name="birth">用这些数据生成case</button>
+                <label style="color: gray">{{ warning }}</label>
+            </form>
+        </span>
+        <span class="item1">
+        <!-- 参数管理-->
+        <div class="row" style="padding-top: 10px;">
+        <div class="col-md-11">
+            <table class="table table-striped" style="table-layout:fixed;">
+                <thead>
+                <tr style="text-align:left;">
+                    <th>ID</th>
+                    <th>所属产品</th>
+                    <th>变量名</th>
+                    <th>变量值</th>
+                    <th>所属接口</th>
+                    <th>编辑</th>
+                    <th>删除</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for variable in variables %}
+                    <tr>
+                        <td width=100px>{{ variable.id }}</td>
+                        <td width=100px>{{ variable.Product.productname }}</td>
+                        <td width=200px>{{ variable.variable_key }}</td>
+                        <td width=300px>{{ variable.variable_value }}</td>
+                        <td width=300px>{{ variable.from_api }}</td>
+                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        </span>
+        <span class="item2">
+        <!-- 翻页功能-->
+        <span style="position: absolute; right: 150px; bottom: 50px;">
+        <div class="container">
+            <ul class="pagination" id="pager">
+                {# 上一页链接开始 #}
+                {% if variables.has_previous %}
+                    <li class="previous"><a href="/apitest/variables_manage/?page={{ variables.previous_page_number }}">上一页</a></li>
+                {% else %}
+                    <li class="previous disabled"><a href="#">上一页</a></li>
+                {% endif %}
+                &nbsp;&nbsp;
+                {% for num in variables.paginator.page_range %}
+                    {% if num == currentPage %}
+                        <li class="item active" style="color: red"><a href="/apitest/variables_manage/?page={{ num }}">{{ num }}</a></li>
+                    {% else %}
+                        <li class="item"><a href="/apitest/variables_manage/?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                    &nbsp;&nbsp;
+                {% endfor %}
+
+                {# 下一页链接开始 #}
+                {% if variables.has_next %}
+                    <li class="next"><a href="/apitest/variables_manage/?page={{ variables.next_page_number }}">下一页</a></li>
+                {% else %}
+                    <li class="next disabled"><a href="#">下一页</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        </span>
+    </div>
+</div>
+</body>
+</html>

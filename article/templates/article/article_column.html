@@ -1,0 +1,125 @@
+{% extends 'article/base.html' %}
+{% load static %}
+{% block title %}article column{% endblock %}
+{% block content %}
+<div>
+    <p class="text-right"><button class="btn btn-primary btn-lg" id="add_column" onclick="add_column()">add column</button></p>
+    <table class="table table-hover">
+        <tr>
+            <td>序号</td>
+            <td>栏目名称</td>
+            <td>操作</td>
+        </tr>
+        {% for column in columns %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ column.column }}</td>
+                <td>
+                    <a name="edit" href="javascript:" onclick="edit_column(this, {{ column.id }})">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a name="=delete" href="javascript:" onclick="delete_column(this, {{ column.id }})">
+                        <span class="glyphicon glyphicon-trash" style="margin-left: 20px"></span>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <p>没有设置栏目，太懒了。</p>
+        {% endfor %}
+    </table>
+</div>
+<script type="text/javascript" src="{% static 'js/jquery-3.5.1.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+<script type="text/javascript">
+    function add_column(){
+        var index = layer.open({
+            type: 1,
+            skin: 'layui-layer-rim',
+            area: ['400px', '200px'],
+            title: '新增栏目',
+            content: '<div class="text-center" style="margin-top: 20px"><p>请输入新的栏目名称</p><p>{{ column_form.column }}</p></div>',
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                const column_name = $('#id_column').val();
+                $.ajax({
+                    url: '{% url 'article:article_column' %}',
+                    type: 'POST',
+                    data: {'column': column_name},
+                    success: function (e) {
+                        if (e=='1'){
+                            parent.location.reload();
+                            layer.msg('good');
+                        }else {
+                            layer.msg('栏目已存在～');
+                        }
+                    },
+                });
+            },
+            btn2: function (index, layero) {
+                layer.close(index);
+            }
+        });
+    }
+
+    function edit_column(the, column_id) {
+        var name = $(the).parents('tr').children('td').eq(1).text();
+        var index = layer.open({
+            type: 1,
+            skin: 'layui-layer-rim',
+            area: ['400px', '200px'],
+            title: '编辑栏目',
+            content: '<div class="text-center" style="margin-top: 20px"><p>请编辑栏目名称</p><p><input type="text" id="new_name" value="'+name+'"></p></div>',
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                const new_name = $('#new_name').val();
+                $.ajax({
+                    url: '{% url 'article:rename_article_column' %}',
+                    type: 'POST',
+                    data: {'column_id': column_id, 'column_name': new_name},
+                    success: function (e) {
+                        if (e=='1'){
+                            parent.location.reload();
+                            layer.msg('good');
+                        }else {
+                            layer.msg('修改失败～');
+                        }
+                    },
+                });
+            },
+            btn2: function (index, layero) {
+                layer.close(index);
+            }
+        });
+    }
+
+    function delete_column(the, column_id) {
+        var name = $(the).parents('tr').children('td').eq(1).text();
+        var index = layer.open({
+            type: 1,
+            skin: 'layui-layer-rim',
+            area: ['400px', '200px'],
+            title: '删除栏目',
+            content: '<div class="text-center" style="margin-top: 20px"><p>是否确定删除"'+name+'"栏目</p></div>',
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                $.ajax({
+                    url: '{% url 'article:delete_article_column' %}',
+                    type: 'POST',
+                    data: {'column_id': column_id},
+                    success: function (e) {
+                        if (e=='1'){
+                            parent.location.reload();
+                            layer.msg('good');
+                        }else {
+                            layer.msg('删除失败～');
+                        }
+                    },
+                });
+            },
+            btn2: function (index, layero) {
+                layer.close(index);
+            }
+        });
+    }
+</script>
+{% endblock %}
