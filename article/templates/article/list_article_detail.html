@@ -9,6 +9,7 @@
             <h1>{{ article.title }}</h1>
             <p><a href="{% url 'article:list_author_article' article.author.username %}">{{ user.username }}</a>
                 <span style="margin-left: 20px" class="glyphicon glyphicon-thumbs-up">{{ total_likes }}&nbsp;like{{ total_likes | pluralize }}</span>
+                <span style="margin-left: 20px">{{ total_views }}&nbsp;view{{ total_views | pluralize }}</span>
             </p>
         </header>
         <link rel="stylesheet" href="{% static 'editor/css/editormd.preview.css' %}"/>
