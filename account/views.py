@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from django.urls import reverse
 
 from account.forms import LoginForm, RegistrationForm, UserProfileForm, UserForm, UserInfoForm
 from account.models import UserProfile, UserInfo
@@ -32,6 +33,7 @@ def user_login(request):
 
 def register(request):
     if request.method == 'POST':
+        print(request.POST)
         user_form = RegistrationForm(request.POST)
         userprofile_form = UserProfileForm(request.POST)
         if user_form.is_valid() * userprofile_form.is_valid():
@@ -42,19 +44,14 @@ def register(request):
             new_profile.user = new_user
             new_profile.save()
             UserInfo.objects.create(user=new_user)
-            return HttpResponse('Successfully')
+            # return HttpResponse('Successfully')
+            return HttpResponseRedirect(reverse('account:user_login'))
         else:
             return HttpResponse('Sorry, you can not register.')
     else:
         user_form = RegistrationForm()
         userprofile_form = UserProfileForm()
         return render(request, 'account/register.html', {'form': user_form, 'profile': userprofile_form})
-
-
-
-# def bug(request):
-#     blogs = BlogArticles.objects.all()
-#     return render(request, "blog/titles.html", {"blogs": blogs})
 
 
 @login_required(login_url='/account/login/')

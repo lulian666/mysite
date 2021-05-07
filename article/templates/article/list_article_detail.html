@@ -7,7 +7,7 @@
     <div>
         <header>
             <h1>{{ article.title }}</h1>
-            <p>{{ user.username }}</p>
+            <p><a href="{% url 'article:list_author_article' article.author.username %}">{{ user.username }}</a></p>
         </header>
         <link rel="stylesheet" href="{% static 'editor/css/editormd.preview.css' %}"/>
         <div id="editormd-view">

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}home page{% endblock %}
+{% block content %}
+    <div class="text-center">
+        <h1>Welcome You.</h1>
+        <h3>You're being watched.</h3>
+        <h2>Never look back.</h2>
+        {% load static %}
+        <img src="{% static 'images/noface.jpg' %}">
+    </div>
+{% endblock %}

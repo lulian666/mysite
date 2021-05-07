@@ -149,7 +149,7 @@ STATICFILES_DIRS = (os.path.join(HERE, 'static/'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/account/login'
 
 EMAIL_HOST = 'smtp.gmail.com'

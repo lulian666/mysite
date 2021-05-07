@@ -13,4 +13,5 @@ urlpatterns = [
     path('redit-article/(<article_id>)/', views.redit_article, name='redit_article'),
     path('list-article-title/', list_views.article_titles, name='list_article_title'),
     path('list-article-detail/(<id>)/(<slug>)/', list_views.article_detail, name='list_article_detail'),
+    path('list-article-title/(<username>)/', list_views.article_titles, name='list_author_article'),
 ]

@@ -19,7 +19,7 @@ class ArticlePost(models.Model):
     slug = models.CharField(max_length=500)
     column = models.ForeignKey(ArticleColumn, related_name='article_column', on_delete=models.CASCADE)
     body = models.TextField()
-    created = models.DateTimeField(default=timezone.now())
+    created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:

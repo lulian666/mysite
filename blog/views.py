@@ -5,7 +5,6 @@ from django.shortcuts import render, get_object_or_404
 from blog.models import BlogArticles
 
 
-@login_required
 def blog_title(request):
     blogs = BlogArticles.objects.all()
     return render(request, "blog/titles.html", {"blogs": blogs})
