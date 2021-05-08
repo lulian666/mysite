@@ -10,7 +10,6 @@ from article.models import ArticlePost
 import redis
 from django.conf import settings
 
-
 r = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
 
 
@@ -47,7 +46,16 @@ def article_titles(request, username=None):
 def article_detail(request, id, slug):
     article = get_object_or_404(ArticlePost, id=id, slug=slug)
     total_views = r.incr('article:{}:views'.format(article.id))
-    return render(request, 'article/list_article_detail.html', {'article': article, 'total_views': total_views})
+    r.zincrby('article_ranking', article.id, 1)
+
+    article_ranking = r.zrange('article_ranking', 0, -1, desc=True)[:10]
+    print('article_ranking:', article_ranking)
+    article_ranking_ids = [int(id) for id in article_ranking]
+    print('article_ranking_ids:', article_ranking_ids)
+    most_viewed = list(ArticlePost.objects.filter(id__in=article_ranking_ids))
+    most_viewed.sort(key=lambda x: article_ranking_ids.index(x.id))
+    return render(request, 'article/list_article_detail.html',
+                  {'article': article, 'total_views': total_views, 'most_viewed': most_viewed})
 
 
 @login_required(login_url='/account/login/')
@@ -68,4 +76,3 @@ def like_article(request):
                 return HttpResponse('2')
         except:
             return HttpResponse('0')
-

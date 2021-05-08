@@ -4,7 +4,8 @@
 {% block title %}article detail{% endblock %}
 {% block content %}
 {% with total_likes=article.user_like.count user_like=article.user_like.all %}
-    <div>
+    <div class="container">
+        <div class="col-md-9">
         <header>
             <h1>{{ article.title }}</h1>
             <p><a href="{% url 'article:list_author_article' article.author.username %}">{{ user.username }}</a>
@@ -37,6 +38,17 @@
                 {% endfor %}
             </div>
 
+        </div>
+    </div>
+        <div class="col-md-3">
+            <p class="text-center"><h3>最受欢迎的文章</h3></p>
+            <ol>
+                {% for article_rank in most_viewed %}
+                <li>
+                    <a href="{{ article_rank.get_url_path }}">{{ article_rank.title }}</a>
+                </li>
+                {% endfor %}
+            </ol>
         </div>
     </div>
 
