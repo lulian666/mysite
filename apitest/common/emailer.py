@@ -13,8 +13,11 @@ import threading
 from apitest.common.read_config import Read_config
 
 localReadConfig = Read_config()
+# root = os.path.abspath('.') #获取当前工作目录路径
+# # filepath = os.path.join(root, 'apitest/config/config_kuainiao.ini')
 filename = '{date}_TestReport.html'.format(date=time.strftime('%Y%m%d%H'))
-dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '../report')
+# dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '../report')
+dir = root = os.path.abspath('.')
 filename = os.path.join(dir, filename)
 
 class Email:
@@ -22,14 +25,14 @@ class Email:
 
         global host, user, password, port, sender, title,receivers
 
-        sender = localReadConfig.get_value('EMAIL','sender') # 发件人
+        sender = localReadConfig.get_value('EMAIL', 'sender') # 发件人
         # receivers = ['lulian@iftech.io','zhouxin@iftech.io','songwei@iftech.io']  # 收件人
         receivers = ['lulian@iftech.io']  # 收件人
         # receivers = ['test@163.com','test@vip.qq.com']  # 接收多个邮件，可设置为你的QQ邮箱或者其他邮箱
-        host = localReadConfig.get_value('EMAIL','mail_host')# 设置服务器
-        port = localReadConfig.get_value('EMAIL','mail_port') # 设置服务器
-        user = localReadConfig.get_value('EMAIL','mail_user')# QQ邮件登录名称
-        password = localReadConfig.get_value('EMAIL','mail_pass')# QQ邮箱的授权码
+        host = localReadConfig.get_value('EMAIL', 'mail_host')# 设置服务器
+        port = localReadConfig.get_value('EMAIL', 'mail_port') # 设置服务器
+        user = localReadConfig.get_value('EMAIL', 'mail_user')# QQ邮件登录名称
+        password = localReadConfig.get_value('EMAIL', 'mail_pass')# QQ邮箱的授权码
 
         title = localReadConfig.get_value('EMAIL','subject')#邮件主题
 

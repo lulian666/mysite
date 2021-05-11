@@ -2,7 +2,16 @@
 import configparser
 import os
 
+
 class Read_config:
+    def get_value(self, section, item):
+        cf = configparser.ConfigParser()
+        root = os.path.abspath('.') #获取当前工作目录路径
+        filepath = os.path.join(root, 'apitest/config/config_kuainiao.ini')
+        cf.read(filepath)
+        value = cf.get(section, item)
+        return value
+
     def get_variable(self, variable_list, productId, api, item):
         # 任务是从variable_list里面找出对应productId, api里的item的值
         # variable_list应该是长这个样子：[[2,xxx,xxx,xxx],[...]]

@@ -1,3 +1,4 @@
+import ast
 import json
 import os
 
@@ -113,14 +114,39 @@ def apis_manage(request):
     if 'selected_test_result' in request.GET:
         api_list, selected_test_result, selected_product_id = list_filter(request.GET, api_list)
 
-    if 'filter' in request.POST:
+    if request.method == 'POST':
         api_list, selected_test_result, selected_product_id = list_filter(request.POST, api_list)
+        if 'run_test' in request.POST:
+            test_case(api_list)
 
     apis_count, apis_page_list = paginator(request, Apis, api_list, 6)
     return render(request, 'apitest/apis_manage.html',
                   {'api_list': apis_page_list, "product_list": product_list,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                    'selected_product_id': selected_product_id, 'apis_count': apis_count})
+
+
+def test_case(model_list):
+    """
+    根据筛选出来的list来执行测试
+    :param model_list: QuerySet类型
+    :return: 
+    """
+    case_list = []
+
+    for case in model_list:
+        case_list.append([case.id, case.apiurl, case.apimethod, ast.literal_eval(case.apiparamvalue), ast.literal_eval(case.apibodyvalue),
+                         case.apiexpectstatuscode, case.apiexpectresponse])
+
+    # 获取host
+    host = Manage_sql().get_host_of_product(2)
+
+    # 进行测试
+    tester = Case_request()
+    case_list = tester.send_request(case_list, host)
+
+    # 将测试结果更新数据库
+    Manage_sql().updateCaseToSQL(case_list)
 
 
 @login_required
@@ -173,10 +199,10 @@ def testapi(request):
     # 开始你的测试逻辑
 
     # 读取数据（根据给出的条件）
-    caselist = Manage_sql().readCaseFromSQL()
+    caselist = Manage_sql().read_case_from_sql()
 
     # 获取host
-    host = Manage_sql().getHostofProduct(2)
+    host = Manage_sql().get_host_of_product(2)
 
     # 进行测试
     tester = Case_request()
