@@ -103,7 +103,7 @@
                     {%  csrf_token %}
                     <label>选择测试范围：</label>
                     <br> <label>所属项目：</label>
-                         <select style="padding: 1px; width: 150px;" name="product_id" autocomplete="off">
+                         <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
                             <option value="-1">全部</option>
                              {%  for product in product_list %}
                                 {% if product.id == selected_product_id %}
@@ -114,7 +114,7 @@
                              {% endfor %}
                         </select>
                     <br> <label>测试结果：</label>
-                        <select style="padding: 1px; width: 150px;" name="test_result">
+                        <select style="padding: 1px; width: 150px;" name="selected_test_result">
                             <option value="-1">全部</option>
                             {% for test_result in test_result_list %}
                                 {% ifequal selected_test_result test_result %}
@@ -188,23 +188,24 @@
                 <ul class="pagination" id="pager">
                     {# 上一页链接开始 #}
                     {% if api_list.has_previous %}
-                        <li class="previous"><a href="/apitest/apis_manage/?page={{ api_list.previous_page_number }}">上一页</a></li>
+                        <li class="previous"><a href="/apitest/apis_manage/?page={{ api_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">上一页</a></li>
                     {% else %}
                         <li class="previous disabled"><a href="#">上一页</a></li>
                     {% endif %}
-                    &nbsp;&nbsp;
-                    {% for num in api_list.paginator.page_range %}
-                        {% if num == currentPage %}
-                            <li class="item active" style="color: red"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>
-                        {% else %}
-                            <li class="item"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>
-                        {% endif %}
-                        &nbsp;&nbsp;
-                    {% endfor %}
+
+{#                    {% for num in api_list.paginator.page_range %}#}
+{#                        {% if num == currentPage %}#}
+{#                            <li class="item active" style="color: red"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>#}
+{#                        {% else %}#}
+{#                            <li class="item"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>#}
+{#                        {% endif %}#}
+{#                        &nbsp;&nbsp;#}
+{#                    {% endfor %}#}
 
                     {# 下一页链接开始 #}
                     {% if api_list.has_next %}
-                        <li class="next"><a href="/apitest/apis_manage/?page={{ api_list.next_page_number }}">下一页</a></li>
+                        <li class="next"><a href="/apitest/apis_manage/?page={{ api_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">下一页</a></li>
+{#                        <li class="next"><a onclick="next_page({{ api_list.next_page_number }}, {{ selected_product_id }}, {{ selected_test_result }}, {{ api_list }})" href="#">下一页</a></li>#}
                     {% else %}
                         <li class="next disabled"><a href="#">下一页</a></li>
                     {% endif %}
@@ -222,8 +223,18 @@
     </div>
     </div>
 </div>
-
-
-
+{#<script type="text/javascript" src="{% static 'js/jquery-3.5.1.min.js' %}"></script>#}
+{#<script type="text/javascript">#}
+{#    function next_page(page, selected_product_id, selected_test_result, api_list){#}
+{#        $.ajax({#}
+{#            url: '{% url 'apitest:apis_manage' %}',#}
+{#            type: 'GET',#}
+{#            data: {'page': page, 'selected_product_id': selected_product_id, 'selected_product_id': selected_product_id, 'api_list': api_list},#}
+{#            success: function (e) {#}
+{##}
+{#            },#}
+{#        });#}
+{#    }#}
+{#</script>#}
 </body>
 </html>

@@ -89,6 +89,11 @@ def apistep_manage(request):
 
 @login_required
 def apis_manage(request):
+    """
+    单一接口页面管理
+    :param request:
+    :return:
+    """
     # 这一段一时想不起来是干什么用的，并且也没找到任何地方调用这里，先注释掉
     # if 'birth' in request.POST:
     #     # 这里要生成case了哦！
@@ -100,22 +105,22 @@ def apis_manage(request):
     #
     #     Manage_sql().deleteCaseInSQL()
     #     Manage_sql().writeCaseToSQL(case_list)
-
-    test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
     product_list = Product.objects.all()
-    apis_list = Apis.objects.all()
-    apis_count, apis_page_list = paginator(request, Apis, apis_list, 6)
+    api_list = Apis.objects.all()
+    test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
+    selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+
+    if 'selected_test_result' in request.GET:
+        api_list, selected_test_result, selected_product_id = list_filter(request.GET, api_list)
 
     if 'filter' in request.POST:
-        apis_list_filtered, selected_test_result, selected_product_id = list_filter(request, apis_list)
-        return render(request, 'apitest/apis_manage.html',
-                      {'api_list': apis_list_filtered, "product_list": product_list,
-                       'test_result_list': test_result_list, "selected_test_result": selected_test_result,
-                       'selected_product_id': selected_product_id, 'apis_count': apis_list_filtered.count()})
+        api_list, selected_test_result, selected_product_id = list_filter(request.POST, api_list)
 
-    return render(request, "apitest/apis_manage.html",
-                  {"api_list": apis_page_list, "apis_count": apis_count,
-                   "product_list": product_list, 'test_result_list': test_result_list})
+    apis_count, apis_page_list = paginator(request, Apis, api_list, 6)
+    return render(request, 'apitest/apis_manage.html',
+                  {'api_list': apis_page_list, "product_list": product_list,
+                   'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                   'selected_product_id': selected_product_id, 'apis_count': apis_count})
 
 
 @login_required
@@ -329,7 +334,7 @@ def paginator(request, model, page_list, number):
     """
     paginator = Paginator(page_list, number)
     page = request.GET.get('page', 1)
-    list_count = model.objects.all().count()
+    list_count = page_list.__len__()
 
     try:
         page_list = paginator.page(page)
@@ -348,12 +353,13 @@ def list_filter(request, list_to_filter):
     :param list_to_filter:
     :return:
     """
-    selected_product_id = request.POST.get('product_id')
-    selected_test_result = request.POST.get('test_result')
+    selected_product_id = request.get('selected_product_id')
+    selected_test_result = request.get('selected_test_result')
     list_filtered = list_to_filter
 
     if selected_product_id != '-1':
         list_filtered = list_to_filter.filter(Product_id=selected_product_id)
     if selected_test_result != '-1':
         list_filtered = list_to_filter.filter(apistatus=True if selected_test_result == '1' else False)
+
     return list_filtered, int(selected_test_result), int(selected_product_id)
