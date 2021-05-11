@@ -16,8 +16,8 @@ from django.urls import reverse
 
 from apitest.common.case_collect_data import Case_collect
 from apitest.common.case_readyfortest import Case_ready
-from apitest.common.case_test import Case_request
-from apitest.common.manage_sql import Manage_sql
+from apitest.common.case_test import CaseRequest
+from apitest.common.managesql import ManageSql
 from apitest.models import Apitest, Apistep, Apis, Headers, Variables
 from product.models import Product
 
@@ -98,14 +98,14 @@ def apis_manage(request):
     # 这一段一时想不起来是干什么用的，并且也没找到任何地方调用这里，先注释掉
     # if 'birth' in request.POST:
     #     # 这里要生成case了哦！
-    #     Manage_sql().deleteCaseInSQL()
-    #     variable_list = Manage_sql().getVariablesFromSQL()
+    #     ManageSql().deleteCaseInSQL()
+    #     variable_list = ManageSql().getVariablesFromSQL()
     #
     #     basic_case_list, case_list = Case_collect().collect_data()
     #     case_list = Case_ready(case_list, variable_list).data_form()
     #
-    #     Manage_sql().deleteCaseInSQL()
-    #     Manage_sql().writeCaseToSQL(case_list)
+    #     ManageSql().deleteCaseInSQL()
+    #     ManageSql().writeCaseToSQL(case_list)
     product_list = Product.objects.all()
     api_list = Apis.objects.all()
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
@@ -130,7 +130,7 @@ def test_case(model_list):
     """
     根据筛选出来的list来执行测试
     :param model_list: QuerySet类型
-    :return: 
+    :return:
     """
     case_list = []
 
@@ -139,14 +139,15 @@ def test_case(model_list):
                          case.apiexpectstatuscode, case.apiexpectresponse])
 
     # 获取host
-    host = Manage_sql().get_host_of_product(2)
+    host = ManageSql().get_host_of_product(case.Product_id)
+    # todo: 这里的一个问题就是，我的机制是默认所有case都隶属同一个项目，所以host都一样，但实际情况还是要每一条case有自己的host
 
     # 进行测试
-    tester = Case_request()
+    tester = CaseRequest()
     case_list = tester.send_request(case_list, host)
 
     # 将测试结果更新数据库
-    Manage_sql().updateCaseToSQL(case_list)
+    ManageSql.update_case_to_sql(case_list)
 
 
 @login_required
@@ -199,16 +200,16 @@ def testapi(request):
     # 开始你的测试逻辑
 
     # 读取数据（根据给出的条件）
-    caselist = Manage_sql().read_case_from_sql()
+    caselist = ManageSql().read_case_from_sql()
 
     # 获取host
-    host = Manage_sql().get_host_of_product(2)
+    host = ManageSql().get_host_of_product(2)
 
     # 进行测试
-    tester = Case_request()
+    tester = CaseRequest()
     caselist = tester.send_request(caselist, host)
 
-    Manage_sql().updateCaseToSQL(caselist)
+    ManageSql().update_case_to_sql(caselist)
     print('Done!')
 
     username = request.session.get('user', '')
@@ -270,10 +271,10 @@ def datasource(request):
                     if len(param_list) >= 0:
                         print("param_list:", param_list)
                         variables_dict.update({case[0]: param_list})
-            Manage_sql().deleteVariablesInSQL()
-            Manage_sql().writeVariablesToSQL(2, variables_dict)
-            # Manage_sql().deleteCaseInSQL()
-            # Manage_sql().writeCaseToSQL(case_list)
+            ManageSql().delete_variables_in_sql()
+            ManageSql().write_variables_to_sql(2, variables_dict)
+            # ManageSql().deleteCaseInSQL()
+            # ManageSql().writeCaseToSQL(case_list)
         else:
             error = 'this is empty!!'
 
