@@ -98,35 +98,31 @@
             </div>
         </span>
         <span class="item2">
-            <!-- 添加数据-->
             <div class="page-header">
-                <form class="column" method="post" action="{% url 'apitest:test' %}">
+                <form class="column" method="post" action="{% url 'apitest:apis_manage' %}">
                     {%  csrf_token %}
                     <label>选择测试范围：</label>
                     <br> <label>所属项目：</label>
-                         <select style="padding: 1px; width: 150px;" name="productId">
-{#                            {% if selectedProduct != "可不选" %}#}
-                            {% if selectedProduct == "可不选" %}
-
-                                <option value ="-1">可不选</option>
-                            {% else %}
-                                <option value="{{ selectedProduct.id }}">{{ selectedProduct }}</option>
-                            <option value ="-1">可不选</option>
-                            {% endif %}
-                             {% for product in products %}
-                              <option value ="{{ product.id }}">{{ product.productname }}</option>
+                         <select style="padding: 1px; width: 150px;" name="product_id" autocomplete="off">
+                            <option value="-1">全部</option>
+                             {%  for product in product_list %}
+                                {% if product.id == selected_product_id %}
+                                 <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                                 {% else %}
+                                 <option value ="{{ product.id }}">{{ product.productname }}</option>
+                                 {% endif %}
                              {% endfor %}
                         </select>
                     <br> <label>测试结果：</label>
-                        <select style="padding: 1px; width: 150px;" name="testresult">
-                            {% if selectedTestResult != "可不选" %}
-                                <option value="{% if selectedTestResult == "0" %} 0 {% else %} 1 {% endif %}">{{ selectedTestResult }}</option>
-                                <option value ="-1">可不选</option>
-                            {% else %}
-                                <option value ="-1">可不选</option>
-                            {% endif %}
-                            <option value ="0">测试不通过</option>
-                            <option value ="1">测试通过</option>
+                        <select style="padding: 1px; width: 150px;" name="test_result">
+                            <option value="-1">全部</option>
+                            {% for test_result in test_result_list %}
+                                {% ifequal selected_test_result test_result %}
+                                    <option value="{{ test_result }}" selected>{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                                {% else %}
+                                    <option value="{{ test_result }}">{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                                {% endifequal %}
+                            {% endfor %}
                         </select>
                     <br> <button type="submit" name="filter">查看所选测试用例</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -160,7 +156,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for apis in apiss %}
+                        {% for apis in api_list %}
                             <tr>
                                 <td width=100px>{{ apis.id }}</td>
                                 <td width=200px>{{ apis.Product.productname }}</td>
@@ -191,13 +187,13 @@
             <div class="container">
                 <ul class="pagination" id="pager">
                     {# 上一页链接开始 #}
-                    {% if apiss.has_previous %}
-                        <li class="previous"><a href="/apitest/apis_manage/?page={{ apiss.previous_page_number }}">上一页</a></li>
+                    {% if api_list.has_previous %}
+                        <li class="previous"><a href="/apitest/apis_manage/?page={{ api_list.previous_page_number }}">上一页</a></li>
                     {% else %}
                         <li class="previous disabled"><a href="#">上一页</a></li>
                     {% endif %}
                     &nbsp;&nbsp;
-                    {% for num in apiss.paginator.page_range %}
+                    {% for num in api_list.paginator.page_range %}
                         {% if num == currentPage %}
                             <li class="item active" style="color: red"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>
                         {% else %}
@@ -207,8 +203,8 @@
                     {% endfor %}
 
                     {# 下一页链接开始 #}
-                    {% if apiss.has_next %}
-                        <li class="next"><a href="/apitest/apis_manage/?page={{ apiss.next_page_number }}">下一页</a></li>
+                    {% if api_list.has_next %}
+                        <li class="next"><a href="/apitest/apis_manage/?page={{ api_list.next_page_number }}">下一页</a></li>
                     {% else %}
                         <li class="next disabled"><a href="#">下一页</a></li>
                     {% endif %}
@@ -219,7 +215,7 @@
             <div>
                 <tr>
                     <th>总数</th>
-                    <td>{{ apicounts }}</td>
+                    <td>{{ apis_count }}</td>
                 </tr>
             </div>
         </span>
