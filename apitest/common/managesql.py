@@ -9,6 +9,11 @@ import pymysql
 class ManageSql:
     @staticmethod
     def write_case_to_sql(case_list):
+        """
+        把测试用例写进数据库
+        :param case_list:
+        :return:
+        """
         sql = "insert into apitest_apis(apiname,apiurl,apimethod,apiparamvalue,apibodyvalue,apiexpectstatuscode,Product_id) values(%s,%s,%s,%s,%s,%s,%s);"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
@@ -72,6 +77,12 @@ class ManageSql:
 
     @staticmethod
     def write_variables_to_sql(product_id, variables_dict):
+        """
+        把从接口里梳理出来的参数写到数据库里
+        :param product_id: 对应的项目id
+        :param variables_dict: 参数-值
+        :return:
+        """
         sql = "INSERT INTO apitest_variables(from_api,Product_id,variable_key) VALUES(%s,%s,%s)"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()

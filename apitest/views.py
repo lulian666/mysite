@@ -4,18 +4,15 @@ import os
 
 import pymysql
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from django.contrib.auth import authenticate, login
 
 # Create your views here.
 from django.urls import reverse
 
 from apitest.common.case_collect_data import Case_collect
-from apitest.common.case_readyfortest import Case_ready
 from apitest.common.case_test import CaseRequest
 from apitest.common.managesql import ManageSql
 from apitest.models import Apitest, Apistep, Apis, Headers, Variables

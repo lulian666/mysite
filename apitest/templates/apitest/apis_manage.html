@@ -38,7 +38,7 @@
             justify-content: flex-start;
             align-items: flex-start;
         }
-        .item4 {
+        .item1 {
             align-items: flex-start;
         }
 
@@ -88,21 +88,20 @@
 <div class="box">
     <div class="column">
         <span class="item1">
+            <div class="container">
             <!-- 搜索栏-->
             <div class="page-header" style="padding-top: 70px">
                 <form class="navbar-form" method="get" action="{% url 'apitest:apissearch' %}">
                     {%  csrf_token %}
                     <input type="search" name="apiname" placeholder="名称" required>
-                    <button type="submit">搜索</button>
+                    <button type="submit" style="margin-left: 20px">搜索</button>
                 </form>
             </div>
-        </span>
-        <span class="item2">
-            <div class="page-header">
-                <form class="column" method="post" action="{% url 'apitest:apis_manage' %}">
+            <div class="page-header" style="padding-top: 20px">
+                <form class="row" method="post" action="{% url 'apitest:apis_manage' %}">
                     {%  csrf_token %}
                     <label>选择测试范围：</label>
-                    <br> <label>所属项目：</label>
+                    <label>所属项目：</label>
                          <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
                             <option value="-1">全部</option>
                              {%  for product in product_list %}
@@ -113,7 +112,7 @@
                                  {% endif %}
                              {% endfor %}
                         </select>
-                    <br> <label>测试结果：</label>
+                    <label style="margin-left: 20px">测试结果：</label>
                         <select style="padding: 1px; width: 150px;" name="selected_test_result">
                             <option value="-1">全部</option>
                             {% for test_result in test_result_list %}
@@ -124,10 +123,10 @@
                                 {% endifequal %}
                             {% endfor %}
                         </select>
-                    <br> <button type="submit" name="filter">查看所选测试用例</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="submit" name="run_test">执行测试</button>
+                    <button type="submit" name="filter" style="margin-left: 50px">查看所选测试用例</button>
+                    <button type="submit" name="run_test" style="margin-left: 20px">执行测试</button>
                 </form>
+            </div>
             </div>
         </span>
     <div class="row">
