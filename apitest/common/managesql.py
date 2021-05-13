@@ -66,7 +66,6 @@ class ManageSql:
 
         # 这里开始循环更新表
         for case in case_list:
-            print(case)
             param = (case[7].__str__(), case[8].__str__().strip(), case[9], case[0].__str__())  # 不转换成str会出错，因为值里面有引号
             cursor.execute(sql, param)
             coon.commit()
@@ -87,7 +86,6 @@ class ManageSql:
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
         for api, variable_list in variables_dict.items():
-            print(api, variable_list)
             for variable in variable_list:
                 param = (api, product_id, variable)
                 cursor.execute(sql, param)

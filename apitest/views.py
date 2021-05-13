@@ -116,7 +116,7 @@ def apis_manage(request):
         if 'run_test' in request.POST:
             test_case(api_list)
 
-    apis_count, apis_page_list = paginator(request, Apis, api_list, 6)
+    apis_count, apis_page_list = paginator(request, api_list, 6)
     return render(request, 'apitest/apis_manage.html',
                   {'api_list': apis_page_list, "product_list": product_list,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
@@ -136,7 +136,7 @@ def test_case(model_list):
                          case.apiexpectstatuscode, case.apiexpectresponse])
 
     # 获取host
-    host = ManageSql().get_host_of_product(case.Product_id)
+    host = ManageSql().get_host_of_product(2)
     # todo: 这里的一个问题就是，我的机制是默认所有case都隶属同一个项目，所以host都一样，但实际情况还是要每一条case有自己的host
 
     # 进行测试
@@ -347,7 +347,7 @@ def check_json_format(raw_msg):
         return False
 
 
-def paginator(request, model, page_list, number):
+def paginator(request, page_list, number):
     """
     分页函数
     :param request:
@@ -356,6 +356,7 @@ def paginator(request, model, page_list, number):
     :param number: 一页分多少
     :return: 列表的总数和对应页数的list
     """
+    page_list = page_list.order_by('id')
     paginator = Paginator(page_list, number)
     page = request.GET.get('page', 1)
     list_count = page_list.__len__()
