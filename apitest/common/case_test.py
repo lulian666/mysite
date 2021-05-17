@@ -1,6 +1,5 @@
 # coding:utf-8
 import os
-import sys
 import time
 import requests
 from json import JSONDecodeError
@@ -13,7 +12,6 @@ from apitest.common.reporter import Template_mixin
 class CaseRequest:
     def __init__(self):
         self.table_tr_fail = self.table_tr_success = ''
-
         self.num_success = self.num_fail = 0
         self.html = Template_mixin()
 
@@ -67,8 +65,6 @@ class CaseRequest:
 
         # 生成html报告
         filename = '{date}_TestReport.html'.format(date=time.strftime('%Y%m%d%H'))
-
-        # 获取report的路径
         root = os.path.abspath('.')
         filepath = os.path.join(root, 'apitest/report/'+filename)
 
@@ -79,11 +75,15 @@ class CaseRequest:
             Email(self.num_fail).send_email()
         return
 
-    def get_num_fail(self):
-        return self.num_fail
-
 
 def request(case, host, header):
+    """
+    request
+    :param case:
+    :param host:
+    :param header: 
+    :return:
+    """
     if case[2] == 'get' or case[2] == 'GET':
         result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
     else:
