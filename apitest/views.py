@@ -13,7 +13,7 @@ from django.contrib import auth
 from django.urls import reverse
 
 from apitest.common.case_collect_data import Case_collect
-from apitest.common.case_test import CaseRequest
+from apitest.common.case_test import TestCaseRequest
 from apitest.common.managesql import ManageSql
 from apitest.models import Apitest, Apistep, Apis, Headers, Variables
 from product.models import Product
@@ -140,8 +140,8 @@ def test_case(model_list):
     # todo: 这里的一个问题就是，我的机制是默认所有case都隶属同一个项目，所以host都一样，但实际情况还是要每一条case有自己的host
 
     # 进行测试
-    tester = CaseRequest()
-    case_list = tester.send_request(case_list, host)
+    tester = TestCaseRequest(case_list, host)
+    case_list = tester.send_request()
 
     # 将测试结果更新数据库
     ManageSql.update_case_to_sql(case_list)
@@ -203,7 +203,7 @@ def testapi(request):
     host = ManageSql().get_host_of_product(2)
 
     # 进行测试
-    tester = CaseRequest()
+    tester = TestCaseRequest()
     caselist = tester.send_request(caselist, host)
 
     ManageSql().update_case_to_sql(caselist)
