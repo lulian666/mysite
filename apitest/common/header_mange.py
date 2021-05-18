@@ -16,7 +16,7 @@ class HeaderManage:
         info = cursor.fetchmany(aa)
 
         headers = []
-        for ii in info: # 读出来的是元组类型的字典
+        for ii in info:  # 读出来的是元组类型的字典
             headers.append(ii)
         headers = dict(headers)
         coon.commit()

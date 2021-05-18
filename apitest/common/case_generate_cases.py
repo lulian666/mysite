@@ -69,7 +69,7 @@ class Case_generate:
 
     def generate(self):
         self.basic_case.append([self.url, self.method, self.parameters, self.body,200])
-        print('0:', [self.url, self.method, self.parameters, self.body,200])
+        # print('0:', [self.url, self.method, self.parameters, self.body,200])
         self.miss_unrequired()
         self.miss_required()
         all_case = self.basic_case + self.ok_case + self._400_case
@@ -119,7 +119,7 @@ class Case_generate:
         if m > 0:
             # 得到的是body中所有参数的一个排列组合（准确地说是body中key值的排列组合
             parameters_list = list(itertools.combinations(whichpart, len(whichpart) - 1))
-            print("parameters_list:", parameters_list)
+            # print("parameters_list:", parameters_list)
             for params_combi in parameters_list:
                 n = 0
                 temp = {}
@@ -132,7 +132,7 @@ class Case_generate:
                         # print('1:',[self.url, self.method, temp, self.body, 400])
                     else:
                         self._400_case2.append([self.url, self.method, self.parameters, {}, 400])
-                        print('2:',[self.url, self.method, self.parameters, {}, 400])
+                        # print('2:',[self.url, self.method, self.parameters, {}, 400])
                 if n == m - 1 and len(params_combi) != 0:
                     # 如果正好小1，那就是我们想要的case
                     # 需要把params_combi变回原来的格式
@@ -150,4 +150,4 @@ class Case_generate:
                         # print('3:',[self.url, self.method, temp, self.body, 400])
                     else:
                         self._400_case2.append([self.url, self.method, self.parameters, temp, 400])
-                        print('4:',[self.url, self.method, self.parameters, {}, 400])
+                        # print('4:',[self.url, self.method, self.parameters, {}, 400])

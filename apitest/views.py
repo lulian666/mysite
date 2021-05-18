@@ -12,7 +12,7 @@ from django.contrib import auth
 # Create your views here.
 from django.urls import reverse
 
-from apitest.common.case_collect_data import Case_collect
+from apitest.common.case_collect_data import CaseCollect
 from apitest.common.case_test import TestCaseRequest
 from apitest.common.managesql import ManageSql
 from apitest.models import Apitest, Apistep, Apis, Headers, Variables
@@ -98,7 +98,7 @@ def apis_manage(request):
     #     ManageSql().deleteCaseInSQL()
     #     variable_list = ManageSql().getVariablesFromSQL()
     #
-    #     basic_case_list, case_list = Case_collect().collect_data()
+    #     basic_case_list, case_list = CaseCollect().collect_data()
     #     case_list = Case_ready(case_list, variable_list).data_form()
     #
     #     ManageSql().deleteCaseInSQL()
@@ -245,10 +245,10 @@ def datasource(request):
                 f.write(str(source))
             f.close()
             # 把接口里的变量保存下来
-            basic_case_list, case_list = Case_collect().collect_data()
+            basic_case_list, case_list = CaseCollect().collect_data()
             variables_dict = {}
             for case in basic_case_list:
-                print('basic case:', case)  # 这个是还没有替换值的case
+                # print('basic case:', case)  # 这个是还没有替换值的case
                 if case[3] != {}:  # 处理body的
                     param_list = []
                     for num, keys in list(enumerate(case[3])):
@@ -256,7 +256,7 @@ def datasource(request):
                             # 如果这个参数的值里面，有enum这个字段，就不需要存了
                             param_list.append(keys)
                     if len(param_list) >= 0:
-                        print("param_list:", param_list)
+                        # print("param_list:", param_list)
                         variables_dict.update({case[0]: param_list})
                 elif case[2] != {}:
                     # 处理parameters的
@@ -266,30 +266,18 @@ def datasource(request):
                             # 如果这个参数的值里面，有enum这个字段，就不需要存了
                             param_list.append(keys)
                     if len(param_list) >= 0:
-                        print("param_list:", param_list)
+                        # print("param_list:", param_list)
                         variables_dict.update({case[0]: param_list})
             ManageSql().delete_variables_in_sql()
             ManageSql().write_variables_to_sql(2, variables_dict)
-            # ManageSql().deleteCaseInSQL()
-            # ManageSql().writeCaseToSQL(case_list)
         else:
             error = 'this is empty!!'
 
     username = request.session.get('user', '')
     apis_list = Apis.objects.all()
-    paginator = Paginator(apis_list, 8)
-    page = request.GET.get('page', 1)
-    currentPage = int(page)
-    apis_count = Apis.objects.all().count()
-    try:
-        apis_list = paginator.page(page)
-    except PageNotAnInteger:
-        apis_list = paginator.page(1)
-    except EmptyPage:
-        apis_list = paginator.page(paginator.num_pages)
-    # print("source:", source)
+    apis_count, apis_page_list = paginator(request, apis_list, 8)
     return render(request, "apitest/datasource_manage.html",
-                  {'error': error, 'data': source, "user": username, "apiss": apis_list, "apicounts": apis_count})
+                  {'error': error, 'data': source, "user": username, "apis_list": apis_page_list, "apis_count": apis_count})
 
 
 # header 管理
