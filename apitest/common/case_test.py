@@ -81,7 +81,7 @@ def request(case, host, header):
     request
     :param case:
     :param host:
-    :param header: 
+    :param header:
     :return:
     """
     if case[2] == 'get' or case[2] == 'GET':

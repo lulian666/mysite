@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                     <th style="text-align:left" width=200px>用例总数</th>
-                    <td>{{ apiscount }}</td>
+                    <td>{{ apis_count }}</td>
                     <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                 </tr>
                 <tr>
@@ -51,7 +51,7 @@
 
             </thead>
             <tbody>
-            {% for apis in apiss %}
+            {% for apis in apis_list %}
                 <tr>
                 {% if apis.apistatus == 0 %}
                     <td width=100px>{{ apis.id }}</td>
