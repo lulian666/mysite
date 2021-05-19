@@ -8,10 +8,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-
-# Create your views here.
 from django.urls import reverse
-
 from apitest.common.case_collect_data import CaseCollect
 from apitest.common.case_test import TestCaseRequest
 from apitest.common.managesql import ManageSql
@@ -71,18 +68,9 @@ def apitest_manage(request):
 def apistep_manage(request):
     apistep_list = Apistep.objects.all()
     username = request.session.get('user', '')
-    paginator = Paginator(apistep_list, 8)
-    page = request.GET.get('page', 1)
-    currentPage = int(page)
-    apistep_count = Apistep.objects.all().count()
-    try:
-        apistep_list = paginator.page(page)
-    except PageNotAnInteger:
-        apistep_list = paginator.page(1)
-    except EmptyPage:
-        apistep_list = paginator.page(paginator.num_pages)
+    apistep_count, apis_page_list = paginator(request, apistep_list, 6)
     return render(request, "apitest/apistep_manage.html",
-                  {"user": username, "apisteps": apistep_list, "apistepcounts": apistep_count})
+                  {"user": username, "apisteps": apis_page_list, "apistepcounts": apistep_count})
 
 
 @login_required
@@ -176,8 +164,6 @@ def search(request):
     username = request.session.get('user', '')
     search_apitestname = request.GET.get("apitestname", "")
     apitest_list = Apitest.objects.filter(apitestname__icontains=search_apitestname)
-    # apitest_list = Apitest.objects.filter(apitestname=search_apitestname)
-
     return render(request, "apitest/apitest_manage.html", {"user": username, "apitests": apitest_list})
 
 
@@ -193,43 +179,10 @@ def welcome(request):
     return render(request, "apitest/welcome.html")
 
 
-def testapi(request):
-    print('i test.')
-    # 开始你的测试逻辑
-
-    # 读取数据（根据给出的条件）
-    caselist = ManageSql().read_case_from_sql()
-
-    # 获取host
-    host = ManageSql().get_host_of_product(2)
-
-    # 进行测试
-    tester = TestCaseRequest()
-    caselist = tester.send_request(caselist, host)
-
-    ManageSql().update_case_to_sql(caselist)
-    print('Done!')
-
-    username = request.session.get('user', '')
-    apis_list = Apis.objects.all()
-    paginator = Paginator(apis_list, 8)
-    page = request.GET.get('page', 1)
-    currentPage = int(page)
-    apis_count = Apis.objects.all().count()
-    try:
-        apis_list = paginator.page(page)
-    except PageNotAnInteger:
-        apis_list = paginator.page(1)
-    except EmptyPage:
-        apis_list = paginator.page(paginator.num_pages)
-    return render(request, "apitest/apis_manage.html", {"user": username, "apiss": apis_list, "apicounts": apis_count})
-
-
 # 处理源数据
 def datasource(request):
     source = request.POST.get('source', '').strip()
     error = ''
-    # 区分两个按钮
     if 'analysis' in request.POST:
         if not check_json_format(source):
             error = 'not a legal json'
@@ -246,31 +199,7 @@ def datasource(request):
                 f.write(str(source))
             f.close()
             # 把接口里的变量保存下来
-            basic_case_list, case_list = CaseCollect().collect_data()
-            variables_dict = {}
-            for case in basic_case_list:
-                # print('basic case:', case)  # 这个是还没有替换值的case
-                if case[3] != {}:  # 处理body的
-                    param_list = []
-                    for num, keys in list(enumerate(case[3])):
-                        if 'enum' not in case[3][keys]:
-                            # 如果这个参数的值里面，有enum这个字段，就不需要存了
-                            param_list.append(keys)
-                    if len(param_list) >= 0:
-                        # print("param_list:", param_list)
-                        variables_dict.update({case[0]: param_list})
-                elif case[2] != {}:
-                    # 处理parameters的
-                    param_list = []
-                    for num, keys in list(enumerate(case[2])):
-                        if 'enum' not in case[2][keys]:
-                            # 如果这个参数的值里面，有enum这个字段，就不需要存了
-                            param_list.append(keys)
-                    if len(param_list) >= 0:
-                        # print("param_list:", param_list)
-                        variables_dict.update({case[0]: param_list})
-            ManageSql().delete_variables_in_sql()
-            ManageSql().write_variables_to_sql(2, variables_dict)
+            save_variables_to_sql()
         else:
             error = 'this is empty!!'
 
@@ -285,38 +214,53 @@ def datasource(request):
 def api_header(request):
     username = request.session.get('user', '')
     headers_list = Headers.objects.all()
-    paginator = Paginator(headers_list, 12)
-    page = request.GET.get('page', 1)
-    currentPage = int(page)
-    headers_count = Headers.objects.all().count()
-    try:
-        headers_list = paginator.page(page)
-    except PageNotAnInteger:
-        headers_list = paginator.page(1)
-    except EmptyPage:
-        headers_list = paginator.page(paginator.num_pages)
+    headers_count, headers_page_list = paginator(request, headers_list, 6)
     return render(request, "apitest/api_header.html",
-                  {"user": username, "headers": headers_list, "apicounts": headers_count})
+                  {"user": username, "headers": headers_page_list, "apicounts": headers_count})
 
 
 # 变量管理
 def variables_manage(request):
     username = request.session.get('user', '')
     variables_list = Variables.objects.all()
-    paginator = Paginator(variables_list, 12)
-    page = request.GET.get('page', 1)
-    currentPage = int(page)
-    variables_count = Variables.objects.all().count()
-    try:
-        variables_list = paginator.page(page)
-    except PageNotAnInteger:
-        variables_list = paginator.page(1)
-    except EmptyPage:
-        variables_list = paginator.page(paginator.num_pages)
-
+    variables_count, variables_page_list = paginator(request, variables_list, 6)
     return render(request, "apitest/variables_manage.html",
-                  {"user": username, "variables": variables_list, "variablecounts": variables_count,
+                  {"user": username, "variables": variables_page_list, "variablecounts": variables_count,
                    "warning": "只点击一次就好，会跳转到用例列表"})
+
+
+def save_variables_to_sql():
+    """
+    将temp.json中接口用到的变量都存到数据库里
+    :return:
+    """
+    basic_case_list, case_list = CaseCollect().collect_data()
+    variables_dict = {}
+    for case in basic_case_list:
+        if case[3] != {}:  # 处理body的
+            variables_dict = search_variables(case[3], case[0], variables_dict)
+        elif case[2] != {}:
+            variables_dict = search_variables(case[2], case[0], variables_dict)
+    ManageSql().delete_variables_in_sql()
+    ManageSql().write_variables_to_sql(2, variables_dict)
+
+
+def search_variables(case_variables, case_name, variables_dict):
+    """
+    找出传入的case_variables中有多少个变量
+    :param case_variables: 一般传入的是body或者parameters
+    :param case_name: 一般是接口url，用作接口名称
+    :param variables_dict: 
+    :return: 
+    """
+    param_list = []
+    for num, keys in list(enumerate(case_variables)):
+        if 'enum' not in case_variables[keys]:
+            # 如果这个参数的值里面，有enum这个字段，就不需要存了
+            param_list.append(keys)
+    if len(param_list) >= 0:
+        variables_dict.update({case_name: param_list})
+    return variables_dict
 
 
 def check_json_format(raw_msg):
