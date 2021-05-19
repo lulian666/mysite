@@ -3,7 +3,7 @@ import os
 from fnmatch import fnmatch
 import json
 
-from apitest.common.case_generate_cases import Case_generate
+from apitest.common.case_generate_cases import CaseGenerate
 
 
 class CaseCollect:
@@ -78,7 +78,7 @@ class CaseCollect:
                         body = {}
 
                 self.basic_case_list.append([url, method, parameters, body])
-                case_list = Case_generate(url, method, parameters, body).generate()
+                case_list = CaseGenerate(url, method, parameters, body).generate()
         print('总共多少case：', len(case_list))
         return self.basic_case_list, case_list
 

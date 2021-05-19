@@ -1,20 +1,13 @@
 # coding:utf-8
 import itertools
 
-'''
-这个类用来生成不同情况的case
-把case汇集到一个list里面
-generate()是最基础的，return basic_case
-miss_unrequired()是去掉所有非必要参数，return ok_case
-miss_required()是去掉一个必要参数，return _400_case
-'''
-class Case_generate:
-    #怎么感觉这里的写法还是java啊
+
+class CaseGenerate:
     basic_case = []
     _400_case1 = []
     _400_case2 = []
     _400_case = []
-    ok_case = [] #只保留required参数的，没想到好的命名
+    ok_case = []
 
     '''
     处理好的json格式参考：
@@ -69,17 +62,11 @@ class Case_generate:
 
     def generate(self):
         self.basic_case.append([self.url, self.method, self.parameters, self.body,200])
-        # print('0:', [self.url, self.method, self.parameters, self.body,200])
         self.miss_unrequired()
         self.miss_required()
         all_case = self.basic_case + self.ok_case + self._400_case
         return all_case
 
-
-    #少传一个非必要参数，就是把所有非必要参数都去掉
-    '''啊啊啊啊啊这里有重复的case啊啊啊啊啊！！！！
-        修好了嘻嘻
-    '''
     def miss_unrequired(self):
         body = self.body.copy()
         parameters = self.parameters.copy()
@@ -94,7 +81,7 @@ class Case_generate:
                 if self.body[each]['required'] is False:
                     del body[each]
                     has_unrequired = True
-        if has_unrequired: #如果没有unrequired的就不生成case了，避免和basic_case重复
+        if has_unrequired:
             self.ok_case.append([self.url, self.method, parameters, body,200])
 
         return self.ok_case

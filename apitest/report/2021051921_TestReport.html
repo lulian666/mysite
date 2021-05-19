@@ -1,0 +1,171 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 9，通过 4，失败 5</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-05-19 21:19:50</td>
+            <td>/1.0/goodsNews/like</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': None}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'goods news id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-05-19 21:19:50</td>
+            <td>/1.0/goodsNews/search</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'limit': None, 'text': None}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-05-19 21:19:50</td>
+            <td>/1.0/goodsNews/unlike</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': None}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'goods news id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-05-19 21:19:50</td>
+            <td>/1.0/public/gzh</td>
+            <td>get</td>
+            <td>{'echostr': None}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': "Required String parameter 'echostr' is not present"}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-05-19 21:19:50</td>
+            <td>/2.0/goods/clipboard/search</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'text': None}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'text is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-05-19 21:19:50</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'PUSH_VENDOR_UNSPECIFIED'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-05-19 21:19:50</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'APN'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-05-19 21:19:50</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'FCM'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-05-19 21:19:50</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'JPUSH'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            </table>
+        </body>
+        </html>

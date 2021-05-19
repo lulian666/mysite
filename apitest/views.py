@@ -92,17 +92,6 @@ def apis_manage(request):
     :param request:
     :return:
     """
-    # 这一段一时想不起来是干什么用的，并且也没找到任何地方调用这里，先注释掉
-    # if 'birth' in request.POST:
-    #     # 这里要生成case了哦！
-    #     ManageSql().deleteCaseInSQL()
-    #     variable_list = ManageSql().getVariablesFromSQL()
-    #
-    #     basic_case_list, case_list = CaseCollect().collect_data()
-    #     case_list = Case_ready(case_list, variable_list).data_form()
-    #
-    #     ManageSql().deleteCaseInSQL()
-    #     ManageSql().writeCaseToSQL(case_list)
     product_list = Product.objects.all()
     api_list = Apis.objects.all()
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
@@ -121,6 +110,10 @@ def apis_manage(request):
                   {'api_list': apis_page_list, "product_list": product_list,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                    'selected_product_id': selected_product_id, 'apis_count': apis_count})
+
+
+def save_case_locally(case_list, host):
+    pass
 
 
 def test_case(model_list):
@@ -142,6 +135,14 @@ def test_case(model_list):
     # 进行测试
     tester = TestCaseRequest(case_list, host)
     case_list = tester.send_request()
+
+    # 用pytest进行测试
+    # save_case_locally(case_list, host)
+    #
+    # root = os.path.abspath('.')
+    # file = os.path.join(root, 'apitest')
+    # cmd = 'py.test -s -v %s' % file
+    # os.system(cmd)
 
     # 将测试结果更新数据库
     ManageSql.update_case_to_sql(case_list)

@@ -48,15 +48,15 @@ class TestCaseRequest:
                   '2、参数类型传错了（请联系QA）\n' \
                   '3、真bug'
             table_td = self.html.TABLE_TMPL_FAIL % dict(runtime=time.strftime('%Y-%m-%d %H:%M:%S'), interface=case[1],
-                                                   method=case[2], parameters=case[3], body=case[4], expectcode=case[5],
-                                                   testresult='测试失败', testcode=result.status_code, resultbody=result_json,
-                                                   btw=btw)
+                                                        method=case[2], parameters=case[3], body=case[4], expectcode=case[5],
+                                                        testresult='测试失败', testcode=result.status_code, resultbody=result_json,
+                                                        btw=btw)
             self.table_tr_fail += table_td
         else:
             self.num_success += 1
             table_td = self.html.TABLE_TMPL_SUCC % dict(runtime=time.strftime('%Y-%m-%d %H:%M:%S'), interface=case[1],
-                                                   method=case[2], parameters=case[3], body=case[4], expectcode=case[5],
-                                                   testresult='测试成功', testcode=result.status_code,)
+                                                        method=case[2], parameters=case[3], body=case[4], expectcode=case[5],
+                                                        testresult='测试成功', testcode=result.status_code,)
             self.table_tr_success += table_td
 
 
@@ -84,5 +84,18 @@ def request(case, host, header):
         result = requests.post(host + case[1], json=case[4], headers=header)
     return result
 
+
+# class TestApi:
+#     def test1(self):
+#         print('ok you mf')
+#
+#
+# def test_answer(cmdopt):
+#     print(cmdopt)
+#     # if cmdopt == 'type1':
+#     #     print('first')
+#     # elif cmdopt == 'type2':
+#     #     print('second')
+#     assert 1
 
 
