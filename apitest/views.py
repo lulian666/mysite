@@ -50,18 +50,9 @@ def logout(request):
 def apitest_manage(request):
     apitest_list = Apitest.objects.all()
     username = request.session.get('user', '')
-    paginator = Paginator(apitest_list, 8)
-    page = request.GET.get('page', 1)
-    currentPage = int(page)
-    apitest_count = Apitest.objects.all().count()
-    try:
-        apitest_list = paginator.page(page)
-    except PageNotAnInteger:
-        apitest_list = paginator.page(1)
-    except EmptyPage:
-        apitest_list = paginator.page(paginator.num_pages)
+    apitest_count, apitest_page_list = paginator(request, apitest_list, 6)
     return render(request, "apitest/apitest_manage.html",
-                  {"user": username, "apitests": apitest_list, "apitestcounts": apitest_count})
+                  {"user": username, "apitests": apitest_page_list, "apitestcounts": apitest_count})
 
 
 @login_required
