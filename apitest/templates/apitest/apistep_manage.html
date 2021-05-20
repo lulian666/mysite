@@ -73,17 +73,17 @@
             <tbody style="text-align:left">
             {% for apistep in apisteps %}
                 <tr style="text-align:left">
-                    <td style="text-align:left" width=100px>{{ apistep.Apitest.Product.productname}}</td>
-                    <td style="text-align:left" width=200px>case{{ apistep.Apitest.id }} : {{ apistep.Apitest.apitestname }}</td>
-                    <td style="text-align:left" width=100px>{{ apistep.apistep }} : {{ apistep.apitname }}</td>
-                    <td style="text-align:left" width=600px>{{ apistep.apiurl }}</td>
-                    <td style="text-align:left" width=200px>{{ apistep.apiparamvalue }}</td>
-                    <td style="text-align:left" width=100px>{{ apistep.apimethod }}</td>
-                    <td style="text-align:left" width=100px>{{ apistep.apiresult }}</td>
-                    <td style="text-align:left" width=100px>{% if apistep.apistatus == 1 %}
-                        <a style="color: green">{{ apistep.apistatus }}</a>
+                    <td style="text-align:left" width=100px>{{ apistep.ApiTest.Product.productname}}</td>
+                    <td style="text-align:left" width=200px>case{{ apistep.ApiTest.id }} : {{ apistep.ApiTest.api_test_name }}</td>
+                    <td style="text-align:left" width=100px>{{ apistep.api_step }} : {{ apistep.apit_name }}</td>
+                    <td style="text-align:left" width=600px>{{ apistep.api_url }}</td>
+                    <td style="text-align:left" width=200px>{{ apistep.api_param_value }}</td>
+                    <td style="text-align:left" width=100px>{{ apistep.api_method }}</td>
+                    <td style="text-align:left" width=100px>{{ apistep.api_result }}</td>
+                    <td style="text-align:left" width=100px>{% if apistep.api_status == 1 %}
+                        <a style="color: green">{{ apistep.api_status }}</a>
                         {% else %}
-                        <a style="color: #ff0000">{{ apistep.apistatus }}</a>
+                        <a style="color: #ff0000">{{ apistep.api_status }}</a>
                         {% endif %}
                     </td>
                     <td style="text-align:left" width=200px>{{ apistep.create_time }}</td>

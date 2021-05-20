@@ -12,7 +12,7 @@ from django.urls import reverse
 from apitest.common.case_collect_data import CaseCollect
 from apitest.common.case_test import TestCaseRequest
 from apitest.common.managesql import ManageSql
-from apitest.models import Apitest, Apistep, Apis, Headers, Variables
+from apitest.models import ApiFlowTest, ApiStep, Apis, Headers, Variables
 from product.models import Product
 
 
@@ -48,7 +48,7 @@ def logout(request):
 
 @login_required
 def apitest_manage(request):
-    apitest_list = Apitest.objects.all()
+    apitest_list = ApiFlowTest.objects.all()
     username = request.session.get('user', '')
     apitest_count, apitest_page_list = paginator(request, apitest_list, 6)
     return render(request, "apitest/apitest_manage.html",
@@ -57,7 +57,7 @@ def apitest_manage(request):
 
 @login_required
 def apistep_manage(request):
-    apistep_list = Apistep.objects.all()
+    apistep_list = ApiStep.objects.all()
     username = request.session.get('user', '')
     apistep_count, apis_page_list = paginator(request, apistep_list, 6)
     return render(request, "apitest/apistep_manage.html",
