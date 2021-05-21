@@ -51,7 +51,7 @@
 <div class="box">
     <div class="row">
         <span class="item0">
-            <form class="navbar-form" method="post" action="{% url 'apitest:apis_manage' %}">
+            <form class="navbar-form" method="post" action="{% url 'apitest:variables_manage' %}">
                 {%  csrf_token %}
                 <button type="submit" name="birth">用这些数据生成case</button>
                 <label style="color: gray">{{ warning }}</label>

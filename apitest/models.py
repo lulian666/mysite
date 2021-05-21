@@ -20,7 +20,7 @@ class ApiFlowTest(models.Model):
 
 
 class ApiStep(models.Model):
-    ApiTest = models.ForeignKey('ApiFlowTest', on_delete=models.CASCADE)
+    ApiFlowTest = models.ForeignKey('apitest.ApiFlowTest', on_delete=models.CASCADE, null=True)
     api_name = models.CharField('接口名称', max_length=100)
     api_url = models.CharField('url 地址', max_length=200)
     api_step = models.CharField('测试步骤', max_length=100, null=True)
@@ -46,10 +46,11 @@ class Apis(models.Model):
     api_method = models.CharField('请求方法', choices=REQUEST_METHOD, default='0', max_length=200)
     api_expect_response = models.CharField('预期结果', max_length=500, null=True)
     api_expect_status_code = models.IntegerField('预期状态码', default=200)
-    api_response = models.CharField('测试结果', max_length=100000, null=True)
+    api_response = models.CharField('测试结果', max_length=1000, null=True)
     api_response_status_code = models.IntegerField('预期状态码', null=True)
     api_status = models.BooleanField('是否通过', null=True)
-    create_time = models.DateTimeField('创建时间', auto_now=True,null=True)
+    create_time = models.DateTimeField('创建时间', auto_now=True, null=True)
+    test = models.CharField('test', null=True, max_length=100)
 
     class Meta:
         verbose_name = '单一场景接口'

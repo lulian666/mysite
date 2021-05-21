@@ -40,7 +40,7 @@
     <select name="Apitest" id="id_Apitest">
         <option value="" selected>-----接口流程测试用例-----</option>
         {% for apitest in apitests %}
-        <option value={{ apitest.id }}>{{ apitest.apitestname }}</option>
+        <option value={{ apitest.id }}>{{ apitest.api_test_name }}</option>
         {% endfor %}
     </select>
     <a class="related-widget-wrapper-link change-related" id="change_id_Apitest" data-href-template="/admin/apitest/apitest/?????/change/?_to_field=id&amp;_popup=1" title="更改选中的测试用例">
@@ -69,22 +69,27 @@
             </tr>
             </thead>
             <tbody>
-            {% for apitest in apitests %}
+            {% for api_flow_test in api_flow_test_list %}
             <tr>
-                <td style="text-align:left" width=200px>{{ apitest.id }}</td>
-                <td style="text-align:left" width=200px>{{ apitest.Product.productname }}</td>
-                <td style="text-align:left" width=200px>{{ apitest.apitestname }}</td>
-                <td style="text-align:left" width=200px>{{ apitest.apitestdesc }}</td>
-                <td style="text-align:left" width=200px>{{ apitest.apitester }}</td>
-                <td style="text-align:left" width=100px>{% if apitest.apitestresult == 1 %}
-                    <a style="color: green">{{ apitest.apitestresult }}</a>
+                <td style="text-align:left" width=200px>{{ api_flow_test.id }}</td>
+                <td style="text-align:left" width=200px>{{ api_flow_test.Product.productname }}</td>
+                <td style="text-align:left" width=200px>{{ api_flow_test.api_test_name }}</td>
+                <td style="text-align:left" width=200px>{{ api_flow_test.api_test_desc }}</td>
+                <td style="text-align:left" width=200px>{{ api_flow_test.api_tester }}</td>
+                <td style="text-align:left" width=100px>{% if api_flow_test.api_test_result == 1 %}
+                    <a style="color: green">{{ api_flow_test.api_test_result }}</a>
                 {% else %}
-                    <a style="color: #ff0000">{{ apitest.apitestresult }}</a>
+                    <a style="color: #ff0000">{{ api_flow_test.api_test_result }}</a>
                 {% endif %}
                 </td>
-                <td style="text-align:left" width=200px>{{ apitest.Apistep.apiteststep }}</td>
-                <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apitest" href="/admin/apitest/apitest/{{ apitest.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
-                <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apitest" href="/admin/apitest/apitest/{{ apitest.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
+                <td style="text-align:left" width=200px>
+                    {% for apistep in api_flow_test.ApiStep %}
+{#                    {{ api_flow_test.ApiStep }}#}
+                        {{ apistep.api_name }} ->
+                    {% endfor %}
+                </td>
+                <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apitest" href="/admin/apitest/apiflowtest/{{ apitest.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apitest" href="/admin/apitest/apiflowtest/{{ apitest.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
             </tr>
             {% endfor %}
             </tbody>
@@ -124,7 +129,7 @@
 <div style="position: absolute; right:800px; width:100px;">
     <tr>
         <th>总数</th>
-        <td>{{ apitestcounts }}</td>
+        <td>{{ api_flow_test_counts }}</td>
     </tr>
 </div>
 

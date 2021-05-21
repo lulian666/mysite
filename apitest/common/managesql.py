@@ -14,7 +14,7 @@ class ManageSql:
         :param case_list:
         :return:
         """
-        sql = "insert into apitest_apis(apiname,apiurl,apimethod,apiparamvalue,apibodyvalue,apiexpectstatuscode,Product_id) values(%s,%s,%s,%s,%s,%s,%s);"
+        sql = "insert into apitest_apis(api_name,api_url,api_method,api_param_value,api_body_value,api_expect_status_code,Product_id) values(%s,%s,%s,%s,%s,%s,%s);"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
 
@@ -42,7 +42,7 @@ class ManageSql:
 
     @staticmethod
     def read_case_from_sql():
-        sql = 'select id,apiurl,apimethod,apiparamvalue,apibodyvalue,apiexpectstatuscode,apiexpectresponse from apitest_apis'
+        sql = 'select id,api_url,api_method,api_param_value,api_body_value,api_expect_status_code,api_expect_response from apitest_apis'
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
         aa = cursor.execute(sql)
@@ -60,7 +60,7 @@ class ManageSql:
 
     @staticmethod
     def update_case_to_sql(case_list):
-        sql = "update apitest_apis set apiresponsestatuscode = %s,apiresponse = %s,apistatus = %s where id = %s;"
+        sql = "update apitest_apis set api_response_status_code = %s,api_response = %s,api_status = %s where id = %s;"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
 

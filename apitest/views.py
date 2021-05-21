@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.urls import reverse
 from apitest.common.case_collect_data import CaseCollect
+from apitest.common.case_readyfortest import CaseReady
 from apitest.common.case_test import TestCaseRequest
 from apitest.common.managesql import ManageSql
 from apitest.models import ApiFlowTest, ApiStep, Apis, Headers, Variables
@@ -46,12 +47,12 @@ def logout(request):
 
 
 @login_required
-def apitest_manage(request):
-    apitest_list = ApiFlowTest.objects.all()
+def api_flow_test_manage(request):
+    api_flow_test_list = ApiFlowTest.objects.all()
     username = request.session.get('user', '')
-    apitest_count, apitest_page_list = paginator(request, apitest_list, 6)
-    return render(request, "apitest/apitest_manage.html",
-                  {"user": username, "apitests": apitest_page_list, "apitestcounts": apitest_count})
+    api_flow_test_counts, api_flow_test_page_list = paginator(request, api_flow_test_list, 6)
+    return render(request, "apitest/api_flow_test_manage.html",
+                  {"user": username, "api_flow_test_list": api_flow_test_page_list, "api_flow_test_counts": api_flow_test_counts})
 
 
 @login_required
@@ -153,8 +154,8 @@ def left(request):
 def search(request):
     username = request.session.get('user', '')
     search_apitestname = request.GET.get("apitestname", "")
-    apitest_list = Apitest.objects.filter(apitestname__icontains=search_apitestname)
-    return render(request, "apitest/apitest_manage.html", {"user": username, "apitests": apitest_list})
+    apitest_list = ApiFlowTest.objects.filter(apitestname__icontains=search_apitestname)
+    return render(request, "apitest/api_flow_test_manage.html", {"user": username, "apitests": apitest_list})
 
 
 @login_required
@@ -211,6 +212,25 @@ def api_header(request):
 
 # 变量管理
 def variables_manage(request):
+    if 'birth' in request.POST:
+        # 这里要生成case了哦！
+        variable_list = ManageSql.get_variables_from_sql()
+        basic_case_list, case_list = CaseCollect().collect_data()
+        case_list = CaseReady(case_list, variable_list).data_form()
+
+        ManageSql.delete_case_in_sql()
+        ManageSql.write_case_to_sql(case_list)
+
+        product_list = Product.objects.all()
+        api_list = Apis.objects.all()
+        test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
+        selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+        apis_count, apis_page_list = paginator(request, api_list, 6)
+        return render(request, 'apitest/apis_manage.html',
+                      {'api_list': apis_page_list, "product_list": product_list,
+                       'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                       'selected_product_id': selected_product_id, 'apis_count': apis_count})
+
     username = request.session.get('user', '')
     variables_list = Variables.objects.all()
     variables_count, variables_page_list = paginator(request, variables_list, 6)
@@ -308,6 +328,6 @@ def list_filter(request, list_to_filter):
     if selected_product_id != '-1':
         list_filtered = list_to_filter.filter(Product_id=selected_product_id)
     if selected_test_result != '-1':
-        list_filtered = list_to_filter.filter(apistatus=True if selected_test_result == '1' else False)
+        list_filtered = list_to_filter.filter(api_status=True if selected_test_result == '1' else False)
 
     return list_filtered, int(selected_test_result), int(selected_product_id)
