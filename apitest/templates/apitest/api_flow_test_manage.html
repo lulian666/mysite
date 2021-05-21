@@ -100,17 +100,6 @@
         <td>{{ api_flow_test_counts }}</td>
     </tr>
 </div>
-<script type="text/javascript" src="{% static 'js/jquery-3.5.1.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
-<script type="text/javascript">
-    function form_case(){
-        $.ajax({
-            url: '{% url 'apitest:form_api_flow_case' %}',
-            type: 'GET',
-            data: {},
-        });
-    }
-</script>
 
 </body>
 </html>

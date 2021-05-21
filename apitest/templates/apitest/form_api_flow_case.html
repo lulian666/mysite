@@ -1,12 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        .box {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            flex-direction: row;
+            height: auto;
+        }
+        .item {
+            flex-grow: 1;
+            padding: 20px;
+            height: auto;
+        }
+        .th {
+            padding: 10px;
+        }
+        .td {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 <!-- 导航栏-->
 {% include 'apitest/header.html' %}
-<div class="container" style="padding-top: 70px">
-    <h1>hah</h1>
+<div class="box container" style="padding-top: 70px">
+    <div class="row">
+        <span class="item">
+            <div style="height:700px; overflow:scroll; overflow-x:hidden;">
+                {% include 'apitest/table_api_for_test.html' %}
+            </div>
+            <h3 style="padding: 10px">当前选中: <span id="js-check-text"></span></h3>
+        </span>
+        <span class="item">
+            <h1>hah2</h1>
+        </span>
+    </div>
 </div>
+<script>
+    var checkValues = []
+    function clickCheckbox () {
+        var checkDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]:checked')
+        checkValues = []
+        for (var i = 0, len = checkDomArr.length; i < len; i++) {
+            checkValues.push(checkDomArr[i].value)
+        }
+        updateText()
+        var allCheckDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]')
+        var allCheckbox = document.getElementById('js-all-checkbox')
+        for (var i = 0, len = allCheckDomArr.length; i < len; i++) {
+            if (!allCheckDomArr[i].checked) {
+                if (allCheckbox.checked) allCheckbox.checked = false
+                break
+            } else if (i === len - 1) {
+                document.getElementById('js-all-checkbox').checked = true
+                return
+            }
+        }
+    }
+    function checkAll (current) {
+        var allCheckDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]')
+        if (!current.checked) { // 点击的时候, 状态已经修改, 所以没选中的时候状态时true
+            checkValues = []
+            for (var i = 0, len = allCheckDomArr.length; i < len; i++) {
+                var checkStatus = allCheckDomArr[i].checked
+                if (checkStatus) allCheckDomArr[i].checked = false
+            }
+        } else {
+            checkValues = []
+            for (var i = 0, len = allCheckDomArr.length; i < len; i++) {
+                var checkStatus = allCheckDomArr[i].checked
+                if (!checkStatus) allCheckDomArr[i].checked = true
+                checkValues.push(allCheckDomArr[i].value)
+            }
+        }
+        updateText()
+    }
+
+    function updateText () {
+        document.getElementById('js-check-text').innerHTML = JSON.stringify(checkValues)
+    }
+</script>
 </body>
 </html>

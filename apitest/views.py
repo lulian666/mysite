@@ -4,6 +4,7 @@ import os
 
 import pymysql
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -61,8 +62,13 @@ def api_flow_test_manage(request):
 @csrf_exempt
 def form_api_flow_case(request):
     username = request.user
-    # return HttpResponse('1')
-    return render(request, "apitest/form_api_flow_case.html", {"username": username})
+    api_for_test_list = Apis.objects.filter(api_expect_status_code=200).filter(Product_id=2)
+    # api_for_test_list = api_for_test_list.values('api_url').distinct()
+    # print(api_for_test_list.count())
+    # print(api_for_test_list.all())
+    return render(request, "apitest/form_api_flow_case.html",
+                  {"username": username,
+                   'api_for_test_list': api_for_test_list})
 
 
 @login_required

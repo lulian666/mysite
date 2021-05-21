@@ -141,20 +141,9 @@
                     {% else %}
                         <li class="previous disabled"><a href="#">上一页</a></li>
                     {% endif %}
-
-{#                    {% for num in api_list.paginator.page_range %}#}
-{#                        {% if num == currentPage %}#}
-{#                            <li class="item active" style="color: red"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>#}
-{#                        {% else %}#}
-{#                            <li class="item"><a href="/apitest/apis_manage/?page={{ num }}">{{ num }}</a></li>#}
-{#                        {% endif %}#}
-{#                        &nbsp;&nbsp;#}
-{#                    {% endfor %}#}
-
                     {# 下一页链接开始 #}
                     {% if api_list.has_next %}
                         <li class="next"><a href="/apitest/apis_manage/?page={{ api_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">下一页</a></li>
-{#                        <li class="next"><a onclick="next_page({{ api_list.next_page_number }}, {{ selected_product_id }}, {{ selected_test_result }}, {{ api_list }})" href="#">下一页</a></li>#}
                     {% else %}
                         <li class="next disabled"><a href="#">下一页</a></li>
                     {% endif %}
