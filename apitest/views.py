@@ -13,7 +13,7 @@ from apitest.common.case_collect_data import CaseCollect
 from apitest.common.case_readyfortest import CaseReady
 from apitest.common.case_test import TestCaseRequest
 from apitest.common.managesql import ManageSql
-from apitest.models import ApiFlowTest, ApiStep, Apis, Headers, Variables
+from apitest.models import ApiFlowTest, Apis, Headers, Variables
 from product.models import Product
 
 
@@ -49,19 +49,19 @@ def logout(request):
 @login_required
 def api_flow_test_manage(request):
     api_flow_test_list = ApiFlowTest.objects.all()
-    username = request.session.get('user', '')
+    username = request.user
     api_flow_test_counts, api_flow_test_page_list = paginator(request, api_flow_test_list, 6)
     return render(request, "apitest/api_flow_test_manage.html",
-                  {"user": username, "api_flow_test_list": api_flow_test_page_list, "api_flow_test_counts": api_flow_test_counts})
+                  {"username": username, "api_flow_test_list": api_flow_test_page_list, "api_flow_test_counts": api_flow_test_counts})
 
 
-@login_required
-def apistep_manage(request):
-    apistep_list = ApiStep.objects.all()
-    username = request.session.get('user', '')
-    apistep_count, apis_page_list = paginator(request, apistep_list, 6)
-    return render(request, "apitest/apistep_manage.html",
-                  {"user": username, "apisteps": apis_page_list, "apistepcounts": apistep_count})
+# @login_required
+# def apistep_manage(request):
+#     apistep_list = ApiStep.objects.all()
+#     username = request.session.get('user', '')
+#     apistep_count, apis_page_list = paginator(request, apistep_list, 6)
+#     return render(request, "apitest/apistep_manage.html",
+#                   {"user": username, "apisteps": apis_page_list, "apistepcounts": apistep_count})
 
 
 @login_required
@@ -85,8 +85,9 @@ def apis_manage(request):
             test_case(api_list)
 
     apis_count, apis_page_list = paginator(request, api_list, 6)
+    username = request.user
     return render(request, 'apitest/apis_manage.html',
-                  {'api_list': apis_page_list, "product_list": product_list,
+                  {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                    'selected_product_id': selected_product_id, 'apis_count': apis_count})
 
@@ -194,20 +195,20 @@ def datasource(request):
         else:
             error = 'this is empty!!'
 
-    username = request.session.get('user', '')
+    username = request.user
     apis_list = Apis.objects.all()
     apis_count, apis_page_list = paginator(request, apis_list, 8)
     return render(request, "apitest/datasource_manage.html",
-                  {'error': error, 'data': source, "user": username, "apis_list": apis_page_list, "apis_count": apis_count})
+                  {'error': error, 'data': source, "username": username, "apis_list": apis_page_list, "apis_count": apis_count})
 
 
 # header 管理
 def api_header(request):
-    username = request.session.get('user', '')
+    username = request.user
     headers_list = Headers.objects.all()
     headers_count, headers_page_list = paginator(request, headers_list, 6)
     return render(request, "apitest/api_header.html",
-                  {"user": username, "headers": headers_page_list, "apicounts": headers_count})
+                  {"username": username, "headers": headers_page_list, "apicounts": headers_count})
 
 
 # 变量管理
@@ -221,6 +222,7 @@ def variables_manage(request):
         ManageSql.delete_case_in_sql()
         ManageSql.write_case_to_sql(case_list)
 
+        # 跳转去单一接口列表页
         product_list = Product.objects.all()
         api_list = Apis.objects.all()
         test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
@@ -231,11 +233,11 @@ def variables_manage(request):
                        'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                        'selected_product_id': selected_product_id, 'apis_count': apis_count})
 
-    username = request.session.get('user', '')
+    username = request.user
     variables_list = Variables.objects.all()
     variables_count, variables_page_list = paginator(request, variables_list, 6)
     return render(request, "apitest/variables_manage.html",
-                  {"user": username, "variables": variables_page_list, "variablecounts": variables_count,
+                  {"username": username, "variables": variables_page_list, "variablecounts": variables_count,
                    "warning": "只点击一次就好，会跳转到用例列表"})
 
 
