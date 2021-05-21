@@ -42,25 +42,23 @@
         <span class="item1">
             <div class="container">
             <!-- 搜索栏-->
-            <div class="page-header" style="padding-top: 70px">
+            <div class="page-header" style="padding-top: 30px">
                 <form class="navbar-form" method="get" action="{% url 'apitest:apissearch' %}">
                     {%  csrf_token %}
                     <input type="search" name="apiname" placeholder="名称" required>
                     <button type="submit" style="margin-left: 20px">搜索</button>
                 </form>
-            </div>
-            <div class="page-header" style="padding-top: 20px">
-                <form class="row" method="post" action="{% url 'apitest:apis_manage' %}">
+                <form class="navbar-form" method="post" action="{% url 'apitest:apis_manage' %}">
                     {%  csrf_token %}
                     <label>选择测试范围：</label>
                     <label>所属项目：</label>
                          <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
                             <option value="-1">全部</option>
                              {%  for product in product_list %}
-                                {% if product.id == selected_product_id %}
-                                 <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                                 {% if product.id == selected_product_id %}
+                                     <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
                                  {% else %}
-                                 <option value ="{{ product.id }}">{{ product.productname }}</option>
+                                     <option value ="{{ product.id }}">{{ product.productname }}</option>
                                  {% endif %}
                              {% endfor %}
                         </select>
@@ -84,7 +82,7 @@
     <div class="row">
         <span class="item3">
             <!-- 单一接口测试用例-->
-            <div class="row" style="padding-top: 10px; height: 60%">
+            <div class="row">
                 <div class="col-md-11">
                     <table class="table table-striped">
                         <thead>

@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+{% load static %}
 <head>
 </head>
 <body role="document">
 
 <!-- 导航栏-->
 {% include 'apitest/header.html' %}
-
+<div class="page-header" style="padding-top: 30px">
+    <div class="container row">
+        <a href={% url 'apitest:form_api_flow_case' %}><button style="margin: 20px; padding-inline: 15px;">新建流程测试用例</button></a>
+        <button style="margin: 20px; padding-inline: 15px;">button2</button>
+    </div>
+</div>
 <!-- 流程接口列表-->
-<div class="row" style="padding-top: 70px;">
+<div class="row">
     <div class="col-md-11">
         <table class="table table-striped" >
             <thead>
@@ -70,13 +76,13 @@
         <li class="previous disabled"><a href="#">上一页</a></li>
         {% endif %}
 
-        {% for num in apitests.paginator.page_range %}
-            {% if num == currentPage %}
-            <li class="item active"><a href="/apitest/apitest_manage/?page={{ num }}">{{ num }}</a></li>
-            {% else %}
-            <li class="item"><a href="/apitest/apitest_manage/?page={{ num }}">{{ num }}</a></li>
-            {% endif %}
-        {% endfor %}
+{#        {% for num in apitests.paginator.page_range %}#}
+{#            {% if num == currentPage %}#}
+{#            <li class="item active"><a href="/apitest/apitest_manage/?page={{ num }}">{{ num }}</a></li>#}
+{#            {% else %}#}
+{#            <li class="item"><a href="/apitest/apitest_manage/?page={{ num }}">{{ num }}</a></li>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
 
         {# 下一页链接开始 #}
         {% if apitests.has_next %}
@@ -94,17 +100,17 @@
         <td>{{ api_flow_test_counts }}</td>
     </tr>
 </div>
-
-{#<script>#}
-{#    $(function() {#}
-{#        $(this).find('.dropdown-toggle').dropdown();#}
-{##}
-{#        $('.rowlink').on('click', function(e) {#}
-{#            $(this).find('.dropdown').toggleClass('open');#}
-{#            e.stopPropagation();#}
-{#        });#}
-{#    });#}
-{#</script>#}
+<script type="text/javascript" src="{% static 'js/jquery-3.5.1.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+<script type="text/javascript">
+    function form_case(){
+        $.ajax({
+            url: '{% url 'apitest:form_api_flow_case' %}',
+            type: 'GET',
+            data: {},
+        });
+    }
+</script>
 
 </body>
 </html>

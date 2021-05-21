@@ -10,6 +10,7 @@ urlpatterns = [
     # path('test/', views.test, name='test'),
     path('logout/', views.logout, name='logout'),
     path('api_flow_test_manage/', views.api_flow_test_manage, name='api_flow_test_manage'),
+    path('form_api_flow_case/', views.form_api_flow_case, name='form_api_flow_case'),
     # path('apistep_manage/', views.apistep_manage, name='apistep_manage'),
     path('apis_manage/', views.apis_manage, name='apis_manage'),
     path('test_report/', views.test_report, name='test_report'),

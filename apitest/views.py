@@ -9,6 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+
 from apitest.common.case_collect_data import CaseCollect
 from apitest.common.case_readyfortest import CaseReady
 from apitest.common.case_test import TestCaseRequest
@@ -48,20 +50,19 @@ def logout(request):
 
 @login_required
 def api_flow_test_manage(request):
-    api_flow_test_list = ApiFlowTest.objects.all()
     username = request.user
+    api_flow_test_list = ApiFlowTest.objects.all()
     api_flow_test_counts, api_flow_test_page_list = paginator(request, api_flow_test_list, 6)
     return render(request, "apitest/api_flow_test_manage.html",
                   {"username": username, "api_flow_test_list": api_flow_test_page_list, "api_flow_test_counts": api_flow_test_counts})
 
 
-# @login_required
-# def apistep_manage(request):
-#     apistep_list = ApiStep.objects.all()
-#     username = request.session.get('user', '')
-#     apistep_count, apis_page_list = paginator(request, apistep_list, 6)
-#     return render(request, "apitest/apistep_manage.html",
-#                   {"user": username, "apisteps": apis_page_list, "apistepcounts": apistep_count})
+@login_required
+@csrf_exempt
+def form_api_flow_case(request):
+    username = request.user
+    # return HttpResponse('1')
+    return render(request, "apitest/form_api_flow_case.html", {"username": username})
 
 
 @login_required
