@@ -22,37 +22,7 @@
 </head>
 <body role="document">
 <!-- 导航栏-->
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">&nbsp;</a>
-        <ul class="nav justify-content-start">
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_datasource' %}">step1：数据源管理</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:variables_manage' %}">step2：变量值管理</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">step3：header 管理</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:apis_manage' %}">单一接口</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <li class="active"><a style="color: white" href="{% url 'apitest:apistep_manage' %}">流程接口</a></li>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;
-        </ul>
-        <ul class="nav justify-content-end">
-            <li class="nav-link"><a style="color: white" href="#">{{ user }}</a></li>
-            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout'%}">退出</a></li>
-        </ul>
-    </div>
-</nav>
+{% include 'apitest/header.html' %}
 <!-- 流程接口列表-->
 <div class="row" style="padding-top: 70px;">
     <div class="col-md-11">

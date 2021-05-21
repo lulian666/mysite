@@ -37,8 +37,7 @@ def login(request):
 
 @login_required
 def home(request):
-    context = {}
-    context['username'] = request.session.get('user', '')
+    context = {'username': request.session.get('user', '')}
     return render(request, 'apitest/home.html', context)
 
 
