@@ -12,7 +12,7 @@
     {% for api in api_for_test_list %}
         <tr>
             <td class="td">
-                <input type="checkbox" name="select" value={{ api.id }} onclick="clickCheckbox()">
+                <input type="checkbox" class="adviceSeq" name="select" value={{ api.id }} onclick="clickCheckbox();" attr1={{ api.api_name }} attr2={{ api.api_url }} attr3={{ api.api_body_value }} attr4={{ api.api_param_value }}>
             </td>
             <td class="td">{{ api.id }}</td>
             <td class="td">{{ api.Product.productname }}</td>

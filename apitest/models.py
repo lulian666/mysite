@@ -61,7 +61,6 @@ class Apis(models.Model):
     api_response_status_code = models.IntegerField('预期状态码', null=True)
     api_status = models.BooleanField('是否通过', null=True)
     create_time = models.DateTimeField('创建时间', auto_now=True, null=True)
-    test = models.CharField('test', null=True, max_length=100)
 
     class Meta:
         verbose_name = '单一场景接口'

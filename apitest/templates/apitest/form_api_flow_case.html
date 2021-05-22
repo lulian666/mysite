@@ -12,29 +12,37 @@
         .item {
             flex-grow: 1;
             padding: 20px;
-            height: auto;
         }
         .th {
             padding: 10px;
         }
         .td {
             padding: 10px;
+            text-wrap: normal;
         }
     </style>
 </head>
 <body>
 <!-- 导航栏-->
 {% include 'apitest/header.html' %}
-<div class="box container" style="padding-top: 70px">
+<div class="box" style="padding-top: 70px">
     <div class="row">
         <span class="item">
             <div style="height:700px; overflow:scroll; overflow-x:hidden;">
                 {% include 'apitest/table_api_for_test.html' %}
             </div>
-            <h3 style="padding: 10px">当前选中: <span id="js-check-text"></span></h3>
+            <h3 style="padding: 10px; width: 200px">当前选中: <span id="js-check-text"></span></h3>
+            <button style="padding-inline: 15px" onclick="join()">选择这些api</button>
         </span>
         <span class="item">
-            <h1>hah2</h1>
+            <div>
+                <label>新测试场景名称：</label>
+                <input type="text">
+                <a href={% url 'apitest:form_api_flow_case' %}><button style="padding-inline: 15px;">新建流程测试用例</button></a>
+            </div>
+            <div style="height:700px; overflow:scroll; overflow-x:hidden;">
+                {% include 'apitest/table_case_to_be.html' %}
+            </div>
         </span>
     </div>
 </div>
@@ -58,6 +66,15 @@
                 return
             }
         }
+    }
+    function join (){
+        var Cm = $(".adviceSeq:checked:enabled");
+        var str = "";
+        //循环编列选中的所有行，把值赋予每一行对应的tr和td
+        for(var i = 0 ; i < Cm.length ; i++){
+            str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td></tr></tbody>");
+        }
+        $("#showMdseList").append(str);
     }
     function checkAll (current) {
         var allCheckDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]')

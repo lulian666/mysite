@@ -222,11 +222,11 @@ def api_header(request):
 def variables_manage(request):
     if 'birth' in request.POST:
         # 这里要生成case了哦！
+        ManageSql.delete_flow_case_in_sql()
+        ManageSql.delete_case_in_sql()
         variable_list = ManageSql.get_variables_from_sql()
         basic_case_list, case_list = CaseCollect().collect_data()
         case_list = CaseReady(case_list, variable_list).data_form()
-
-        ManageSql.delete_case_in_sql()
         ManageSql.write_case_to_sql(case_list)
 
         # 跳转去单一接口列表页
