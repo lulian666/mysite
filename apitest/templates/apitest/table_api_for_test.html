@@ -6,18 +6,20 @@
         <th class="th">产品</th>
         <th class="th">接口名称</th>
         <th class="th">url</th>
+        <th class="th">body</th>
     </tr>
     </thead>
     <tbody>
     {% for api in api_to_choose_list %}
         <tr>
             <td class="td">
-                <input type="checkbox" class="adviceSeq" name="select" value={{ api.id }} onclick="clickCheckbox();" attr1={{ api.api_name }} attr2={{ api.api_url }} attr3={{ api.api_body_value }} attr4={{ api.api_param_value }}>
+                <input type="checkbox" class="adviceSeq" name="select" value={{ api.id }} onclick="clickCheckbox();" attr1={{ api.api_name }} attr2={{ api.api_url }} attr3={{ api.api_param_value }} attr4={{ api.api_body_value }}>
             </td>
             <td class="td">{{ api.id }}</td>
             <td class="td">{{ api.Product.productname }}</td>
             <td class="td">{{ api.api_name }}</td>
             <td class="td">{{ api.api_url }}</td>
+            <td class="td" width="100px">{{ api.api_body_value }}</td>
         </tr>
     {% endfor %}
     </tbody>

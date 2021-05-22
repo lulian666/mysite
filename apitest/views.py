@@ -67,7 +67,7 @@ def form_api_flow_case(request):
     data = []
     api_to_test_list = Apis.objects.filter(id__in=data)
     # todo: 按照url过滤一遍
-    if request.method == "POST":
+    if 'choice' in request.POST:
         data = request.POST['data']
         print(data)
         print(type(data))
@@ -75,13 +75,17 @@ def form_api_flow_case(request):
         print(data)
         print(type(data))
         if len(data) == 0:
-            print(0)
             return HttpResponse('0')
         else:
             api_to_test_list = Apis.objects.filter(id__in=data)
             print(api_to_test_list.__len__())
             print(api_to_test_list)
             return HttpResponse('1')
+    if 'try' in request.POST:
+        print('try')
+        data_list = request.POST['data_list']
+        print(data_list)
+        print(type(data_list))
     return render(request, "apitest/form_api_flow_case.html",
                   {"username": username, 'api_to_choose_list': api_to_choose_list,
                    "api_to_test_list": api_to_test_list, 'case_name': case_name})
