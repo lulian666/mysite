@@ -32,22 +32,28 @@
                 {% include 'apitest/table_api_for_test.html' %}
             </div>
             <h3 style="padding: 10px; width: 200px">当前选中: <span id="js-check-text"></span></h3>
-            <button style="padding-inline: 15px" onclick="join()">选择这些api</button>
+            <button style="padding-inline: 15px" onclick="join()">ok 就这些接口</button>
         </span>
         <span class="item">
+            <form class="navbar-form" method="post" action="{% url 'apitest:form_api_flow_case' %}">{%  csrf_token %}
             <div>
-                <label>新测试场景名称：</label>
-                <input type="text">
-                <a href={% url 'apitest:form_api_flow_case' %}><button style="padding-inline: 15px;">新建流程测试用例</button></a>
+                    <label>新测试场景名称：</label>
+                    <input type="text" name="case_name" placeholder="填写名称">
+                    <button type="submit" name="try" style="margin-left: 50px" onclick="table_value();">测一下试试</button>
+                    <button type="submit" name="create" style="margin-left: 20px" onclick="table_value();">新建流程测试用例</button>
             </div>
             <div style="height:700px; overflow:scroll; overflow-x:hidden;">
                 {% include 'apitest/table_case_to_be.html' %}
             </div>
+            </form>
         </span>
     </div>
 </div>
 <script>
     var checkValues = []
+    var value = []
+    var length = 0
+    var data = [];
     function clickCheckbox () {
         var checkDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]:checked')
         checkValues = []
@@ -72,10 +78,23 @@
         var str = "";
         //循环编列选中的所有行，把值赋予每一行对应的tr和td
         for(var i = 0 ; i < Cm.length ; i++){
-            str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td></tr></tbody>");
+            str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td><td><a href='#'><img src='/static/admin/img/icon-deletelink.svg'/></a></td></tr></tbody>");
         }
-        $("#showMdseList").append(str);
+        $("#show_list").append(str);
+        $.ajax({
+            url: "{% url 'apitest:form_api_flow_case' %}",
+            type: "POST",
+            data: {"data": JSON.stringify(checkValues)},
+            success: function (e){
+                if (e='1'){
+
+                }else if(e='0'){
+                    alert("你选项为空")
+                }
+            }
+        })
     }
+
     function checkAll (current) {
         var allCheckDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]')
         if (!current.checked) { // 点击的时候, 状态已经修改, 所以没选中的时候状态时true
@@ -97,6 +116,16 @@
 
     function updateText () {
         document.getElementById('js-check-text').innerHTML = JSON.stringify(checkValues)
+    }
+    
+    function table_value() {
+        var Cm = $(".adviceSeq:checked:enabled");
+        var str = "";
+        //循环编列选中的所有行，把值赋予每一行对应的tr和td
+        for(var i = 0 ; i < Cm.length ; i++){
+            str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td><td><a href='#'><img src='/static/admin/img/icon-deletelink.svg'/></a></td></tr></tbody>");
+        }
+        $("#show_list").append(str);
     }
 </script>
 </body>

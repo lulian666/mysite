@@ -62,13 +62,29 @@ def api_flow_test_manage(request):
 @csrf_exempt
 def form_api_flow_case(request):
     username = request.user
-    api_for_test_list = Apis.objects.filter(api_expect_status_code=200).filter(Product_id=2)
-    # api_for_test_list = api_for_test_list.values('api_url').distinct()
-    # print(api_for_test_list.count())
-    # print(api_for_test_list.all())
+    api_to_choose_list = Apis.objects.filter(api_expect_status_code=200).filter(Product_id=2)
+    case_name = "默认名称"
+    data = []
+    api_to_test_list = Apis.objects.filter(id__in=data)
+    # todo: 按照url过滤一遍
+    if request.method == "POST":
+        data = request.POST['data']
+        print(data)
+        print(type(data))
+        data = json.loads(data)
+        print(data)
+        print(type(data))
+        if len(data) == 0:
+            print(0)
+            return HttpResponse('0')
+        else:
+            api_to_test_list = Apis.objects.filter(id__in=data)
+            print(api_to_test_list.__len__())
+            print(api_to_test_list)
+            return HttpResponse('1')
     return render(request, "apitest/form_api_flow_case.html",
-                  {"username": username,
-                   'api_for_test_list': api_for_test_list})
+                  {"username": username, 'api_to_choose_list': api_to_choose_list,
+                   "api_to_test_list": api_to_test_list, 'case_name': case_name})
 
 
 @login_required
@@ -142,10 +158,10 @@ def test_report(request):
     apis_count = Apis.objects.all().count()
     db = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1')
     cursor = db.cursor()
-    sql1 = 'SELECT count(id) FROM apitest_apis WHERE apitest_apis.apistatus=1'
+    sql1 = 'SELECT count(id) FROM apitest_apis WHERE apitest_apis.api_status=1'
     aa = cursor.execute(sql1)
     apis_pass_count = [row[0] for row in cursor.fetchmany(aa)][0]
-    sql2 = 'SELECT count(id) FROM apitest_apis WHERE apitest_apis.apistatus=0'
+    sql2 = 'SELECT count(id) FROM apitest_apis WHERE apitest_apis.api_status=0'
     bb = cursor.execute(sql2)
     apis_fail_count = [row[0] for row in cursor.fetchmany(bb)][0]
     db.close()
