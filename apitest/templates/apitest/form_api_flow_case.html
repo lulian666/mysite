@@ -78,7 +78,7 @@
         var str = "";
         //循环编列选中的所有行，把值赋予每一行对应的tr和td
         for(var i = 0 ; i < Cm.length ; i++){
-            str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute('attr4')+"</td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td></tr></tbody>");
+            str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute('attr4')+"</td><td class='td'>"+Cm[i].getAttribute('attr0')+"</td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td></tr></tbody>");
             {#str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td><td><a href='#'><img src='/static/admin/img/icon-deletelink.svg'/></a></td></tr></tbody>");#}
         }
         $("#show_list").append(str);
@@ -94,20 +94,27 @@
         var tb = document.getElementById('show_list')
         var rows = tb.rows;                           // 获取表格所有行
         var data_list = [];
-        for(var i = 0; i<rows.length; i++ ){
+        for(var i = 1; i<rows.length; i++ ){
             var api_info = ''
-            for(var j = 0; j<rows[i].cells.length; j++ ){    // 遍历该行的 td
+            for(var j = 5; j<rows[i].cells.length-1; j++ ){    // 遍历该行的 td
                 api_info = api_info + rows[i].cells[j].innerHTML + ','
                 {#alert("第"+(i+1)+"行，第"+(j+1)+"个td的值："+rows[i].cells[j].innerHTML+"。");           // 输出每个td的内容#}
             }
-            alert(api_info)
-            data_list[i] = '['+api_info+']'
-            alert('data_list:'+data_list)
+            {#alert(api_info)#}
+            data_list[i-1] = api_info
+            {#alert('data_list:'+data_list)#}
         }
         $.ajax({
             url: "{% url 'apitest:form_api_flow_case' %}",
             type: "POST",
             data: {"data_list": JSON.stringify(data_list), 'try': ''},
+            success: function (e){
+                if (e="1"){
+                    alert('test successfully')
+                }else if (e="0"){
+                    alert('test fail')
+                }
+            },
         })
     }
 

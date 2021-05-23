@@ -19,7 +19,15 @@ class TestCaseRequest:
         self.num_success = self.num_fail = 0
         self.html = Template_mixin()
 
-    def send_request(self):
+    def flow_api_test(self, data_list):
+        count = len(data_list)  # 每个必须都成功
+        self.single_api_test()
+        if self.num_success == count:
+            return True
+        else:
+            return False
+
+    def single_api_test(self):
         for case in self.case_list:
             result = request(case, self.host, self.header)
             if result.status_code == 401:

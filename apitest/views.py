@@ -64,10 +64,11 @@ def form_api_flow_case(request):
     username = request.user
     api_to_choose_list = Apis.objects.filter(api_expect_status_code=200).filter(Product_id=2)
     case_name = "默认名称"
-    data = []
-    api_to_test_list = Apis.objects.filter(id__in=data)
+    # data = []
+    # api_to_test_list = Apis.objects.filter(id__in=data)
     # todo: 按照url过滤一遍
     if 'choice' in request.POST:
+        print('choice')
         data = request.POST['data']
         print(data)
         print(type(data))
@@ -86,9 +87,30 @@ def form_api_flow_case(request):
         data_list = request.POST['data_list']
         print(data_list)
         print(type(data_list))
+        data_list = json.loads(data_list)
+        print(data_list)
+        print(type(data_list))
+        if trial_test(data_list):
+            return HttpResponse("1")
+        else:
+            return HttpResponse("0")
     return render(request, "apitest/form_api_flow_case.html",
                   {"username": username, 'api_to_choose_list': api_to_choose_list,
-                   "api_to_test_list": api_to_test_list, 'case_name': case_name})
+                   'case_name': case_name})
+
+
+def trial_test(data_list):
+    api_id_list = []
+    for item in data_list:
+        item = item.split(',')  # 最后多一个空项
+        print("item:", item)
+        print(type(item))
+        api_id_list.append(int(item[0]))
+    print("api_id_list:", api_id_list)
+    api_to_test_list = Apis.objects.filter(id__in=api_id_list)
+    host = ManageSql.get_host_of_product(2)
+    case_list = model_list_to_case_list(api_to_test_list)
+    return TestCaseRequest(case_list, host).flow_api_test(data_list)
 
 
 @login_required
@@ -123,17 +145,21 @@ def save_case_locally(case_list, host):
     pass
 
 
+def model_list_to_case_list(model_list):
+    case_list = []
+    for case in model_list:
+        case_list.append([case.id, case.api_url, case.api_method, ast.literal_eval(case.api_param_value), ast.literal_eval(case.api_body_value),
+                          case.api_expect_status_code, case.api_expect_response])
+    return case_list
+
+
 def test_case(model_list):
     """
     根据筛选出来的list来执行测试
     :param model_list: QuerySet类型
     :return:
     """
-    case_list = []
-
-    for case in model_list:
-        case_list.append([case.id, case.apiurl, case.apimethod, ast.literal_eval(case.apiparamvalue), ast.literal_eval(case.apibodyvalue),
-                         case.apiexpectstatuscode, case.apiexpectresponse])
+    case_list = model_list_to_case_list(model_list)
 
     # 获取host
     host = ManageSql().get_host_of_product(2)
@@ -141,7 +167,7 @@ def test_case(model_list):
 
     # 进行测试
     tester = TestCaseRequest(case_list, host)
-    case_list = tester.send_request()
+    case_list = tester.single_api_test()
 
     # 用pytest进行测试
     # save_case_locally(case_list, host)

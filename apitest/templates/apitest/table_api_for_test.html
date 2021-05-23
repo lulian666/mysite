@@ -13,7 +13,7 @@
     {% for api in api_to_choose_list %}
         <tr>
             <td class="td">
-                <input type="checkbox" class="adviceSeq" name="select" value={{ api.id }} onclick="clickCheckbox();" attr1={{ api.api_name }} attr2={{ api.api_url }} attr3={{ api.api_param_value }} attr4={{ api.api_body_value }}>
+                <input type="checkbox" class="adviceSeq" name="select" value={{ api.id }} onclick="clickCheckbox();" attr0={{ api.id }} attr1={{ api.api_name }} attr2={{ api.api_url }} attr3={{ api.api_param_value }} attr4={{ api.api_body_value }}>
             </td>
             <td class="td">{{ api.id }}</td>
             <td class="td">{{ api.Product.productname }}</td>
