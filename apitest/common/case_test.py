@@ -1,6 +1,8 @@
 # coding:utf-8
 import os
 import time
+
+import jsonpath
 import requests
 import pytest
 from json import JSONDecodeError
@@ -19,21 +21,40 @@ class TestCaseRequest:
         self.num_success = self.num_fail = 0
         self.html = Template_mixin()
 
-    def flow_api_test(self, data_list):
+    def flow_api_test(self, data_list, io_list):
         count = len(data_list)  # 每个必须都成功
-        self.single_api_test()
+        # print("count:", count)
+        parameters = []  # [[id, 出参名称, 值],]
+        for index, case in enumerate(self.case_list):
+            if io_list[index][1] != '':  # 如果有入参，入参应该只允许选择已有的出参
+                # print(1)
+                case = input_parameter(io_list[index][1], case, parameters)
+
+            # 去测试
+            result = test_avoid_401(case, self.host, self.header)
+
+            if result.status_code == case[5]:
+                self.num_success = self.num_success + 1
+
+            # 保存出参
+            if io_list[index][0] != '':
+                # print(2)
+                value = output_parameter(io_list[index][0], result)  # 这里应该保存
+                parameters.append([case[0], "name_placeholder", value])
+                # print("出参：", parameters)
+
+        print("num_success:", self.num_success)
+        # print(type(self.num_success))
         if self.num_success == count:
+            # print('True')
             return True
         else:
+            # print('False')
             return False
 
     def single_api_test(self):
         for case in self.case_list:
-            result = request(case, self.host, self.header)
-            if result.status_code == 401:
-                HeaderManage.update_header(2, self.host)
-                self.header = HeaderManage.read_header(2)
-                result = request(case, self.host, self.header)
+            result = test_avoid_401(case, self.host, self.header)
             self.save_report_info(result, case)
 
             # 测试结果存数据库
@@ -93,17 +114,46 @@ def request(case, host, header):
     return result
 
 
-# class TestApi:
-#     def test1(self):
-#         print('ok you mf')
-#
-#
-# def test_answer(cmdopt):
-#     print(cmdopt)
-#     # if cmdopt == 'type1':
-#     #     print('first')
-#     # elif cmdopt == 'type2':
-#     #     print('second')
-#     assert 1
+def output_parameter(json_pattern, result):
+    json_data = result.json()
+    value = jsonpath.jsonpath(json_data, json_pattern)
+    return value
 
 
+def input_parameter(parameter, case, parameters):
+    name = parameter.split('=')[0]
+    api_id = int(parameter.split('=')[1])
+    # print("name:", name)
+    # print("api_id:", api_id)
+
+    if case[2] == 'get' or case[2] == 'GET':
+        case[3] = replace(name, case[3], api_id, parameters)
+    else:
+        case[4] = replace(name, case[4], api_id, parameters)
+    return case
+
+
+def replace(name, json_string, api_id, parameters):
+    for item in parameters:
+        if api_id == item[0]:
+            value = item[2]
+            # print("value:", value)
+            break
+    # print("json_string:", json_string)
+    # print(type(json_string))
+    for key, key_value in json_string.items():
+        # print("key, key_value:", key, key_value)
+        if name == key:
+            # print('走到这里了吗？')
+            json_string[key] = value
+    # print("json_string after replacement:", json_string)
+    return json_string
+
+
+def test_avoid_401(case, host, header):
+    result = request(case, host, header)
+    if result.status_code == 401:
+        HeaderManage.update_header(2, host)
+        header = HeaderManage.read_header(2)
+        result = request(case, host, header)
+    return result

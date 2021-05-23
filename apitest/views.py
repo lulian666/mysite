@@ -68,49 +68,67 @@ def form_api_flow_case(request):
     # api_to_test_list = Apis.objects.filter(id__in=data)
     # todo: 按照url过滤一遍
     if 'choice' in request.POST:
-        print('choice')
+        # print('choice')
         data = request.POST['data']
-        print(data)
-        print(type(data))
+        # print(data)
+        # print(type(data))
         data = json.loads(data)
-        print(data)
-        print(type(data))
+        # print(data)
+        # print(type(data))
         if len(data) == 0:
             return HttpResponse('0')
         else:
             api_to_test_list = Apis.objects.filter(id__in=data)
-            print(api_to_test_list.__len__())
-            print(api_to_test_list)
+            # print(api_to_test_list.__len__())
+            # print(api_to_test_list)
             return HttpResponse('1')
     if 'try' in request.POST:
-        print('try')
+        # print('try')
+        io_list = request.POST['io_list']  # 出入参
+        io_list = json.loads(io_list)
+        # print("io_list:", io_list)
+        # print(type(io_list))
+
         data_list = request.POST['data_list']
-        print(data_list)
-        print(type(data_list))
+        # print(data_list)
+        # print(type(data_list))
         data_list = json.loads(data_list)
-        print(data_list)
-        print(type(data_list))
-        if trial_test(data_list):
+        # print("data_list:", data_list)
+        # print(type(data_list))
+        is_success = trial_test(data_list, io_list)
+        if is_success:
+            print('return 1')
             return HttpResponse("1")
         else:
+            print('return 0')
             return HttpResponse("0")
     return render(request, "apitest/form_api_flow_case.html",
                   {"username": username, 'api_to_choose_list': api_to_choose_list,
                    'case_name': case_name})
 
 
-def trial_test(data_list):
+def trial_test(data_list, io_list):
+    """
+    场景测试case的试测
+    :param data_list: data_list是前端传来的数据，包含api的id
+    :param io_list: 出入参信息
+    :return:
+    """
     api_id_list = []
+    api_io_list = []
+    for item in io_list:
+        item = item.split(',')  # 最后多一个空项
+        api_io_list.append(item)
     for item in data_list:
         item = item.split(',')  # 最后多一个空项
-        print("item:", item)
-        print(type(item))
         api_id_list.append(int(item[0]))
-    print("api_id_list:", api_id_list)
+    # print("api_id_list:", api_id_list)
+    # print("api_io_list:", api_io_list)
     api_to_test_list = Apis.objects.filter(id__in=api_id_list)
     host = ManageSql.get_host_of_product(2)
     case_list = model_list_to_case_list(api_to_test_list)
-    return TestCaseRequest(case_list, host).flow_api_test(data_list)
+    # print("??:", TestCaseRequest(case_list, host).flow_api_test(data_list, api_io_list))
+    return TestCaseRequest(case_list, host).flow_api_test(data_list, api_io_list)
 
 
 @login_required
@@ -155,7 +173,7 @@ def model_list_to_case_list(model_list):
 
 def test_case(model_list):
     """
-    根据筛选出来的list来执行测试
+    根据筛选出来的list来执行测试（单接口测试）
     :param model_list: QuerySet类型
     :return:
     """
