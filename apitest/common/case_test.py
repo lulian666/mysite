@@ -23,16 +23,13 @@ class TestCaseRequest:
 
     def flow_api_test(self, data_list, io_list):
         count = len(data_list)  # 每个必须都成功
-        # print("count:", count)
         parameters = []  # [[id, 出参名称, 值],]
         for index, case in enumerate(self.case_list):
             if io_list[index][1] != '':  # 如果有入参，入参应该只允许选择已有的出参
-                # print(1)
                 case = input_parameter(io_list[index][1], case, parameters)
 
             # 去测试
             result = test_avoid_401(case, self.host, self.header)
-
             if result.status_code == case[5]:
                 self.num_success = self.num_success + 1
 
@@ -41,11 +38,7 @@ class TestCaseRequest:
                 value = output_parameter(io_list[index][0], result)  # 这里应该保存
                 parameters.append([case[0], "name_placeholder", value])
 
-        print("num_success:", self.num_success)
-        if self.num_success == count:
-            return True
-        else:
-            return False
+        return self.num_success == count
 
     def single_api_test(self):
         for case in self.case_list:
