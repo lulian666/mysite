@@ -22,26 +22,23 @@
     <div class="container">
         <a class="navbar-brand" href="#">&nbsp;</a>
         <ul class="nav justify-content-sm-start">
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_datasource' %}">step1：数据源管理</a></li>
-            <li class="active"><a style="color: white" href="{% url 'apitest:variables_manage' %}">step2：变量值管理</a></li>
-            <li class="active"><a style="color: white" href="{% url 'apitest:api_header' %}">step3：header 管理</a></li>
-            <li class="active"><a style="color: white" href="{% url 'apitest:apis_manage' %}">单一接口测试用例</a></li>
+            <li class="active"><a style="color: white" href="{% url 'apitest:form_api_flow_case' %}">step1：新建流程测试场景</a></li>
             <li class="active"><a style="color: white" href="{% url 'apitest:api_flow_test_manage' %}">流程接口测试用例</a></li>
             <li class="active"><a style="color: white" href="{% url 'apitest:form_api_flow_case' %}">待征用</a></li>
         </ul>
         <ul class="nav justify-content-end">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" style="color: black">
-                        {{ username }}
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url 'account:password_change' %}">修改密码</a></li>
-                        <li><a href="{% url 'account:my_information' %}">个人信息</a></li>
-                        <li><a href="{% url 'article:article_column' %}">栏目管理</a></li>
-                    </ul>
-                </div>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" style="color: black">
+                    {{ username }}
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'account:password_change' %}">修改密码</a></li>
+                    <li><a href="{% url 'account:my_information' %}">个人信息</a></li>
+                    <li><a href="{% url 'article:article_column' %}">栏目管理</a></li>
+                </ul>
+            </div>
             </li>
-{#            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout'%}">退出</a></li>#}
+            {#            <li class="nav-link"><a style="color: red" href="{% url 'apitest:logout'%}">退出</a></li>#}
         </ul>
     </div>
 </nav>
