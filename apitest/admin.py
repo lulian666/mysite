@@ -10,15 +10,15 @@ from apitest.models import ApiFlowTest, Apis, Headers, Variables
 #     extra = 1
 
 
-class ApitestAdmin(admin.ModelAdmin):
-    list_display = ['api_test_name', 'api_tester', 'api_test_result', 'create_time', 'id']
-    # inlines = [ApistepAdmin]
-    search_fields = ['api_test_name']
-    list_filter = ['create_time']
-    list_per_page = 10
-
-
-admin.site.register(ApiFlowTest, ApitestAdmin)
+# class ApitestAdmin(admin.ModelAdmin):
+#     list_display = ['case_name', 'case_tester', 'case_result', 'create_time', 'id']
+#     # inlines = [ApistepAdmin]
+#     search_fields = ['case_name']
+#     list_filter = ['create_time']
+#     list_per_page = 10
+#
+#
+# admin.site.register(ApiFlowTest, ApitestAdmin)
 
 
 class ApisAdmin(admin.TabularInline):

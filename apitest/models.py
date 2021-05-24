@@ -5,26 +5,27 @@ from product.models import Product
 # Create your models here.
 class ApiFlowTest(models.Model):
     Product = models.ForeignKey('product.Product', on_delete=models.CASCADE, null=True)
-    api_test_name = models.CharField('流程接口名称', max_length=64)
-    api_test_desc = models.CharField('描述', max_length=64)
-    api_tester = models.CharField('测试负责人', max_length=16)
-    api_test_result = models.BooleanField('测试结果')
-    create_time = models.DateTimeField('创建时间', auto_now=True)
+    case_name = models.CharField('流程接口名称', max_length=64)
+    case_desc = models.CharField('描述', max_length=64)
+    case_tester = models.CharField('测试负责人', max_length=16)
+    case_test_result = models.BooleanField('测试结果', null=True)
+    create_time = models.DateTimeField('创建时间', auto_now=True, null=True)
 
     class Meta:
         verbose_name = '流程场景接口'
         verbose_name_plural = '流程场景接口'
 
     def __str__(self):
-        return self.api_test_name
+        return self.case_name
 
 
 class ApiFlowAndApis(models.Model):
     ApiFlowTest = models.ForeignKey('apitest.ApiFlowTest', on_delete=models.CASCADE, null=True)
     Apis = models.ForeignKey('apitest.Apis', on_delete=models.CASCADE, null=True)
-    param_to_save = models.CharField('需保存参数', max_length=100, null=True)
-    param_to_use = models.CharField('需传入参数', max_length=100, null=True)
+    output_parameter = models.CharField('需保存参数', max_length=100, null=True)
+    input_parameter = models.CharField('需传入参数', max_length=100, null=True)
     execution_order = models.IntegerField('执行顺序', null=True)
+    create_time = models.DateTimeField('创建时间', auto_now=True, null=True)
 
     class Meta:
         verbose_name = '流程接口用例和单一接口映射'

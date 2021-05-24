@@ -4,6 +4,7 @@ import json
 import requests
 
 import pymysql
+from django.utils.datetime_safe import datetime
 
 
 class ManageSql:
@@ -146,6 +147,47 @@ class ManageSql:
         cursor.close()
         coon.close()
         return host
+
+    @staticmethod
+    def write_flow_case_to_sql(case_name, case_desc, case_tester, product_id):
+        sql = "insert into apitest_apiflowtest(case_name,case_desc,case_tester,Product_id) values(%s,%s,%s,%s);"
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        param = (case_name, case_desc, case_tester, product_id)  # 不转换成str会出错，因为值里面有引号
+        cursor.execute(sql, param)
+        coon.commit()
+
+        sql2 = "select id from apitest_apiflowtest where case_name = %s"
+        param2 = case_name
+        aa = cursor.execute(sql2, param2)
+        case_id = cursor.fetchone()[0]
+        coon.commit()
+
+        cursor.close()
+        coon.close()
+        return case_id
+
+    @staticmethod
+    def write_to_table_api_flow_and_apis(flow_case_id, id_list, io_list):
+        print("id_list:", id_list)
+        print("io_list:", io_list)
+        create_time = datetime.now()
+        sql = "insert into apitest_apiflowandapis(ApiFlowTest_id,Apis_id,output_parameter,input_parameter,execution_order,create_time) values(%s,%s,%s,%s,%s,%s);"
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        # 这里应该有个循环
+        # execution_order应该就是传入list的顺序
+        execution_order = 0
+        for index, api_id in enumerate(id_list):
+            if api_id != "":
+                execution_order = execution_order + 1
+                param = (flow_case_id, api_id[0], io_list[index][0], io_list[index][1], execution_order, create_time)
+                # param = (flow_case_id, api_id, output_parameter, input_parameter, execution_order)  # 不转换成str会出错，因为值里面有引号
+                cursor.execute(sql, param)
+                coon.commit()
+
+        cursor.close()
+        coon.close()
 
 
 def handle_data_type(case_list):

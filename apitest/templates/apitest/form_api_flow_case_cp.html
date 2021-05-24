@@ -38,9 +38,9 @@
 {#            <form class="navbar-form" method="post" action="{% url 'apitest:form_api_flow_case' %}">{%  csrf_token %}#}
             <div>
                     <label>新测试场景名称：</label>
-                    <input type="text" name="case_name" placeholder="填写名称">
+                    <input type="text" name="case_name" placeholder="填写名称（不能重复）", id="case_name">
                     <button type="submit" name="try" style="margin-left: 50px" onclick="try_on();">测一下试试</button>
-                    <button type="submit" name="create" style="margin-left: 20px" onclick="table_value();">新建流程测试用例</button>
+                    <button type="submit" name="create" style="margin-left: 20px" onclick="create_case();">新建流程测试用例</button>
             </div>
             <div style="height:700px; overflow:scroll; overflow-x:hidden;">
                 {% include 'apitest/table_case_to_be.html' %}
@@ -74,29 +74,21 @@
         }
     }
 
-    $('#show_list input.move').click(function() {
-        var row = $(this).closest('tr');
-        if ($(this).hasClass('up'))
-            row.prev().before(row);
-        else
-            row.next().after(row);
-    });
-
     function join (){
         //1,先准备数据
         var table_data=[]
         var Cm = $(".adviceSeq:checked:enabled");
         for(var i = 0 ; i < Cm.length ; i++){
             var dic = {
-                order:"<a href=\"javascript:void(0)\" onclick=\"moveUp(this)\">上移</a>",
-                api_name:Cm[i].getAttribute("attr1"),
-                api_url:Cm[i].getAttribute("attr2"),
-                query:Cm[i].getAttribute("attr3"),
-                body:Cm[i].getAttribute("attr4"),
-                id:Cm[i].getAttribute("attr0"),
-                output:"<input type=\"text\" name=\"output_parameters\" placeholder=\"出参\">",
-                input:"<input type=\"text\" name=\"input_parameters\" placeholder=\"入参\">",
-                delete:"<a href=\"javascript:void(0)\" onclick=\"delete_row(this)\">删除</a>"
+                order: "<a href=\"javascript:void(0)\" onclick=\"moveUp(this)\">上移</a>",
+                api_name: Cm[i].getAttribute("attr1"),
+                api_url: Cm[i].getAttribute("attr2"),
+                query: Cm[i].getAttribute("attr3"),
+                body: Cm[i].getAttribute("attr4"),
+                id: Cm[i].getAttribute("attr0"),
+                output: "<input type=\"text\" name=\"output_parameters\" placeholder=\"出参\">",
+                input: "<input type=\"text\" name=\"input_parameters\" placeholder=\"入参\">",
+                delete: "<a href=\"javascript:void(0)\" onclick=\"delete_row(this)\">删除</a>"
             }
             table_data.push(dic)
         }
@@ -111,6 +103,7 @@
             for(var k in table_data[i])   //里面的for循环是 列
             {
                 var td=document.createElement("td");  //创建单元格
+                td.className = "td";
                 tr.appendChild(td);
                 td.innerHTML=table_data[i][k]; //把对象里面的属性值 datas[i][k]给td
             }
@@ -193,6 +186,54 @@
                 }
             },
         })
+    }
+
+    function create_case () {
+        //需要创建一个flow_case，包含用例名称、用例描述、产品、测试人
+        //然后创建一个flow_case和api之间的映射记录，包含双方的id，每一条api对应的出入参数
+        //所以这里需要传给后端的数据又，用例名称、api的id和出入参
+        var case_name = document.getElementById("case_name").value;   //对的
+        var tb = document.getElementById('show_list')
+        var rows = tb.rows;                           // 获取表格所有行
+        var data_list = [];
+        var io_list = [];
+        for(var i = 1; i<rows.length; i++ ){
+            var api_info = ''
+            for(var j = 5; j<rows[i].cells.length-3; j++ ){    // 遍历该行的 td
+                api_info = api_info + rows[i].cells[j].innerHTML + ','
+                {#alert("第"+(i+1)+"行，第"+(j+1)+"个td的值："+rows[i].cells[j].innerHTML+"。");           // 输出每个td的内容#}
+            }
+            data_list[i-1] = api_info
+        }
+        for(var i = 1; i<rows.length; i++ ){
+            var api_info = ''
+            for(var j = 6; j<rows[i].cells.length-1; j++ ){    // 遍历该行的 td
+                api_info = api_info + rows[i].cells[j].getElementsByTagName("input")[0].value + ','
+            }
+            io_list[i-1] = api_info
+        }
+        $.ajax({
+            url: "{% url 'apitest:form_api_flow_case' %}",
+            type: "POST",
+            data: {
+                "data_list": JSON.stringify(data_list),
+                'create': '',
+                'io_list': JSON.stringify(io_list),
+                'case_name': case_name,
+            },
+            success: function (e){
+                if (e=="1"){
+                    alert('保存成功')
+                }else if (e=="0"){
+                    alert('保存失败，抱歉')
+                }else if (e=="2"){
+                    alert('没有填写用例名称！')
+                }else if (e=="3"){
+                    alert('没有选中任何接口')
+                }
+            },
+        })
+
     }
 
     function checkAll (current) {

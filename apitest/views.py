@@ -73,18 +73,45 @@ def form_api_flow_case(request):
         else:
             # api_to_test_list = Apis.objects.filter(id__in=data)
             return HttpResponse('1')
+
     if 'try' in request.POST:
         io_list = request.POST['io_list']  # 出入参
         io_list = json.loads(io_list)
 
         data_list = request.POST['data_list']
         data_list = json.loads(data_list)
-        is_success = trial_test(data_list, io_list)
-        if is_success:
+        if trial_test(data_list, io_list):
             print('return 1')
             return HttpResponse("1")
         else:
             print('return 0')
+            return HttpResponse("0")
+
+    if 'create' in request.POST:
+        case_name = request.POST['case_name']
+        # todo：不仅要校验空值，还要校验是否唯一
+        if case_name == "":
+            return HttpResponse("2")
+        io_list = request.POST['io_list']  # 出入参
+        io_list = json.loads(io_list)
+        api_io_list = data_to_list(io_list)
+
+        data_list = request.POST['data_list']
+        data_list = json.loads(data_list)
+        if len(data_list) == 0:
+            print('return 3')
+            return HttpResponse("3")
+
+        api_id_list = data_to_list(data_list)
+        try:
+            # 写入数据库
+            # 需要创建一个flow_case，包含用例名称、用例描述、产品、测试人
+            # 然后创建一个flow_case和api之间的映射记录，包含双方的id，每一条api对应的出入参数
+            case_id = ManageSql.write_flow_case_to_sql(case_name, "默认描述", username, 2)
+            # 需要获取刚刚那个case的id
+            ManageSql.write_to_table_api_flow_and_apis(case_id, api_id_list, api_io_list)
+            return HttpResponse("1")
+        except:
             return HttpResponse("0")
     return render(request, "apitest/form_api_flow_case_cp.html",
                   {"username": username, 'api_to_choose_list': api_to_choose_list,
@@ -98,14 +125,12 @@ def trial_test(data_list, io_list):
     :param io_list: 出入参信息
     :return:
     """
+    data_list = data_to_list(data_list)
+    api_io_list = data_to_list(io_list)
     api_id_list = []
-    api_io_list = []
-    for item in io_list:
-        item = item.split(',')  # 最后多一个空项
-        api_io_list.append(item)
     for item in data_list:
-        item = item.split(',')  # 最后多一个空项
         api_id_list.append(int(item[0]))
+
     api_to_test_list = Apis.objects.filter(id__in=api_id_list)
     host = ManageSql.get_host_of_product(2)
     case_list = model_list_to_case_list(api_to_test_list)
@@ -145,6 +170,11 @@ def save_case_locally(case_list, host):
 
 
 def model_list_to_case_list(model_list):
+    """
+    把Django的数据库查询集合，转化成python可用的list
+    :param model_list:
+    :return:
+    """
     case_list = []
     for case in model_list:
         case_list.append([case.id, case.api_url, case.api_method, ast.literal_eval(case.api_param_value), ast.literal_eval(case.api_body_value),
@@ -385,3 +415,13 @@ def list_filter(request, list_to_filter):
         list_filtered = list_to_filter.filter(api_status=True if selected_test_result == '1' else False)
 
     return list_filtered, int(selected_test_result), int(selected_product_id)
+
+
+def data_to_list(data):
+    data_list = []
+    for item in data:
+        item = item.split(',')  # 最后多一个空项
+        data_list.append(item)
+    for item in data_list:
+        item.pop()
+    return data_list
