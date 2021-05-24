@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .box {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            flex-direction: row;
+            height: auto;
+        }
+        .item {
+            flex-grow: 0;
+            padding: 20px;
+        }
+        .th {
+            padding: 10px;
+        }
+        .td {
+            padding: 10px;
+            text-wrap: normal;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏-->
+{% include 'apitest/header_for_api_flow_test.html' %}
+<div class="box" style="padding-top: 70px">
+    <div class="row">
+        <span class="item">
+            <div style="height:700px; overflow:scroll; overflow-x:hidden;">
+                {% include 'apitest/table_api_for_test.html' %}
+            </div>
+            <h3 style="padding: 10px; width: 200px">当前选中: <span id="js-check-text"></span></h3>
+            <button style="padding-inline: 15px" onclick="join()">ok 就这些接口</button>
+        </span>
+        <span class="item">
+{#            <form class="navbar-form" method="post" action="{% url 'apitest:form_api_flow_case' %}">{%  csrf_token %}#}
+            <div>
+                    <label>新测试场景名称：</label>
+                    <input type="text" name="case_name" placeholder="填写名称">
+                    <button type="submit" name="try" style="margin-left: 50px" onclick="try_on();">测一下试试</button>
+                    <button type="submit" name="create" style="margin-left: 20px" onclick="table_value();">新建流程测试用例</button>
+            </div>
+            <div style="height:700px; overflow:scroll; overflow-x:hidden;">
+                {% include 'apitest/table_case_to_be.html' %}
+            </div>
+{#            </form>#}
+        </span>
+    </div>
+</div>
+<script>
+    var checkValues = []
+    var value = []
+    var length = 0
+    var data = [];
+    function clickCheckbox () {
+        var checkDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]:checked')
+        checkValues = []
+        for (var i = 0, len = checkDomArr.length; i < len; i++) {
+            checkValues.push(checkDomArr[i].value)
+        }
+        updateText()
+        var allCheckDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]')
+        var allCheckbox = document.getElementById('js-all-checkbox')
+        for (var i = 0, len = allCheckDomArr.length; i < len; i++) {
+            if (!allCheckDomArr[i].checked) {
+                if (allCheckbox.checked) allCheckbox.checked = false
+                break
+            } else if (i === len - 1) {
+                document.getElementById('js-all-checkbox').checked = true
+                return
+            }
+        }
+    }
+
+    $('#show_list input.move').click(function() {
+        var row = $(this).closest('tr');
+        if ($(this).hasClass('up'))
+            row.prev().before(row);
+        else
+            row.next().after(row);
+    });
+
+    function join (){
+        //1,先准备数据
+        var table_data=[]
+        var Cm = $(".adviceSeq:checked:enabled");
+        for(var i = 0 ; i < Cm.length ; i++){
+            var dic = {
+                order:"<a href=\"javascript:void(0)\" onclick=\"moveUp(this)\">上移</a>",
+                api_name:Cm[i].getAttribute("attr1"),
+                api_url:Cm[i].getAttribute("attr2"),
+                query:Cm[i].getAttribute("attr3"),
+                body:Cm[i].getAttribute("attr4"),
+                id:Cm[i].getAttribute("attr0"),
+                output:"<input type=\"text\" name=\"output_parameters\" placeholder=\"出参\">",
+                input:"<input type=\"text\" name=\"input_parameters\" placeholder=\"入参\">",
+                delete:"<a href=\"javascript:void(0)\" onclick=\"delete_row(this)\">删除</a>"
+            }
+            table_data.push(dic)
+        }
+
+        //2,往tbody里面创建行，有几个人（通过数组的长度）我们就创建几行
+        var tbody=document.querySelector("#joined");
+        for(var i=0;i<table_data.length;i++)  //外面的for循环 是 行tr
+        {
+            var tr=document.createElement("tr");
+            tbody.appendChild(tr);
+            //3,往tr每一行里面创建单元格（跟数据有关系的3个单元格），td单元格的数量取决于每个对象的属性个数 for循环遍历对象 datas[i]
+            for(var k in table_data[i])   //里面的for循环是 列
+            {
+                var td=document.createElement("td");  //创建单元格
+                tr.appendChild(td);
+                td.innerHTML=table_data[i][k]; //把对象里面的属性值 datas[i][k]给td
+            }
+        }
+    }
+
+    function delete_row(_a){
+        var tbody=document.querySelector("#joined");
+        var _row = _a.parentNode.parentNode;
+        tbody.removeChild(_row);
+    }
+
+    function moveUp(_a){
+        var _row = _a.parentNode.parentNode;
+        //如果不是第一行，则与上一行交换顺序
+        var _node = _row.previousSibling;
+        while(_node && _node.nodeType != 1){
+            _node = _node.previousSibling;
+        }
+        if(_node){
+            swapNode(_row,_node);
+        }
+    }
+
+    function moveDown(_a){
+        var _row = _a.parentNode.parentNode;
+        //如果不是最后一行，则与下一行交换顺序
+        var _node = _row.nextSibling;
+        while(_node && _node.nodeType != 1){
+            _node = _node.nextSibling;
+        }
+        if(_node){
+            swapNode(_row,_node);
+        }
+    }
+
+    function swapNode(node1,node2){
+        //获取父结点
+        var _parent = node1.parentNode;
+        //获取两个结点的相对位置
+        var _t1 = node1.nextSibling;
+        var _t2 = node2.nextSibling;
+        //将node2插入到原来node1的位置
+        if(_t1)_parent.insertBefore(node2,_t1);
+        else _parent.appendChild(node2);
+        //将node1插入到原来node2的位置
+        if(_t2)_parent.insertBefore(node1,_t2);
+        else _parent.appendChild(node1);
+    }
+
+    function try_on() {
+        var tb = document.getElementById('show_list')
+        var rows = tb.rows;                           // 获取表格所有行
+        var data_list = [];
+        var io_list = [];
+        for(var i = 1; i<rows.length; i++ ){
+            var api_info = ''
+            for(var j = 5; j<rows[i].cells.length-3; j++ ){    // 遍历该行的 td
+                api_info = api_info + rows[i].cells[j].innerHTML + ','
+                {#alert("第"+(i+1)+"行，第"+(j+1)+"个td的值："+rows[i].cells[j].innerHTML+"。");           // 输出每个td的内容#}
+            }
+            data_list[i-1] = api_info
+        }
+        for(var i = 1; i<rows.length; i++ ){
+            var api_info = ''
+            for(var j = 6; j<rows[i].cells.length-1; j++ ){    // 遍历该行的 td
+                api_info = api_info + rows[i].cells[j].getElementsByTagName("input")[0].value + ','
+            }
+            io_list[i-1] = api_info
+        }
+        $.ajax({
+            url: "{% url 'apitest:form_api_flow_case' %}",
+            type: "POST",
+            data: {"data_list": JSON.stringify(data_list), 'try': '', 'io_list': JSON.stringify(io_list)},
+            success: function (e){
+                if (e=="1"){
+                    alert('test successfully')
+                }else if (e=="0"){
+                    alert('test fail')
+                }
+            },
+        })
+    }
+
+    function checkAll (current) {
+        var allCheckDomArr = document.querySelectorAll('.multi-table tbody input[type=checkbox]')
+        if (!current.checked) { // 点击的时候, 状态已经修改, 所以没选中的时候状态时true
+            checkValues = []
+            for (var i = 0, len = allCheckDomArr.length; i < len; i++) {
+                var checkStatus = allCheckDomArr[i].checked
+                if (checkStatus) allCheckDomArr[i].checked = false
+            }
+        } else {
+            checkValues = []
+            for (var i = 0, len = allCheckDomArr.length; i < len; i++) {
+                var checkStatus = allCheckDomArr[i].checked
+                if (!checkStatus) allCheckDomArr[i].checked = true
+                checkValues.push(allCheckDomArr[i].value)
+            }
+        }
+        updateText()
+    }
+
+    function updateText () {
+        document.getElementById('js-check-text').innerHTML = JSON.stringify(checkValues)
+    }
+
+</script>
+</body>
+</html>

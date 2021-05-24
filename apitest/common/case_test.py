@@ -38,18 +38,13 @@ class TestCaseRequest:
 
             # 保存出参
             if io_list[index][0] != '':
-                # print(2)
                 value = output_parameter(io_list[index][0], result)  # 这里应该保存
                 parameters.append([case[0], "name_placeholder", value])
-                # print("出参：", parameters)
 
         print("num_success:", self.num_success)
-        # print(type(self.num_success))
         if self.num_success == count:
-            # print('True')
             return True
         else:
-            # print('False')
             return False
 
     def single_api_test(self):
@@ -123,8 +118,6 @@ def output_parameter(json_pattern, result):
 def input_parameter(parameter, case, parameters):
     name = parameter.split('=')[0]
     api_id = int(parameter.split('=')[1])
-    # print("name:", name)
-    # print("api_id:", api_id)
 
     if case[2] == 'get' or case[2] == 'GET':
         case[3] = replace(name, case[3], api_id, parameters)
@@ -137,16 +130,13 @@ def replace(name, json_string, api_id, parameters):
     for item in parameters:
         if api_id == item[0]:
             value = item[2]
-            # print("value:", value)
             break
-    # print("json_string:", json_string)
-    # print(type(json_string))
     for key, key_value in json_string.items():
-        # print("key, key_value:", key, key_value)
         if name == key:
-            # print('走到这里了吗？')
-            json_string[key] = value
-    # print("json_string after replacement:", json_string)
+            try:
+                json_string[key] = value
+            except:
+                pass
     return json_string
 
 

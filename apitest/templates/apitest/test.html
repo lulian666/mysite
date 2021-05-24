@@ -8,7 +8,7 @@
 <tbody id='joined'>
 <tr>
     <td class='td'>
-        <a href='#'>上移</a>
+        <input type="button" value="↑向上移动 "  onclick="SetRow('up');"/>
     </td>
     <td class='td'>"+Cm[i].getAttribute("attr1")+"</td>
     <td class='td'>"+Cm[i].getAttribute("attr2")+"</td>
@@ -16,10 +16,10 @@
     <td class='td'>"+Cm[i].getAttribute("attr4")+"</td>
     <td class='td'>"+Cm[i].getAttribute("attr0")+"</td>
     <td class='td'>
-        <input type='text' name='output_parameters' placeholder='出参'>
+        <input type="text" name="output_parameters" placeholder="出参">
     </td>
     <td class='td'>
-        <input type='text' name='input_parameters' placeholder='入参'>
+        <input type="text" name="input_parameters" placeholder="入参">
     </td>
     <td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td>
     <td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td>

@@ -10,7 +10,7 @@
             height: auto;
         }
         .item {
-            flex-grow: 1;
+            flex-grow: 0;
             padding: 20px;
         }
         .th {
@@ -78,7 +78,7 @@
         var str = "";
         //循环编列选中的所有行，把值赋予每一行对应的tr和td
         for(var i = 0 ; i < Cm.length ; i++){
-            str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute('attr4')+"</td><td class='td'>"+Cm[i].getAttribute('attr0')+"</td><td class='td'><input type='text' name='output_parameters' placeholder='出参'></td><td class='td'><input type='text' name='input_parameters' placeholder='入参'></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td></tr></tbody>");
+            str = str.concat("<tbody id='joined'><tr><td class='td'><input type='button' value='↑向上移动 '  onclick='SetRow('up');'/></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute('attr4')+"</td><td class='td'>"+Cm[i].getAttribute('attr0')+"</td><td class='td'><input type='text' name='output_parameters' placeholder='出参'></td><td class='td'><input type='text' name='input_parameters' placeholder='入参'></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td></tr></tbody>");
             {#str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td><td><a href='#'><img src='/static/admin/img/icon-deletelink.svg'/></a></td></tr></tbody>");#}
         }
         $("#show_list").append(str);
@@ -147,15 +147,109 @@
         document.getElementById('js-check-text').innerHTML = JSON.stringify(checkValues)
     }
     
-    function table_value() {
-        var Cm = $(".adviceSeq:checked:enabled");
-        var str = "";
+    //function table_value() {
+    //    var Cm = $(".adviceSeq:checked:enabled");
+    //    var str = "";
         //循环编列选中的所有行，把值赋予每一行对应的tr和td
-        for(var i = 0 ; i < Cm.length ; i++){
-            {#str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td><td><a href='#'><img src='/static/admin/img/icon-deletelink.svg'/></a></td></tr></tbody>");#}
-            str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td></tr></tbody>");
+    //    for(var i = 0 ; i < Cm.length ; i++){
+    //        {#str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td><td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td><td><a href='#'><img src='/static/admin/img/icon-deletelink.svg'/></a></td></tr></tbody>");#}
+    //        str = str.concat("<tbody id='joined'><tr><td class='td'><a href='#'>⬆️ 上移</a></td><td class='td'>"+Cm[i].getAttribute("attr1")+"</td><td class='td'>"+Cm[i].getAttribute("attr2")+"</td><td class='td'>"+Cm[i].getAttribute("attr3")+"</td><td class='td'>"+Cm[i].getAttribute("attr4")+"</td></tr></tbody>");
+    //    }
+    //    $("#show_list").append(str);
+    //}
+    function moveUp(_a){
+        var _row = _a.parentNode.parentNode;
+        //如果不是第一行，则与上一行交换顺序
+        var _node = _row.previousSibling;
+        while(_node && _node.nodeType != 1){
+            _node = _node.previousSibling;
         }
-        $("#show_list").append(str);
+        if(_node){
+            swapNode(_row,_node);
+        }
+    }
+    function moveDown(_a){
+        var _row = _a.parentNode.parentNode;
+        //如果不是最后一行，则与下一行交换顺序
+        var _node = _row.nextSibling;
+        while(_node && _node.nodeType != 1){
+            _node = _node.nextSibling;
+        }
+        if(_node){
+            swapNode(_row,_node);
+        }
+    }
+    function swapNode(node1,node2){
+        //获取父结点
+        var _parent = node1.parentNode;
+        //获取两个结点的相对位置
+        var _t1 = node1.nextSibling;
+        var _t2 = node2.nextSibling;
+        //将node2插入到原来node1的位置
+        if(_t1)_parent.insertBefore(node2,_t1);
+        else _parent.appendChild(node2);
+        //将node1插入到原来node2的位置
+        if(_t2)_parent.insertBefore(node1,_t2);
+        else _parent.appendChild(node1);
+    }
+
+    var o1,o2;
+    var o1a=new Array();
+    var o2a=new Array();
+
+    function switchTd(tr1,tr2){
+        for(x=0;x<o1a.length;x++){
+            tr1.cells[x].innerHTML=o2a[x];
+            tr2.cells[x].innerHTML=o1a[x];
+        }
+        tr1.cells[0].innerHTML=o1a[0];
+        tr2.cells[0].innerHTML=o2a[0];
+        clickMouse(tr2);
+    }
+
+    function SetRow(dir){
+        var o;
+        var start=false;
+        var num=0;
+        var v_radio = document.getElementsByName("order_radio");
+        for(var j=0;j<v_radio.length;j++){
+            if(v_radio[j].checked){
+                o=v_radio[j];
+                start=true;
+                num=v_radio[j].parentNode.parentNode.rowIndex;
+            }
+        }
+        if(!start){
+            alert("请选择一个选项");return;
+        }
+        if(num<=1 && dir=="up"){
+            alert("已经无法再向上");return;
+        }
+        if(num>=(v_radio.length) && dir=="down"){
+            alert("已经无法再向下");return;
+        }
+
+        var p = o.parentNode.parentNode;
+        var trs = document.getElementById("table_order").getElementsByTagName("tr");
+        o1=trs[p.rowIndex];
+        var tdLen=trs[p.rowIndex].cells.length;
+        o1a.length=tdLen;
+        o2a.length=tdLen;
+
+        for(var i=0;i<tdLen;i++){
+            o1a[i]=trs[p.rowIndex].cells[i].innerHTML;
+            if(dir=="down"){
+                o2a[i]=trs[p.rowIndex+1].cells[i].innerHTML;
+            }else{
+                o2a[i]=trs[p.rowIndex-1].cells[i].innerHTML;
+            }
+        }
+        if(dir=="down"){
+            o2=trs[p.rowIndex+1];
+        }else{
+            o2=trs[p.rowIndex-1];
+        }
+        switchTd(o1,o2);
     }
 </script>
 </body>

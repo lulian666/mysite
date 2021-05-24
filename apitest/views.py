@@ -64,37 +64,21 @@ def form_api_flow_case(request):
     username = request.user
     api_to_choose_list = Apis.objects.filter(api_expect_status_code=200).filter(Product_id=2)
     case_name = "默认名称"
-    # data = []
-    # api_to_test_list = Apis.objects.filter(id__in=data)
     # todo: 按照url过滤一遍
     if 'choice' in request.POST:
-        # print('choice')
         data = request.POST['data']
-        # print(data)
-        # print(type(data))
         data = json.loads(data)
-        # print(data)
-        # print(type(data))
         if len(data) == 0:
             return HttpResponse('0')
         else:
-            api_to_test_list = Apis.objects.filter(id__in=data)
-            # print(api_to_test_list.__len__())
-            # print(api_to_test_list)
+            # api_to_test_list = Apis.objects.filter(id__in=data)
             return HttpResponse('1')
     if 'try' in request.POST:
-        # print('try')
         io_list = request.POST['io_list']  # 出入参
         io_list = json.loads(io_list)
-        # print("io_list:", io_list)
-        # print(type(io_list))
 
         data_list = request.POST['data_list']
-        # print(data_list)
-        # print(type(data_list))
         data_list = json.loads(data_list)
-        # print("data_list:", data_list)
-        # print(type(data_list))
         is_success = trial_test(data_list, io_list)
         if is_success:
             print('return 1')
@@ -102,7 +86,7 @@ def form_api_flow_case(request):
         else:
             print('return 0')
             return HttpResponse("0")
-    return render(request, "apitest/form_api_flow_case.html",
+    return render(request, "apitest/form_api_flow_case_cp.html",
                   {"username": username, 'api_to_choose_list': api_to_choose_list,
                    'case_name': case_name})
 
@@ -122,12 +106,9 @@ def trial_test(data_list, io_list):
     for item in data_list:
         item = item.split(',')  # 最后多一个空项
         api_id_list.append(int(item[0]))
-    # print("api_id_list:", api_id_list)
-    # print("api_io_list:", api_io_list)
     api_to_test_list = Apis.objects.filter(id__in=api_id_list)
     host = ManageSql.get_host_of_product(2)
     case_list = model_list_to_case_list(api_to_test_list)
-    # print("??:", TestCaseRequest(case_list, host).flow_api_test(data_list, api_io_list))
     return TestCaseRequest(case_list, host).flow_api_test(data_list, api_io_list)
 
 

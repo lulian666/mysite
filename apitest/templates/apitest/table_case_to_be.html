@@ -13,19 +13,19 @@
     </tr>
     </thead>
     <tbody id='joined'>
-    {% for api in api_to_test_list %}
-        <tr>
-            <td class='td'>
-                <a href='#'>上移</a>
-            </td>
-            <td class='td'>{{ api.api_name }}</td>
-            <td class='td'>{{ api.api_url }}</td>
-            <td class='td'>{{ api.api_param_value }}</td>
-            <td class='td'>{{ api.api_body_value }}</td>
-            <td class='td'>{{ api.id }}</td>
-            <td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td>
-            <td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td>
-        </tr>
-    {% endfor %}
+{#    {% for api in api_to_test_list %}#}
+{#        <tr>#}
+{#            <td class='td'>#}
+{#                <a href='#'>上移</a>#}
+{#            </td>#}
+{#            <td class='td'>{{ api.api_name }}</td>#}
+{#            <td class='td'>{{ api.api_url }}</td>#}
+{#            <td class='td'>{{ api.api_param_value }}</td>#}
+{#            <td class='td'>{{ api.api_body_value }}</td>#}
+{#            <td class='td'>{{ api.id }}</td>#}
+{#            <td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-changelink.svg'/></a></td>#}
+{#            <td class='td'><a style='color: lightblue' class='related-widget-wrapper-link add-related' id='add_id_Apis' href='/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1'><img src='/static/admin/img/icon-deletelink.svg'/></a></td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
     </tbody>
 </table>
