@@ -71,7 +71,6 @@ def form_api_flow_case(request):
         if len(data) == 0:
             return HttpResponse('0')
         else:
-            # api_to_test_list = Apis.objects.filter(id__in=data)
             return HttpResponse('1')
 
     if 'try' in request.POST:
@@ -89,9 +88,12 @@ def form_api_flow_case(request):
 
     if 'create' in request.POST:
         case_name = request.POST['case_name']
-        # todo：不仅要校验空值，还要校验是否唯一
+        # case_name不仅要校验空值，还要校验是否唯一
         if case_name == "":
             return HttpResponse("2")
+        elif not ManageSql.is_value_only(case_name, "case_name", "apitest_apiflowtest"):
+            return HttpResponse("4")
+
         io_list = request.POST['io_list']  # 出入参
         io_list = json.loads(io_list)
         api_io_list = data_to_list(io_list)
@@ -99,16 +101,13 @@ def form_api_flow_case(request):
         data_list = request.POST['data_list']
         data_list = json.loads(data_list)
         if len(data_list) == 0:
-            print('return 3')
             return HttpResponse("3")
 
         api_id_list = data_to_list(data_list)
         try:
-            # 写入数据库
             # 需要创建一个flow_case，包含用例名称、用例描述、产品、测试人
             # 然后创建一个flow_case和api之间的映射记录，包含双方的id，每一条api对应的出入参数
             case_id = ManageSql.write_flow_case_to_sql(case_name, "默认描述", username, 2)
-            # 需要获取刚刚那个case的id
             ManageSql.write_to_table_api_flow_and_apis(case_id, api_id_list, api_io_list)
             return HttpResponse("1")
         except:
@@ -418,6 +417,11 @@ def list_filter(request, list_to_filter):
 
 
 def data_to_list(data):
+    """
+    把前端传过来的string，转化成python可用的list（前端每个值都是用逗号分隔的）
+    :param data:
+    :return:
+    """
     data_list = []
     for item in data:
         item = item.split(',')  # 最后多一个空项
@@ -425,3 +429,6 @@ def data_to_list(data):
     for item in data_list:
         item.pop()
     return data_list
+
+
+

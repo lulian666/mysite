@@ -169,13 +169,10 @@ class ManageSql:
 
     @staticmethod
     def write_to_table_api_flow_and_apis(flow_case_id, id_list, io_list):
-        print("id_list:", id_list)
-        print("io_list:", io_list)
         create_time = datetime.now()
         sql = "insert into apitest_apiflowandapis(ApiFlowTest_id,Apis_id,output_parameter,input_parameter,execution_order,create_time) values(%s,%s,%s,%s,%s,%s);"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
-        # 这里应该有个循环
         # execution_order应该就是传入list的顺序
         execution_order = 0
         for index, api_id in enumerate(id_list):
@@ -188,6 +185,24 @@ class ManageSql:
 
         cursor.close()
         coon.close()
+
+    @staticmethod
+    def is_value_only(value, column_name, table_name):
+        sql = "select %s from %s;" % (column_name,table_name)
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+
+        aa = cursor.execute(sql)
+        info = cursor.fetchmany(aa)
+
+        value_list = []
+        for ii in info:  # 读出来的是元组类型的字典
+            value_list.append(ii[0])
+        coon.commit()
+
+        cursor.close()
+        coon.close()
+        return not (value in value_list)
 
 
 def handle_data_type(case_list):
