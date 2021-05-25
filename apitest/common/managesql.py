@@ -188,6 +188,11 @@ class ManageSql:
 
     @staticmethod
     def is_value_only(value, column_name, table_name):
+        value_list = ManageSql.get_one_column_value(column_name, table_name)
+        return not (value in value_list)
+
+    @staticmethod
+    def get_one_column_value(column_name, table_name):
         sql = "select %s from %s;" % (column_name,table_name)
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
@@ -202,7 +207,34 @@ class ManageSql:
 
         cursor.close()
         coon.close()
-        return not (value in value_list)
+        return value_list
+
+    # @staticmethod
+    # def get_selected_rows(selector_name, selector_list, table_name):
+    #     """
+    #     从数据库里取出符合条件的行
+    #     :param selector_name: 需要判断的条件
+    #     :param selector_list: 条件满足的范围
+    #     :param table_name: 所取的表名
+    #     :return:
+    #     """
+    #     sql = "select * from %s where %s in (%s);" % (table_name, selector_name, selector_list)
+    #     coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+    #     cursor = coon.cursor()
+    #
+    #     aa = cursor.execute(sql)
+    #     info = cursor.fetchmany(aa)
+    #
+    #     row_list = []
+    #     id_list = []
+    #     for ii in info:  # 读出来的是元组类型的字典
+    #         row_list.append(ii)
+    #         id_list.append(ii[2])
+    #     coon.commit()
+    #
+    #     cursor.close()
+    #     coon.close()
+    #     return row_list, id_list
 
 
 def handle_data_type(case_list):

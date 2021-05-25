@@ -2,6 +2,18 @@
 <html lang="zh-CN">
 {% load static %}
 <head>
+    <style>
+        .th {
+            padding: 5px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        .td {
+            padding: 5px;
+            text-align: left;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body role="document">
 
@@ -16,50 +28,39 @@
 <!-- 流程接口列表-->
 <div class="row">
     <div class="col-md-11">
-        <table class="table table-striped" >
+        <table class="table table-striped">
             <thead>
-            <tr style="text-align:left" width=200px>
-                <th>ID</th>
-                <th>产品</th>
-                <th>流程接口测试用例名称</th>
-                <th>流程接口描述</th>
-                <th>测试负责人</th>
-                <th>测试结果</th>
-                <th>测试用例步骤</th>
-                <th>编辑</th>
-                <th>删除</th>
+            <tr>
+                <th class="th" rowspan="2">用例ID</th>
+                <th class="th" rowspan="2">用例名称</th>
+                <th class="th" rowspan="2">用例描述</th>
+                <th class="th" colspan="6" style="text-align: center">测试步骤</th>
+                <th class="th" rowspan="2">测试结果</th>
+            </tr>
+            <tr>
+                <th class="th">接口id</th>
+                <th class="th">url</th>
+                <th class="th">query</th>
+                <th class="th">body</th>
+                <th class="th">出参</th>
+                <th class="th">入参</th>
             </tr>
             </thead>
             <tbody>
-            {% for api_flow_test in api_flow_test_list %}
-            <tr>
-                <td style="text-align:left" width=200px>{{ api_flow_test.id }}</td>
-                <td style="text-align:left" width=200px>{{ api_flow_test.Product.productname }}</td>
-                <td style="text-align:left" width=200px>{{ api_flow_test.api_test_name }}</td>
-                <td style="text-align:left" width=200px>{{ api_flow_test.api_test_desc }}</td>
-                <td style="text-align:left" width=200px>{{ api_flow_test.api_tester }}</td>
-                <td style="text-align:left" width=100px>{% if api_flow_test.api_test_result == 1 %}
-                    <a style="color: green">{{ api_flow_test.api_test_result }}</a>
-                {% else %}
-                    <a style="color: #ff0000">{{ api_flow_test.api_test_result }}</a>
-                {% endif %}
-                </td>
-                <td style="text-align:left" width=200px>
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown">
-                            展开查看
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'account:password_change' %}">修改密码</a></li>
-                            <li><a href="{% url 'account:my_information' %}">个人信息</a></li>
-                            <li><a href="{% url 'article:article_column' %}">栏目管理</a></li>
-                        </ul>
-                    </div>
-                </td>
-                <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apitest" href="/admin/apitest/apiflowtest/{{ api_flow_test.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
-                <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apitest" href="/admin/apitest/apiflowtest/{{ api_flow_test.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
-            </tr>
-            {% endfor %}
+                {% for item in relation_list %}
+                    <tr>
+                        <td class="td">{{ item.ApiFlowTest.id }}</td>
+                        <td class="td">{{ item.ApiFlowTest.case_name }}</td>
+                        <td class="td">{{ item.ApiFlowTest.case_desc }}</td>
+                        <td class="td">{{ item.Apis.id }}</td>
+                        <td class="td">{{ item.Apis.api_url }}</td>
+                        <td class="td">{{ item.Apis.api_param_value }}</td>
+                        <td class="td">{{ item.Apis.api_body_value }}</td>
+                        <td class="td">{{ item.output_parameter }}</td>
+                        <td class="td">{{ item.input_parameter }}</td>
+                        <td class="td">{{ item.ApiFlowTest.case_test_result }}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

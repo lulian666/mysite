@@ -31,22 +31,6 @@ class ApiFlowAndApis(models.Model):
         verbose_name = '流程接口用例和单一接口映射'
         verbose_name_plural = '流程接口用例和单一接口映射'
 
-# class ApiStep(models.Model):
-#     ApiFlowTest = models.ForeignKey('apitest.ApiFlowTest', on_delete=models.CASCADE, null=True)
-#     api_name = models.CharField('接口名称', max_length=100)
-#     api_url = models.CharField('url 地址', max_length=200)
-#     api_step = models.CharField('测试步骤', max_length=100, null=True)
-#     api_param_value = models.CharField('请求参数和值', max_length=800)
-#     REQUEST_METHOD = (('get', 'get'), ('post', 'post'), ('put', 'put'), ('delete', 'delete'), ('patch', 'patch'))
-#     api_method = models.CharField(verbose_name='请求方法', choices=REQUEST_METHOD, default='get', max_length=200, null=True)
-#     api_result = models.CharField('预期结果', max_length=200, null=True)
-#     api_response = models.CharField('响应数据', max_length=5000, null=True)
-#     api_status = models.BooleanField('是否通过')
-#     create_time = models.DateTimeField('创建时间', auto_now=True)
-#
-#     def __str__(self):
-#         return self.api_name
-
 
 class Apis(models.Model):
     Product = models.ForeignKey('product.Product', on_delete=models.CASCADE, null=True)

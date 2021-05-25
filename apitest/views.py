@@ -1,4 +1,5 @@
 import ast
+import itertools
 import json
 import os
 
@@ -16,7 +17,7 @@ from apitest.common.case_collect_data import CaseCollect
 from apitest.common.case_readyfortest import CaseReady
 from apitest.common.case_test import TestCaseRequest
 from apitest.common.managesql import ManageSql
-from apitest.models import ApiFlowTest, Apis, Headers, Variables
+from apitest.models import ApiFlowTest, Apis, Headers, Variables, ApiFlowAndApis
 from product.models import Product
 
 
@@ -53,9 +54,26 @@ def logout(request):
 def api_flow_test_manage(request):
     username = request.user
     api_flow_test_list = ApiFlowTest.objects.all()
-    api_flow_test_counts, api_flow_test_page_list = paginator(request, api_flow_test_list, 6)
+    # 模型确实是ApiFlowTest，但是相关的信息要去ApiFlowAndApis找
+    # 因为case和单接口是多对多关系，所以需要第三个表格来保存他们之间的映射关系
+    # 根据case的id，去ApiFlowAndApi找到对应ApiFlowTest_id，然后取出此id的所有的行
+    # 然后根据这些行里的Apis_id去Apis表里找到所有的接口，传给前端的应该有3个list
+    # 一个是所有的case list，一个是所有的api list（其中包含对应到哪个case），还有relations list
+    case_id_list = list(api_flow_test_list.values_list('id', flat=True))
+    relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
+    api_id_list = list(relation_list.values_list('Apis_id', flat=True))
+    # print("api_id_list:", api_id_list)
+    api_id_list = list(set(api_id_list))
+    # print("api_id_list after duplicate removal：", api_id_list)
+    api_list = Apis.objects.filter(id__in=api_id_list)
+
+    # 或者……直接把3个表连接了……给前端一个list就好了
+
+    # 分页
+    list_count, api_flow_test_page_list = paginator(request, api_flow_test_list, 2)
     return render(request, "apitest/api_flow_test_manage.html",
-                  {"username": username, "api_flow_test_list": api_flow_test_page_list, "api_flow_test_counts": api_flow_test_counts})
+                  {"username": username, "api_flow_test_list": api_flow_test_page_list,
+                   "api_flow_test_counts": list_count, 'api_list': api_list, "relation_list": relation_list})
 
 
 @login_required
@@ -176,7 +194,8 @@ def model_list_to_case_list(model_list):
     """
     case_list = []
     for case in model_list:
-        case_list.append([case.id, case.api_url, case.api_method, ast.literal_eval(case.api_param_value), ast.literal_eval(case.api_body_value),
+        case_list.append([case.id, case.api_url, case.api_method, ast.literal_eval(case.api_param_value),
+                          ast.literal_eval(case.api_body_value),
                           case.api_expect_status_code, case.api_expect_response])
     return case_list
 
@@ -224,7 +243,8 @@ def test_report(request):
     apis_fail_count = [row[0] for row in cursor.fetchmany(bb)][0]
     db.close()
     return render(request, "apitest/report.html",
-                  {"user": username, "apis_list": apis_list, "apis_count": apis_count, "apis_pass_count": apis_pass_count,
+                  {"user": username, "apis_list": apis_list, "apis_count": apis_count,
+                   "apis_pass_count": apis_pass_count,
                    "apis_fail_count": apis_fail_count})
 
 
@@ -280,7 +300,8 @@ def datasource(request):
     apis_list = Apis.objects.all()
     apis_count, apis_page_list = paginator(request, apis_list, 8)
     return render(request, "apitest/datasource_manage.html",
-                  {'error': error, 'data': source, "username": username, "apis_list": apis_page_list, "apis_count": apis_count})
+                  {'error': error, 'data': source, "username": username, "apis_list": apis_page_list,
+                   "apis_count": apis_count})
 
 
 # header 管理
@@ -429,6 +450,3 @@ def data_to_list(data):
     for item in data_list:
         item.pop()
     return data_list
-
-
-
