@@ -112,12 +112,13 @@ def form_api_flow_case(request):
 @login_required
 def api_flow_test_manage(request):
     username = request.user
-
     # 过滤规则筛选的是api_flow_test_list，传给前端的是relation_list
-    product_list = Product.objects.all()
     api_flow_test_list = ApiFlowTest.objects.all()
+    product_list = Product.objects.all()
+
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
     selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+    test_result = False
 
     if 'selected_test_result' in request.GET:
         api_flow_test_list, selected_test_result, selected_product_id = list_filter(request.GET, api_flow_test_list)
@@ -125,10 +126,8 @@ def api_flow_test_manage(request):
     if request.method == 'POST':
         api_flow_test_list, selected_test_result, selected_product_id = list_filter(request.POST, api_flow_test_list)
         if 'run_test' in request.POST:
-            # tester = TestCaseRequest(case_list, host)
-            # tester.flow_api_case_test(multiple_case_list=)
-            pass
-            # test_case(api_flow_test_list)
+            test_result = flow_case_test(api_flow_test_list)
+
     case_id_list = list(api_flow_test_list.values_list('id', flat=True))
     relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
     list_count, relation_page_list = paginator(request, relation_list, 10)
@@ -136,8 +135,29 @@ def api_flow_test_manage(request):
                   {"username": username, "relation_list": relation_page_list,
                    "api_flow_test_counts": list_count, "product_list": product_list,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
-                   'selected_product_id': selected_product_id})
+                   'selected_product_id': selected_product_id, "test_result": test_result})
 
+
+def flow_case_test(api_flow_test_list):
+    """
+    多个流程case的测试
+    :param api_flow_test_list: 流程case的list
+    :return:
+    """
+    multiple_case_list = []
+    for case in api_flow_test_list:
+        relations = ApiFlowAndApis.objects.filter(ApiFlowTest_id=case.id)
+        io_list = []
+
+        for relation in relations:
+            io_list.append([relation.output_parameter, relation.input_parameter])
+
+        id_list = relations.values_list("Apis_id", flat=True)
+        api_list = Apis.objects.filter(id__in=id_list)
+        case_list = model_list_to_case_list(api_list)
+        multiple_case_list.append([case_list, io_list, ManageSql.get_host_of_product(case.Product_id)])
+    test_result = TestCaseRequest().flow_api_case_test(multiple_case_list)
+    return test_result
 
 @login_required
 def apis_manage(request):
