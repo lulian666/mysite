@@ -8,7 +8,7 @@ class ApiFlowTest(models.Model):
     case_name = models.CharField('流程接口名称', max_length=64)
     case_desc = models.CharField('描述', max_length=64)
     case_tester = models.CharField('测试负责人', max_length=16)
-    case_test_result = models.BooleanField('测试结果', null=True)
+    test_result = models.BooleanField('测试结果', null=True)
     create_time = models.DateTimeField('创建时间', auto_now=True, null=True)
 
     class Meta:
@@ -44,7 +44,7 @@ class Apis(models.Model):
     api_expect_status_code = models.IntegerField('预期状态码', default=200)
     api_response = models.CharField('测试结果', max_length=1000, null=True)
     api_response_status_code = models.IntegerField('预期状态码', null=True)
-    api_status = models.BooleanField('是否通过', null=True)
+    test_result = models.BooleanField('是否通过', null=True)
     create_time = models.DateTimeField('创建时间', auto_now=True, null=True)
 
     class Meta:

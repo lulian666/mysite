@@ -51,19 +51,6 @@ def logout(request):
 
 
 @login_required
-def api_flow_test_manage(request):
-    username = request.user
-    api_flow_test_list = ApiFlowTest.objects.all()
-    case_id_list = list(api_flow_test_list.values_list('id', flat=True))
-    relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
-
-    list_count, api_flow_test_page_list = paginator(request, api_flow_test_list, 2)
-    return render(request, "apitest/api_flow_test_manage.html",
-                  {"username": username, "api_flow_test_list": api_flow_test_page_list,
-                   "api_flow_test_counts": list_count, "relation_list": relation_list})
-
-
-@login_required
 @csrf_exempt
 def form_api_flow_case(request):
     username = request.user
@@ -122,23 +109,37 @@ def form_api_flow_case(request):
                    'case_name': case_name})
 
 
-def trial_test(data_list, io_list):
-    """
-    场景测试case的试测
-    :param data_list: data_list是前端传来的数据，包含api的id
-    :param io_list: 出入参信息
-    :return:
-    """
-    data_list = data_to_list(data_list)
-    api_io_list = data_to_list(io_list)
-    api_id_list = []
-    for item in data_list:
-        api_id_list.append(int(item[0]))
+@login_required
+def api_flow_test_manage(request):
+    username = request.user
 
-    api_to_test_list = Apis.objects.filter(id__in=api_id_list)
-    host = ManageSql.get_host_of_product(2)
-    case_list = model_list_to_case_list(api_to_test_list)
-    return TestCaseRequest(case_list, host).flow_api_test(data_list, api_io_list)
+    # 过滤规则筛选的是api_flow_test_list，传给前端的是relation_list
+    # api_flow_test_list = ApiFlowTest.objects.all()
+    # case_id_list = list(api_flow_test_list.values_list('id', flat=True))
+    # relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
+
+    product_list = Product.objects.all()
+    api_flow_test_list = ApiFlowTest.objects.all()
+    test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
+    selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+
+    if 'selected_test_result' in request.GET:
+        api_flow_test_list, selected_test_result, selected_product_id = list_filter(request.GET, api_flow_test_list)
+
+    if request.method == 'POST':
+        api_flow_test_list, selected_test_result, selected_product_id = list_filter(request.POST, api_flow_test_list)
+        if 'run_test' in request.POST:
+            pass
+            # test_case(api_flow_test_list)
+    # apis_count, apis_page_list = paginator(request, api_list, 6)
+    case_id_list = list(api_flow_test_list.values_list('id', flat=True))
+    relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
+    list_count, relation_page_list = paginator(request, relation_list, 10)
+    return render(request, "apitest/api_flow_test_manage.html",
+                  {"username": username, "relation_list": relation_page_list,
+                   "api_flow_test_counts": list_count, "product_list": product_list,
+                   'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                   'selected_product_id': selected_product_id})
 
 
 @login_required
@@ -154,9 +155,13 @@ def apis_manage(request):
     selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
 
     if 'selected_test_result' in request.GET:
+        print("这里")
         api_list, selected_test_result, selected_product_id = list_filter(request.GET, api_list)
 
     if request.method == 'POST':
+        print("selected_test_result:", request.POST.get('selected_test_result'))
+        print("selected_product_id:", request.POST.get('selected_product_id'))
+        # 上面的值传来的是对的
         api_list, selected_test_result, selected_product_id = list_filter(request.POST, api_list)
         if 'run_test' in request.POST:
             test_case(api_list)
@@ -167,24 +172,6 @@ def apis_manage(request):
                   {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                    'selected_product_id': selected_product_id, 'apis_count': apis_count})
-
-
-def save_case_locally(case_list, host):
-    pass
-
-
-def model_list_to_case_list(model_list):
-    """
-    把Django的数据库查询集合，转化成python可用的list
-    :param model_list:
-    :return:
-    """
-    case_list = []
-    for case in model_list:
-        case_list.append([case.id, case.api_url, case.api_method, ast.literal_eval(case.api_param_value),
-                          ast.literal_eval(case.api_body_value),
-                          case.api_expect_status_code, case.api_expect_response])
-    return case_list
 
 
 def test_case(model_list):
@@ -251,8 +238,10 @@ def search(request):
 def apissearch(request):
     username = request.session.get('user', '')
     apiname = request.GET.get("apiname", "")
-    apis_list = Apis.objects.filter(apiname__icontains=apiname)
-    return render(request, "apitest/apis_manage.html", {"user": username, "apiss": apis_list})
+    api_list = Apis.objects.filter(api_name__icontains=apiname)
+    api_count, api_page_list = paginator(request, api_list, 10)
+    return render(request, "apitest/apis_manage.html", {"user": username, "api_list": api_page_list,
+                                                        "apis_count": api_count})
 
 
 def welcome(request):
@@ -415,11 +404,13 @@ def list_filter(request, list_to_filter):
     selected_product_id = request.get('selected_product_id')
     selected_test_result = request.get('selected_test_result')
     list_filtered = list_to_filter
+    print("selected_test_result:", request.get('selected_test_result'))
+    print("selected_product_id:", request.get('selected_product_id'))
 
     if selected_product_id != '-1':
         list_filtered = list_to_filter.filter(Product_id=selected_product_id)
     if selected_test_result != '-1':
-        list_filtered = list_to_filter.filter(api_status=True if selected_test_result == '1' else False)
+        list_filtered = list_filtered.filter(test_result=True if selected_test_result == '1' else False)
 
     return list_filtered, int(selected_test_result), int(selected_product_id)
 
@@ -437,3 +428,40 @@ def data_to_list(data):
     for item in data_list:
         item.pop()
     return data_list
+
+
+def trial_test(data_list, io_list):
+    """
+    场景测试case的试测
+    :param data_list: data_list是前端传来的数据，包含api的id
+    :param io_list: 出入参信息
+    :return:
+    """
+    data_list = data_to_list(data_list)
+    api_io_list = data_to_list(io_list)
+    api_id_list = []
+    for item in data_list:
+        api_id_list.append(int(item[0]))
+
+    api_to_test_list = Apis.objects.filter(id__in=api_id_list)
+    host = ManageSql.get_host_of_product(2)
+    case_list = model_list_to_case_list(api_to_test_list)
+    return TestCaseRequest(case_list, host).flow_api_test(data_list, api_io_list)
+
+
+def save_case_locally(case_list, host):
+    pass
+
+
+def model_list_to_case_list(model_list):
+    """
+    把Django的数据库查询集合，转化成python可用的list
+    :param model_list:
+    :return:
+    """
+    case_list = []
+    for case in model_list:
+        case_list.append([case.id, case.api_url, case.api_method, ast.literal_eval(case.api_param_value),
+                          ast.literal_eval(case.api_body_value),
+                          case.api_expect_status_code, case.api_expect_response])
+    return case_list

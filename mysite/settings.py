@@ -149,8 +149,8 @@ STATICFILES_DIRS = (os.path.join(HERE, 'static/'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/home/'
-LOGOUT_REDIRECT_URL = '/account/login'
+# LOGIN_REDIRECT_URL = 'apitest/home/'
+# LOGOUT_REDIRECT_URL = '/apitest/login'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'lulian@iftech.io'

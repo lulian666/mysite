@@ -1,24 +1,24 @@
 from django.contrib import admin
-from apitest.models import ApiFlowTest, Apis, Headers, Variables
+from apitest.models import ApiFlowTest, Apis, Headers, Variables, ApiFlowAndApis
 
 
 # Register your models here.
 
-# class ApistepAdmin(admin.TabularInline):
-#     list_display = ['api_name', 'api_url', 'api_param_value', 'api_method', 'api_result', 'api_status', 'create_time', 'id', 'api_test']
-#     model = ApiStep
-#     extra = 1
+class ApiFlowAndApisAdmin(admin.TabularInline):
+    list_display = ['ApiFlowTest_id', 'Apis_id', 'execution_order', 'output_parameter', 'input_parameter', 'create_time', 'id']
+    model = ApiFlowAndApis
+    extra = 1
 
 
-# class ApitestAdmin(admin.ModelAdmin):
-#     list_display = ['case_name', 'case_tester', 'case_result', 'create_time', 'id']
-#     # inlines = [ApistepAdmin]
-#     search_fields = ['case_name']
-#     list_filter = ['create_time']
-#     list_per_page = 10
-#
-#
-# admin.site.register(ApiFlowTest, ApitestAdmin)
+class ApiFlowTestAdmin(admin.ModelAdmin):
+    list_display = ['case_name', 'case_tester', 'test_result', 'create_time', 'id']
+    inlines = [ApiFlowAndApisAdmin]
+    search_fields = ['case_name', 'case_tester']
+    list_filter = ['create_time', 'Product_id', 'test_result']
+    list_per_page = 10
+
+
+admin.site.register(ApiFlowTest, ApiFlowTestAdmin)
 
 
 class ApisAdmin(admin.TabularInline):

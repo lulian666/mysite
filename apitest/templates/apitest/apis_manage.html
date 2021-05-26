@@ -23,15 +23,12 @@
         .item1 {
             align-items: flex-start;
         }
-
         .row:nth-child(2){
             justify-content: flex-end;
         }
-
         .row:nth-child(3){
             justify-content: flex-end;
         }
-
     </style>
 </head>
 <body role="document">
@@ -46,7 +43,7 @@
                 <form class="navbar-form" method="get" action="{% url 'apitest:apissearch' %}">
                     {%  csrf_token %}
                     <input type="search" name="apiname" placeholder="名称" required>
-                    <button type="submit" style="margin-left: 20px">搜索</button>
+                    <button type="submit" style="margin-left: 20px">搜索（sorry尚未实现）</button>
                 </form>
                 <form class="navbar-form" method="post" action="{% url 'apitest:apis_manage' %}">
                     {%  csrf_token %}

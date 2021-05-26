@@ -20,9 +20,41 @@
 <!-- 导航栏-->
 {% include 'apitest/header_for_api_flow_test.html' %}
 <div class="page-header" style="padding-top: 30px">
-    <div class="container row">
-        <a href={% url 'apitest:form_api_flow_case' %}><button style="margin: 20px; padding-inline: 15px;">新建流程测试用例</button></a>
-        <button style="margin: 20px; padding-inline: 15px;">button2</button>
+    <div class="container">
+        <!-- 搜索栏-->
+        <form class="navbar-form" method="get" action="{% url 'apitest:apissearch' %}">
+            {%  csrf_token %}
+            <input type="search" name="apiname" placeholder="名称" required>
+            <button type="submit" style="margin-left: 20px">搜索（sorry尚未实现）</button>
+        </form>
+        <form class="navbar-form" method="post" action="{% url 'apitest:api_flow_test_manage' %}">
+            {%  csrf_token %}
+            <label>选择测试范围：</label>
+            <label>所属项目：</label>
+            <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
+                <option value="-1">全部</option>
+                {%  for product in product_list %}
+                    {% if product.id == selected_product_id %}
+                        <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                    {% else %}
+                        <option value ="{{ product.id }}">{{ product.productname }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <label style="margin-left: 20px">测试结果：</label>
+            <select style="padding: 1px; width: 150px;" name="selected_test_result">
+                <option value="-1">全部</option>
+                {% for test_result in test_result_list %}
+                    {% ifequal selected_test_result test_result %}
+                        <option value="{{ test_result }}" selected>{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                    {% else %}
+                        <option value="{{ test_result }}">{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                    {% endifequal %}
+                {% endfor %}
+            </select>
+            <button type="submit" name="filter" style="margin-left: 50px">查看所选测试用例</button>
+            <button type="submit" name="run_test" style="margin-left: 20px">执行测试</button>
+        </form>
     </div>
 </div>
 <!-- 流程接口列表-->
