@@ -72,10 +72,8 @@ def form_api_flow_case(request):
         data_list = request.POST['data_list']
         data_list = json.loads(data_list)
         if trial_test(data_list, io_list):
-            print('return 1')
             return HttpResponse("1")
         else:
-            print('return 0')
             return HttpResponse("0")
 
     if 'create' in request.POST:
@@ -172,12 +170,9 @@ def apis_manage(request):
     selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
 
     if 'selected_test_result' in request.GET:
-        print("这里")
         api_list, selected_test_result, selected_product_id = list_filter(request.GET, api_list)
 
     if request.method == 'POST':
-        print("selected_test_result:", request.POST.get('selected_test_result'))
-        print("selected_product_id:", request.POST.get('selected_product_id'))
         # 上面的值传来的是对的
         api_list, selected_test_result, selected_product_id = list_filter(request.POST, api_list)
         if 'run_test' in request.POST:
@@ -421,8 +416,6 @@ def list_filter(request, list_to_filter):
     selected_product_id = request.get('selected_product_id')
     selected_test_result = request.get('selected_test_result')
     list_filtered = list_to_filter
-    print("selected_test_result:", request.get('selected_test_result'))
-    print("selected_product_id:", request.get('selected_product_id'))
 
     if selected_product_id != '-1':
         list_filtered = list_to_filter.filter(Product_id=selected_product_id)

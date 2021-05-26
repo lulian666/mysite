@@ -26,25 +26,18 @@ class TestCaseRequest:
         count = len(multiple_case_list)
         success_number = 0
         for item in multiple_case_list:
-            # print("让我瞅瞅每个item长啥样来着：", item)
             item_success = self.flow_api_single_case_test(item[1], item[0], item[2])
             if item_success:
                 success_number = success_number + 1
-            # print("case测试通过了吗？", item_success)
         report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success)
         if count == success_number:
-            print("所有case都通过了！")
             return True
         else:
-            print("有case没通过")
             return False
 
     def flow_api_single_case_test(self, io_list, case_list, host):
         num_success = 0
-        # print("让我瞅瞅case_list长啥样来着：", case_list)
-        # print("让我瞅瞅io_list长啥样来着：", io_list)
         count = len(case_list)  # 每个必须都成功
-        # print("case_list中有几个case：", len(case_list))
         parameters = []  # [[id, 出参名称, 值],]
         for index, case in enumerate(case_list):
             if io_list[index][1] != '':  # 如果有入参，入参应该只允许选择已有的出参
@@ -52,11 +45,8 @@ class TestCaseRequest:
 
             # 去测试
             result = test_avoid_401(case, host, self.header)
-
             called_by = inspect.currentframe().f_back.f_code.co_name
-            # print("我的调用方是：", called_by)
             if called_by == "flow_api_case_test":
-                print("正在保存测试结果。。。")
                 self.save_report_info(result, case)
 
             if result.status_code == case[5]:
