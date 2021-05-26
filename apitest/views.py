@@ -114,10 +114,6 @@ def api_flow_test_manage(request):
     username = request.user
 
     # 过滤规则筛选的是api_flow_test_list，传给前端的是relation_list
-    # api_flow_test_list = ApiFlowTest.objects.all()
-    # case_id_list = list(api_flow_test_list.values_list('id', flat=True))
-    # relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
-
     product_list = Product.objects.all()
     api_flow_test_list = ApiFlowTest.objects.all()
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
@@ -129,9 +125,10 @@ def api_flow_test_manage(request):
     if request.method == 'POST':
         api_flow_test_list, selected_test_result, selected_product_id = list_filter(request.POST, api_flow_test_list)
         if 'run_test' in request.POST:
+            # tester = TestCaseRequest(case_list, host)
+            # tester.flow_api_case_test(multiple_case_list=)
             pass
             # test_case(api_flow_test_list)
-    # apis_count, apis_page_list = paginator(request, api_list, 6)
     case_id_list = list(api_flow_test_list.values_list('id', flat=True))
     relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
     list_count, relation_page_list = paginator(request, relation_list, 10)
@@ -187,8 +184,8 @@ def test_case(model_list):
     # todo: 这里的一个问题就是，我的机制是默认所有case都隶属同一个项目，所以host都一样，但实际情况还是要每一条case有自己的host
 
     # 进行测试
-    tester = TestCaseRequest(case_list, host)
-    case_list = tester.single_api_test()
+    tester = TestCaseRequest()
+    case_list = tester.single_api_test(case_list, host)
 
     # 用pytest进行测试
     # save_case_locally(case_list, host)
@@ -446,7 +443,7 @@ def trial_test(data_list, io_list):
     api_to_test_list = Apis.objects.filter(id__in=api_id_list)
     host = ManageSql.get_host_of_product(2)
     case_list = model_list_to_case_list(api_to_test_list)
-    return TestCaseRequest(case_list, host).flow_api_test(data_list, api_io_list)
+    return TestCaseRequest().flow_api_single_case_test(api_io_list, case_list, host)
 
 
 def save_case_locally(case_list, host):
@@ -456,7 +453,7 @@ def save_case_locally(case_list, host):
 def model_list_to_case_list(model_list):
     """
     把Django的数据库查询集合，转化成python可用的list
-    :param model_list:
+    :param model_list: 实际上是一个api_list
     :return:
     """
     case_list = []

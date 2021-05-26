@@ -13,23 +13,32 @@ from apitest.common.reporter import Template_mixin
 
 
 class TestCaseRequest:
-    def __init__(self, case_list, host):
-        self.case_list = case_list
-        self.host = host
+    def __init__(self):
+        # self.case_list = case_list
+        # self.host = host
         self.header = HeaderManage.read_header(2)
         self.table_tr_fail = self.table_tr_success = ''
         self.num_success = self.num_fail = 0
         self.html = Template_mixin()
 
-    def flow_api_test(self, data_list, io_list):
-        count = len(data_list)  # 每个必须都成功
+    def flow_api_case_test(self, multiple_case_list):
+        # multiple_case_list实际上就是包含多个case_list的list
+        # 每个item里第一项是case_list，第二项是他的io_list
+
+        pass
+
+    def flow_api_single_case_test(self, io_list, case_list, host):
+        # print("让我瞅瞅api_id_list长啥样来着：", api_id_list)
+        print("让我瞅瞅io_list长啥样来着：", io_list)
+        count = len(case_list)  # 每个必须都成功
+        print("case_list中有几个case：", len(case_list))
         parameters = []  # [[id, 出参名称, 值],]
-        for index, case in enumerate(self.case_list):
+        for index, case in enumerate(case_list):
             if io_list[index][1] != '':  # 如果有入参，入参应该只允许选择已有的出参
                 case = input_parameter(io_list[index][1], case, parameters)
 
             # 去测试
-            result = test_avoid_401(case, self.host, self.header)
+            result = test_avoid_401(case, host, self.header)
             if result.status_code == case[5]:
                 self.num_success = self.num_success + 1
 
@@ -40,9 +49,9 @@ class TestCaseRequest:
 
         return self.num_success == count
 
-    def single_api_test(self):
-        for case in self.case_list:
-            result = test_avoid_401(case, self.host, self.header)
+    def single_api_test(self, case_list, host):
+        for case in case_list:
+            result = test_avoid_401(case, host, self.header)
             self.save_report_info(result, case)
 
             # 测试结果存数据库
@@ -51,7 +60,7 @@ class TestCaseRequest:
             case.append(api_response)
             case.append(result.status_code == case[5])
         report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success)
-        return self.case_list
+        return case_list
 
     def save_report_info(self, result, case):
         if result.status_code != case[5]:

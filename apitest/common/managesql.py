@@ -72,7 +72,7 @@ class ManageSql:
 
     @staticmethod
     def update_case_to_sql(case_list):
-        sql = "update apitest_apis set api_response_status_code = %s,api_response = %s,api_status = %s where id = %s;"
+        sql = "update apitest_apis set api_response_status_code = %s,api_response = %s,test_result = %s where id = %s;"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
 
