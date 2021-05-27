@@ -2,6 +2,7 @@ import ast
 import itertools
 import json
 import os
+from os import listdir
 
 import pymysql
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -157,6 +158,7 @@ def flow_case_test(api_flow_test_list):
     test_result = TestCaseRequest().flow_api_case_test(multiple_case_list)
     return test_result
 
+
 @login_required
 def apis_manage(request):
     """
@@ -216,22 +218,20 @@ def test_case(model_list):
 
 @login_required
 def test_report(request):
-    username = request.session.get('user', '')
-    apis_list = Apis.objects.all()
-    apis_count = Apis.objects.all().count()
-    db = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1')
-    cursor = db.cursor()
-    sql1 = 'SELECT count(id) FROM apitest_apis WHERE apitest_apis.api_status=1'
-    aa = cursor.execute(sql1)
-    apis_pass_count = [row[0] for row in cursor.fetchmany(aa)][0]
-    sql2 = 'SELECT count(id) FROM apitest_apis WHERE apitest_apis.api_status=0'
-    bb = cursor.execute(sql2)
-    apis_fail_count = [row[0] for row in cursor.fetchmany(bb)][0]
-    db.close()
+    username = request.user
+    root = os.path.abspath(".")
+    filepath = os.path.join(root, "apitest/templates/report")
+    file_list = [[file, file.split("_")[0], file.split("_")[1], username] for file in listdir(filepath) if file != "__init__.py"]
+
+    print("file_list:", file_list)
     return render(request, "apitest/report.html",
-                  {"user": username, "apis_list": apis_list, "apis_count": apis_count,
-                   "apis_pass_count": apis_pass_count,
-                   "apis_fail_count": apis_fail_count})
+                  {"username": username, "file_list": file_list})
+
+
+@login_required
+def test_report_detail(request, report_name):
+    print("report_name:", report_name)
+    return render(request, "report/" + report_name, {})
 
 
 def left(request):

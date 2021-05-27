@@ -29,7 +29,7 @@ class TestCaseRequest:
             item_success = self.flow_api_single_case_test(item[1], item[0], item[2])
             if item_success:
                 success_number = success_number + 1
-        report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success)
+        report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "流程接口测试")
         if count == success_number:
             return True
         else:
@@ -61,6 +61,7 @@ class TestCaseRequest:
     def single_api_test(self, case_list, host):
         for case in case_list:
             result = test_avoid_401(case, host, self.header)
+            called_by = inspect.currentframe().f_back.f_code.co_name
             self.save_report_info(result, case)
 
             # 测试结果存数据库
@@ -68,7 +69,7 @@ class TestCaseRequest:
             case.append(result.status_code)
             case.append(api_response)
             case.append(result.status_code == case[5])
-        report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success)
+        report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试")
         return case_list
 
     def save_report_info(self, result, case):
@@ -95,14 +96,14 @@ class TestCaseRequest:
             self.table_tr_success += table_td
 
 
-def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success):
+def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, called_by):
     total_str = '共 %s，通过 %s，失败 %s' % (num_fail + num_success, num_success, num_fail)
     output = html.HTML_TMPL % dict(value=total_str, table_tr=table_tr_fail, table_tr2=table_tr_success, )
 
     # 生成html报告
-    filename = '{date}_TestReport.html'.format(date=time.strftime('%Y%m%d%H'))
+    filename = '{called_by}_{date}_TestReport.html'.format(date=time.strftime('%Y%m%d%H'), called_by=called_by)
     root = os.path.abspath('.')
-    filepath = os.path.join(root, 'apitest/report/'+filename)
+    filepath = os.path.join(root, 'apitest/templates/report/' + filename)
 
     with open(filepath, 'wb') as f:
         f.write(output.encode('utf8'))
@@ -121,6 +122,7 @@ def request(case, host, header):
 
 
 def output_parameter(json_pattern, result):
+    print("result:", result)
     json_data = result.json()
     value = jsonpath.jsonpath(json_data, json_pattern)
     return value

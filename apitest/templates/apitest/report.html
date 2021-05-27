@@ -1,74 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>测试报告</title>
+    <style>
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: flex-start;
+        }
+        .column {
+            align-self: flex-start;
+            padding-left: 10px;
+            width: 100%;
+        }
+        .row{
+            flex-basis: 100%;
+            display:flex;
+            padding-left: 10px;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        .item3, .item1 {
+            align-items: flex-start;
+            flex-basis: 100%;
+            width: 100%;
+        }
+    </style>
 </head>
-<body>
-<div class="row" style="padding-top: 55px">
-    <div class="col-md-11">
-        <table class="table table-striped">
-            <div style="position: absolute; right: 10px; width: 10px;">
-                <tr style="text-align: center">
-                    <th></th><th></th><th></th><th></th><th></th><th>单一接口扫描-自动化测试汇总报告</th>
-                </tr>
+<body role="document">
+<!-- 导航栏-->
+{% include 'apitest/header_for_test_report.html' %}
+<div class="box">
+    <div class="column">
+        <span class="item1">
+            <div class="container">
+            <!-- 搜索栏-->
+            <div class="page-header" style="padding-top: 30px">
+                <a href="#"><h1>{{ filename }}</h1></a>
+                <form class="navbar-form" method="post" action="{% url 'apitest:apis_manage' %}">
+                    {%  csrf_token %}
+                    <label>选择测试范围：</label>
+                    <label>所属项目：</label>
+                         <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
+                            <option value="-1">全部</option>
+                             {%  for product in product_list %}
+                                 {% if product.id == selected_product_id %}
+                                     <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                                 {% else %}
+                                     <option value ="{{ product.id }}">{{ product.productname }}</option>
+                                 {% endif %}
+                             {% endfor %}
+                        </select>
+                    <label style="margin-left: 20px">测试结果：</label>
+                        <select style="padding: 1px; width: 150px;" name="selected_test_result">
+                            <option value="-1">全部</option>
+                            {% for test_result in test_result_list %}
+                                {% ifequal selected_test_result test_result %}
+                                    <option value="{{ test_result }}" selected>{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                                {% else %}
+                                    <option value="{{ test_result }}">{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                                {% endifequal %}
+                            {% endfor %}
+                        </select>
+                    <button type="submit" name="filter" style="margin-left: 50px">查看所选测试用例</button>
+                    <button type="submit" name="run_test" style="margin-left: 20px">执行测试</button>
+                </form>
+            </div>
+            </div>
+        </span>
+        <div class="row">
+        <span class="item3">
+            <!-- 测试报告-->
+            <div class="row">
+                <div class="col-md-11">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr style="text-align:left; padding: 1px">
+                            <th>测试报告</th>
+                            <th>测试类型</th>
+                            <th>创建时间</th>
+                            <th>测试人</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for file in file_list %}
+                            <tr>
+                                {% for item in file %}
+                                    {% if forloop.counter == 1 %}
+                                        <td>
+                                            <a href="{% url 'apitest:test_report_detail' item %}">
+                                                {{ item }}
+                                            </a>
+                                        </td>
+                                    {% else %}
+                                        <td>{{ item }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </span>
+        </div>
+        <div class="column">
+        <span class="item4">
+            <!-- 翻页功能-->
+            <div class="container">
+                <ul class="pagination" id="pager">
+                    {# 上一页链接开始 #}
+                    {% if api_list.has_previous %}
+                        <li class="previous"><a href="/apitest/apis_manage/?page={{ api_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">上一页</a></li>
+                    {% else %}
+                        <li class="previous disabled"><a href="#">上一页</a></li>
+                    {% endif %}
+                    {# 下一页链接开始 #}
+                    {% if api_list.has_next %}
+                        <li class="next"><a href="/apitest/apis_manage/?page={{ api_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">下一页</a></li>
+                    {% else %}
+                        <li class="next disabled"><a href="#">下一页</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </span>
+            <span class="item5">
+            <div>
                 <tr>
-                    <th style="text-align:left" width=200px>用例总数</th>
+                    <th>总数</th>
                     <td>{{ apis_count }}</td>
-                    <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th style="text-align:left" width=200px>通过</th>
-                    <td>{{ apis_pass_count }}</td>
-                    <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-                </tr>
-                <tr>
-                    <th style="text-align:left" width=200px>不通过</th>
-                    <td><a style="color: red">{{ apis_fail_count }}</a></td>
-                    <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                 </tr>
             </div>
-        </table>
-
-        <!-- 单一接口测试用例-->
-        <table class="table table-striped">
-            <thead>
-            <tr style="text-align:left">
-                <th width=200px>失败接口列表</th><td>
-                <tr>
-                    <th style="text-align:left">ID</th>
-                    <th style="text-align:left">产品</th>
-                    <th style="text-align:left">测试用例名称</th>
-                    <th style="text-align:left">URL 地址</th>
-                    <th style="text-align:left">参数=值</th>
-                    <th style="text-align:left">方法</th>
-                    <th style="text-align:left">预期结果</th>
-                    <th style="text-align:left">测试结果</th>
-                    <th style="text-align:left">执行时间</th>
-                </tr>
-            </tr>
-
-
-            </thead>
-            <tbody>
-            {% for apis in apis_list %}
-                <tr>
-                {% if apis.apistatus == 0 %}
-                    <td width=100px>{{ apis.id }}</td>
-                    <td width=200px>{{ apis.Product.productname }}</td>
-                    <td width=300px>{{ apis.apiname }}</td>
-                    <td width=500px>{{ apis.apiurl }}</td>
-                    <td width=300px>{{ apis.apiparamvalue }}</td>
-                    <td width=150px>{{ apis.apimethod }}</td>
-                    <td width=300px>{{ apis.apiresult }}</td>
-                    <td width=200px>{% if apis.apistatus == 1 %}<a style="color: green">{{ apis.apistatus }}</a>{% else %}<a style="color: red">{{ apis.apistatus }}</a>{% endif %}</td>
-                    <td width=200px>{{ apis.create_time }}</td>
-                {% else %}
-                {% endif %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        </span>
+        </div>
     </div>
 </div>
 </body>
