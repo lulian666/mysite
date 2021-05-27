@@ -225,7 +225,7 @@ def test_report(request):
     root = os.path.abspath(".")
     filepath = os.path.join(root, "apitest/templates/report")
     # 所有的测试报告都在filepath内，将目录下所有的文件拼成一个list，每个list包含[文件名，测试类型，创建时间，测试结果，测试人]
-    file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], username] for file in listdir(filepath) if file != "__init__.py"]
+    file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], file.split("_")[3]] for file in listdir(filepath) if file != "__init__.py"]
     # 按照list中第三个内容倒序排序（此处是创建时间）
     file_list = sorted(file_list, key=lambda x: x[2], reverse=True)
 
