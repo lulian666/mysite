@@ -37,18 +37,17 @@
             <div class="container">
             <!-- 搜索栏-->
             <div class="page-header" style="padding-top: 30px">
-                <a href="#"><h1>{{ filename }}</h1></a>
-                <form class="navbar-form" method="post" action="{% url 'apitest:apis_manage' %}">
+                <form class="navbar-form" method="post" action="{% url 'apitest:test_report' %}">
                     {%  csrf_token %}
-                    <label>选择测试范围：</label>
-                    <label>所属项目：</label>
-                         <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
+                    <h2>过滤测试报告：</h2>
+                    <label>测试类型：</label>
+                         <select style="padding: 1px; width: 150px;" name="selected_test_type" autocomplete="off">
                             <option value="-1">全部</option>
-                             {%  for product in product_list %}
-                                 {% if product.id == selected_product_id %}
-                                     <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                             {%  for type in test_type_list %}
+                                 {% if type == selected_test_type %}
+                                     <option value ="{{ type }}" selected="selected">{{ type }}</option>
                                  {% else %}
-                                     <option value ="{{ product.id }}">{{ product.productname }}</option>
+                                     <option value ="{{ type }}">{{ type }}</option>
                                  {% endif %}
                              {% endfor %}
                         </select>
@@ -57,14 +56,13 @@
                             <option value="-1">全部</option>
                             {% for test_result in test_result_list %}
                                 {% ifequal selected_test_result test_result %}
-                                    <option value="{{ test_result }}" selected>{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                                    <option value="{{ test_result }}" selected>{% if test_result == "1" %}通过{% else %}不通过{% endif %}</option>
                                 {% else %}
-                                    <option value="{{ test_result }}">{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                                    <option value="{{ test_result }}">{% if test_result == "1" %}通过{% else %}不通过{% endif %}</option>
                                 {% endifequal %}
                             {% endfor %}
                         </select>
-                    <button type="submit" name="filter" style="margin-left: 50px">查看所选测试用例</button>
-                    <button type="submit" name="run_test" style="margin-left: 20px">执行测试</button>
+                    <button type="submit" name="filter" style="margin-left: 50px">查看所选测试报告</button>
                 </form>
             </div>
             </div>
@@ -77,9 +75,10 @@
                     <table class="table table-striped">
                         <thead>
                         <tr style="text-align:left; padding: 1px">
-                            <th>测试报告</th>
+                            <th>测试报告（默认时间倒序排序）</th>
                             <th>测试类型</th>
                             <th>创建时间</th>
+                            <th>测试结果（全部通过才算通过）</th>
                             <th>测试人</th>
                         </tr>
                         </thead>
@@ -129,7 +128,7 @@
             <div>
                 <tr>
                     <th>总数</th>
-                    <td>{{ apis_count }}</td>
+                    <td>{{ report_count }}</td>
                 </tr>
             </div>
         </span>

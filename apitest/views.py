@@ -72,7 +72,7 @@ def form_api_flow_case(request):
 
         data_list = request.POST['data_list']
         data_list = json.loads(data_list)
-        if trial_test(data_list, io_list):
+        if trial_test(data_list, io_list, username):
             return HttpResponse("1")
         else:
             return HttpResponse("0")
@@ -120,12 +120,14 @@ def api_flow_test_manage(request):
     test_result = False
 
     if 'selected_test_result' in request.GET:
-        api_flow_test_list, selected_test_result, selected_product_id = list_filter(request.GET, api_flow_test_list)
+        api_flow_test_list, selected_test_result, selected_product_id = model_list_filter(request.GET,
+                                                                                          api_flow_test_list)
 
     if request.method == 'POST':
-        api_flow_test_list, selected_test_result, selected_product_id = list_filter(request.POST, api_flow_test_list)
+        api_flow_test_list, selected_test_result, selected_product_id = model_list_filter(request.POST,
+                                                                                          api_flow_test_list)
         if 'run_test' in request.POST:
-            test_result = flow_case_test(api_flow_test_list)
+            test_result = flow_case_test(api_flow_test_list, username)
 
     case_id_list = list(api_flow_test_list.values_list('id', flat=True))
     relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
@@ -137,9 +139,10 @@ def api_flow_test_manage(request):
                    'selected_product_id': selected_product_id, "test_result": test_result})
 
 
-def flow_case_test(api_flow_test_list):
+def flow_case_test(api_flow_test_list, tester):
     """
     多个流程case的测试
+    :param tester:
     :param api_flow_test_list: 流程case的list
     :return:
     """
@@ -155,7 +158,7 @@ def flow_case_test(api_flow_test_list):
         api_list = Apis.objects.filter(id__in=id_list)
         case_list = model_list_to_case_list(api_list)
         multiple_case_list.append([case_list, io_list, ManageSql.get_host_of_product(case.Product_id)])
-    test_result = TestCaseRequest().flow_api_case_test(multiple_case_list)
+    test_result = TestCaseRequest(tester).flow_api_case_test(multiple_case_list)
     return test_result
 
 
@@ -166,29 +169,29 @@ def apis_manage(request):
     :param request:
     :return:
     """
+    username = request.user
     product_list = Product.objects.all()
     api_list = Apis.objects.all()
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
     selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
 
     if 'selected_test_result' in request.GET:
-        api_list, selected_test_result, selected_product_id = list_filter(request.GET, api_list)
+        api_list, selected_test_result, selected_product_id = model_list_filter(request.GET, api_list)
 
     if request.method == 'POST':
         # 上面的值传来的是对的
-        api_list, selected_test_result, selected_product_id = list_filter(request.POST, api_list)
+        api_list, selected_test_result, selected_product_id = model_list_filter(request.POST, api_list)
         if 'run_test' in request.POST:
-            test_case(api_list)
+            test_case(api_list, username)
 
     apis_count, apis_page_list = paginator(request, api_list, 6)
-    username = request.user
     return render(request, 'apitest/apis_manage.html',
                   {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                    'selected_product_id': selected_product_id, 'apis_count': apis_count})
 
 
-def test_case(model_list):
+def test_case(model_list, tester):
     """
     根据筛选出来的list来执行测试（单接口测试）
     :param model_list: QuerySet类型
@@ -201,7 +204,7 @@ def test_case(model_list):
     # todo: 这里的一个问题就是，我的机制是默认所有case都隶属同一个项目，所以host都一样，但实际情况还是要每一条case有自己的host
 
     # 进行测试
-    tester = TestCaseRequest()
+    tester = TestCaseRequest(tester)
     case_list = tester.single_api_test(case_list, host)
 
     # 用pytest进行测试
@@ -221,16 +224,30 @@ def test_report(request):
     username = request.user
     root = os.path.abspath(".")
     filepath = os.path.join(root, "apitest/templates/report")
-    file_list = [[file, file.split("_")[0], file.split("_")[1], username] for file in listdir(filepath) if file != "__init__.py"]
+    # 所有的测试报告都在filepath内，将目录下所有的文件拼成一个list，每个list包含[文件名，测试类型，创建时间，测试结果，测试人]
+    file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], username] for file in listdir(filepath) if file != "__init__.py"]
+    # 按照list中第三个内容倒序排序（此处是创建时间）
+    file_list = sorted(file_list, key=lambda x: x[2], reverse=True)
 
-    print("file_list:", file_list)
+    # 过滤筛选
+    test_result_list = ["0", "1"]  # {"0": "测试不通过","1": "测试通过"}
+    test_type_list = ["单接口测试", "流程接口测试"]  # {"0": "单接口测试","1": "流程接口测试"}
+    selected_test_type = selected_test_result = -1  # 默认是-1 表示全选
+
+    if 'selected_test_result' in request.GET:
+        file_list, selected_test_type, selected_test_result = report_list_filter(request, file_list)
+
+    if 'filter' in request.POST:
+        file_list, selected_test_type, selected_test_result = report_list_filter(request, file_list)
+
     return render(request, "apitest/report.html",
-                  {"username": username, "file_list": file_list})
+                  {"username": username, "file_list": file_list, "report_count": len(file_list),
+                   "test_result_list": test_result_list, "test_type_list": test_type_list,
+                   "selected_test_type": selected_test_type, "selected_test_result": selected_test_result})
 
 
 @login_required
 def test_report_detail(request, report_name):
-    print("report_name:", report_name)
     return render(request, "report/" + report_name, {})
 
 
@@ -406,7 +423,19 @@ def paginator(request, page_list, number):
     return list_count, page_list
 
 
-def list_filter(request, list_to_filter):
+def report_list_filter(request, list_to_filter):
+    selected_test_type = request.POST.get('selected_test_type')
+    selected_test_result = request.POST.get('selected_test_result')
+    list_filtered = list_to_filter
+
+    if selected_test_type != '-1':
+        list_filtered = [item for item in list_filtered if item[1] == selected_test_type]
+    if selected_test_result != '-1':
+        list_filtered = [item for item in list_filtered if item[3] == ("PASS" if selected_test_result == "1" else "FAIL")]
+    return list_filtered, selected_test_type, selected_test_result
+
+
+def model_list_filter(request, list_to_filter):
     """
     根据项目id和测试结果来过滤用例列表
     :param request:
@@ -440,7 +469,7 @@ def data_to_list(data):
     return data_list
 
 
-def trial_test(data_list, io_list):
+def trial_test(data_list, io_list, tester):
     """
     场景测试case的试测
     :param data_list: data_list是前端传来的数据，包含api的id
@@ -456,7 +485,7 @@ def trial_test(data_list, io_list):
     api_to_test_list = Apis.objects.filter(id__in=api_id_list)
     host = ManageSql.get_host_of_product(2)
     case_list = model_list_to_case_list(api_to_test_list)
-    return TestCaseRequest().flow_api_single_case_test(api_io_list, case_list, host)
+    return TestCaseRequest(tester).flow_api_single_case_test(api_io_list, case_list, host)
 
 
 def save_case_locally(case_list, host):
