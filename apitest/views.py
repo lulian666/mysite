@@ -4,6 +4,7 @@ import os
 from os import listdir
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import QuerySet
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -115,6 +116,7 @@ def api_flow_test_manage(request):
     test_result = False
 
     if 'selected_test_result' in request.GET:
+        print("here")
         api_flow_test_list, selected_test_result, selected_product_id = model_list_filter(request.GET,
                                                                                           api_flow_test_list)
 
@@ -235,16 +237,19 @@ def test_report(request):
     test_type_list = ["单接口测试", "流程接口测试"]  # {"0": "单接口测试","1": "流程接口测试"}
     selected_test_type = selected_test_result = -1  # 默认是-1 表示全选
 
-    if 'selected_test_result' in request.GET:
-        file_list, selected_test_type, selected_test_result = report_list_filter(request, file_list)
+    # 这里备注是因为Django的分页只能对只能对QuerySet类型，这里还没想到解决办法
+    # if 'selected_test_result' in request.GET:
+    #     file_list, selected_test_type, selected_test_result = report_list_filter(request, file_list)
 
     if 'filter' in request.POST:
         file_list, selected_test_type, selected_test_result = report_list_filter(request, file_list)
 
+    # list_count, file_page_list = paginator(request, file_list, 10)
     return render(request, "apitest/report.html",
                   {"username": username, "file_list": file_list, "report_count": len(file_list),
                    "test_result_list": test_result_list, "test_type_list": test_type_list,
-                   "selected_test_type": selected_test_type, "selected_test_result": selected_test_result})
+                   "selected_test_type": selected_test_type, "selected_test_result": selected_test_result,
+                   "list_count": len(file_list)})
 
 
 @login_required
@@ -410,7 +415,10 @@ def paginator(request, page_list, number):
     :param number: 一页分多少
     :return: 列表的总数和对应页数的list
     """
-    page_list = page_list.order_by('id')
+    if isinstance(page_list, QuerySet):
+        page_list = page_list.order_by('id')
+    else:
+        page_list = sorted(page_list, key=lambda x: x[2], reverse=True)
     paginator = Paginator(page_list, number)
     page = request.GET.get('page', 1)
     list_count = page_list.__len__()

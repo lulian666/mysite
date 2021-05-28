@@ -61,6 +61,7 @@ class TestCaseRequest:
 
     def single_api_test(self, case_list, host):
         for case in case_list:
+            print(host)
             result = test_avoid_401(case, host, self.header)
             self.save_report_info(result, case)
 
@@ -124,8 +125,12 @@ def request(case, host, header):
 
 def output_parameter(json_pattern, result):
     print("result:", result)
-    json_data = result.json()
-    value = jsonpath.jsonpath(json_data, json_pattern)
+    try:
+        json_data = result.json()
+        value = jsonpath.jsonpath(json_data, json_pattern)
+    except JSONDecodeError:
+        # json_data = '由于异常，无法读取结果'
+        value = '由于异常，无法读取结果'
     return value
 
 

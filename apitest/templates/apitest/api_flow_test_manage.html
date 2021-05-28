@@ -103,8 +103,8 @@
 <div class="container">
     <ul class="pagination" id="pager">
         {# 上一页链接开始 #}
-        {% if apitests.has_previous %}
-        <li class="previous"><a href="/apitest/apitest_manage/?page={{ apitests.previous_page_number }}">上一页</a></li>
+        {% if relation_list.has_previous %}
+        <li class="previous"><a href="/apitest/api_flow_test_manage/?page={{ relation_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&relation_list={{ relation_list }}">上一页</a></li>
         {% else %}
         <li class="previous disabled"><a href="#">上一页</a></li>
         {% endif %}
@@ -118,8 +118,8 @@
 {#        {% endfor %}#}
 
         {# 下一页链接开始 #}
-        {% if apitests.has_next %}
-        <li class="next"><a href="/apitest/apitest_manage/?page={{ apitests.next_page_number }}">下一页</a></li>
+        {% if relation_list.has_next %}
+        <li class="next"><a href="/apitest/api_flow_test_manage/?page={{ relation_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&relation_list={{ relation_list }}">下一页</a></li>
         {% else %}
         <li class="next disabled"><a href="#">下一页</a></li>
         {% endif %}

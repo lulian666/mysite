@@ -8,6 +8,7 @@
             flex-direction: row;
             justify-content: flex-start;
             align-content: flex-start;
+            height: auto;
         }
         .column {
             align-self: flex-start;
@@ -21,7 +22,7 @@
             justify-content: flex-start;
             align-items: flex-start;
         }
-        .item3, .item1 {
+        .item3, .item1, .item5 {
             align-items: flex-start;
             flex-basis: 100%;
             width: 100%;
@@ -36,7 +37,7 @@
         <span class="item1">
             <div class="container">
             <!-- 搜索栏-->
-            <div class="page-header" style="padding-top: 30px">
+            <div class="page-header" style="padding-top: 30px; height: 10%;">
                 <form class="navbar-form" method="post" action="{% url 'apitest:test_report' %}">
                     {%  csrf_token %}
                     <h2>过滤测试报告：</h2>
@@ -71,7 +72,7 @@
         <span class="item3">
             <!-- 测试报告-->
             <div class="row">
-                <div class="col-md-11">
+                <div class="col-md-11" style="height:600px; overflow:scroll; overflow-x:hidden;">
                     <table class="table table-striped">
                         <thead>
                         <tr style="text-align:left; padding: 1px">
@@ -107,25 +108,25 @@
         <div class="column">
         <span class="item4">
             <!-- 翻页功能-->
-            <div class="container">
-                <ul class="pagination" id="pager">
+{#            <div class="container">#}
+{#                <ul class="pagination" id="pager">#}
                     {# 上一页链接开始 #}
-                    {% if api_list.has_previous %}
-                        <li class="previous"><a href="/apitest/apis_manage/?page={{ api_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">上一页</a></li>
-                    {% else %}
-                        <li class="previous disabled"><a href="#">上一页</a></li>
-                    {% endif %}
+{#                    {% if file_list.has_previous %}#}
+{#                        <li class="previous"><a href="/apitest/test_report/?page={{ file_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&file_list={{ file_list }}">上一页</a></li>#}
+{#                    {% else %}#}
+{#                        <li class="previous disabled"><a href="#">上一页</a></li>#}
+{#                    {% endif %}#}
                     {# 下一页链接开始 #}
-                    {% if api_list.has_next %}
-                        <li class="next"><a href="/apitest/apis_manage/?page={{ api_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">下一页</a></li>
-                    {% else %}
-                        <li class="next disabled"><a href="#">下一页</a></li>
-                    {% endif %}
-                </ul>
-            </div>
+{#                    {% if file_list.has_next %}#}
+{#                        <li class="next"><a href="/apitest/test_report/?page={{ file_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&file_list={{ file_list }}">下一页</a></li>#}
+{#                    {% else %}#}
+{#                        <li class="next disabled"><a href="#">下一页</a></li>#}
+{#                    {% endif %}#}
+{#                </ul>#}
+{#            </div>#}
         </span>
             <span class="item5">
-            <div>
+            <div style="padding-top: 20px">
                 <tr>
                     <th>总数</th>
                     <td>{{ report_count }}</td>
