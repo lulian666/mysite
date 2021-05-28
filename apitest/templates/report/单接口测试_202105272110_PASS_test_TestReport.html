@@ -1,10 +1,4 @@
-# coding:utf-8
-import time, os
 
-
-class Template_mixin(object):
-    """html报告"""
-    HTML_TMPL = r"""
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -12,7 +6,7 @@ class Template_mixin(object):
             <title>自动化测试报告</title>
             <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
             <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
-            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> %(value)s</p>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 1，通过 1，失败 0</p>
             <style type="text/css" media="screen">
         body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
         </style>
@@ -37,7 +31,7 @@ class Template_mixin(object):
                     <th>返回结果</th>
                     <th>备注</th>
                 </tr>
-                %(table_tr)s
+                
             </table>
             <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
                 <colgroup>
@@ -56,34 +50,17 @@ class Template_mixin(object):
                     <th>测试结果</th>
                     <th>实际状态码</th>
                 </tr>
-                %(table_tr2)s
+                
+            <tr class='failClass warning'>
+                <td>2021-05-27 21:10:57</td>
+                <td>/1.0/goodsNews/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'limit': 10, 'text': 'fsadqwd'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
             </table>
         </body>
-        </html>"""
-
-    TABLE_TMPL_FAIL = """
-        <tr class='failClass warning'>
-            <td>%(runtime)s</td>
-            <td>%(interface)s</td>
-            <td>%(method)s</td>
-            <td>%(parameters)s</td>
-            <td>%(body)s</td>
-            <td>%(expectcode)s</td>
-            <td style="background-color:red">%(testresult)s</td>
-            <td>%(testcode)s</td>
-            <td>%(resultbody)s</td>
-            <td>%(btw)s</td>
-        </tr>"""
-
-    TABLE_TMPL_SUCC = """
-            <tr class='failClass warning'>
-                <td>%(runtime)s</td>
-                <td>%(interface)s</td>
-                <td>%(method)s</td>
-                <td>%(parameters)s</td>
-                <td>%(body)s</td>
-                <td>%(expectcode)s</td>
-                <td>%(testresult)s</td>
-                <td>%(testcode)s</td>
-            </tr>"""
-
+        </html>

@@ -45,7 +45,7 @@
                 </form>
                 <form class="navbar-form" method="post" action="{% url 'apitest:apis_manage' %}">
                     {%  csrf_token %}
-                    <h3>选择测试范围：</h3>
+                    <h3>选择测试范围：（暂不支持不同项目的case一起运行）</h3>
                     <label>所属项目：</label>
                          <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
                             <option value="-1">全部</option>

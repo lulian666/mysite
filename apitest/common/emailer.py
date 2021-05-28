@@ -9,14 +9,12 @@ from email.mime.application import MIMEApplication  # 主要类型的MIME消息�
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 import threading
+from fnmatch import fnmatch
+from os import listdir
 
 from apitest.common.read_config import Read_config
 
 localReadConfig = Read_config()
-filename = '{date}_TestReport.html'.format(date=time.strftime('%Y%m%d%H'))
-root = os.path.abspath('.')
-filepath = os.path.join(root, 'apitest/report')
-filename = os.path.join(filepath, filename)
 global host, user, password, port, sender, title, receivers
 
 
@@ -62,7 +60,8 @@ class Email:
 
     def config_file(self):
         if self.check_file():
-            print('附件：', filename)
+            filename = self.check_file()
+            print("附件：{filename}".format(filename=filename))
             with open(filename, 'rb') as f:
                 attach_files = MIMEApplication(f.read())
                 attach_files.add_header('Content-Disposition', 'attachment',
@@ -74,11 +73,19 @@ class Email:
         check test report
         :return:
         """
+        root = os.path.abspath('.')
+        filepath = os.path.join(root, 'apitest/templates/report')
+        filetime = time.strftime('%Y%m%d%H%M')
+        filename = [file for file in listdir(filepath) if fnmatch(file, '*' + filetime + '*')]
+        filename = "".join(str(item) for item in filename)
+        filename = os.path.join(filepath, filename)
         report_path = filename
+
         if os.path.isfile(report_path) and not os.stat(report_path) == 0:
-            return True
+            return filename
         else:
             print('没找到附件')
+            print(report_path)
             return False
 
     def send_email(self):
@@ -86,6 +93,7 @@ class Email:
         send email
         :return:
         """
+        print("sending email")
         self.config_content()
         self.config_header()
         try:

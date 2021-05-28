@@ -109,8 +109,8 @@ def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, ca
     with open(filepath, 'wb') as f:
         f.write(output.encode('utf8'))
 
-    if num_fail > 0:
-        Email(num_fail).send_email()
+    # if num_fail > 0:
+    Email(num_fail).send_email()
     return
 
 

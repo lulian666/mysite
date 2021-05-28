@@ -1,12 +1,9 @@
 import ast
-import itertools
 import json
 import os
 from os import listdir
 
-import pymysql
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -22,13 +19,8 @@ from apitest.models import ApiFlowTest, Apis, Headers, Variables, ApiFlowAndApis
 from product.models import Product
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the apitest's index.")
-
-
 def login(request):
     if request.POST:
-        username = password = ''
         username = request.POST.get('username')  # 意思是获取html中填写的username
         password = request.POST.get('password')
         user = auth.authenticate(username=username, password=password)
@@ -95,10 +87,13 @@ def form_api_flow_case(request):
             return HttpResponse("3")
 
         api_id_list = data_to_list(data_list)
+        product_id = Apis.objects.get(id=api_id_list[0][0]).Product_id
         try:
             # 需要创建一个flow_case，包含用例名称、用例描述、产品、测试人
             # 然后创建一个flow_case和api之间的映射记录，包含双方的id，每一条api对应的出入参数
-            case_id = ManageSql.write_flow_case_to_sql(case_name, "默认描述", username, 2)
+            # 这里如何确定case归属哪个项目？随便取一个api的项目好了
+
+            case_id = ManageSql.write_flow_case_to_sql(case_name, "默认描述", username, product_id)
             ManageSql.write_to_table_api_flow_and_apis(case_id, api_id_list, api_io_list)
             return HttpResponse("1")
         except:
@@ -147,6 +142,12 @@ def flow_case_test(api_flow_test_list, tester):
     :return:
     """
     multiple_case_list = []
+    print("api_flow_test_list:", api_flow_test_list)
+    one_case_id = api_flow_test_list.values_list("id", flat=True)[0]
+    one_api_id = ApiFlowAndApis.objects.filter(ApiFlowTest_id=one_case_id).values_list("Apis_id", flat=True)[0]
+    product_id = Apis.objects.get(id=one_api_id).Product_id
+    host = ManageSql.get_host_of_product(product_id)
+    print("product_id:", product_id)
     for case in api_flow_test_list:
         relations = ApiFlowAndApis.objects.filter(ApiFlowTest_id=case.id)
         io_list = []
@@ -157,7 +158,7 @@ def flow_case_test(api_flow_test_list, tester):
         id_list = relations.values_list("Apis_id", flat=True)
         api_list = Apis.objects.filter(id__in=id_list)
         case_list = model_list_to_case_list(api_list)
-        multiple_case_list.append([case_list, io_list, ManageSql.get_host_of_product(case.Product_id)])
+        multiple_case_list.append([case_list, io_list, host])
     test_result = TestCaseRequest(tester).flow_api_case_test(multiple_case_list)
     return test_result
 
@@ -199,9 +200,9 @@ def test_case(model_list, tester):
     """
     case_list = model_list_to_case_list(model_list)
 
-    # 获取host
-    host = ManageSql().get_host_of_product(2)
-    # todo: 这里的一个问题就是，我的机制是默认所有case都隶属同一个项目，所以host都一样，但实际情况还是要每一条case有自己的host
+    # 获取host，取一个case的host即可
+    product_id = Apis.objects.get(id=case_list[0][0]).Product_id
+    host = ManageSql().get_host_of_product(product_id)
 
     # 进行测试
     tester = TestCaseRequest(tester)
@@ -360,8 +361,9 @@ def save_variables_to_sql():
             variables_dict = search_variables(case[3], case[0], variables_dict)
         elif case[2] != {}:
             variables_dict = search_variables(case[2], case[0], variables_dict)
+    product_id = Apis.objects.get(id=case_list[0][0]).Product_id
     ManageSql().delete_variables_in_sql()
-    ManageSql().write_variables_to_sql(2, variables_dict)
+    ManageSql().write_variables_to_sql(product_id, variables_dict)
 
 
 def search_variables(case_variables, case_name, variables_dict):
@@ -472,6 +474,7 @@ def data_to_list(data):
 def trial_test(data_list, io_list, tester):
     """
     场景测试case的试测
+    :param tester:
     :param data_list: data_list是前端传来的数据，包含api的id
     :param io_list: 出入参信息
     :return:
@@ -483,7 +486,8 @@ def trial_test(data_list, io_list, tester):
         api_id_list.append(int(item[0]))
 
     api_to_test_list = Apis.objects.filter(id__in=api_id_list)
-    host = ManageSql.get_host_of_product(2)
+    product_id = Apis.objects.get(id=api_id_list[0]).Product_id
+    host = ManageSql.get_host_of_product(product_id)
     case_list = model_list_to_case_list(api_to_test_list)
     return TestCaseRequest(tester).flow_api_single_case_test(api_io_list, case_list, host)
 
