@@ -37,7 +37,7 @@
                 {%  csrf_token %}
                 <label>所属项目：</label>
                     <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
-                        <option value="-1">全部</option>
+                            <option value="-1">全部</option>
                         {%  for product in product_list %}
                             {% if product.id == selected_product_id %}
                                 <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
@@ -45,8 +45,14 @@
                                 <option value ="{{ product.id }}">{{ product.productname }}</option>
                             {% endif %}
                         {% endfor %}
-                    </select>
-                <button type="submit" name="birth" style="margin-left: 30px">用这些数据生成case</button>
+                        </select>
+                {% if null_value_only == "null_value_only" %}
+                    <label style="margin-left: 10px"><input name="null_value_only" type="checkbox" value="null_value_only" checked/>只显示未填写的变量 </label>
+                {% else %}
+                    <label style="margin-left: 10px"><input name="null_value_only" type="checkbox" value="null_value_only"/>只显示未填写的变量 </label>
+                {% endif %}
+                <button type="submit" name="filter" style="margin-left: 10px">过滤（抱歉，前端技能还比较弱）</button>
+                <button type="submit" name="birth" style="margin-left: 100px">用这些数据生成case</button>
                 <label style="color: gray">{{ warning }}</label>
             </form>
         </span>
@@ -90,23 +96,14 @@
             <ul class="pagination" id="pager">
                 {# 上一页链接开始 #}
                 {% if variables.has_previous %}
-                    <li class="previous"><a href="/apitest/variables_manage/?page={{ variables.previous_page_number }}">上一页</a></li>
+                    <li class="previous"><a href="/apitest/variables_manage/?page={{ variables.previous_page_number }}&selected_product_id={{ selected_product_id }}&null_value_only={{ null_value_only }}">上一页</a></li>
                 {% else %}
                     <li class="previous disabled"><a href="#">上一页</a></li>
                 {% endif %}
-                &nbsp;&nbsp;
-                {% for num in variables.paginator.page_range %}
-                    {% if num == currentPage %}
-                        <li class="item active" style="color: red"><a href="/apitest/variables_manage/?page={{ num }}">{{ num }}</a></li>
-                    {% else %}
-                        <li class="item"><a href="/apitest/variables_manage/?page={{ num }}">{{ num }}</a></li>
-                    {% endif %}
-                    &nbsp;&nbsp;
-                {% endfor %}
 
                 {# 下一页链接开始 #}
                 {% if variables.has_next %}
-                    <li class="next"><a href="/apitest/variables_manage/?page={{ variables.next_page_number }}">下一页</a></li>
+                    <li class="next"><a href="/apitest/variables_manage/?page={{ variables.next_page_number }}&selected_product_id={{ selected_product_id }}&null_value_only={{ null_value_only }}">下一页</a></li>
                 {% else %}
                     <li class="next disabled"><a href="#">下一页</a></li>
                 {% endif %}

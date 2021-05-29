@@ -5,7 +5,7 @@ from os import listdir
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import QuerySet
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
@@ -285,6 +285,7 @@ def welcome(request):
 
 # 处理源数据
 def datasource(request):
+    username = request.user
     product_list = Product.objects.all()
     selected_product_id = request.POST.get("selected_product_id")
     source = request.POST.get('source', '').strip()
@@ -307,17 +308,19 @@ def datasource(request):
             # 把接口里的变量保存下来
             if selected_product_id != "-1":
                 save_variables_to_sql(selected_product_id)
+                variables_list = Variables.objects.filter(Product_id=selected_product_id)
+                variables_count, variables_page_list = paginator(request, variables_list, 12)
+                return render(request, "apitest/variables_manage.html",
+                              {'error': error, 'data': source, "username": username,
+                               "variables": variables_page_list, "variables_count": variables_count,
+                               "product_list": product_list, "selected_product_id": int(selected_product_id)})
             else:
                 error = '还没有选择所属项目'
         else:
             error = '请输入有内容的json'
-
-    username = request.user
-    apis_list = Apis.objects.all()
-    apis_count, apis_page_list = paginator(request, apis_list, 8)
     return render(request, "apitest/datasource_manage.html",
-                  {'error': error, 'data': source, "username": username, "apis_list": apis_page_list,
-                   "apis_count": apis_count, "product_list": product_list, "selected_product_id": selected_product_id})
+                  {'error': error, 'data': source, "username": username,
+                   "product_list": product_list, "selected_product_id": selected_product_id})
 
 
 # header 管理
@@ -330,36 +333,47 @@ def api_header(request):
 
 
 # 变量管理
+@login_required
+@csrf_exempt
 def variables_manage(request):
-    product_list = Product.objects.all()
-    selected_product_id = request.POST.get("selected_product_id")
-    if 'birth' in request.POST:
-        # 这里要生成case了哦！
-        ManageSql.delete_flow_case_in_sql()
-        ManageSql.delete_case_in_sql()
-        variable_list = ManageSql.get_variables_from_sql()
-        basic_case_list, case_list = CaseCollect().collect_data_accordingly()
-        case_list = CaseReady(case_list, variable_list).data_form()
-        ManageSql.write_case_to_sql(case_list, selected_product_id)
-
-        # 跳转去单一接口列表页
-        product_list = Product.objects.all()
-        api_list = Apis.objects.all()
-        test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
-        selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
-        apis_count, apis_page_list = paginator(request, api_list, 6)
-        return render(request, 'apitest/apis_manage.html',
-                      {'api_list': apis_page_list, "product_list": product_list,
-                       'test_result_list': test_result_list, "selected_test_result": selected_test_result,
-                       'selected_product_id': selected_product_id, 'apis_count': apis_count})
-
     username = request.user
     variables_list = Variables.objects.all()
+    product_list = Product.objects.all()
+    selected_product_id = '-1'
+    null_value_only = ""
+    if 'selected_product_id' in request.GET:
+        variables_list, selected_product_id, null_value_only = model_list_filter2(request.GET, variables_list)
+
+    if request.method == 'POST':
+        variables_list, selected_product_id, null_value_only = model_list_filter2(request.POST, variables_list)
+        if 'birth' in request.POST:
+            # 这里要生成case了哦！删除flow case是为了先删除引用
+            # ManageSql.delete_flow_case_in_sql()
+            # ManageSql.delete_case_in_sql()
+            selected_product_id = request.POST["selected_product_id"]
+            print("selected_product_id,1:", selected_product_id)
+            variable_list = ManageSql.get_variables_from_sql(selected_product_id)
+            basic_case_list, case_list = CaseCollect().collect_data_accordingly()
+            # 这里传入的case_list, variable_list需要是同一个项目的
+            case_list = CaseReady(case_list, variable_list).data_form()
+            ManageSql.write_case_to_sql(case_list, selected_product_id)
+
+            # 跳转去单一接口列表页
+            product_list = Product.objects.all()
+            api_list = Apis.objects.all()
+            test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
+            selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+            apis_count, apis_page_list = paginator(request, api_list, 6)
+            return render(request, 'apitest/apis_manage.html',
+                          {'api_list': apis_page_list, "product_list": product_list, "username": username,
+                           'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                           'selected_product_id': selected_product_id, 'apis_count': apis_count})
+
     variables_count, variables_page_list = paginator(request, variables_list, 12)
     return render(request, "apitest/variables_manage.html",
                   {"username": username, "variables": variables_page_list, "variablecounts": variables_count,
                    "warning": "只点击一次就好，会跳转到用例列表", "product_list": product_list,
-                   "selected_product_id": selected_product_id})
+                   "selected_product_id": int(selected_product_id), "null_value_only": null_value_only})
 
 
 def save_variables_to_sql(selected_product_id):
@@ -374,9 +388,6 @@ def save_variables_to_sql(selected_product_id):
             variables_dict = search_variables(case[3], case[0], variables_dict)
         elif case[2] != {}:
             variables_dict = search_variables(case[2], case[0], variables_dict)
-    # ManageSql().delete_variables_in_sql()
-    print("variables_dict：", len(variables_dict))
-    print("variables_dict：", variables_dict)
     ManageSql().write_variables_to_sql(selected_product_id, variables_dict)
 
 
@@ -471,6 +482,23 @@ def model_list_filter(request, list_to_filter):
         list_filtered = list_filtered.filter(test_result=True if selected_test_result == '1' else False)
 
     return list_filtered, int(selected_test_result), int(selected_product_id)
+
+
+def model_list_filter2(request, list_to_filter):
+    """
+    根据项目id和变量值是否为空来过滤
+    :param request:
+    :param list_to_filter:
+    :return:
+    """
+    selected_product_id = request.get('selected_product_id')
+    null_value_only = request.get("null_value_only")
+    list_filtered = list_to_filter
+    if selected_product_id != '-1':
+        list_filtered = list_filtered.filter(Product_id=selected_product_id)
+    if null_value_only == "null_value_only":
+        list_filtered = list_filtered.filter(variable_value__isnull=True)
+    return list_filtered, int(selected_product_id), null_value_only
 
 
 def data_to_list(data):
