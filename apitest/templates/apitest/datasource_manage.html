@@ -37,15 +37,26 @@
     <div class="row">
         <span class="item1">
             <!-- 输入文本进去的-->
-            <div class="page-content">
+            <div class="page-content" style="padding-top: 30px">
+                <label>所属项目：</label>
+                    <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
+                        <option value="-1">全部</option>
+                        {%  for product in product_list %}
+                            {% if product.id == selected_product_id %}
+                                <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                            {% else %}
+                                <option value ="{{ product.id }}">{{ product.productname }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 <form class="navbar-form" method="post" action="{% url 'apitest:api_datasource' %}">
                     {%  csrf_token %}
                     <br> <label>把 JSON 格式的数据源粘贴进来</label>
-                    <br> <textarea rows="20" cols="30" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none">{{ data }}</textarea>
+                    <br> <textarea rows="30" cols="40" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none">{{ data }}</textarea>
                     <br> {{ error }}
-                    <br> <button type="submit" name="analysis">检查</button>
+                    <br> <button type="submit" name="analysis">1、检查</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="submit" name="save">保存case</button>
+                    <button type="submit" name="save">2、保存case</button>
                     <button type="submit" name="jike">即刻</button>
                 </form>
             </div>

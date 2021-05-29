@@ -285,6 +285,9 @@ def welcome(request):
 
 # 处理源数据
 def datasource(request):
+    product_list = Product.objects.all()
+    # selected_product_id = -1  # 默认是-1 表示全选
+    selected_product_id = request.POST.get("selected_product_id")
     source = request.POST.get('source', '').strip()
     error = ''
     if 'analysis' in request.POST:
@@ -292,7 +295,7 @@ def datasource(request):
             error = 'not a legal json'
         else:
             error = 'this is a legal json'
-    elif 'save' in request.POST:
+    elif 'save' in request.POST:  # 保存，就是写到本地文件里
         root = os.path.abspath('.')  # 获取当前工作目录路径
         if not check_json_format(source):
             error = 'not a legal json'
@@ -303,7 +306,7 @@ def datasource(request):
                 f.write(str(source))
             f.close()
             # 把接口里的变量保存下来
-            save_variables_to_sql()
+            save_variables_to_sql(selected_product_id)
         else:
             error = 'this is empty!!'
 
@@ -315,7 +318,7 @@ def datasource(request):
     apis_count, apis_page_list = paginator(request, apis_list, 8)
     return render(request, "apitest/datasource_manage.html",
                   {'error': error, 'data': source, "username": username, "apis_list": apis_page_list,
-                   "apis_count": apis_count})
+                   "apis_count": apis_count, "product_list": product_list, "selected_product_id": selected_product_id})
 
 
 # header 管理
@@ -357,7 +360,7 @@ def variables_manage(request):
                    "warning": "只点击一次就好，会跳转到用例列表"})
 
 
-def save_variables_to_sql():
+def save_variables_to_sql(selected_product_id):
     """
     将temp.json中接口用到的变量都存到数据库里
     :return:
@@ -369,9 +372,9 @@ def save_variables_to_sql():
             variables_dict = search_variables(case[3], case[0], variables_dict)
         elif case[2] != {}:
             variables_dict = search_variables(case[2], case[0], variables_dict)
-    product_id = Apis.objects.get(id=case_list[0][0]).Product_id
+    # product_id = Apis.objects.get(id=case_list[0][0]).Product_id
     ManageSql().delete_variables_in_sql()
-    ManageSql().write_variables_to_sql(product_id, variables_dict)
+    ManageSql().write_variables_to_sql(selected_product_id, variables_dict)
 
 
 def search_variables(case_variables, case_name, variables_dict):
