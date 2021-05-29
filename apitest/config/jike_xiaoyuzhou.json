@@ -1,0 +1,4452 @@
+[
+  {
+    "type": "post",
+    "url": "/account/remove",
+    "title": "注销帐号",
+    "name": "remove",
+    "group": "account",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "reason",
+            "description": "<p>注销理由</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/account.ts",
+    "groupTitle": "account"
+  },
+  {
+    "type": "get",
+    "url": "/app-config/get",
+    "title": "获取全局配置",
+    "description": "<p>该接口仅作为app全局配置的接口，应当是app启动后的第一个请求</p>",
+    "name": "get",
+    "group": "app-config",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "allowAnonymous",
+            "description": "<p>允许匿名用户登录 (只用于苹果审核)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isWalletVisible",
+            "description": "<p>付费功能模块是否对用户可见</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "commentEntityRegexps",
+            "description": "<p>评论内可解析实体的正则表达式</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/app-config.ts",
+    "groupTitle": "app-config"
+  },
+  {
+    "type": "post",
+    "url": "/auth/loginAsAnonymous",
+    "title": "匿名登录",
+    "description": "<p>只用于苹果商店审核</p>",
+    "name": "loginAsAnonymous",
+    "group": "auth",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data.user",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/auth.ts",
+    "groupTitle": "auth"
+  },
+  {
+    "type": "post",
+    "url": "/auth/loginOrSignUp",
+    "title": "登录或注册",
+    "name": "loginOrSignUp",
+    "group": "auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "areaCode",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "mobilePhoneNumber",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "verifyCode",
+            "description": "<p>验证码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.isSignUp",
+            "description": "<p>是否是新注册用户</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.showNewbieGuide",
+            "description": "<p>是否要显示新手引导</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "allowedValues": [
+              "\"SKIP\"",
+              "\"SEGMENT\"",
+              "\"USER_INTEREST\""
+            ],
+            "optional": false,
+            "field": "data.newbieGuideFeatureGroup",
+            "description": "<p>新手引导策略，SKIP不展示新手引导，SEGMENT展示播放片段的新手引导，USER_INTEREST展示选择兴趣的新手引导</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data.user",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/auth.ts",
+    "groupTitle": "auth"
+  },
+  {
+    "type": "post",
+    "url": "/auth/loginOrSignUpWithSMS",
+    "title": "手机号登录或注册",
+    "description": "<p><a href=\"https://github.com/iftechio/backend-beehive#%E6%89%8B%E6%9C%BA%E5%8F%B7%E9%AA%8C%E8%AF%81%E7%A0%81%E6%B3%A8%E5%86%8C%E7%99%BB%E9%99%86\" >参考beehive的文档</a></p>",
+    "name": "loginOrSignUpWithSMS",
+    "group": "auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "verifyCode",
+            "description": "<p>验证码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "areaCode",
+            "description": "<p>比如+86</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "mobilePhoneNumber",
+            "description": "<p>手机号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.isSignUp",
+            "description": "<p>是否是新注册用户</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.showNewbieGuide",
+            "description": "<p>是否要显示新手引导</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "allowedValues": [
+              "\"SKIP\"",
+              "\"SEGMENT\"",
+              "\"USER_INTEREST\""
+            ],
+            "optional": false,
+            "field": "data.newbieGuideFeatureGroup",
+            "description": "<p>新手引导策略，SKIP不展示新手引导，SEGMENT展示播放片段的新手引导，USER_INTEREST展示选择兴趣的新手引导</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data.user",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "type": "Object",
+            "optional": false,
+            "field": "error",
+            "description": "<p>手机号格式错误、IP限制、验证码无效等</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/auth.ts",
+    "groupTitle": "auth"
+  },
+  {
+    "type": "post",
+    "url": "/auth/loginOrSignUpWithWechat",
+    "title": "微信登录或注册",
+    "description": "<p><a href=\"https://github.com/iftechio/backend-beehive#app-%E5%BE%AE%E4%BF%A1%E7%BB%91%E5%AE%9A\">参考beehive的文档</a></p>",
+    "name": "loginOrSignUpWithWechat",
+    "group": "auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p><a href=\"https://github.com/iftechio/backend-beehive#App-%E5%BE%AE%E4%BF%A1%E7%BB%91%E5%AE%9A\">见beehive文档</a></p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.isSignUp",
+            "description": "<p>是否是新注册用户</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.showNewbieGuide",
+            "description": "<p>是否要显示新手引导</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "allowedValues": [
+              "\"SKIP\"",
+              "\"SEGMENT\"",
+              "\"USER_INTEREST\""
+            ],
+            "optional": false,
+            "field": "data.newbieGuideFeatureGroup",
+            "description": "<p>新手引导策略，SKIP不展示新手引导，SEGMENT展示播放片段的新手引导，USER_INTEREST展示选择兴趣的新手引导</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data.user",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "type": "Object",
+            "optional": false,
+            "field": "error",
+            "description": "<p>code错误</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/auth.ts",
+    "groupTitle": "auth"
+  },
+  {
+    "type": "post",
+    "url": "/auth/loginWithEmail",
+    "title": "邮箱登录",
+    "name": "loginWithEmail",
+    "group": "auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data.user",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/auth.ts",
+    "groupTitle": "auth"
+  },
+  {
+    "type": "post",
+    "url": "/auth/loginWithWechat",
+    "title": "微信登录",
+    "name": "loginWithWechat",
+    "group": "auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data.accessTokenInfo",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data.user",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/auth.ts",
+    "groupTitle": "auth"
+  },
+  {
+    "type": "post",
+    "url": "/auth/sendCode",
+    "title": "发验证码",
+    "name": "sendCode",
+    "group": "auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "areaCode",
+            "description": "<p>比如+86</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "mobilePhoneNumber",
+            "description": "<p>手机号</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/auth.ts",
+    "groupTitle": "auth"
+  },
+  {
+    "type": "get",
+    "url": "/balance/get",
+    "title": "获取当前用户的代币余额",
+    "name": "get",
+    "group": "balance",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.uid",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data.iosBalance",
+            "description": "<p>iOS平台余额，以分为单位</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data.androidBalance",
+            "description": "<p>安卓平台余额，以分为单位</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/balance.ts",
+    "groupTitle": "balance"
+  },
+  {
+    "type": "get",
+    "url": "/beta/list-env",
+    "title": "获取可用的beta环境",
+    "name": "list-env",
+    "group": "beta",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>多个环境</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.name",
+            "description": "<p>环境名</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.value",
+            "description": "<p>用于 <code>x-to-service-suffix</code> http header 的值</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/beta.ts",
+    "groupTitle": "beta"
+  },
+  {
+    "type": "post",
+    "url": "/bind/bindWithSMS",
+    "title": "手机号登录或注册",
+    "description": "<p><a href=\"https://github.com/iftechio/backend-beehive#%E6%89%8B%E6%9C%BA%E5%8F%B7%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%91%E5%AE%9A\" >参考beehive的文档</a></p>",
+    "name": "bindWithSMS",
+    "group": "bind",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "verifyCode",
+            "description": "<p>验证码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "areaCode",
+            "description": "<p>比如+86</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "mobilePhoneNumber",
+            "description": "<p>手机号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data.user",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "type": "Object",
+            "optional": false,
+            "field": "error",
+            "description": "<p>手机号格式错误、IP限制、验证码无效等</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/bind.ts",
+    "groupTitle": "bind"
+  },
+  {
+    "type": "post",
+    "url": "/censor/create",
+    "title": "审察文本和网址",
+    "name": "create",
+    "group": "censor",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>文本</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"SCAN\""
+            ],
+            "optional": false,
+            "field": "from",
+            "description": "<p>SCAN:扫一扫</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/censor.ts",
+    "groupTitle": "censor"
+  },
+  {
+    "type": "post",
+    "url": "/check/create",
+    "title": "检查单集状态",
+    "name": "create",
+    "group": "check",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "eid",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "allowedValues": [
+              "\"NORMAL\"",
+              "\"REMOVED\""
+            ],
+            "optional": false,
+            "field": "data.status",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/check.ts",
+    "groupTitle": "check"
+  },
+  {
+    "type": "post",
+    "url": "/clap/create",
+    "title": "鼓掌",
+    "name": "create",
+    "group": "clap",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "eid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "timestamp",
+            "description": "<p>播放到了音频的第几秒</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/clap.ts",
+    "groupTitle": "clap"
+  },
+  {
+    "type": "post",
+    "url": "/clap/list",
+    "title": "单集的鼓掌数据、用户在某集的鼓掌数据",
+    "name": "list",
+    "group": "clap",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "eid",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "ClapMap",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/clap.ts",
+    "groupTitle": "clap"
+  },
+  {
+    "type": "post",
+    "url": "/collection/create",
+    "title": "创建合集",
+    "name": "create",
+    "group": "collection",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "description",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"PODCAST\"",
+              "\"EPISODE\""
+            ],
+            "optional": false,
+            "field": "targetType",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "targetIds",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Collection",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/collection.ts",
+    "groupTitle": "collection"
+  },
+  {
+    "type": "get",
+    "url": "/collection/get",
+    "title": "获取合集详情",
+    "name": "get",
+    "group": "collection",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>合集ID</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Collection",
+            "optional": false,
+            "field": "data.collection",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/collection.ts",
+    "groupTitle": "collection"
+  },
+  {
+    "type": "get",
+    "url": "/collection-opml/get",
+    "title": "获取合集内所有节目的OPML文件",
+    "description": "<p>如果是单集合集，则不会有任何订阅操作</p>",
+    "name": "get-opml",
+    "group": "collection",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>合集ID</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>OPML文本</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/collection-opml.ts",
+    "groupTitle": "collection"
+  },
+  {
+    "type": "post",
+    "url": "/collection-subscription/update",
+    "title": "订阅合集内所有节目",
+    "description": "<p>如果是单集合集，则不会有任何订阅操作</p>",
+    "name": "subscribe",
+    "group": "collection",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>合集ID</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/collection-subscription.ts",
+    "groupTitle": "collection"
+  },
+  {
+    "type": "post",
+    "url": "/comment/create",
+    "title": "创建评论",
+    "name": "create",
+    "group": "comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "owner",
+            "description": "<p>被评论的单集</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "owner.id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"EPISODE\""
+            ],
+            "optional": false,
+            "field": "owner.type",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "text",
+            "description": "<p>评论正文</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "replyToCommentId",
+            "description": "<p>被回复的评论ID</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Comment[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "toast",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/comment.ts",
+    "groupTitle": "comment"
+  },
+  {
+    "type": "get",
+    "url": "/comment/get",
+    "title": "获取评论",
+    "name": "get",
+    "group": "comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "commentId",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Comment",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/comment.ts",
+    "groupTitle": "comment"
+  },
+  {
+    "type": "post",
+    "url": "/comment/hide",
+    "title": "隐藏用户评论（由debug权限用户发起)",
+    "name": "hide",
+    "group": "comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "commentId",
+            "description": "<p>评论id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "toast",
+            "description": "<p>&quot;已隐藏&quot;</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/comment.ts",
+    "groupTitle": "comment"
+  },
+  {
+    "type": "post",
+    "url": "/comment/list-primary",
+    "title": "通过 comment 所属对象列出 comments",
+    "name": "list-primary",
+    "group": "comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "owner",
+            "description": "<p>被评论的单集</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "owner.id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"EPISODE\""
+            ],
+            "optional": false,
+            "field": "owner.type",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"TIME\"",
+              "\"HOT\"",
+              "\"TIMESTAMP\""
+            ],
+            "optional": false,
+            "field": "order",
+            "description": "<p>排序方式</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Comment[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "loadMoreKey",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "totalCount",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/comment.ts",
+    "groupTitle": "comment"
+  },
+  {
+    "type": "post",
+    "url": "/comment/list-thread",
+    "title": "通过 thread id 列出一个 thread 下的 comments",
+    "name": "list-thread",
+    "group": "comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "primaryCommentId",
+            "description": "<p>thread id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"TIME\"",
+              "\"SMART\""
+            ],
+            "optional": false,
+            "field": "order",
+            "description": "<p>排序方式</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Comment[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "loadMoreKey",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "totalCount",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/comment.ts",
+    "groupTitle": "comment"
+  },
+  {
+    "type": "post",
+    "url": "/comment/remove",
+    "title": "删除评论",
+    "name": "remove",
+    "group": "comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "commentId",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "toast",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/comment.ts",
+    "groupTitle": "comment"
+  },
+  {
+    "type": "post",
+    "url": "/comment/pin/update",
+    "title": "置顶/取消置顶评论",
+    "name": "updatePin",
+    "group": "comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "commentId",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "pinned",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "toast",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/comment.ts",
+    "groupTitle": "comment"
+  },
+  {
+    "type": "post",
+    "url": "/deposit/create",
+    "title": "发起代币充值",
+    "name": "create",
+    "group": "deposit",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"WECHAT_PAY_APP\"",
+              "\"ALIPAY_APP\""
+            ],
+            "optional": false,
+            "field": "provider",
+            "description": "<p>支付方式</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "amount",
+            "description": "<p>充值金额，<em>以分为单位</em>, 会检查 amount &gt; 0</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>充值订单id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.provider",
+            "description": "<p>调用方传入的<code>provider</code></p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data.prepayData",
+            "description": "<p>支付平台的参数，具体细节见 <a target=\"_blank\" href=\"https://github.com/iftechio/backend-ifpay/blob/master/payment-gateway/README.md#%E5%8F%91%E8%B5%B7%E4%B8%80%E7%AC%94%E6%94%AF%E4%BB%98\">支付中台文档 prepayData 部分</a></p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/deposit.ts",
+    "groupTitle": "deposit"
+  },
+  {
+    "type": "get",
+    "url": "/deposit/get",
+    "title": "获取充值订单详情",
+    "name": "get",
+    "group": "deposit",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>充值订单id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Deposit",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/deposit.ts",
+    "groupTitle": "deposit"
+  },
+  {
+    "type": "post",
+    "url": "/deposit/validate-iap-receipt",
+    "title": "验证苹果 IAP 支付结果",
+    "name": "validateIAPReceipt",
+    "group": "deposit",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "receipt",
+            "description": "<p>IAP 收据</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.iapTransactionId",
+            "description": "<p>参考苹果文档：<a href=\"https://developer.apple.com/documentation/appstorereceipts/original_transaction_id\" target=\"_blank\">original_transaction_id</a></p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "allowedValues": [
+              "\"COMPLETE\""
+            ],
+            "optional": false,
+            "field": "data.status",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/deposit.ts",
+    "groupTitle": "deposit"
+  },
+  {
+    "type": "get",
+    "url": "/discovery-radio/get",
+    "title": "获取发现页电台的单集列表",
+    "name": "get",
+    "group": "discovery-radio",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Episode",
+            "optional": false,
+            "field": "data.episode",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.recommendation",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data.startPosition",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/discovery-radio.ts",
+    "groupTitle": "discovery-radio"
+  },
+  {
+    "type": "post",
+    "url": "/dismiss/create",
+    "title": "叉掉某一个资源位",
+    "name": "create",
+    "group": "dismiss",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>其他接口取到的资源位type， EDITORS_PICK_BANNER 首页编辑推荐资源位 PAY_PODCAST_RECOMMENDATION_BANNER 付费内容资源位 PRESET_CONTENT_LIST 预置内容资源位 USER_INTEREST_SELECT 首页feed里的新手引导用户兴趣选择</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/dismiss.ts",
+    "groupTitle": "dismiss"
+  },
+  {
+    "type": "post",
+    "url": "/editor-pick/list",
+    "title": "获取编辑推荐列表",
+    "name": "list",
+    "group": "editor-pick",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "EditorPick[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/editor-pick.ts",
+    "groupTitle": "editor-pick"
+  },
+  {
+    "type": "post",
+    "url": "/entity/parse",
+    "title": "解析实体",
+    "name": "parse",
+    "group": "entity",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "text",
+            "description": "<p>需要解析的文本</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "EntityParseResult",
+            "optional": false,
+            "field": "data",
+            "description": "<p>当不能解析出实体时，<code>data</code>为空</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/entity.ts",
+    "groupTitle": "entity"
+  },
+  {
+    "type": "post",
+    "url": "/episode-finished/list-history",
+    "title": "获取收听完历史",
+    "name": "list_history",
+    "group": "episode-finished",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "EpisodeHistory[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/episode-finished.ts",
+    "groupTitle": "episode-finished"
+  },
+  {
+    "type": "post",
+    "url": "/episode-finished/create",
+    "title": "标记单集听完",
+    "name": "mark_episode_finished",
+    "group": "episode-finished",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "eid",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/episode-finished.ts",
+    "groupTitle": "episode-finished"
+  },
+  {
+    "type": "post",
+    "url": "/episode-played/list",
+    "title": "列出最近播放单集",
+    "name": "list",
+    "group": "episode-played",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "uid",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Episode[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isRecentPlayedHidden",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/episode-played.ts",
+    "groupTitle": "episode-played"
+  },
+  {
+    "type": "post",
+    "url": "/episode-played/list-history",
+    "title": "获取收听历史",
+    "name": "list_history",
+    "group": "episode-played",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "EpisodeHistory[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/episode-played.ts",
+    "groupTitle": "episode-played"
+  },
+  {
+    "type": "get",
+    "url": "/episode/get",
+    "title": "获取一个单集",
+    "name": "get",
+    "group": "episode",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "eid",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Episode",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/episode.ts",
+    "groupTitle": "episode"
+  },
+  {
+    "type": "get",
+    "url": "/private-media/get",
+    "title": "获取私有音频链接",
+    "name": "get",
+    "group": "episode",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "eid",
+            "description": "<p>episode id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.key",
+            "description": "<p>用作判断音频是否修改</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.url",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data.ttl",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/private-media.ts",
+    "groupTitle": "episode"
+  },
+  {
+    "type": "post",
+    "url": "/episode/list",
+    "title": "获取一个节目的单集列表",
+    "name": "list",
+    "group": "episode",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pid",
+            "description": "<p>节目ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"desc\"",
+              "\"asc\""
+            ],
+            "optional": true,
+            "field": "order",
+            "description": "<p>升降序</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "limit",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Episode[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/episode.ts",
+    "groupTitle": "episode"
+  },
+  {
+    "type": "post",
+    "url": "/episode/list-by-filter",
+    "title": "根据欢迎度列出单集",
+    "name": "list-by-filter",
+    "group": "episode",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "allowedValues": [
+              "[\"POPULAR\"]"
+            ],
+            "optional": false,
+            "field": "labels",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Episode[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/episode.ts",
+    "groupTitle": "episode"
+  },
+  {
+    "type": "post",
+    "url": "/episode/list-by-ids",
+    "title": "通过单集ID获取多个单集信息",
+    "name": "list-by-ids",
+    "group": "episode",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "eids",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Episode[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/episode.ts",
+    "groupTitle": "episode"
+  },
+  {
+    "type": "post",
+    "url": "/expectation/update",
+    "title": "看好/催更",
+    "name": "update_expectation",
+    "group": "expectation",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "pid",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/expectation.ts",
+    "groupTitle": "expectation"
+  },
+  {
+    "type": "post",
+    "url": "/flash-screen/list",
+    "title": "列出所有开屏",
+    "name": "list",
+    "group": "flash-screen",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "FlashScreen[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/flash-screen.ts",
+    "groupTitle": "flash-screen"
+  },
+  {
+    "type": "post",
+    "url": "/inbox/list",
+    "title": "列出订阅节目的更新",
+    "name": "list",
+    "group": "inbox",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "limit",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Episode[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "UserStats",
+            "optional": false,
+            "field": "userStats",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "EmptyInboxRecommend",
+            "optional": true,
+            "field": "recommend",
+            "description": "<p>当用户订阅为空时，此字段作为订阅引导</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/inbox.ts",
+    "groupTitle": "inbox"
+  },
+  {
+    "type": "post",
+    "url": "/bind/bind-jike",
+    "title": "绑定即刻账号",
+    "name": "bind-jike",
+    "group": "jike",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>从即刻SDK拿到的auth code</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/bind.ts",
+    "groupTitle": "jike"
+  },
+  {
+    "type": "post",
+    "url": "/bind/unbind-jike",
+    "title": "取消绑定即刻账号",
+    "name": "unbind-jike",
+    "group": "jike",
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/bind.ts",
+    "groupTitle": "jike"
+  },
+  {
+    "type": "get",
+    "url": "/lottie/get",
+    "title": "获取lottie",
+    "name": "get",
+    "group": "lottie",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Map",
+            "optional": false,
+            "field": "data",
+            "description": "<p>内容为key=&gt;url键值对</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/lottie.ts",
+    "groupTitle": "lottie"
+  },
+  {
+    "type": "get",
+    "url": "/newbie-guide/get-all-topics",
+    "title": "获取所有主题",
+    "name": "get-all-topics",
+    "group": "newbie-guide",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.chn",
+            "description": "<p>主题中文名</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.end",
+            "description": "<p>主题英文名</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.emoji",
+            "description": "<p>主题的emoji，如没有则为空字符</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/newbie-guide.ts",
+    "groupTitle": "newbie-guide"
+  },
+  {
+    "type": "post",
+    "url": "/newbie-guide/submit-interested-topic",
+    "title": "新用户提交自己感兴趣的主题",
+    "description": "<p>接口会根据主题返回单集的音频片段</p>",
+    "name": "submit-interested-topic",
+    "group": "newbie-guide",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "topics",
+            "description": "<p>感兴趣的主题</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "NewbieGuideSegment[]",
+            "optional": false,
+            "field": "data.segments",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/newbie-guide.ts",
+    "groupTitle": "newbie-guide"
+  },
+  {
+    "type": "post",
+    "url": "/operation-resource/list",
+    "title": "列出资源位",
+    "name": "list",
+    "group": "operation-resource",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"EDITORS_PICK_BANNER\"",
+              "\"PAY_PODCAST_RECOMMENDATION_BANNER\""
+            ],
+            "optional": false,
+            "field": "type",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "OperationResource[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/operation-resource.ts",
+    "groupTitle": "operation-resource"
+  },
+  {
+    "type": "post",
+    "url": "/pick/create",
+    "title": "创建喜欢记录",
+    "name": "create",
+    "group": "pick",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "eid",
+            "description": "<p>喜欢的单集id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "story",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "story.emotion",
+            "description": "<p>搭配的状态</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "story.text",
+            "description": "<p>搭配的文案</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pick.ts",
+    "groupTitle": "pick"
+  },
+  {
+    "type": "post",
+    "url": "/pick/detect-emotion",
+    "title": "探测情绪",
+    "name": "detect-emotion",
+    "group": "pick",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "eid",
+            "description": "<p>喜欢的单集id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "story",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "story.text",
+            "description": "<p>搭配的文案</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": true,
+            "field": "data",
+            "description": "<p>可能不存在，表示没有合适的emotion</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.emotion",
+            "description": "<p>用作创建时候的story.emotion字段</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.iconUrl",
+            "description": "<p>仅用作显示</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pick.ts",
+    "groupTitle": "pick"
+  },
+  {
+    "type": "post",
+    "url": "/pick/list-history",
+    "title": "列出历史喜欢的记录",
+    "name": "list-history",
+    "group": "pick",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": "<p>翻页key</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Pick[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pick.ts",
+    "groupTitle": "pick"
+  },
+  {
+    "type": "post",
+    "url": "/pick/list-recent",
+    "title": "列出最近喜欢的记录",
+    "name": "list-recent",
+    "group": "pick",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Pick[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pick.ts",
+    "groupTitle": "pick"
+  },
+  {
+    "type": "post",
+    "url": "/pick/remove",
+    "title": "删除喜欢记录",
+    "name": "remove",
+    "group": "pick",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>PickID</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pick.ts",
+    "groupTitle": "pick"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-discovery/list",
+    "title": "第零期发现页列表",
+    "description": "<p>无翻页</p>",
+    "name": "list",
+    "group": "pilot-discovery",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": true,
+            "field": "eids",
+            "description": "<p>使得返回结果里包含该列表里的Episode，且会按顺序排在最前面并且加上精选标签。用于从系统通知跳转</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "limit",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Episode",
+            "optional": false,
+            "field": "data.episode",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "data.label",
+            "description": "<p><code>精选</code> 或者 <code>关注</code> 之类的文案</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "data.recommendation",
+            "description": "<p>编辑荐语</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-discovery.ts",
+    "groupTitle": "pilot-discovery"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-episode/create",
+    "title": "创建试播单集",
+    "name": "create-pilot-episode",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pilotPodcastId",
+            "description": "<p>节目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "AudioFile",
+            "optional": false,
+            "field": "audio",
+            "description": "<p>音频文件</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>单集标题</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "shownotes",
+            "description": "<p>单集介绍</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PilotEpisode",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-episode.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-podcast/create",
+    "title": "创建试播节目",
+    "name": "create-pilot-podcast",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>节目名称</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ImageFile",
+            "optional": false,
+            "field": "image",
+            "description": "<p>节目封面图</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PilotPodcast",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-podcast.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-podcast/resource/create",
+    "title": "向资源库传新录音",
+    "name": "create-resource",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>录音标题</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "AudioFile",
+            "optional": false,
+            "field": "audio",
+            "description": "<p>音频文件</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-podcast.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "get",
+    "url": "/pilot-podcast/get",
+    "title": "获取单个试播节目信息",
+    "name": "get-pilot-podcast",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>pilot podcast id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PilotPodcast",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-podcast.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-podcast/launch",
+    "title": "节目转正",
+    "name": "launch-pilot-podcast",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>pilot podcast id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Podcast",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-podcast.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-episode/list",
+    "title": "获取一个试播节目的单集列表",
+    "name": "list-pilot-episode",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pilotPodcastId",
+            "description": "<p>试播节目id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PilotEpisode[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-episode.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-podcast/list",
+    "title": "获取用户的试播节目列表，用于节目选择页",
+    "name": "list-pilot-podcast",
+    "group": "pilot",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PilotPodcast[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-podcast.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-episode/remove",
+    "title": "删除试播单集",
+    "name": "remove-pilot-episode",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "toast",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-episode.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-podcast/remove",
+    "title": "删除试播节目",
+    "name": "remove-pilot-podcast",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "toast",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-podcast.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-episode/update",
+    "title": "修改试播单集资料",
+    "name": "update-pilot-episode",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>单集标题</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "shownotes",
+            "description": "<p>单集介绍</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PilotEpisode",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-episode.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-episode/update-visibility",
+    "title": "修改试播单集可见状态",
+    "name": "update-pilot-episode-visibility",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"PUBLIC\"",
+              "\"PRIVATE\""
+            ],
+            "optional": false,
+            "field": "visibility",
+            "description": "<p>节目可见状态</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PilotEpisode",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-episode.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/pilot-podcast/update",
+    "title": "修改试播节目资料",
+    "name": "update-pilot-podcast",
+    "group": "pilot",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "title",
+            "description": "<p>节目名称</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "description",
+            "description": "<p>节目简介</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ImageFile",
+            "optional": true,
+            "field": "image",
+            "description": "<p>节目封面图</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PilotPodcast",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/pilot-podcast.ts",
+    "groupTitle": "pilot"
+  },
+  {
+    "type": "post",
+    "url": "/playback-rate-backup/create",
+    "title": "备份用户的倍速信息",
+    "name": "create",
+    "group": "playback-rate-backup",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "defaultPlaybackRate",
+            "description": "<p>用户全局倍速信息</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object[]",
+            "optional": false,
+            "field": "podcastsPlaybackRate",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "podcastsPlaybackRate.pid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "podcastsPlaybackRate.playbackRate",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/playback-rate-backup.ts",
+    "groupTitle": "playback-rate-backup"
+  },
+  {
+    "type": "get",
+    "url": "/playback-rate-backup/get",
+    "title": "获取用户的倍速设置",
+    "name": "get",
+    "group": "playback-rate-backup",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data.defaultPlaybackRate",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data.podcastsPlaybackRate",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data.podcastsPlaybackRate.playbackRate",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.podcastsPlaybackRate.pid",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/playback-rate-backup.ts",
+    "groupTitle": "playback-rate-backup"
+  },
+  {
+    "type": "post",
+    "url": "/playlist-backup/create",
+    "title": "保存播放列表备份，当播放列表有变化时会调用",
+    "name": "create",
+    "group": "playlist-backup",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object[]",
+            "optional": false,
+            "field": "playlist",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "playlist.eid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "playlist.progress",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/playlist-backup.ts",
+    "groupTitle": "playlist-backup"
+  },
+  {
+    "type": "get",
+    "url": "/playlist-backup/get",
+    "title": "获取播放列表备份",
+    "name": "get",
+    "group": "playlist-backup",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Playlist",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/playlist-backup.ts",
+    "groupTitle": "playlist-backup"
+  },
+  {
+    "type": "post",
+    "url": "/podcaster-mute/create",
+    "title": "主播禁言用户",
+    "name": "create",
+    "group": "podcaster-mute",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "targetUid",
+            "description": "<p>被禁言的uid</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "commentId",
+            "description": "<p>引起禁言操作的评论id</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/podcaster-mute.ts",
+    "groupTitle": "podcaster-mute"
+  },
+  {
+    "type": "post",
+    "url": "/podcaster-mute/list",
+    "title": "列出节目下的禁言名单",
+    "name": "list",
+    "group": "podcaster-mute",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "limit",
+            "defaultValue": "15",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "User[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/podcaster-mute.ts",
+    "groupTitle": "podcaster-mute"
+  },
+  {
+    "type": "post",
+    "url": "/podcaster-mute/list-podcast",
+    "title": "获取「禁言管理」中应该展示的节目",
+    "name": "list-podcast",
+    "group": "podcaster-mute",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Podcast[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/podcaster-mute.ts",
+    "groupTitle": "podcaster-mute"
+  },
+  {
+    "type": "post",
+    "url": "/podcaster-mute/remove",
+    "title": "主播解禁用户",
+    "name": "remove",
+    "group": "podcaster-mute",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "targetUid",
+            "description": "<p>被解禁的用户</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/podcaster-mute.ts",
+    "groupTitle": "podcaster-mute"
+  },
+  {
+    "type": "post",
+    "url": "/podcaster/owned-podcasts",
+    "title": "获取用户的所有可见节目",
+    "name": "owned-podcasts",
+    "group": "podcaster",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户ID</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Podcast[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/podcaster.ts",
+    "groupTitle": "podcaster"
+  },
+  {
+    "type": "get",
+    "url": "/podcast/get",
+    "title": "获取播客详情",
+    "name": "get",
+    "group": "podcast",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pid",
+            "description": "<p>podcast id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Podcast",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/podcast.ts",
+    "groupTitle": "podcast"
+  },
+  {
+    "type": "post",
+    "url": "/preset-content/list",
+    "title": "获取预置内容",
+    "name": "list",
+    "group": "preset-content",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "PresetContent",
+            "optional": true,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/preset-content.ts",
+    "groupTitle": "preset-content"
+  },
+  {
+    "type": "get",
+    "url": "/profile/get",
+    "title": "获取profile",
+    "name": "get",
+    "group": "profile",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>uid</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Podcast[]",
+            "optional": false,
+            "field": "data.authorship",
+            "description": "<p>主播名下被认证的节目</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data.otherFields",
+            "description": "<p>剩下的其他字段是用户信息</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/profile.ts",
+    "groupTitle": "profile"
+  },
+  {
+    "type": "post",
+    "url": "/redemption/create",
+    "title": "用兑换码兑换节目",
+    "name": "create",
+    "group": "redemption",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "verifyKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Podcast",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/redemption.ts",
+    "groupTitle": "redemption"
+  },
+  {
+    "type": "post",
+    "url": "/search/create",
+    "title": "在内容库中搜索播客、单集、全部",
+    "name": "create",
+    "group": "search",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keyword",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "pid",
+            "description": "<p>搜索某个节目下的单集</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"ALL\"",
+              "\"PODCAST\"",
+              "\"EPISODE\"",
+              "\"USER\""
+            ],
+            "optional": true,
+            "field": "type",
+            "defaultValue": "ALL",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "searchId",
+            "description": "<p>由 <code>/search/suggest</code> 返回的 <code>searchId</code>, 仅在通过「搜索自动补全」机制来搜索时需要传这个参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "limit",
+            "defaultValue": "20",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/search.ts",
+    "groupTitle": "search"
+  },
+  {
+    "type": "post",
+    "url": "/submission/create",
+    "title": "搜索无结果时，提交搜索内容",
+    "name": "createSubmission",
+    "group": "search",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/submission.ts",
+    "groupTitle": "search"
+  },
+  {
+    "type": "get",
+    "url": "/search/get-preset",
+    "title": "获取搜索预置词",
+    "name": "getPreset",
+    "group": "search",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.text",
+            "description": "<p>预置词的文本</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.link",
+            "description": "<p>预置词的跳转链接</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "allowedValues": [
+              "\"FIXED\"",
+              "\"RANDOM\""
+            ],
+            "optional": false,
+            "field": "data.type",
+            "description": "<p>预置词的类型</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/search.ts",
+    "groupTitle": "search"
+  },
+  {
+    "type": "post",
+    "url": "/search/suggest",
+    "title": "搜索建议词",
+    "name": "suggest",
+    "group": "search",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keyword",
+            "description": "<p>用户输入的内容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "allowedValues": [
+              "\"KEYWORD\"",
+              "\"PODCAST\"",
+              "\"SEARCH_SUGGESTED_COLLECTION\""
+            ],
+            "optional": false,
+            "field": "data.type",
+            "description": "<p>&quot;PODCAST&quot;: data 字段是 Podcast 类型 | &quot;KEYWORD&quot;: data.suggestion 字段表示建议词 | &quot;SEARCH_SUGGESTED_COLLECTION&quot;: data 字段是 SEARCH_SUGGESTED_COLLECTION 类型</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "searchId",
+            "description": "<p>用于打点，关联后续搜索行为，需要在 <code>/search/create</code> 接口里回传</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/search.ts",
+    "groupTitle": "search"
+  },
+  {
+    "type": "post",
+    "url": "/share/create",
+    "title": "分享",
+    "name": "create",
+    "group": "share",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"PODCAST\"",
+              "\"EPISODE\"",
+              "\"COMMENT\"",
+              "\"PODCASTCOLLECTION\"",
+              "\"EPISODECOLLECTION\""
+            ],
+            "optional": false,
+            "field": "type",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/share.ts",
+    "groupTitle": "share"
+  },
+  {
+    "type": "post",
+    "url": "/subscription/batch-update",
+    "title": "批量改变订阅状态",
+    "name": "batch-update",
+    "group": "subscription",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "pids",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"ON\"",
+              "\"OFF\""
+            ],
+            "optional": false,
+            "field": "mode",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/subscription.ts",
+    "groupTitle": "subscription"
+  },
+  {
+    "type": "post",
+    "url": "/subscription/list-all",
+    "title": "列出所有订阅节目",
+    "name": "listAllSubscription",
+    "group": "subscription",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Podcast[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/subscription.ts",
+    "groupTitle": "subscription"
+  },
+  {
+    "type": "post",
+    "url": "/subscription/list",
+    "title": "我订阅的节目",
+    "name": "listSubscription",
+    "group": "subscription",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"latestEpisodePubDate\"",
+              "\"subscribedAt\""
+            ],
+            "optional": false,
+            "field": "sortBy",
+            "description": "<p>latestEpisodePubDate按更新时间，subscribedAt按订阅时间</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"desc\"",
+              "\"asc\""
+            ],
+            "optional": false,
+            "field": "sortOrder",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "limit",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Podcast[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/subscription.ts",
+    "groupTitle": "subscription"
+  },
+  {
+    "type": "post",
+    "url": "/subscription/update",
+    "title": "改变订阅状态",
+    "name": "updateSubscription",
+    "group": "subscription",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"ON\"",
+              "\"OFF\""
+            ],
+            "optional": false,
+            "field": "mode",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Podcast",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/subscription.ts",
+    "groupTitle": "subscription"
+  },
+  {
+    "type": "post",
+    "url": "/teen-mode/disable",
+    "title": "",
+    "name": "disable",
+    "group": "teen-mode",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/teen-mode.ts",
+    "groupTitle": "teen-mode"
+  },
+  {
+    "type": "post",
+    "url": "/teen-mode/discovery-feed",
+    "title": "",
+    "name": "discovery-feed",
+    "group": "teen-mode",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Episode[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/teen-mode.ts",
+    "groupTitle": "teen-mode"
+  },
+  {
+    "type": "post",
+    "url": "/teen-mode/enable",
+    "title": "",
+    "name": "enable",
+    "group": "teen-mode",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/teen-mode.ts",
+    "groupTitle": "teen-mode"
+  },
+  {
+    "type": "get",
+    "url": "/top-list/get",
+    "title": "获取单个排行榜",
+    "name": "get",
+    "group": "top-list",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "allowedValues": [
+              "\"MOST_SUBSCRIBED_PODCASTS_IN_24_HOURS\""
+            ],
+            "optional": false,
+            "field": "category",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "TopList",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/top-list.ts",
+    "groupTitle": "top-list"
+  },
+  {
+    "type": "post",
+    "url": "/top-list/list",
+    "title": "获取所有排行榜",
+    "name": "list",
+    "group": "top-list",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "boolean",
+            "optional": true,
+            "field": "omitItems",
+            "defaultValue": "false",
+            "description": "<p>是否返回榜单内容</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string[]",
+            "allowedValues": [
+              "[\"MOST_SUBSCRIBED_PODCASTS_IN_24_HOURS\"",
+              "\"HOT_EPISODES_IN_24_HOURS\"]"
+            ],
+            "optional": true,
+            "field": "categories",
+            "description": "<p>排行榜类别</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "TopList[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/top-list.ts",
+    "groupTitle": "top-list"
+  },
+  {
+    "type": "post",
+    "url": "/transaction/list",
+    "title": "列出交易记录",
+    "name": "list",
+    "group": "transaction",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "limit",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": true,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Transaction[]",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "loadMoreKey",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/transaction.ts",
+    "groupTitle": "transaction"
+  },
+  {
+    "type": "get",
+    "url": "/user-config/get",
+    "title": "获取用户配置",
+    "description": "<p>该接口作为与用户相关的配置接口，比如AB测试信息等等</p>",
+    "name": "GetUserConfig",
+    "group": "user-config",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "teenMode",
+            "description": "<p>是否打开了青少年模式</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "abtestInfo",
+            "description": "<p>用户的AB测试信息，JSON string</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "showPodcasterSystemNoticeTab",
+            "description": "<p>是否展示主播通知tab</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "canManageMutedAudiences",
+            "description": "<p>是否展示管理节目禁言用户的入口</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/user-config.ts",
+    "groupTitle": "user-config"
+  },
+  {
+    "type": "post",
+    "url": "/user-interest/create",
+    "title": "提交用户兴趣，返回兴趣对应的内容",
+    "name": "create",
+    "group": "user-interest",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "ids",
+            "description": "<p>兴趣id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Collection[]",
+            "optional": false,
+            "field": "data.collections",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/user-interest.ts",
+    "groupTitle": "user-interest"
+  },
+  {
+    "type": "post",
+    "url": "/user-interest/list-all",
+    "title": "获取所有兴趣",
+    "name": "list-all",
+    "group": "user-interest",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data.dismiss",
+            "description": "<p>只用于/dismiss/create请求的入参</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.dismiss.id",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.dismiss.type",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.showUserInterestSelect",
+            "description": "<p>是否在首页展示兴趣选择资源位</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data.collections",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.collections.id",
+            "description": "<p>id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.collections.name",
+            "description": "<p>标题</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/user-interest.ts",
+    "groupTitle": "user-interest"
+  },
+  {
+    "type": "get",
+    "url": "/user-preference/get",
+    "title": "获取用户偏好设定",
+    "name": "get",
+    "group": "user-preference",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "UserPreference",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/user-preference.ts",
+    "groupTitle": "user-preference"
+  },
+  {
+    "type": "post",
+    "url": "/user-preference/update",
+    "title": "修改用户偏好设定",
+    "name": "update",
+    "group": "user-preference",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": true,
+            "field": "isRecentPlayedHidden",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": true,
+            "field": "rejectHotPush",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "UserPreference",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/api-app/routes/v1/user-preference.ts",
+    "groupTitle": "user-preference"
+  }
+]

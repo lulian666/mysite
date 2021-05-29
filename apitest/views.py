@@ -307,6 +307,9 @@ def datasource(request):
         else:
             error = 'this is empty!!'
 
+    if "jike" in request.POST:
+        basic_case_list, case_list = CaseCollect().collect_data_jike()
+
     username = request.user
     apis_list = Apis.objects.all()
     apis_count, apis_page_list = paginator(request, apis_list, 8)
@@ -331,7 +334,7 @@ def variables_manage(request):
         ManageSql.delete_flow_case_in_sql()
         ManageSql.delete_case_in_sql()
         variable_list = ManageSql.get_variables_from_sql()
-        basic_case_list, case_list = CaseCollect().collect_data()
+        basic_case_list, case_list = CaseCollect().collect_data_swagger()
         case_list = CaseReady(case_list, variable_list).data_form()
         ManageSql.write_case_to_sql(case_list)
 
@@ -359,7 +362,7 @@ def save_variables_to_sql():
     将temp.json中接口用到的变量都存到数据库里
     :return:
     """
-    basic_case_list, case_list = CaseCollect().collect_data()
+    basic_case_list, case_list = CaseCollect().collect_data_swagger()
     variables_dict = {}
     for case in basic_case_list:
         if case[3] != {}:  # 处理body的

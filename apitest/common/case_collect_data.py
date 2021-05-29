@@ -3,6 +3,8 @@ import os
 from fnmatch import fnmatch
 import json
 
+import jsonpath
+
 from apitest.common.case_generate_cases import CaseGenerate
 
 
@@ -32,7 +34,7 @@ class CaseCollect:
     filepath = os.path.join(root, 'apitest/config/temp.json')
 
     # 这里会删除所有老的case，把新的case写进数据库里面
-    def collect_data(self):
+    def collect_data_swagger(self):
         json_data, path_data = file_data(self.filepath)
 
         # 如果不照着json文件看，可能会理解上有困难
@@ -63,9 +65,10 @@ class CaseCollect:
                         son_json = {}
                         for params in parameters_maybe:
                             if params['in'] == 'query' or params['in'] == 'path':  # 代表是parameters
-                                parameters, son_json, father = parameters_info(params, parameters, son_json, father)
+                                parameters, son_json, father = parameters_info_swagger(params, parameters, son_json,
+                                                                                       father)
                             else:  # 如果是body的话
-                                body, son_json, father = body_info(params, json_data, body, son_json, father)
+                                body, son_json, father = body_info_swagger(params, json_data, body, son_json, father)
                         # 这俩遍历是用来寻找参数中2级json的父级
                         for item in parameters:
                             if item == father:
@@ -82,16 +85,67 @@ class CaseCollect:
         print('总共多少case：', len(case_list))
         return self.basic_case_list, case_list
 
+    def collect_data_jike(self):
+        with open(self.filepath, 'r', encoding='utf8')as fp:
+            json_data = json.load(fp)
+
+        for api in json_data:
+            url = jsonpath.jsonpath(api, "$.url")[0]
+            method = jsonpath.jsonpath(api, "$.type")[0]
+            if "parameter" in api:
+                parameters_data = jsonpath.jsonpath(api, "$.parameter")
+            else:
+                parameters_data = {}
+            if parameters_data != {}:
+                if method.lower() == "post":
+                    body = parameters_info_jike(parameters_data)
+                else:
+                    parameters = parameters_info_jike(parameters_data)
+            else:
+                parameters = {}
+                body = {}
+            self.basic_case_list.append([url, method, parameters, body])
+            print([url, method, parameters, body])
+            print("-----------------")
+            case_list = CaseGenerate(url, method, parameters, body).generate()
+        print("基本case有几个：", len(self.basic_case_list))
+        print('总共多少case：', len(case_list))
+        return self.basic_case_list, case_list
+
+
+def parameters_info_jike(parameters_data):
+    if "fields" in parameters_data[0]:
+        parameters_list = jsonpath.jsonpath(parameters_data, "$[0].fields.Parameter")[0]
+        parameters_dict = {}
+        son = {}
+        for item in parameters_list:
+            if not fnmatch(item["field"], '*' + '.' + '*'):
+                parameters_dict.update({item["field"]: {"required": not item["optional"], "type": item["type"]}})
+                # 还需要处理enum和二级json
+            else:
+                father = item["field"].split(".")[0]
+                son.update({item["field"].split(".")[1]: {"required": not item["optional"], "type": item["type"]}})
+            if "allowedValues" in item:
+                parameters_dict[item["field"]].update({"enum": item["allowedValues"]})
+        if son != {}:
+            parameters_dict[father].update({"son": son})
+    else:
+        parameters_dict = {}
+    return parameters_dict
+
 
 def file_data(filepath):
     # 第一步，拉取数据
     with open(filepath, 'r', encoding='utf8')as fp:
         json_data = json.load(fp)
-        path_data = json_data['paths']
+        try:
+            path_data = json_data['paths']
+        except TypeError:
+            path_data = json_data
     return json_data, path_data
 
 
-def parameters_info(params, parameters, son_json, father):
+def parameters_info_swagger(params, parameters, son_json, father):
     required = params['required']
     param_type = params['type']
     enum = []
@@ -104,7 +158,7 @@ def parameters_info(params, parameters, son_json, father):
     return parameters, son_json, father
 
 
-def body_info(params, json_data, body, son_json, father):
+def body_info_swagger(params, json_data, body, son_json, father):
     # 要先从schema里取出ref（body的结构要去另一处找，这段结构里面只提供了ref）
     schema = params['schema']
     ref = schema['$ref']
