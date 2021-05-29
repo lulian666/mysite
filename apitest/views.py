@@ -286,32 +286,31 @@ def welcome(request):
 # 处理源数据
 def datasource(request):
     product_list = Product.objects.all()
-    # selected_product_id = -1  # 默认是-1 表示全选
     selected_product_id = request.POST.get("selected_product_id")
     source = request.POST.get('source', '').strip()
     error = ''
     if 'analysis' in request.POST:
         if not check_json_format(source):
-            error = 'not a legal json'
+            error = 'json格式不正确！'
         else:
-            error = 'this is a legal json'
+            error = '正确的json格式～'
     elif 'save' in request.POST:  # 保存，就是写到本地文件里
         root = os.path.abspath('.')  # 获取当前工作目录路径
         if not check_json_format(source):
-            error = 'not a legal json'
+            error = 'json格式不正确！'
         elif source != "{}":
-            error = 'this is a legal json'
+            error = '正确的json格式～'
             filepath = os.path.join(root, 'apitest/config/temp.json')
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(str(source))
             f.close()
             # 把接口里的变量保存下来
-            save_variables_to_sql(selected_product_id)
+            if selected_product_id != "-1":
+                save_variables_to_sql(selected_product_id)
+            else:
+                error = '还没有选择所属项目'
         else:
-            error = 'this is empty!!'
-
-    if "jike" in request.POST:
-        basic_case_list, case_list = CaseCollect().collect_data_jike()
+            error = '请输入有内容的json'
 
     username = request.user
     apis_list = Apis.objects.all()
@@ -332,14 +331,16 @@ def api_header(request):
 
 # 变量管理
 def variables_manage(request):
+    product_list = Product.objects.all()
+    selected_product_id = request.POST.get("selected_product_id")
     if 'birth' in request.POST:
         # 这里要生成case了哦！
         ManageSql.delete_flow_case_in_sql()
         ManageSql.delete_case_in_sql()
         variable_list = ManageSql.get_variables_from_sql()
-        basic_case_list, case_list = CaseCollect().collect_data_swagger()
+        basic_case_list, case_list = CaseCollect().collect_data_accordingly()
         case_list = CaseReady(case_list, variable_list).data_form()
-        ManageSql.write_case_to_sql(case_list)
+        ManageSql.write_case_to_sql(case_list, selected_product_id)
 
         # 跳转去单一接口列表页
         product_list = Product.objects.all()
@@ -354,10 +355,11 @@ def variables_manage(request):
 
     username = request.user
     variables_list = Variables.objects.all()
-    variables_count, variables_page_list = paginator(request, variables_list, 6)
+    variables_count, variables_page_list = paginator(request, variables_list, 12)
     return render(request, "apitest/variables_manage.html",
                   {"username": username, "variables": variables_page_list, "variablecounts": variables_count,
-                   "warning": "只点击一次就好，会跳转到用例列表"})
+                   "warning": "只点击一次就好，会跳转到用例列表", "product_list": product_list,
+                   "selected_product_id": selected_product_id})
 
 
 def save_variables_to_sql(selected_product_id):
@@ -365,15 +367,16 @@ def save_variables_to_sql(selected_product_id):
     将temp.json中接口用到的变量都存到数据库里
     :return:
     """
-    basic_case_list, case_list = CaseCollect().collect_data_swagger()
+    basic_case_list, case_list = CaseCollect().collect_data_accordingly()
     variables_dict = {}
     for case in basic_case_list:
         if case[3] != {}:  # 处理body的
             variables_dict = search_variables(case[3], case[0], variables_dict)
         elif case[2] != {}:
             variables_dict = search_variables(case[2], case[0], variables_dict)
-    # product_id = Apis.objects.get(id=case_list[0][0]).Product_id
-    ManageSql().delete_variables_in_sql()
+    # ManageSql().delete_variables_in_sql()
+    print("variables_dict：", len(variables_dict))
+    print("variables_dict：", variables_dict)
     ManageSql().write_variables_to_sql(selected_product_id, variables_dict)
 
 

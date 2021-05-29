@@ -33,9 +33,21 @@ class CaseCollect:
     root = os.path.abspath('.')  # 获取当前工作目录路径
     filepath = os.path.join(root, 'apitest/config/temp.json')
 
+    def collect_data_accordingly(self):
+        with open(self.filepath, 'r', encoding='utf8')as fp:
+            json_data = json.load(fp)
+        try:
+            path_data = json_data['paths']
+            print("调用了collect_data_swagger")
+            case_list = self.collect_data_swagger(json_data, path_data)
+        except TypeError:
+            print("调用了collect_data_jike")
+            case_list = self.collect_data_jike(json_data)
+        return self.basic_case_list, case_list
+
     # 这里会删除所有老的case，把新的case写进数据库里面
-    def collect_data_swagger(self):
-        json_data, path_data = file_data(self.filepath)
+    def collect_data_swagger(self, json_data, path_data):
+        # json_data, path_data = file_data(self.filepath)
 
         # 如果不照着json文件看，可能会理解上有困难
         for path_keys in path_data:
@@ -83,11 +95,11 @@ class CaseCollect:
                 self.basic_case_list.append([url, method, parameters, body])
                 case_list = CaseGenerate(url, method, parameters, body).generate()
         print('总共多少case：', len(case_list))
-        return self.basic_case_list, case_list
+        return case_list
 
-    def collect_data_jike(self):
-        with open(self.filepath, 'r', encoding='utf8')as fp:
-            json_data = json.load(fp)
+    def collect_data_jike(self, json_data):
+        # with open(self.filepath, 'r', encoding='utf8')as fp:
+        #     json_data = json.load(fp)
 
         for api in json_data:
             url = jsonpath.jsonpath(api, "$.url")[0]
@@ -110,7 +122,7 @@ class CaseCollect:
             case_list = CaseGenerate(url, method, parameters, body).generate()
         print("基本case有几个：", len(self.basic_case_list))
         print('总共多少case：', len(case_list))
-        return self.basic_case_list, case_list
+        return case_list
 
 
 def parameters_info_jike(parameters_data):
@@ -134,15 +146,15 @@ def parameters_info_jike(parameters_data):
     return parameters_dict
 
 
-def file_data(filepath):
-    # 第一步，拉取数据
-    with open(filepath, 'r', encoding='utf8')as fp:
-        json_data = json.load(fp)
-        try:
-            path_data = json_data['paths']
-        except TypeError:
-            path_data = json_data
-    return json_data, path_data
+# def file_data(filepath):
+#     # 第一步，拉取数据
+#     with open(filepath, 'r', encoding='utf8')as fp:
+#         json_data = json.load(fp)
+#         try:
+#             path_data = json_data['paths']
+#         except TypeError:
+#             path_data = json_data
+#     return json_data, path_data
 
 
 def parameters_info_swagger(params, parameters, son_json, father):

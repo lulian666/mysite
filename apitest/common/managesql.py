@@ -6,12 +6,15 @@ import requests
 import pymysql
 from django.utils.datetime_safe import datetime
 
+from apitest.models import Variables
+
 
 class ManageSql:
     @staticmethod
-    def write_case_to_sql(case_list):
+    def write_case_to_sql(case_list, product_id):
         """
         把测试用例写进数据库
+        :param product_id:
         :param case_list:
         :return:
         """
@@ -22,7 +25,7 @@ class ManageSql:
         # 这里开始循环写入表
         for case in case_list:
             param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
-                     '2')  # 不转换成str会出错，因为值里面有引号
+                     product_id)  # 不转换成str会出错，因为值里面有引号
             cursor.execute(sql, param)
             coon.commit()
 
@@ -94,14 +97,20 @@ class ManageSql:
         :param variables_dict: 参数-值
         :return:
         """
+        variables = Variables.objects.filter(Product_id=product_id)
         sql = "INSERT INTO apitest_variables(from_api,Product_id,variable_key) VALUES(%s,%s,%s)"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
         for api, variable_list in variables_dict.items():
             for variable in variable_list:
-                param = (api, product_id, variable)
-                cursor.execute(sql, param)
-                coon.commit()
+                if api not in variables.values_list("from_api", flat=True):
+                    param = (api, product_id, variable)
+                    cursor.execute(sql, param)
+                    coon.commit()
+                elif variable not in variables.filter(from_api=api).values_list("variable_key", flat=True):
+                    param = (api, product_id, variable)
+                    cursor.execute(sql, param)
+                    coon.commit()
         cursor.close()
         coon.close()
         return
@@ -193,7 +202,7 @@ class ManageSql:
 
     @staticmethod
     def get_one_column_value(column_name, table_name):
-        sql = "select %s from %s;" % (column_name,table_name)
+        sql = "select %s from %s;" % (column_name, table_name)
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
 
