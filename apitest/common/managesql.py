@@ -1,12 +1,8 @@
 # coding:utf-8
 import ast
-import json
-import requests
-
 import pymysql
 from django.utils.datetime_safe import datetime
-
-from apitest.models import Variables
+from apitest.models import Variables, Apis
 
 
 class ManageSql:
@@ -18,17 +14,25 @@ class ManageSql:
         :param case_list:
         :return:
         """
+        cases = Apis.objects.filter(Product_id=product_id)
         sql = "insert into apitest_apis(api_name,api_url,api_method,api_param_value,api_body_value,api_expect_status_code,Product_id) values(%s,%s,%s,%s,%s,%s,%s);"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
-
         # 这里开始循环写入表
+        # url、parameter、body都一样
         for case in case_list:
-            param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
-                     product_id)  # 不转换成str会出错，因为值里面有引号
-            cursor.execute(sql, param)
-            coon.commit()
-
+            if case[0] not in cases.values_list("api_url", flat=True):
+                print("writing case")
+                param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
+                         product_id)
+                cursor.execute(sql, param)
+                coon.commit()
+            elif not (case[2].__str__() in cases.filter(api_url=case[0]).values_list("api_param_value", flat=True) and case[3].__str__() in cases.filter(api_url=case[0]).values_list("api_body_value", flat=True)):
+                print("writing case")
+                param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
+                         product_id)
+                cursor.execute(sql, param)
+                coon.commit()
         cursor.close()
         coon.close()
         return
@@ -104,10 +108,12 @@ class ManageSql:
         for api, variable_list in variables_dict.items():
             for variable in variable_list:
                 if api not in variables.values_list("from_api", flat=True):
+                    print("writing variable")
                     param = (api, product_id, variable)
                     cursor.execute(sql, param)
                     coon.commit()
                 elif variable not in variables.filter(from_api=api).values_list("variable_key", flat=True):
+                    print("writing variable")
                     param = (api, product_id, variable)
                     cursor.execute(sql, param)
                     coon.commit()

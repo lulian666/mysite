@@ -94,13 +94,9 @@ class CaseCollect:
 
                 self.basic_case_list.append([url, method, parameters, body])
                 case_list = CaseGenerate(url, method, parameters, body).generate()
-        print('总共多少case：', len(case_list))
         return case_list
 
     def collect_data_jike(self, json_data):
-        # with open(self.filepath, 'r', encoding='utf8')as fp:
-        #     json_data = json.load(fp)
-
         for api in json_data:
             url = jsonpath.jsonpath(api, "$.url")[0]
             method = jsonpath.jsonpath(api, "$.type")[0]
@@ -117,11 +113,7 @@ class CaseCollect:
                 parameters = {}
                 body = {}
             self.basic_case_list.append([url, method, parameters, body])
-            print([url, method, parameters, body])
-            print("-----------------")
             case_list = CaseGenerate(url, method, parameters, body).generate()
-        print("基本case有几个：", len(self.basic_case_list))
-        print('总共多少case：', len(case_list))
         return case_list
 
 
@@ -146,17 +138,6 @@ def parameters_info_jike(parameters_data):
     return parameters_dict
 
 
-# def file_data(filepath):
-#     # 第一步，拉取数据
-#     with open(filepath, 'r', encoding='utf8')as fp:
-#         json_data = json.load(fp)
-#         try:
-#             path_data = json_data['paths']
-#         except TypeError:
-#             path_data = json_data
-#     return json_data, path_data
-
-
 def parameters_info_swagger(params, parameters, son_json, father):
     required = params['required']
     param_type = params['type']
@@ -175,6 +156,7 @@ def body_info_swagger(params, json_data, body, son_json, father):
     schema = params['schema']
     ref = schema['$ref']
     ref = ref.split('/')[-1]
+    # print("ref:", ref)
     if ref == 'null':
         body = {}
     else:
@@ -184,9 +166,11 @@ def body_info_swagger(params, json_data, body, son_json, father):
         for each in refs_data['properties']:
             required = False
             if 'required' in refs_data:
+                print("refs_data['required']:", refs_data['required'])
                 if each in refs_data['required']:
                     required = True
             param_data = refs_data['properties'][each]
+            print("param_data:", param_data)
             param_type = param_data['type']
             # 如果是enum
             enum = []

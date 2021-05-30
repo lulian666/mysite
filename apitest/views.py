@@ -307,7 +307,12 @@ def datasource(request):
             f.close()
             # 把接口里的变量保存下来
             if selected_product_id != "-1":
-                save_variables_to_sql(selected_product_id)
+                basic_case_list, case_list = CaseCollect().collect_data_accordingly()
+                # 接口也保存下来
+                print("len(case_list):", len(case_list))
+                print("len(basic_case_list):", len(basic_case_list))
+                ManageSql.write_case_to_sql(case_list, selected_product_id)
+                save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
                 variables_count, variables_page_list = paginator(request, variables_list, 12)
                 return render(request, "apitest/variables_manage.html",
@@ -350,9 +355,10 @@ def variables_manage(request):
             # 这里要生成case了哦！删除flow case是为了先删除引用
             # ManageSql.delete_flow_case_in_sql()
             # ManageSql.delete_case_in_sql()
-            selected_product_id = request.POST["selected_product_id"]
-            print("selected_product_id,1:", selected_product_id)
+            selected_product_id = request.POST.get("selected_product_id")
+            print("selected_product_id:", selected_product_id)
             variable_list = ManageSql.get_variables_from_sql(selected_product_id)
+            print("len(variable_list):", len(variable_list))
             basic_case_list, case_list = CaseCollect().collect_data_accordingly()
             # 这里传入的case_list, variable_list需要是同一个项目的
             case_list = CaseReady(case_list, variable_list).data_form()
@@ -376,12 +382,11 @@ def variables_manage(request):
                    "selected_product_id": int(selected_product_id), "null_value_only": null_value_only})
 
 
-def save_variables_to_sql(selected_product_id):
+def save_variables_to_sql(selected_product_id, basic_case_list):
     """
     将temp.json中接口用到的变量都存到数据库里
     :return:
     """
-    basic_case_list, case_list = CaseCollect().collect_data_accordingly()
     variables_dict = {}
     for case in basic_case_list:
         if case[3] != {}:  # 处理body的
