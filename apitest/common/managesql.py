@@ -56,6 +56,27 @@ class ManageSql:
         return
 
     @staticmethod
+    def update_variable_in_case(product_id):
+        variable_list = Variables.objects.filter(Product_id=product_id)
+        case_list = Apis.objects.filter(Product_id=product_id)
+        for api in case_list:
+            body = ast.literal_eval(api.api_body_value)
+            parameter = ast.literal_eval(api.api_param_value)
+            # 把body和parameter里面的变量值都替换掉，然后再把api更新一下
+            for key, value in body.items():
+                if value == "" or value is None or value == "None":  # enum的不需要代替
+                    answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                    body[key] = answer
+            api.api_body_value = body
+            for key, value in parameter.items():
+                if value == "" or value is None or value == "None":  # enum的不需要代替
+                    answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                    parameter[key] = answer
+            api.api_param_value = parameter
+            api.save()
+        return
+
+    @staticmethod
     def delete_case_in_sql():
         sql = 'delete from apitest_apis'
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
