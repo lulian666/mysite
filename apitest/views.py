@@ -308,12 +308,8 @@ def datasource(request):
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
 
-                # for case in case_list:
-                #     print("case before:", case)
                 # 接口也保存下来
-                new_case_list = CaseReady(case_list, variables_list).data_form(selected_product_id, 2, 3)
-                # for case in new_case_list:
-                #     print("case before:", case)
+                new_case_list = CaseReady().data_form(selected_product_id, 2, 3, case_list, variables_list)
                 ManageSql.write_case_to_sql(new_case_list, selected_product_id)
 
                 variables_count, variables_page_list = paginator(request, variables_list, 12)
