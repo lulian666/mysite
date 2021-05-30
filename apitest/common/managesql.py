@@ -38,12 +38,14 @@ class ManageSql:
                     parameter = ast.literal_eval(case_in_sql.api_param_value)
                     for variable, variable_value in case[2].items():
                         if variable in parameter:
-                            if variable_value == parameter[variable]:
-                                n_for_parameter += 1
+                            n_for_parameter += 1
+                            # if variable_value == parameter[variable]:
+                            #     n_for_parameter += 1
                     for variable, variable_value in case[3].items():
                         if variable in body:
-                            if variable_value == body[variable]:
-                                n_for_body += 1
+                            n_for_body += 1
+                            # if variable_value == body[variable]:
+                            #     n_for_body += 1
                     if variable_count_in_parameter == n_for_parameter and variable_count_in_body == n_for_body:
                         case_in = True
                 if not case_in:
