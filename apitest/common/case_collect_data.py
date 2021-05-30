@@ -156,7 +156,6 @@ def body_info_swagger(params, json_data, body, son_json, father):
     schema = params['schema']
     ref = schema['$ref']
     ref = ref.split('/')[-1]
-    # print("ref:", ref)
     if ref == 'null':
         body = {}
     else:
@@ -166,11 +165,9 @@ def body_info_swagger(params, json_data, body, son_json, father):
         for each in refs_data['properties']:
             required = False
             if 'required' in refs_data:
-                print("refs_data['required']:", refs_data['required'])
                 if each in refs_data['required']:
                     required = True
             param_data = refs_data['properties'][each]
-            print("param_data:", param_data)
             param_type = param_data['type']
             # 如果是enum
             enum = []

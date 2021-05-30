@@ -26,6 +26,37 @@ class ManageSql:
                          product_id)
                 cursor.execute(sql, param)
                 coon.commit()
+            # else:
+                # for case_in_sql in cases.filter(api_url=case[0]):
+                #     print("---------")
+                #     print("case_in_sql.case_in_sql.api_param_value：", case_in_sql.api_param_value)
+                #     print("case_in_sql.case_in_sql.api_body_value：", case_in_sql.api_body_value)
+                #     print("case[2]:", case[2])
+                #     print("case[3]:", case[3])
+                #     variable_count_in_parameter = len(case[2])
+                #     variable_count_in_body = len(case[3])
+                #     print("variable_count_in_parameter:", variable_count_in_parameter)
+                #     print("variable_count_in_body:", variable_count_in_body)
+                #     n_for_parameter = n_for_body = 0
+                #     for variable in case[2]:
+                #         if variable in case_in_sql.api_param_value:
+                #             print("variable in parameter:", variable)
+                #             n_for_parameter += 1
+                #     for variable in case[3]:
+                #         if variable in case_in_sql.api_body_value:
+                #             print("variable in body:", variable)
+                #             n_for_body += 1
+                #     print("n_for_parameter:", n_for_parameter)
+                #     print("n_for_body:", n_for_body)
+                #     if variable_count_in_parameter == n_for_parameter and variable_count_in_body == n_for_body:
+                #         print("break")
+                #         break
+                #     else:
+                #         print("插入新case中：")
+                #         param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
+                #                  product_id)
+                #         cursor.execute(sql, param)
+                #         coon.commit()
             elif not (case[2].__str__() in cases.filter(api_url=case[0]).values_list("api_param_value", flat=True) and case[3].__str__() in cases.filter(api_url=case[0]).values_list("api_body_value", flat=True)):
                 param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
                          product_id)

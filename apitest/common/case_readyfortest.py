@@ -40,11 +40,11 @@ class CaseReady:
     def data_replace(self, param, param_value, product_id, api):
         # 这个方法是制定了一系列复杂的规则，以替换参数的值（其实也不复杂）
         if param == 'keyword':
-            value = Random().randint(0, 100000)
+            value = "测试"
         elif len(param_value) > 2:  # 二级json来了
-            for item in param_value:
+            for index, item in enumerate(param_value):
                 item_value = Read_config().get_variable(self.variable_list, product_id, api, item)
-                param_value[item] = item_value
+                param_value[index] = item_value
             return param_value  # 直接返回一个dict
         else:
             value = Read_config().get_variable(self.variable_list, product_id, api, param)

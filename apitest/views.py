@@ -400,6 +400,7 @@ def search_variables(case_variables, case_name, variables_dict):
     """
     param_list = []
     for num, keys in list(enumerate(case_variables)):
+        print("num, keys:", num, keys)
         if 'enum' not in case_variables[keys]:
             # 如果这个参数的值里面，有enum这个字段，就不需要存了
             param_list.append(keys)
