@@ -225,7 +225,8 @@ def test_report(request):
     root = os.path.abspath(".")
     filepath = os.path.join(root, "apitest/templates/report")
     # 所有的测试报告都在filepath内，将目录下所有的文件拼成一个list，每个list包含[文件名，测试类型，创建时间，测试结果，测试人]
-    file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], file.split("_")[3]] for file in listdir(filepath) if file != "__init__.py"]
+    file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], file.split("_")[3]] for file in
+                 listdir(filepath) if file != "__init__.py"]
     # 按照list中第三个内容倒序排序（此处是创建时间）
     file_list = sorted(file_list, key=lambda x: x[2], reverse=True)
 
@@ -327,12 +328,23 @@ def datasource(request):
 
 
 # header 管理
+@login_required
 def api_header(request):
     username = request.user
     headers_list = Headers.objects.all()
+    product_list = Product.objects.all()
+    selected_product_id = -1  # 默认是-1 表示全选
+
+    if 'selected_product_id' in request.GET:
+        headers_list, selected_test_result, selected_product_id = model_list_filter(request.GET, headers_list)
+
+    if "filter" in request.POST:
+        headers_list, selected_test_result, selected_product_id = model_list_filter(request.POST, headers_list)
+
     headers_count, headers_page_list = paginator(request, headers_list, 6)
     return render(request, "apitest/api_header.html",
-                  {"username": username, "headers": headers_page_list, "apicounts": headers_count})
+                  {"username": username, "headers": headers_page_list, "selected_product_id": selected_product_id,
+                   "product_list": product_list})
 
 
 # 变量管理
@@ -361,9 +373,9 @@ def variables_manage(request):
                 selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
                 apis_count, apis_page_list = paginator(request, api_list, 6)
                 return render(request, 'apitest/apis_manage.html',
-                          {'api_list': apis_page_list, "product_list": product_list, "username": username,
-                           'test_result_list': test_result_list, "selected_test_result": selected_test_result,
-                           'selected_product_id': selected_product_id, 'apis_count': apis_count})
+                              {'api_list': apis_page_list, "product_list": product_list, "username": username,
+                               'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                               'selected_product_id': selected_product_id, 'apis_count': apis_count})
 
     variables_count, variables_page_list = paginator(request, variables_list, 12)
     return render(request, "apitest/variables_manage.html",
@@ -456,7 +468,8 @@ def report_list_filter(request, list_to_filter):
     if selected_test_type != '-1':
         list_filtered = [item for item in list_filtered if item[1] == selected_test_type]
     if selected_test_result != '-1':
-        list_filtered = [item for item in list_filtered if item[3] == ("PASS" if selected_test_result == "1" else "FAIL")]
+        list_filtered = [item for item in list_filtered if
+                         item[3] == ("PASS" if selected_test_result == "1" else "FAIL")]
     return list_filtered, selected_test_type, selected_test_result
 
 
@@ -471,12 +484,12 @@ def model_list_filter(request, list_to_filter):
     selected_test_result = request.get('selected_test_result')
     list_filtered = list_to_filter
 
-    if selected_product_id != '-1':
+    if selected_product_id != '-1' and selected_product_id is not None:
         list_filtered = list_to_filter.filter(Product_id=selected_product_id)
-    if selected_test_result != '-1':
+    if selected_test_result != '-1' and selected_test_result is not None:
         list_filtered = list_filtered.filter(test_result=True if selected_test_result == '1' else False)
 
-    return list_filtered, int(selected_test_result), int(selected_product_id)
+    return list_filtered, int(selected_test_result) if selected_test_result is not None else -1, int(selected_product_id)
 
 
 def model_list_filter2(request, list_to_filter):

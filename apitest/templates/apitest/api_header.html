@@ -30,6 +30,25 @@
 {% include 'apitest/header_for_single_api_test.html' %}
 <div class="box">
     <div class="row">
+        <span class="item0">
+            <div class="container page-header" style="padding-top: 30px;">
+                <form class="navbar-form" method="post" action="{% url 'apitest:api_header' %}">
+                {%  csrf_token %}
+                <label>所属项目：</label>
+                    <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
+                            <option value="-1">全部</option>
+                        {%  for product in product_list %}
+                            {% if product.id == selected_product_id %}
+                                <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                            {% else %}
+                                <option value ="{{ product.id }}">{{ product.productname }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                <button type="submit" name="filter" style="margin-left: 100px">过滤（不好意思又让你多点一下鼠标）</button>
+            </form>
+            </div>
+        </span>
         <span class="item1">
         <!-- header-->
         <div class="row" style="padding-top: 50px;">
@@ -68,14 +87,14 @@
             <ul class="pagination" id="pager">
                 {# 上一页链接开始 #}
                 {% if headers.has_previous %}
-                    <li class="previous"><a href="/apitest/api_header/?page={{ headers.previous_page_number }}">上一页</a></li>
+                    <li class="previous"><a href="/apitest/api_header/?page={{ headers.previous_page_number }}&selected_product_id={{ selected_product_id }}">上一页</a></li>
                 {% else %}
                     <li class="previous disabled"><a href="#">上一页</a></li>
                 {% endif %}
                 &nbsp;&nbsp;
                 {% for num in headers.paginator.page_range %}
                     {% if num == currentPage %}
-                        <li class="item active" style="color: red"><a href="/apitest/api_header/?page={{ num }}">{{ num }}</a></li>
+                        <li class="item active" style="color: red"><a href="/apitest/api_header/?page={{ num }}&selected_product_id={{ selected_product_id }}">{{ num }}</a></li>
                     {% else %}
                         <li class="item"><a href="/apitest/api_header/?page={{ num }}">{{ num }}</a></li>
                     {% endif %}
@@ -84,7 +103,7 @@
 
                 {# 下一页链接开始 #}
                 {% if headers.has_next %}
-                    <li class="next"><a href="/apitest/api_header/?page={{ headers.next_page_number }}">下一页</a></li>
+                    <li class="next"><a href="/apitest/api_header/?page={{ headers.next_page_number }}&selected_product_id={{ selected_product_id }}">下一页</a></li>
                 {% else %}
                     <li class="next disabled"><a href="#">下一页</a></li>
                 {% endif %}
