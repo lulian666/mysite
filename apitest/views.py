@@ -116,7 +116,6 @@ def api_flow_test_manage(request):
     test_result = False
 
     if 'selected_test_result' in request.GET:
-        print("here")
         api_flow_test_list, selected_test_result, selected_product_id = model_list_filter(request.GET,
                                                                                           api_flow_test_list)
 
@@ -144,12 +143,10 @@ def flow_case_test(api_flow_test_list, tester):
     :return:
     """
     multiple_case_list = []
-    print("api_flow_test_list:", api_flow_test_list)
     one_case_id = api_flow_test_list.values_list("id", flat=True)[0]
     one_api_id = ApiFlowAndApis.objects.filter(ApiFlowTest_id=one_case_id).values_list("Apis_id", flat=True)[0]
     product_id = Apis.objects.get(id=one_api_id).Product_id
     host = ManageSql.get_host_of_product(product_id)
-    print("product_id:", product_id)
     for case in api_flow_test_list:
         relations = ApiFlowAndApis.objects.filter(ApiFlowTest_id=case.id)
         io_list = []
@@ -309,8 +306,6 @@ def datasource(request):
             if selected_product_id != "-1":
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly()
                 # 接口也保存下来
-                print("len(case_list):", len(case_list))
-                print("len(basic_case_list):", len(basic_case_list))
                 ManageSql.write_case_to_sql(case_list, selected_product_id)
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
@@ -352,25 +347,21 @@ def variables_manage(request):
     if request.method == 'POST':
         variables_list, selected_product_id, null_value_only = model_list_filter2(request.POST, variables_list)
         if 'birth' in request.POST:
-            # 这里要生成case了哦！删除flow case是为了先删除引用
-            # ManageSql.delete_flow_case_in_sql()
-            # ManageSql.delete_case_in_sql()
             selected_product_id = request.POST.get("selected_product_id")
-            print("selected_product_id:", selected_product_id)
-            variable_list = ManageSql.get_variables_from_sql(selected_product_id)
-            print("len(variable_list):", len(variable_list))
-            basic_case_list, case_list = CaseCollect().collect_data_accordingly()
-            # 这里传入的case_list, variable_list需要是同一个项目的
-            case_list = CaseReady(case_list, variable_list).data_form()
-            ManageSql.write_case_to_sql(case_list, selected_product_id)
+            if selected_product_id != "-1":
+                variable_list = ManageSql.get_variables_from_sql(selected_product_id)
+                basic_case_list, case_list = CaseCollect().collect_data_accordingly()
+                # 这里传入的case_list, variable_list需要是同一个项目的
+                case_list = CaseReady(case_list, variable_list).data_form()
+                ManageSql.write_case_to_sql(case_list, selected_product_id)
 
-            # 跳转去单一接口列表页
-            product_list = Product.objects.all()
-            api_list = Apis.objects.all()
-            test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
-            selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
-            apis_count, apis_page_list = paginator(request, api_list, 6)
-            return render(request, 'apitest/apis_manage.html',
+                # 跳转去单一接口列表页
+                product_list = Product.objects.all()
+                api_list = Apis.objects.all()
+                test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
+                selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+                apis_count, apis_page_list = paginator(request, api_list, 6)
+                return render(request, 'apitest/apis_manage.html',
                           {'api_list': apis_page_list, "product_list": product_list, "username": username,
                            'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                            'selected_product_id': selected_product_id, 'apis_count': apis_count})

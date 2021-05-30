@@ -22,13 +22,11 @@ class ManageSql:
         # url、parameter、body都一样
         for case in case_list:
             if case[0] not in cases.values_list("api_url", flat=True):
-                print("writing case")
                 param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
                          product_id)
                 cursor.execute(sql, param)
                 coon.commit()
             elif not (case[2].__str__() in cases.filter(api_url=case[0]).values_list("api_param_value", flat=True) and case[3].__str__() in cases.filter(api_url=case[0]).values_list("api_body_value", flat=True)):
-                print("writing case")
                 param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
                          product_id)
                 cursor.execute(sql, param)
@@ -108,12 +106,10 @@ class ManageSql:
         for api, variable_list in variables_dict.items():
             for variable in variable_list:
                 if api not in variables.values_list("from_api", flat=True):
-                    print("writing variable")
                     param = (api, product_id, variable)
                     cursor.execute(sql, param)
                     coon.commit()
                 elif variable not in variables.filter(from_api=api).values_list("variable_key", flat=True):
-                    print("writing variable")
                     param = (api, product_id, variable)
                     cursor.execute(sql, param)
                     coon.commit()
