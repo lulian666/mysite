@@ -82,8 +82,8 @@ class Read_config:
             # 这里开始操作
             value = ''
             for variable_info in variable_list:
-                if variable_info[0] == productId and variable_info[1] == api and variable_info[2] == item:
-                    value = variable_info[3]
+                if variable_info.Product_id == productId and variable_info.from_api == api and variable_info.variable_key == item:
+                    value = variable_info.variable_value
 
             if value == '10':
                 return 10

@@ -305,10 +305,13 @@ def datasource(request):
             # 把接口里的变量保存下来
             if selected_product_id != "-1":
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly()
-                # 接口也保存下来
-                ManageSql.write_case_to_sql(case_list, selected_product_id)
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
+
+                # 接口也保存下来
+                new_case_list = CaseReady(case_list, variables_list).data_form(selected_product_id, 2, 3)
+                ManageSql.write_case_to_sql(new_case_list, selected_product_id)
+
                 variables_count, variables_page_list = paginator(request, variables_list, 12)
                 return render(request, "apitest/variables_manage.html",
                               {'error': error, 'data': source, "username": username,

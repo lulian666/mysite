@@ -21,17 +21,17 @@ class CaseReady:
         self.case_list = case_list
         self.variable_list = variable_list
 
-    def data_form(self):
+    def data_form(self, product_id, parameter_index, body_index):
         n = 0
         new_case_list = []
         # 其实就是把{"required": false, "type": "string"} 这部分替换成真正的值
         for case in self.case_list:
             n += 1
-            if case[3] != {}:  # 处理body的
-                self.enum_data(case[3],n,case,new_case_list,3)
-            elif case[2] != {}:
+            if case[body_index] != {}:  # 处理body的
+                self.enum_data(case[body_index], n, case, new_case_list, body_index, product_id)
+            elif case[parameter_index] != {}:
                 # 处理parameters的
-                self.enum_data(case[2],n,case,new_case_list,2)
+                self.enum_data(case[parameter_index], n, case, new_case_list, parameter_index, product_id)
             else:
                 # 如果body和param都是空的，那就直接变成case
                 new_case_list.append(self.case_list[n-1])
@@ -40,7 +40,7 @@ class CaseReady:
     def data_replace(self, param, param_value, product_id, api):
         # 这个方法是制定了一系列复杂的规则，以替换参数的值（其实也不复杂）
         if param == 'keyword':
-            value = Random().randint(0,100000)
+            value = Random().randint(0, 100000)
         elif len(param_value) > 2:  # 二级json来了
             for item in param_value:
                 item_value = Read_config().get_variable(self.variable_list, product_id, api, item)
@@ -66,7 +66,7 @@ class CaseReady:
         }
         '''
 
-    def enum_data(self, case, n, case_full_info, new_case_list, nn):
+    def enum_data(self, case, n, case_full_info, new_case_list, nn, product_id):
         # 这个方法是处理接口参数里的enum
         para_info_list = list(case.values())  # 这个list里的每一个值都是个dict
         para_list = list(case.keys())
@@ -96,12 +96,11 @@ class CaseReady:
         '''
         if enum_count == 0:  # 参数里面没有enum类型的时候，只要正常替换参数就好
             for param in case:
-                value = self.data_replace(param,case[param],2,case_full_info[0])  # 二级json的逻辑都在data_replace里处理
+                value = self.data_replace(param, case[param], product_id, case_full_info[0])  # 二级json的逻辑都在data_replace里处理
                 case[param] = value
             new_case_list.append(copy.deepcopy(self.case_list[n - 1]))
 
         if enum_count > 1:
-            print("enum_count > 1")
             # 用到enum_dict
             enum_list = list(enum_dict.values())
             # 这里思路是把所有是enum的参数的可取值都列出来，然后排列组合
@@ -120,7 +119,7 @@ class CaseReady:
                         new_case_m.update({param: new_value})
                     else:
                         # 当我再次看到这里的时候，我已经不记得这些参数是什么意思了，但不妨碍我进行修改
-                        new_case_m.update({param: self.data_replace(param, case[param],2,case_full_info[0])})
+                        new_case_m.update({param: self.data_replace(param, case[param], product_id, case_full_info[0])})
 
                 if nn == 3:
                     new_case_list.append([case_full_info[0], case_full_info[1], case_full_info[2], new_case_m, case_full_info[4]])
