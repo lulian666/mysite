@@ -11,7 +11,7 @@ from apitest.common.case_generate_cases import CaseGenerate
 class CaseCollect:
     # 排除一些不需要测试的接口，比如内部接口，比如需要具体id的，但是id会过期的（商品id，卡片id），以及一些无法测试的比如绑定微信等
     # 这里包括了橙和快鸟的
-    basic_case_list = []
+    # basic_case_list = []
     interfaces_not_wanted = ['internal', 'advertisement', 'promotion', 'user/miniProgram', 'user/qq', 'user/taobao',
                                  'user/wechat', 'management', 'newsBot', 'userRelation/unbind', 'user/cancel',
                                  'user/deviceId', 'user/pushToken', '2.0/transaction/withdraw',
@@ -39,16 +39,16 @@ class CaseCollect:
         try:
             path_data = json_data['paths']
             print("调用了collect_data_swagger")
-            case_list = self.collect_data_swagger(json_data, path_data)
+            basic_case_list, case_list = self.collect_data_swagger(json_data, path_data)
         except TypeError:
             print("调用了collect_data_jike")
-            case_list = self.collect_data_jike(json_data)
-        return self.basic_case_list, case_list
+            basic_case_list, case_list = self.collect_data_jike(json_data)
+        return basic_case_list, case_list
 
     # 这里会删除所有老的case，把新的case写进数据库里面
     def collect_data_swagger(self, json_data, path_data):
         # json_data, path_data = file_data(self.filepath)
-
+        basic_case_list = []
         # 如果不照着json文件看，可能会理解上有困难
         for path_keys in path_data:
             url = path_keys
@@ -92,11 +92,12 @@ class CaseCollect:
                         parameters = {}
                         body = {}
 
-                self.basic_case_list.append([url, method, parameters, body])
+                basic_case_list.append([url, method, parameters, body])
                 case_list = CaseGenerate(url, method, parameters, body).generate()
-        return case_list
+        return basic_case_list, case_list
 
     def collect_data_jike(self, json_data):
+        basic_case_list = []
         for api in json_data:
             url = jsonpath.jsonpath(api, "$.url")[0]
             method = jsonpath.jsonpath(api, "$.type")[0]
@@ -112,9 +113,9 @@ class CaseCollect:
             else:
                 parameters = {}
                 body = {}
-            self.basic_case_list.append([url, method, parameters, body])
+            basic_case_list.append([url, method, parameters, body])
             case_list = CaseGenerate(url, method, parameters, body).generate()
-        return case_list
+        return basic_case_list, case_list
 
 
 def parameters_info_jike(parameters_data):

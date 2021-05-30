@@ -106,7 +106,6 @@ class CaseGenerate:
         if m > 0:
             # 得到的是body中所有参数的一个排列组合（准确地说是body中key值的排列组合
             parameters_list = list(itertools.combinations(whichpart, len(whichpart) - 1))
-            # print("parameters_list:", parameters_list)
             for params_combi in parameters_list:
                 n = 0
                 temp = {}
@@ -116,10 +115,8 @@ class CaseGenerate:
                 if len(params_combi) == 0:
                     if serial == 2:
                         self._400_case1.append([self.url, self.method, {}, self.body, 400])
-                        # print('1:',[self.url, self.method, temp, self.body, 400])
                     else:
                         self._400_case2.append([self.url, self.method, self.parameters, {}, 400])
-                        # print('2:',[self.url, self.method, self.parameters, {}, 400])
                 if n == m - 1 and len(params_combi) != 0:
                     # 如果正好小1，那就是我们想要的case
                     # 需要把params_combi变回原来的格式
@@ -134,7 +131,5 @@ class CaseGenerate:
                                                        'type': whichpart[params_combi[i]]['type']}})
                     if serial == 2:
                         self._400_case1.append([self.url, self.method, temp, self.body, 400])
-                        # print('3:',[self.url, self.method, temp, self.body, 400])
                     else:
                         self._400_case2.append([self.url, self.method, self.parameters, temp, 400])
-                        # print('4:',[self.url, self.method, self.parameters, {}, 400])

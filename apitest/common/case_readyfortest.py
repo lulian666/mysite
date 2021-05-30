@@ -42,10 +42,11 @@ class CaseReady:
         if param == 'keyword':
             value = "测试"
         elif len(param_value) > 2:  # 二级json来了
+            cp_param_value = copy.deepcopy(param_value)
             for index, item in enumerate(param_value):
                 item_value = Read_config().get_variable(self.variable_list, product_id, api, item)
-                param_value[index] = item_value
-            return param_value  # 直接返回一个dict
+                cp_param_value[index] = item_value
+            return cp_param_value  # 直接返回一个dict
         else:
             value = Read_config().get_variable(self.variable_list, product_id, api, param)
         return value

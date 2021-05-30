@@ -308,8 +308,12 @@ def datasource(request):
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
 
+                # for case in case_list:
+                #     print("case before:", case)
                 # 接口也保存下来
                 new_case_list = CaseReady(case_list, variables_list).data_form(selected_product_id, 2, 3)
+                # for case in new_case_list:
+                #     print("case before:", case)
                 ManageSql.write_case_to_sql(new_case_list, selected_product_id)
 
                 variables_count, variables_page_list = paginator(request, variables_list, 12)
@@ -355,7 +359,9 @@ def variables_manage(request):
                 variable_list = ManageSql.get_variables_from_sql(selected_product_id)
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly()
                 # 这里传入的case_list, variable_list需要是同一个项目的
-                case_list = CaseReady(case_list, variable_list).data_form()
+                # 这里的case_list直接从数据库读取
+                # case_list = CaseReady(case_list, variable_list).data_form()
+                case_list = model_list_to_case_list(Apis.objects.filter(Product_id=selected_product_id))
                 ManageSql.write_case_to_sql(case_list, selected_product_id)
 
                 # 跳转去单一接口列表页
@@ -400,7 +406,6 @@ def search_variables(case_variables, case_name, variables_dict):
     """
     param_list = []
     for num, keys in list(enumerate(case_variables)):
-        print("num, keys:", num, keys)
         if 'enum' not in case_variables[keys]:
             # 如果这个参数的值里面，有enum这个字段，就不需要存了
             param_list.append(keys)
