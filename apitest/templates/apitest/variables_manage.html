@@ -6,7 +6,8 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
-            padding-left: 1px;
+            padding-left: 20px;
+            padding-top: 50px;
         }
         .row{
             flex-basis: 100%;
@@ -14,16 +15,11 @@
             padding-top: 30px;
             padding-left: 1px;
         }
-        .item1{
+        .item {
             width: 100%;
-            padding-left: 50px;
         }
-        .item2{
-            width: 70%;
-        }
-        .item0{
-            padding-left: 70px;
-            padding-top: 40px;
+        .td,.th {
+            white-space:nowrap
         }
     </style>
 </head>
@@ -32,7 +28,7 @@
 {% include 'apitest/header_for_single_api_test.html' %}
 <div class="box">
     <div class="row">
-        <span class="item0">
+        <span class="item">
             <form class="navbar-form" method="post" action="{% url 'apitest:variables_manage' %}">
                 {%  csrf_token %}
                 <label>所属项目：</label>
@@ -56,46 +52,42 @@
                 <label style="color: gray">{{ warning }}</label>
             </form>
         </span>
-        <span class="item1">
+        <span class="item">
         <!-- 参数管理-->
-        <div class="row" style="padding-top: 10px;">
-        <div class="col-md-11">
-            <table class="table table-striped" style="table-layout:fixed;">
+        <div class="col-md-11" style="padding-top: 10px">
+            <table class="table table-striped">
                 <thead>
                 <tr style="text-align:left;">
-                    <th>ID</th>
-                    <th>所属产品</th>
-                    <th>变量名</th>
-                    <th>变量类型</th>
-                    <th>变量是否可选</th>
-                    <th>变量值</th>
-                    <th>所属接口</th>
-                    <th>编辑</th>
-                    <th>删除</th>
+                    <th class="th">ID</th>
+                    <th class="th">所属产品</th>
+                    <th class="th">所属接口</th>
+                    <th class="th">变量名</th>
+                    <th class="th">变量类型</th>
+                    <th class="th">变量是否可选</th>
+                    <th class="th">变量值</th>
+                    <th class="th">编辑</th>
+                    <th class="th">删除</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for variable in variables %}
                     <tr>
-                        <td width=100px>{{ variable.id }}</td>
-                        <td width=100px>{{ variable.Product.product_name }}</td>
-                        <td width=200px>{{ variable.variable_key }}</td>
-                        <td width=300px>{{ variable.variable_type }}</td>
-                        <td width=300px>{{ variable.variable_optional }}</td>
-                        <td width=300px>{{ variable.variable_value }}</td>
-                        <td width=300px>{{ variable.from_api }}</td>
-                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
-                        <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
+                        <td class="td">{{ variable.id }}</td>
+                        <td>{{ variable.Product.product_name }}</td>
+                        <td class="td">{{ variable.from_api }}</td>
+                        <td class="td">{{ variable.variable_key }}</td>
+                        <td class="td">{{ variable.variable_type }}</td>
+                        <td class="td">{{ variable.variable_optional }}</td>
+                        <td class="td">{{ variable.variable_value }}</td>
+                        <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                        <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-    </div>
         </span>
-        <span class="item2">
-        <!-- 翻页功能-->
-        <span style="position: absolute; right: 150px; bottom: 50px;">
+        <span class="item" style="position: absolute; right: 150px; bottom: 50px;">
         <div class="container">
             <ul class="pagination" id="pager">
                 {# 上一页链接开始 #}
