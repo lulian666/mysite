@@ -287,25 +287,35 @@ def welcome(request):
 def datasource(request):
     username = request.user
     product_list = Product.objects.all()
-    selected_product_id = request.POST.get("selected_product_id")
+    selected_product_id = '-1'
     source = request.POST.get('source', '').strip()
-    error = exclude_data = ''
+    error = exclude_data = check_info = ''
 
     if 'selector' in request.POST:
         # 更改下拉菜单时，把已有的内容更新到文本框内
-        product_id = request.POST["product_id"]
-        if product_id != "-1" and product_id is not None:
-            exclude_data = list(Product.objects.filter(id=product_id).values_list("exclude_api", flat=True))
-            exclude_data = str(exclude_data[0]) if exclude_data[0] is not None else ""
+        product_id = request.POST['product_id']
+        if product_id != '-1' and product_id is not None:
+            exclude_data = list(Product.objects.filter(id=product_id).values_list('exclude_api', flat=True))
+            exclude_data = str(exclude_data[0]) if exclude_data[0] is not None else ''
             return HttpResponse(exclude_data)
+        else:
+            return HttpResponse('')
     elif 'exclude' in request.POST:
-        # 提交新的exclude信息
-        pass
+        # 提交新的exclude信息到相应的product
+        exclude_data = request.POST.get('exclude_api', '').strip()
+        selected_product_id = request.POST.get('selected_product_id')
+        try:
+            product = Product.objects.get(id=selected_product_id)
+            product.exclude_api = exclude_data
+            product.save()
+        except:
+            # 需要检查数据格式
+            check_info = '没有选择项目（现在选的话先保存你已编辑的内容，否则会丢失！）' if selected_product_id == '-1' else ''
 
     if 'analysis' in request.POST:
         # 这里要保存已经手动编辑的exclude文本内容，和选择的项目信息
         exclude_data = request.POST.get('exclude_api', '').strip()
-        selected_product_id = request.POST.get("selected_product_id")
+        selected_product_id = request.POST.get('selected_product_id')
         if not check_json_format(source):
             error = 'json格式不正确！'
         else:
@@ -340,9 +350,9 @@ def datasource(request):
         else:
             error = '请输入有内容的json'
     return render(request, "apitest/datasource_manage.html",
-                  {'error': error, 'data': source, "username": username,
-                   "product_list": product_list, "selected_product_id": int(selected_product_id),
-                   'exclude_data': exclude_data})
+                  {'error': error, 'data': source, 'username': username,
+                   'product_list': product_list, 'selected_product_id': int(selected_product_id),
+                   'exclude_data': exclude_data, 'check_info': check_info})
 
 
 # header 管理
