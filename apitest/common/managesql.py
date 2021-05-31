@@ -79,28 +79,6 @@ class ManageSql:
         return
 
     @staticmethod
-    def delete_case_in_sql():
-        sql = 'delete from apitest_apis'
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
-        cursor = coon.cursor()
-        cursor.execute(sql)
-        coon.commit()
-        cursor.close()
-        coon.close()
-        return
-
-    @staticmethod
-    def delete_flow_case_in_sql():
-        sql = 'delete from apitest_apiflowandapis'
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
-        cursor = coon.cursor()
-        cursor.execute(sql)
-        coon.commit()
-        cursor.close()
-        coon.close()
-        return
-
-    @staticmethod
     def read_case_from_sql():
         sql = 'select id,api_url,api_method,api_param_value,api_body_value,api_expect_status_code,api_expect_response from apitest_apis'
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
@@ -156,17 +134,6 @@ class ManageSql:
                     param = (api, product_id, variable)
                     cursor.execute(sql, param)
                     coon.commit()
-        cursor.close()
-        coon.close()
-        return
-
-    @staticmethod
-    def delete_variables_in_sql():
-        sql = 'delete from apitest_variables'
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
-        cursor = coon.cursor()
-        cursor.execute(sql)
-        coon.commit()
         cursor.close()
         coon.close()
         return

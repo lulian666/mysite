@@ -184,7 +184,7 @@ def apis_manage(request):
         if 'run_test' in request.POST:
             test_case(api_list, username)
 
-    apis_count, apis_page_list = paginator(request, api_list, 6)
+    apis_count, apis_page_list = paginator(request, api_list, 8)
     return render(request, 'apitest/apis_manage.html',
                   {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
@@ -543,10 +543,6 @@ def trial_test(data_list, io_list, tester):
     host = ManageSql.get_host_of_product(product_id)
     case_list = model_list_to_case_list(api_to_test_list)
     return TestCaseRequest(tester).flow_api_single_case_test(api_io_list, case_list, host)
-
-
-def save_case_locally(case_list, host):
-    pass
 
 
 def model_list_to_case_list(model_list):
