@@ -14,27 +14,35 @@ class CaseCollect:
     root = os.path.abspath('.')  # 获取当前工作目录路径
     filepath = os.path.join(root, 'apitest/config/temp.json')
 
-    def collect_data_accordingly(self):
+    def collect_data_accordingly(self, interfaces_not_wanted):
+        # 处理interfaces_not_wanted，传进来的是string
+        interfaces_not_wanted = interfaces_not_wanted.split(',')
+        print(interfaces_not_wanted, type(interfaces_not_wanted))
         with open(self.filepath, 'r', encoding='utf8')as fp:
             json_data = json.load(fp)
         try:
             path_data = json_data['paths']
             print("调用了collect_data_swagger")
-            basic_case_list, case_list = self.collect_data_swagger(json_data, path_data)
+            basic_case_list, case_list = self.collect_data_swagger(json_data, path_data, interfaces_not_wanted)
         except TypeError:
             print("调用了collect_data_jike")
-            basic_case_list, case_list = self.collect_data_jike(json_data)
+            basic_case_list, case_list = self.collect_data_jike(json_data, interfaces_not_wanted)
         return basic_case_list, case_list
 
     # 这里会删除所有老的case，把新的case写进数据库里面
     @staticmethod
-    def collect_data_swagger(json_data, path_data):
+    def collect_data_swagger(json_data, path_data, interfaces_not_wanted):
         basic_case_list = []
         # 如果不照着json文件看，可能会理解上有困难
         for path_keys in path_data:
             url = path_keys
             method = list(path_data[url].keys())[0]
             case_wanted = True
+
+            for each in interfaces_not_wanted:
+                if fnmatch(url, "*" + each + "*"):
+                    case_wanted = False
+                    print('case被废弃了！')
 
             # 有一些废弃的接口，也要排除一下
             if 'deprecated' in path_data[url].get(method):
@@ -74,7 +82,7 @@ class CaseCollect:
         return basic_case_list, case_list
 
     @staticmethod
-    def collect_data_jike(json_data):
+    def collect_data_jike(json_data, interfaces_not_wanted):
         basic_case_list = []
         for api in json_data:
             url = jsonpath.jsonpath(api, "$.url")[0]

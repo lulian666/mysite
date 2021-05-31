@@ -331,8 +331,11 @@ def datasource(request):
                 f.write(str(source))
             f.close()
             # 把接口里的变量保存下来
-            if selected_product_id != "-1":
-                basic_case_list, case_list = CaseCollect().collect_data_accordingly()
+            selected_product_id = request.POST.get('selected_product_id')
+            if selected_product_id != '-1':
+                interfaces_not_wanted = Product.objects.get(id=selected_product_id).exclude_api
+                print(interfaces_not_wanted, type(interfaces_not_wanted))
+                basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted)
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
 

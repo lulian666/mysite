@@ -52,7 +52,7 @@
                     <div>
                         <h4>需要过滤接口:</h4>
                         <h5>比如内部管理接口、第三方登录/绑定接口</h5>
-                        <label>必看！每个接口用英文逗号隔开，匹配正则: .*url.*</label>
+                        <label>必看！每个接口用英文逗号隔开，匹配规则：fnmatch(url, "*" + each + "*")</label>
                         <br><label style="color: red">所有符合正则匹配的接口，都不会被保存到接口列表！！</label>
                         <br><textarea rows="30" cols="50" id="exclude_api" name="exclude_api" placeholder="用英文逗号分隔url" style="resize:none; margin-top: 10px">{{ exclude_data }}</textarea>
                         <br><button type="submit" name="exclude">提交</button>
