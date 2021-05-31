@@ -42,7 +42,6 @@ class CaseCollect:
             for each in interfaces_not_wanted:
                 if fnmatch(url, "*" + each + "*"):
                     case_wanted = False
-                    print('case被废弃了！')
 
             # 有一些废弃的接口，也要排除一下
             if 'deprecated' in path_data[url].get(method):

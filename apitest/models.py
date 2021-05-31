@@ -72,6 +72,8 @@ class Variables(models.Model):
     Product = models.ForeignKey('product.Product', on_delete=models.CASCADE, null=True)
     variable_key = models.CharField('变量名', max_length=100)
     variable_value = models.CharField('变量值', max_length=1000, null=True)
+    variable_type = models.CharField('变量类型', max_length=100, null=True)
+    variable_optional = models.BooleanField('是否可选', null=True)
     from_api = models.CharField('所属接口', max_length=1000, null=True)
 
     class Meta:

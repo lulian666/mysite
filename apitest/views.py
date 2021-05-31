@@ -334,7 +334,6 @@ def datasource(request):
             selected_product_id = request.POST.get('selected_product_id')
             if selected_product_id != '-1':
                 interfaces_not_wanted = Product.objects.get(id=selected_product_id).exclude_api
-                print(interfaces_not_wanted, type(interfaces_not_wanted))
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted)
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
@@ -396,7 +395,6 @@ def variables_manage(request):
             selected_product_id = request.POST.get("selected_product_id")
             if selected_product_id != "-1":
                 ManageSql.update_variable_in_case(selected_product_id)
-
                 # 跳转去单一接口列表页
                 product_list = Product.objects.all()
                 api_list = Apis.objects.all()
