@@ -9,27 +9,8 @@ from apitest.common.case_generate_cases import CaseGenerate
 
 
 class CaseCollect:
-    # 排除一些不需要测试的接口，比如内部接口，比如需要具体id的，但是id会过期的（商品id，卡片id），以及一些无法测试的比如绑定微信等
+    # 排除一些不需要测试的接口（在前端输入），比如内部接口，比如需要具体id的，但是id会过期的（商品id，卡片id），以及一些无法测试的比如绑定微信等
     # 这里包括了橙和快鸟的
-    # basic_case_list = []
-    interfaces_not_wanted = ['internal', 'advertisement', 'promotion', 'user/miniProgram', 'user/qq', 'user/taobao',
-                                 'user/wechat', 'management', 'newsBot', 'userRelation/unbind', 'user/cancel',
-                                 'user/deviceId', 'user/pushToken', '2.0/transaction/withdraw',
-                                 '2.0/goodsNews/read/report', '/userRelation/validFans/count', 'user/bindTpwd',
-                                 'user/fans/invite', 'user/sms/bind', 'user/sms/loginOrSignup', 'goodsNews/content/paginate',
-                                 'goodsNews/delete', '2.0/goodsNews/activity/promotion', 'orderShare/accept',
-                                 '3.0/goodsNews', '2.0/goodsNews/sh','2.0/goods/promotionCount','2.0/goods/detai',
-                                 '2.0/goods/promotion','userMonitor/templateId/upload','/userMonitor/delete','userMonitor/delete',
-                                 '1.0/account/sms/loginOrSignUp','1.0/match/like','1.0/match/view','1.0/profile/avatarComparison',
-                                 '1.0/profile/deletePhoto','1.0/profile/protestAvatarComparison','1.0/profile/uploadAvatar',
-                                 '1.0/report/message','1.0/report/user','1.0/questionnaires/create','1.0/account/toggleGhostMode',
-                                 '1.0/account/device/update','1.0/account/token/update','1.0/charges/create','1.0/charges/validateIAPReceipt',
-                                 '/1.0/draw/','/1.0/im/message/exchangeWechat','1.0/im/interaction/pat','1.0/im/conversation/break',
-                                 '/1.0/im/conversation/get','1.0/im/suggestion/get','1.0/im/message/list','1.0/im/conversation/read',
-                                 '1.0/im/message/requestFillingSocialActivities','1.0/im/conversation/restart','1.0/im/message/send',
-                                 '1.0/match/getSingleCard','1.0/match/dislike','1.0/orders/create','1.0/account/email/loginOrSignUp',
-                                 '1.0/im/message/exchangeWechat','1.0/im/conversation/get','1.0/account/requestCancellation',
-                                 '1.0/draw/drawPrize','1.0/draw/drop','comment/creat','user/sms/unbin']
     root = os.path.abspath('.')  # 获取当前工作目录路径
     filepath = os.path.join(root, 'apitest/config/temp.json')
 
@@ -46,8 +27,8 @@ class CaseCollect:
         return basic_case_list, case_list
 
     # 这里会删除所有老的case，把新的case写进数据库里面
-    def collect_data_swagger(self, json_data, path_data):
-        # json_data, path_data = file_data(self.filepath)
+    @staticmethod
+    def collect_data_swagger(json_data, path_data):
         basic_case_list = []
         # 如果不照着json文件看，可能会理解上有困难
         for path_keys in path_data:
@@ -55,16 +36,12 @@ class CaseCollect:
             method = list(path_data[url].keys())[0]
             case_wanted = True
 
-            for each in self.interfaces_not_wanted:
-                if fnmatch(url, '?' + each + '*'):
-                    case_wanted = False
             # 有一些废弃的接口，也要排除一下
             if 'deprecated' in path_data[url].get(method):
                 deprecated = path_data[url].get(method).get('deprecated')
                 if deprecated is True:
                     case_wanted = False
 
-            # 此外，还要兼容没有这个字段的时候（比如快鸟有，橙没有）
             # 很烦人的是有时候method大小写还不一致，有时候是post，有时候是POST……也要处理一下
             if case_wanted:
                 for path_values in path_data[url]:
@@ -96,7 +73,8 @@ class CaseCollect:
                 case_list = CaseGenerate(url, method, parameters, body).generate()
         return basic_case_list, case_list
 
-    def collect_data_jike(self, json_data):
+    @staticmethod
+    def collect_data_jike(json_data):
         basic_case_list = []
         for api in json_data:
             url = jsonpath.jsonpath(api, "$.url")[0]
@@ -169,7 +147,10 @@ def body_info_swagger(params, json_data, body, son_json, father):
                 if each in refs_data['required']:
                     required = True
             param_data = refs_data['properties'][each]
-            param_type = param_data['type']
+            try:
+                param_type = param_data['type']
+            except KeyError:
+                param_type = 'string'
             # 如果是enum
             enum = []
             if 'enum' in param_data:
