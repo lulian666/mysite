@@ -6,20 +6,21 @@
     {% bootstrap_javascript %}
     <style>
         .box {
-            display: flex;
+            display: table;
             flex-wrap: wrap;
             justify-content: flex-start;
             padding-left: 1px;
         }
-        .row{
+        .column {
             flex-basis: 100%;
-            display:flex;
             padding-top: 50px;
             padding-left: 1px;
         }
-        .page-content{
-            padding-left: 30px;
-            padding-top: 5px;
+        .row {
+            display: table;
+            flex-basis: 100%;
+            justify-content: flex-start;
+            flex-wrap: wrap;
         }
     </style>
 </head>
@@ -28,33 +29,63 @@
 <!-- 导航栏-->
 {% include 'apitest/header_for_single_api_test.html' %}
 <div class="box">
-    <div class="row">
+    <div class="column">
+        <div class="container" style="padding-top: 10px;padding-left: 10px">
         <span class="item1">
-            <!-- 输入文本进去的-->
-            <div class="container" style="padding-top: 30px; width: 100%">
-                <form class="navbar-form" method="post" action="{% url 'apitest:api_datasource' %}">
-                    {%  csrf_token %}
-                    <div class="container" style="width: 100%">
-                        <h3>所属项目（必选）：</h3>
-                        <select style="padding: 1px; width: 150px; align-items: start;" name="selected_product_id" autocomplete="off">
-                            <option value="-1">全部</option>
-                            {%  for product in product_list %}
-                                {% if product.id == selected_product_id %}
-                                    <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
-                                {% else %}
-                                    <option value ="{{ product.id }}">{{ product.productname }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
+            <form class="navbar-form" method="post" action="{% url 'apitest:api_datasource' %}" style="padding-left: 10px">
+                {%  csrf_token %}
+                <div class="row page-header" style="padding-left: 20px">
+                    <h2 style="color: #2A00FF">所属项目（必选）：</h2>
+                    <select style="padding: 1px; width: 200px;" id="selected_product_id" name="selected_product_id" autocomplete="off" onchange="show_exclude_api()">
+                        <option value="-1">全部</option>
+                        {%  for product in product_list %}
+                            {% if product.id == selected_product_id %}
+                                <option value ="{{ product.id }}" selected="selected">{{ product.product_name }}</option>
+                            {% else %}
+                                <option value ="{{ product.id }}">{{ product.product_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label style="padding-left: 5px">选择后会直接显示已有的过滤项，直接修改提交即可</label>
+                </div>
+                <div class="row" style="padding-left: 10px; padding-top: 10px">
+                    <div>
+                        <h4>需要过滤接口:</h4>
+                        <h5>比如内部管理接口、第三方登录/绑定接口</h5>
+                        <label>必看！每个接口用英文逗号隔开，匹配正则: .*url.*</label>
+                        <br><label style="color: red">所有符合正则匹配的接口，都不会被保存到接口列表！！</label>
+                        <br><textarea rows="30" cols="50" id="exclude_api" name="exclude_api" placeholder="用英文逗号分隔url" style="resize:none; margin-top: 10px">{{ exclude_data }}</textarea>
+                        <br><button type="submit" name="exclude">提交</button>
                     </div>
-                    <br> <textarea rows="30" cols="200" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none; margin-top: 10px">{{ data }}</textarea>
-                    <br> <h3 style="color: #0000C0">{{ error }}</h3>
-                    <br> <button type="submit" name="analysis">1、检查粘贴内容是否正确</button>
-                    <button type="submit" name="save" style="margin-left: 70px">2、保存case（检查项目选了没）</button>
-                </form>
-            </div>
+                    <div style="padding-left: 20px; padding-top: 10px;">
+                        <br>
+                        <br>
+                        <h4>需要解析的json数据:</h4>
+                        <h5>暂时只支持swagger和即刻内部接口工具转出来的json</h5>
+                        <textarea rows="30" cols="100" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none; margin-top: 10px;">{{ data }}</textarea>
+                        <br> <button type="submit" name="analysis">1、检查粘贴内容是否正确</button>
+                        <button type="submit" name="save" style="margin-left: 70px">2、保存case（检查项目选了没）</button>
+                        <br> <h3 style="color: #0000C0">{{ error }}</h3>
+                    </div>
+                </div>
+            </form>
         </span>
+        </div>
     </div>
 </div>
+<script>
+    function show_exclude_api() {
+        var product_id = $("#selected_product_id").val()
+        $.ajax({
+            url: "{% url 'apitest:api_datasource' %}",
+            type: "POST",
+            data: {"product_id": product_id, 'selector': ''},
+            success: function (exclude_data){
+                var ele = document.getElementById("exclude_api");
+                ele.value = exclude_data;
+            },
+        })
+    }
+</script>
 </body>
 </html>

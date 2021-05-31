@@ -25,10 +25,11 @@ class WebtestAdmin(admin.TabularInline):
     model = Webcase
     extra = 1
 
+
 class ProductAdmin(admin.ModelAdmin):
-    list_display =  ['productname', 'productdesc', 'producter', 'create_time', 'id']
+    list_display =  ['product_name', 'product_desc', 'exclude_api', 'create_time', 'id']
     list_filter = ['create_time']
-    search_fields = ['productname', 'productdesc']
+    search_fields = ['product_name', 'product_desc']
     list_per_page = 10
     inlines = [ApisAdmin,AppcaseAdmin,WebtestAdmin]
 

@@ -35,7 +35,6 @@
             <button style="padding-inline: 15px" onclick="join()">ok 就这些接口</button>
         </span>
         <span class="item">
-{#            <form class="navbar-form" method="post" action="{% url 'apitest:form_api_flow_case' %}">{%  csrf_token %}#}
             <div>
                     <label>新测试场景名称：</label>
                     <input type="text" name="case_name" placeholder="填写名称（不能重复）", id="case_name">
@@ -45,7 +44,6 @@
             <div style="height:700px; overflow:scroll; overflow-x:hidden;">
                 {% include 'apitest/table_case_to_be.html' %}
             </div>
-{#            </form>#}
         </span>
     </div>
 </div>

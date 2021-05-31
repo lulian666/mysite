@@ -39,9 +39,9 @@
                             <option value="-1">全部</option>
                         {%  for product in product_list %}
                             {% if product.id == selected_product_id %}
-                                <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                                <option value ="{{ product.id }}" selected="selected">{{ product.product_name }}</option>
                             {% else %}
-                                <option value ="{{ product.id }}">{{ product.productname }}</option>
+                                <option value ="{{ product.id }}">{{ product.product_name }}</option>
                             {% endif %}
                         {% endfor %}
                         </select>
@@ -68,7 +68,7 @@
                 {% for header in headers %}
                     <tr>
                         <td>{{ header.id }}</td>
-                        <td>{{ header.Product.productname }}</td>
+                        <td>{{ header.Product.product_name }}</td>
                         <td>{{ header.header_key }}</td>
                         <td>{{ header.header_value }}</td>
                         <td><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>

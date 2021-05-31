@@ -40,9 +40,9 @@
                             <option value="-1">全部</option>
                         {%  for product in product_list %}
                             {% if product.id == selected_product_id %}
-                                <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                                <option value ="{{ product.id }}" selected="selected">{{ product.product_name }}</option>
                             {% else %}
-                                <option value ="{{ product.id }}">{{ product.productname }}</option>
+                                <option value ="{{ product.id }}">{{ product.product_name }}</option>
                             {% endif %}
                         {% endfor %}
                         </select>
@@ -76,7 +76,7 @@
                 {% for variable in variables %}
                     <tr>
                         <td width=100px>{{ variable.id }}</td>
-                        <td width=100px>{{ variable.Product.productname }}</td>
+                        <td width=100px>{{ variable.Product.product_name }}</td>
                         <td width=200px>{{ variable.variable_key }}</td>
                         <td width=300px>{{ variable.variable_value }}</td>
                         <td width=300px>{{ variable.from_api }}</td>

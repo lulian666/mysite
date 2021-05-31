@@ -163,6 +163,7 @@ def flow_case_test(api_flow_test_list, tester):
 
 
 @login_required
+@csrf_exempt
 def apis_manage(request):
     """
     单一接口页面管理
@@ -179,7 +180,6 @@ def apis_manage(request):
         api_list, selected_test_result, selected_product_id = model_list_filter(request.GET, api_list)
 
     if request.method == 'POST':
-        # 上面的值传来的是对的
         api_list, selected_test_result, selected_product_id = model_list_filter(request.POST, api_list)
         if 'run_test' in request.POST:
             test_case(api_list, username)
@@ -282,13 +282,30 @@ def welcome(request):
 
 
 # 处理源数据
+@login_required
+@csrf_exempt
 def datasource(request):
     username = request.user
     product_list = Product.objects.all()
     selected_product_id = request.POST.get("selected_product_id")
     source = request.POST.get('source', '').strip()
-    error = ''
+    error = exclude_data = ''
+
+    if 'selector' in request.POST:
+        # 更改下拉菜单时，把已有的内容更新到文本框内
+        product_id = request.POST["product_id"]
+        if product_id != "-1" and product_id is not None:
+            exclude_data = list(Product.objects.filter(id=product_id).values_list("exclude_api", flat=True))
+            exclude_data = str(exclude_data[0]) if exclude_data[0] is not None else ""
+            return HttpResponse(exclude_data)
+    elif 'exclude' in request.POST:
+        # 提交新的exclude信息
+        pass
+
     if 'analysis' in request.POST:
+        # 这里要保存已经手动编辑的exclude文本内容，和选择的项目信息
+        exclude_data = request.POST.get('exclude_api', '').strip()
+        selected_product_id = request.POST.get("selected_product_id")
         if not check_json_format(source):
             error = 'json格式不正确！'
         else:
@@ -324,7 +341,8 @@ def datasource(request):
             error = '请输入有内容的json'
     return render(request, "apitest/datasource_manage.html",
                   {'error': error, 'data': source, "username": username,
-                   "product_list": product_list, "selected_product_id": selected_product_id})
+                   "product_list": product_list, "selected_product_id": int(selected_product_id),
+                   'exclude_data': exclude_data})
 
 
 # header 管理

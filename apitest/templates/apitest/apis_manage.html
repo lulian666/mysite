@@ -51,9 +51,9 @@
                             <option value="-1">全部</option>
                              {%  for product in product_list %}
                                  {% if product.id == selected_product_id %}
-                                     <option value ="{{ product.id }}" selected="selected">{{ product.productname }}</option>
+                                     <option value ="{{ product.id }}" selected="selected">{{ product.product_name }}</option>
                                  {% else %}
-                                     <option value ="{{ product.id }}">{{ product.productname }}</option>
+                                     <option value ="{{ product.id }}">{{ product.product_name }}</option>
                                  {% endif %}
                              {% endfor %}
                         </select>
@@ -103,7 +103,7 @@
                         {% for apis in api_list %}
                             <tr>
                                 <td width=100px>{{ apis.id }}</td>
-                                <td width=200px>{{ apis.Product.productname }}</td>
+                                <td width=200px>{{ apis.Product.product_name }}</td>
                                 <td width=300px>{{ apis.api_name }}</td>
                                 <td width=400px>{{ apis.api_url }}</td>
                                 <td width=300px>{{ apis.api_param_value }}</td>
