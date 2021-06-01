@@ -67,12 +67,21 @@ class ManageSql:
             # 把body和parameter里面的变量值都替换掉，然后再把api更新一下
             for key, value in body.items():
                 # 下面有bug，如果是更新了变量的值，会因为这个判断而更新不进来
+                # 如果本身是空的，就可以代替
+                # 如果本身不是空的，代替的值也不是空的，就可以代替
                 if value == "" or value is None or value == "None":  # enum的不需要代替
                     try:
                         answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
                     except:
                         answer = None
                     body[key] = answer
+                else:
+                    try:
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                    except:
+                        answer = None
+                    if answer is not None and answer != "" and answer != "None" and answer != value:
+                        body[key] = answer
             api.api_body_value = body
             for key, value in parameter.items():
                 if value == "" or value is None or value == "None":  # enum的不需要代替
@@ -81,6 +90,13 @@ class ManageSql:
                     except:
                         answer = None
                     parameter[key] = answer
+                else:
+                    try:
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                    except:
+                        answer = None
+                    if answer is not None and answer != "" and answer != "None":
+                        parameter[key] = answer
             api.api_param_value = parameter
             api.save()
         return
