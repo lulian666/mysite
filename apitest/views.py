@@ -386,6 +386,8 @@ def variables_manage(request):
     product_list = Product.objects.all()
     selected_product_id = '-1'
     null_value_only = ""
+    test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
+
     if 'selected_product_id' in request.GET:
         variables_list, selected_product_id, null_value_only = model_list_filter2(request.GET, variables_list)
 
@@ -395,7 +397,7 @@ def variables_manage(request):
             variable_id = request.POST.get('variable_id')
             print("new_value:", request.POST.get('new_value'))
             print("variable_id:", request.POST.get('variable_id'))
-            
+
             try:
                 variable = Variables.objects.get(id=variable_id)
                 variable.variable_value = new_value
@@ -411,7 +413,7 @@ def variables_manage(request):
                 # 跳转去单一接口列表页
                 product_list = Product.objects.all()
                 api_list = Apis.objects.all()
-                test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
+
                 selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
                 apis_count, apis_page_list = paginator(request, api_list, 6)
                 return render(request, 'apitest/apis_manage.html',
@@ -443,16 +445,17 @@ def save_variables_to_sql(selected_product_id, basic_case_list):
 def search_variables(case_variables, case_name, variables_dict):
     """
     找出传入的case_variables中有多少个变量
-    :param case_variables: 一般传入的是body或者parameters
+    :param case_variables: 一般传入的是body或者parameters，格式是：
     :param case_name: 一般是接口url，用作接口名称
     :param variables_dict: 
     :return: 
     """
     param_list = []
-    for num, keys in list(enumerate(case_variables)):
-        if 'enum' not in case_variables[keys]:
+    for num, key in list(enumerate(case_variables)):
+        if 'enum' not in case_variables[key]:
             # 如果这个参数的值里面，有enum这个字段，就不需要存了
-            param_list.append(keys)
+            # param_list的格式需要从string变成dict，{variable_key:xxx, variable_optional:xxx, variable_type:xxx}
+            param_list.append({'variable_key': key, 'variable_optional': not case_variables[key]['required'], 'variable_type': case_variables[key]['type']})
     if len(param_list) >= 0:
         variables_dict.update({case_name: param_list})
     return variables_dict

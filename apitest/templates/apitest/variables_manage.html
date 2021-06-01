@@ -63,7 +63,7 @@
                     <th class="th">所属接口</th>
                     <th class="th">变量名</th>
                     <th class="th">变量类型</th>
-                    <th class="th">变量是否可选</th>
+                    <th class="th">变量是否可缺省</th>
                     <th class="th">变量值</th>
                     <th class="th">编辑</th>
                     <th class="th">删除</th>
@@ -114,7 +114,6 @@
 <script>
     function change_value(ele, variable_id) {
         var new_value = ele.value;
-        {#alert(new_value + variable_id);  //拿到了！！#}
         $.ajax({
             url: "{% url 'apitest:variables_manage' %}",
             type: "POST",

@@ -66,6 +66,7 @@ class ManageSql:
             parameter = ast.literal_eval(api.api_param_value)
             # 把body和parameter里面的变量值都替换掉，然后再把api更新一下
             for key, value in body.items():
+                # 下面有bug，如果是更新了变量的值，会因为这个判断而更新不进来
                 if value == "" or value is None or value == "None":  # enum的不需要代替
                     answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
                     body[key] = answer
@@ -121,17 +122,17 @@ class ManageSql:
         :return:
         """
         variables = Variables.objects.filter(Product_id=product_id)
-        sql = "INSERT INTO apitest_variables(from_api,Product_id,variable_key) VALUES(%s,%s,%s)"
+        sql = "INSERT INTO apitest_variables(from_api,Product_id,variable_key,variable_optional,variable_type) VALUES(%s,%s,%s,%s,%s)"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
         for api, variable_list in variables_dict.items():
-            for variable in variable_list:
-                if api not in variables.values_list("from_api", flat=True):
-                    param = (api, product_id, variable)
+            for variable_info in variable_list:
+                if api not in variables.values_list('from_api', flat=True):
+                    param = (api, product_id, variable_info['variable_key'], variable_info['variable_optional'], variable_info['variable_type'])
                     cursor.execute(sql, param)
                     coon.commit()
-                elif variable not in variables.filter(from_api=api).values_list("variable_key", flat=True):
-                    param = (api, product_id, variable)
+                elif variable_info['variable_key'] not in variables.filter(from_api=api).values_list("variable_key", flat=True):
+                    param = (api, product_id, variable_info['variable_key'], variable_info['variable_optional'], variable_info['variable_type'])
                     cursor.execute(sql, param)
                     coon.commit()
         cursor.close()
