@@ -72,17 +72,16 @@
                 <tbody>
                 {% for variable in variables %}
                     <tr>
-                        <td class="td" id="variable_id">{{ variable.id }}</td>
+                        <td class="td">{{ variable.id }}</td>
                         <td class="td">{{ variable.Product.product_name }}</td>
                         <td class="td">{{ variable.from_api }}</td>
                         <td class="td">{{ variable.variable_key }}</td>
                         <td class="td">{{ variable.variable_type }}</td>
                         <td class="td">{{ variable.variable_optional }}</td>
-                        <td class="td">{{ variable.variable_value }}</td>
+                        <td class="td" id="previous_value">{{ variable.variable_value }}</td>
                         <td class="td">
                             <input type="text" id="variable_value" placeholder="按enter更新值" onkeydown="if(event.keyCode===13) {change_value(this, {{ variable.id }})}">
                         </td>
-{#                        <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>#}
                         <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                     </tr>
                 {% endfor %}
@@ -120,7 +119,8 @@
             data: {"new_value": new_value, 'change_value': '', 'variable_id': variable_id},
             success: function (e){
                 if (e=="1"){
-                    alert('save successfully')
+                    var previous_cell = ele.parentNode.parentNode.cells[6];
+                    previous_cell.innerText = new_value
                 }else if (e=="0"){
                     alert('更新失败')
                 }else if (e=='2'){
