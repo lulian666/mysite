@@ -68,12 +68,18 @@ class ManageSql:
             for key, value in body.items():
                 # 下面有bug，如果是更新了变量的值，会因为这个判断而更新不进来
                 if value == "" or value is None or value == "None":  # enum的不需要代替
-                    answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                    try:
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                    except:
+                        answer = None
                     body[key] = answer
             api.api_body_value = body
             for key, value in parameter.items():
                 if value == "" or value is None or value == "None":  # enum的不需要代替
-                    answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                    try:
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                    except:
+                        answer = None
                     parameter[key] = answer
             api.api_param_value = parameter
             api.save()

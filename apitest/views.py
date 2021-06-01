@@ -395,14 +395,20 @@ def variables_manage(request):
         if 'change_value' in request.POST:
             new_value = request.POST.get('new_value')
             variable_id = request.POST.get('variable_id')
-            print("new_value:", request.POST.get('new_value'))
-            print("variable_id:", request.POST.get('variable_id'))
 
+            print("new_value:", new_value, type(new_value))
+            # print("variable_id:", request.POST.get('variable_id'))
             try:
                 variable = Variables.objects.get(id=variable_id)
-                variable.variable_value = new_value
-                variable.save()
-                return HttpResponse("1")
+                # oh my dear don't over thinking this. baby steps. start with little things like string and integer
+                # 前端传过来的好像都是string
+                is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
+                if is_legal:
+                    variable.variable_value = new_value
+                    variable.save()
+                    return HttpResponse("1")
+                else:
+                    return HttpResponse("2")
             except:
                 return HttpResponse("0")
         variables_list, selected_product_id, null_value_only = model_list_filter2(request.POST, variables_list)
@@ -412,20 +418,62 @@ def variables_manage(request):
                 ManageSql.update_variable_in_case(selected_product_id)
                 # 跳转去单一接口列表页
                 product_list = Product.objects.all()
-                api_list = Apis.objects.all()
-
-                selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+                selected_test_result = -1  # 默认是-1 表示全选
+                api_list = Apis.objects.filter(Product_id=selected_product_id)
                 apis_count, apis_page_list = paginator(request, api_list, 6)
                 return render(request, 'apitest/apis_manage.html',
                               {'api_list': apis_page_list, "product_list": product_list, "username": username,
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,
-                               'selected_product_id': selected_product_id, 'apis_count': apis_count})
+                               'selected_product_id': int(selected_product_id), 'apis_count': apis_count})
 
     variables_count, variables_page_list = paginator(request, variables_list, 12)
     return render(request, "apitest/variables_manage.html",
                   {"username": username, "variables": variables_page_list, "variablecounts": variables_count,
                    "warning": "只点击一次就好，会跳转到用例列表", "product_list": product_list,
                    "selected_product_id": int(selected_product_id), "null_value_only": null_value_only})
+
+
+def check_variable_legal_validity(variable_type, variable_value):
+    # 开始校验类型是否正确了，从数据库查看，快鸟和橙有这些类型：
+    """
+        快鸟：
+            string
+            integer☑️
+            array
+            boolean☑️
+            object
+        橙：
+            Object
+            String
+            number☑️
+            Boolean☑️
+            ImageFile
+            String[]
+            Object[]
+    """
+    is_legal = False
+    if variable_type.lower() == 'string':
+        # 好像不太好校验，string可以是任何东西，判断是否是integer吧，也不可以，比如有的id，也是string类型
+        # try:
+        #     int(variable_value)
+        #     is_legal = False
+        # except:
+        #     is_legal = True
+        is_legal = True
+    elif variable_type.lower() == 'integer' or variable_value == 'number':
+        try:
+            variable_value = int(variable_value)
+            is_legal = True
+        except:
+            is_legal = False
+    elif variable_type.lower() == 'boolean':
+        if variable_value.lower() in ['0', '1', "false", "true"]:
+            is_legal = True
+        else:
+            is_legal = False
+    else:
+        is_legal = True
+    return is_legal, variable_value
 
 
 def save_variables_to_sql(selected_product_id, basic_case_list):
