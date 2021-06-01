@@ -390,6 +390,19 @@ def variables_manage(request):
         variables_list, selected_product_id, null_value_only = model_list_filter2(request.GET, variables_list)
 
     if request.method == 'POST':
+        if 'change_value' in request.POST:
+            new_value = request.POST.get('new_value')
+            variable_id = request.POST.get('variable_id')
+            print("new_value:", request.POST.get('new_value'))
+            print("variable_id:", request.POST.get('variable_id'))
+            
+            try:
+                variable = Variables.objects.get(id=variable_id)
+                variable.variable_value = new_value
+                variable.save()
+                return HttpResponse("1")
+            except:
+                return HttpResponse("0")
         variables_list, selected_product_id, null_value_only = model_list_filter2(request.POST, variables_list)
         if 'birth' in request.POST:
             selected_product_id = request.POST.get("selected_product_id")
