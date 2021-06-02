@@ -75,9 +75,9 @@
             {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
-                <td>{{ product.productname }}</td>
-                <td>{{ product.productdesc }}</td>
-                <td>{{ product.producthost }}</td>
+                <td>{{ product.product_name }}</td>
+                <td>{{ product.product_desc }}</td>
+                <td>{{ product.product_host }}</td>
                 <td>{{ product.create_time }}</td>
                 <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Product" href="/admin/product/product/{{ product.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
                 <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Product" href="/admin/product/product/{{ product.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
