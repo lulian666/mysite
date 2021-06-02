@@ -428,7 +428,7 @@ def variables_manage(request):
 
     variables_count, variables_page_list = paginator(request, variables_list, 12)
     return render(request, "apitest/variables_manage.html",
-                  {"username": username, "variables": variables_page_list, "variablecounts": variables_count,
+                  {"username": username, "variables": variables_page_list, "variables_count": variables_count,
                    "warning": "只点击一次就好，会跳转到用例列表", "product_list": product_list,
                    "selected_product_id": int(selected_product_id), "null_value_only": null_value_only})
 
