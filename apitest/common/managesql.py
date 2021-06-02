@@ -182,7 +182,7 @@ class ManageSql:
 
     @staticmethod
     def get_host_of_product(product_id):
-        sql = 'select producthost from product_product where id = %s'
+        sql = 'select product_host from product_product where id = %s'
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
         cursor = coon.cursor()
         param = product_id

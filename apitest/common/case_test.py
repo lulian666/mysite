@@ -11,6 +11,7 @@ from apitest.common.header_mange import HeaderManage
 
 from apitest.common.emailer import Email
 from apitest.common.reporter import Template_mixin
+from apitest.models import Apis
 
 
 class TestCaseRequest:
@@ -46,6 +47,11 @@ class TestCaseRequest:
 
             # 去测试
             result = test_avoid_401(case, host, self.header)
+            print('----------')
+            print('测试api：', case[1])
+            print('测试结果：')
+            print(result.status_code)
+            print(result.json())
             called_by = inspect.currentframe().f_back.f_code.co_name
             if called_by == "flow_api_case_test":
                 self.save_report_info(result, case)
@@ -61,8 +67,11 @@ class TestCaseRequest:
 
     def single_api_test(self, case_list, host):
         for case in case_list:
-            print(host)
             result = test_avoid_401(case, host, self.header)
+            print('----------')
+            print('测试api：', case[1])
+            print('测试结果：', result.status_code)
+            print(result.json())
             self.save_report_info(result, case)
 
             # 测试结果存数据库
@@ -162,7 +171,9 @@ def replace(name, json_string, api_id, parameters):
 def test_avoid_401(case, host, header):
     result = request(case, host, header)
     if result.status_code == 401:
-        HeaderManage.update_header(2, host)
-        header = HeaderManage.read_header(2)
+        case_id = case[0]
+        product_id = Apis.objects.get(id=case_id).Product_id
+        HeaderManage.update_header(product_id, host)
+        header = HeaderManage.read_header(product_id)
         result = request(case, host, header)
     return result

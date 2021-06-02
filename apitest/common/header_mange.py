@@ -28,9 +28,9 @@ class HeaderManage:
     def update_header(product_id, host):
         url = host+'/app_auth_tokens.refresh'
         headers = HeaderManage.read_header(product_id)
-        print("url:", url)
+        print("刷新token url:", url)
         result = requests.post(url, headers=headers, json={})
-        print(result.status_code)
+        print("刷新结果：", result.status_code)
         response_body = result.json()
         access_token = response_body['x-jike-access-token']
         refresh_token = response_body['x-jike-refresh-token']
