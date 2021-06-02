@@ -183,6 +183,21 @@ def apis_manage(request):
         api_list, selected_test_result, selected_product_id = model_list_filter(request.POST, api_list)
         if 'run_test' in request.POST:
             test_case(api_list, username)
+            # 以下是跳转报告列表页所需数据
+            root = os.path.abspath(".")
+            filepath = os.path.join(root, "apitest/templates/report")
+            # 所有的测试报告都在filepath内，将目录下所有的文件拼成一个list，每个list包含[文件名，测试类型，创建时间，测试结果，测试人]
+            file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], file.split("_")[3]] for file in
+                         listdir(filepath) if file != "__init__.py"]
+            # 按照list中第三个内容倒序排序（此处是创建时间）
+            file_list = sorted(file_list, key=lambda x: x[2], reverse=True)
+            test_type_list = ["单接口测试", "流程接口测试"]  # {"0": "单接口测试","1": "流程接口测试"}
+            selected_test_type = selected_test_result = -1  # 默认是-1 表示全选
+            return render(request, "apitest/report.html",
+                          {"username": username, "file_list": file_list, "report_count": len(file_list),
+                           "test_result_list": test_result_list, "test_type_list": test_type_list,
+                           "selected_test_type": selected_test_type, "selected_test_result": selected_test_result,
+                           "list_count": len(file_list)})
 
     apis_count, apis_page_list = paginator(request, api_list, 8)
     return render(request, 'apitest/apis_manage.html',
