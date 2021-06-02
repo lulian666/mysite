@@ -70,6 +70,9 @@ class TestCaseRequest:
             result = test_avoid_401(case, host, self.header)
             print('----------')
             print('测试api：', case[1])
+            if result.status_code != case[5]:
+                print("request query:", case[3])
+                print("request body:", case[4])
             print('测试结果：', result.status_code)
             print(result.json())
             self.save_report_info(result, case)

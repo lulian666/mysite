@@ -352,7 +352,6 @@ def datasource(request):
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted)
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
-
                 # 接口也保存下来
                 new_case_list = CaseReady().data_form(selected_product_id, 2, 3, case_list, variables_list)
                 ManageSql.write_case_to_sql(new_case_list, selected_product_id)
@@ -435,6 +434,7 @@ def variables_manage(request):
                 product_list = Product.objects.all()
                 selected_test_result = -1  # 默认是-1 表示全选
                 api_list = Apis.objects.filter(Product_id=selected_product_id)
+
                 apis_count, apis_page_list = paginator(request, api_list, 6)
                 return render(request, 'apitest/apis_manage.html',
                               {'api_list': apis_page_list, "product_list": product_list, "username": username,

@@ -24,6 +24,7 @@ class CaseCollect:
             path_data = json_data['paths']
             print("调用了collect_data_swagger")
             basic_case_list, case_list = self.collect_data_swagger(json_data, path_data, interfaces_not_wanted)
+            print('basic_case_list, case_list:', len(basic_case_list), len(case_list))
         except TypeError:
             print("调用了collect_data_jike")
             basic_case_list, case_list = self.collect_data_jike(json_data, interfaces_not_wanted)

@@ -9,7 +9,7 @@ class ManageSql:
     @staticmethod
     def write_case_to_sql(case_list, product_id):
         """
-        把测试用例写进数据库
+        把测试用例写进数据库，插入的原则，如果和已有的接口url一样，参数的数量和名字一样，参数的值也都一样，就不插入
         :param product_id:
         :param case_list:
         :return:
@@ -23,6 +23,7 @@ class ManageSql:
         for case in case_list:
             # 为什么这里的case会那么长
             if case[0] not in list(cases.values_list("api_url", flat=True)):
+
                 param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
                          product_id)
                 cursor.execute(sql, param)
@@ -36,17 +37,17 @@ class ManageSql:
                     n_for_parameter = n_for_body = 0
                     body = ast.literal_eval(case_in_sql.api_body_value)
                     parameter = ast.literal_eval(case_in_sql.api_param_value)
+                    variable_count_in_sql_case_parameter = len(parameter)
+                    variable_count_in_sql_case_body = len(body)
                     for variable, variable_value in case[2].items():
                         if variable in parameter:
-                            n_for_parameter += 1
-                            # if variable_value == parameter[variable]:
-                            #     n_for_parameter += 1
+                            if variable_value == parameter[variable]:
+                                n_for_parameter += 1
                     for variable, variable_value in case[3].items():
                         if variable in body:
-                            n_for_body += 1
-                            # if variable_value == body[variable]:
-                            #     n_for_body += 1
-                    if variable_count_in_parameter == n_for_parameter and variable_count_in_body == n_for_body:
+                            if variable_value == body[variable]:
+                                n_for_body += 1
+                    if variable_count_in_parameter == n_for_parameter and variable_count_in_body == n_for_body and variable_count_in_sql_case_body == variable_count_in_body and variable_count_in_sql_case_parameter == variable_count_in_parameter:
                         case_in = True
                 if not case_in:
                     param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
