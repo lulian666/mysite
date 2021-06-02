@@ -73,6 +73,7 @@
                         </select>
                     <button type="submit" name="filter" style="margin-left: 50px">查看所选测试用例</button>
                     <button type="submit" name="run_test" style="margin-left: 20px">执行测试</button>
+                    <label style="color: red">{{ fail_message }}</label>
                 </form>
             </div>
             </div>
@@ -157,7 +158,7 @@
         <span class="item5">
             <div>
                 <tr>
-                    <th>总数</th>
+                    <th>总数（=参与测试的数量）</th>
                     <td>{{ apis_count }}</td>
                 </tr>
             </div>

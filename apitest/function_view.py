@@ -11,9 +11,9 @@ def change_api_not_for_test(request):
     try:
         case_id = request.POST.get('case_id')
         api = Apis.objects.get(id=case_id)
-        api.not_for_test = True if is_not_for_test == 'true' else False
+        api.not_for_test = True if is_not_for_test == 'true' else None
         api.save()
-        # print('status now:', api.not_for_test)
+        print('status now:', api.not_for_test)
         return HttpResponse('1')
     except:
         return HttpResponse('0')

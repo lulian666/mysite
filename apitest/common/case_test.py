@@ -28,14 +28,14 @@ class TestCaseRequest:
         count = len(multiple_case_list)
         success_number = 0
         for item in multiple_case_list:
-            item_success = self.flow_api_single_case_test(item[1], item[0], item[2])
+            item_success, try_refresh_token = self.flow_api_single_case_test(item[1], item[0], item[2])
             if item_success:
                 success_number = success_number + 1
         report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "流程接口测试", self.tester)
         if count == success_number:
-            return True
+            return True, try_refresh_token
         else:
-            return False
+            return False, try_refresh_token
 
     def flow_api_single_case_test(self, io_list, case_list, host):
         num_success = 0
@@ -46,44 +46,52 @@ class TestCaseRequest:
                 case = input_parameter(io_list[index][1], case, parameters)
 
             # 去测试
-            result = test_avoid_401(case, host, self.header)
-            print('----------')
-            print('测试api：', case[1])
-            print('测试结果：')
-            print(result.status_code)
-            print(result.json())
-            called_by = inspect.currentframe().f_back.f_code.co_name
-            if called_by == "flow_api_case_test":
-                self.save_report_info(result, case)
+            result, try_refresh_token = test_avoid_401(case, host, self.header)
+            if try_refresh_token:
+                print('----------')
+                print('测试api：', case[1])
+                print('测试结果：')
+                print(result.status_code)
+                print(result.json())
 
-            if result.status_code == case[5]:
-                num_success = num_success + 1
-            # 保存出参
-            if io_list[index][0] != '':
-                value = output_parameter(io_list[index][0], result)  # 这里应该保存
-                parameters.append([case[0], "name_placeholder", value])
+                called_by = inspect.currentframe().f_back.f_code.co_name
+                if called_by == "flow_api_case_test":
+                    self.save_report_info(result, case)
 
-        return num_success == count
+                if result.status_code == case[5]:
+                    num_success = num_success + 1
+                # 保存出参
+                if io_list[index][0] != '':
+                    value = output_parameter(io_list[index][0], result)  # 这里应该保存
+                    parameters.append([case[0], "name_placeholder", value])
+            else:
+                num_success = 0
+        return num_success == count, try_refresh_token
 
     def single_api_test(self, case_list, host):
         for case in case_list:
-            result = test_avoid_401(case, host, self.header)
-            print('----------')
-            print('测试api：', case[1])
-            if result.status_code != case[5]:
-                print("request query:", case[3])
-                print("request body:", case[4])
-            print('测试结果：', result.status_code)
-            print(result.json())
-            self.save_report_info(result, case)
-
-            # 测试结果存数据库
-            api_response = "这里我有解决不了的问题，先放着"
-            case.append(result.status_code)
-            case.append(api_response)
-            case.append(result.status_code == case[5])
+            result, try_refresh_token = test_avoid_401(case, host, self.header)
+            if try_refresh_token:
+                print('----------')
+                print('测试api：', case[1])
+                if result.status_code != case[5]:
+                    print("request query:", case[3])
+                    print("request body:", case[4])
+                print('测试结果：', result.status_code)
+                print(result.json())
+                self.save_report_info(result, case)
+                # 测试结果存数据库
+                api_response = "这里我有解决不了的问题，先放着"
+                case.append(result.status_code)
+                case.append(api_response)
+                case.append(result.status_code == case[5])
+            else:
+                api_response = "刷新token时401"
+                case.append(401)
+                case.append('刷新token时401')
+                case.append(False)
         report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
-        return case_list
+        return case_list, try_refresh_token
 
     def save_report_info(self, result, case):
         if result.status_code != case[5]:
@@ -176,7 +184,7 @@ def test_avoid_401(case, host, header):
     if result.status_code == 401:
         case_id = case[0]
         product_id = Apis.objects.get(id=case_id).Product_id
-        HeaderManage.update_header(product_id, host)
+        try_refresh_token = HeaderManage.update_header(product_id, host)
         header = HeaderManage.read_header(product_id)
         result = request(case, host, header)
-    return result
+    return result, try_refresh_token

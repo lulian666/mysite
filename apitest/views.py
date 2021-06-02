@@ -65,8 +65,11 @@ def form_api_flow_case(request):
 
         data_list = request.POST['data_list']
         data_list = json.loads(data_list)
-        if trial_test(data_list, io_list, username):
+        is_success, try_refresh_token = trial_test(data_list, io_list, username)
+        if is_success and try_refresh_token:
             return HttpResponse("1")
+        elif not try_refresh_token:
+            return HttpResponse("2")
         else:
             return HttpResponse("0")
 
@@ -114,6 +117,7 @@ def api_flow_test_manage(request):
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
     selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
     test_result = False
+    fail_message =''
 
     if 'selected_test_result' in request.GET:
         api_flow_test_list, selected_test_result, selected_product_id = model_list_filter(request.GET,
@@ -123,8 +127,9 @@ def api_flow_test_manage(request):
         api_flow_test_list, selected_test_result, selected_product_id = model_list_filter(request.POST,
                                                                                           api_flow_test_list)
         if 'run_test' in request.POST:
-            test_result = flow_case_test(api_flow_test_list, username)
-
+            test_result, try_refresh_token = flow_case_test(api_flow_test_list, username)
+            if not try_refresh_token:
+                fail_message = '更新token失败，请检查access-token是否已经过期'
     case_id_list = list(api_flow_test_list.values_list('id', flat=True))
     relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
     list_count, relation_page_list = paginator(request, relation_list, 10)
@@ -132,7 +137,7 @@ def api_flow_test_manage(request):
                   {"username": username, "relation_list": relation_page_list,
                    "api_flow_test_counts": list_count, "product_list": product_list,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
-                   'selected_product_id': selected_product_id, "test_result": test_result})
+                   'selected_product_id': selected_product_id, "test_result": test_result, 'fail_message': fail_message})
 
 
 def flow_case_test(api_flow_test_list, tester):
@@ -158,8 +163,8 @@ def flow_case_test(api_flow_test_list, tester):
         api_list = Apis.objects.filter(id__in=id_list)
         case_list = model_list_to_case_list(api_list)
         multiple_case_list.append([case_list, io_list, host])
-    test_result = TestCaseRequest(tester).flow_api_case_test(multiple_case_list)
-    return test_result
+    test_result, try_refresh_token = TestCaseRequest(tester).flow_api_case_test(multiple_case_list)
+    return test_result, try_refresh_token
 
 
 @login_required
@@ -182,7 +187,15 @@ def apis_manage(request):
     if request.method == 'POST':
         api_list, selected_test_result, selected_product_id = model_list_filter(request.POST, api_list)
         if 'run_test' in request.POST:
-            test_case(api_list, username)
+            # 这里加一遍过滤，not_for_test字段是1的不参与测试
+            api_list = api_list.filter(not_for_test__isnull=True)
+            try_refresh_token = test_case(api_list, username)
+            fail_message = '更新token失败，请检查access-token是否已经过期'
+            if not try_refresh_token:
+                return render(request, 'apitest/apis_manage.html',
+                              {'api_list': api_list, "product_list": product_list, 'username': username,
+                               'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                               'selected_product_id': selected_product_id, 'fail_message': fail_message})
             # 以下是跳转报告列表页所需数据
             root = os.path.abspath(".")
             filepath = os.path.join(root, "apitest/templates/report")
@@ -220,7 +233,7 @@ def test_case(model_list, tester):
 
     # 进行测试
     tester = TestCaseRequest(tester)
-    case_list = tester.single_api_test(case_list, host)
+    case_list, try_refresh_token = tester.single_api_test(case_list, host)
 
     # 用pytest进行测试
     # save_case_locally(case_list, host)
@@ -232,7 +245,7 @@ def test_case(model_list, tester):
 
     # 将测试结果更新数据库
     ManageSql.update_case_to_sql(case_list)
-
+    return try_refresh_token
 
 @login_required
 def test_report(request):
@@ -385,7 +398,7 @@ def api_header(request):
     if "filter" in request.POST:
         headers_list, selected_test_result, selected_product_id = model_list_filter(request.POST, headers_list)
 
-    headers_count, headers_page_list = paginator(request, headers_list, 6)
+    headers_count, headers_page_list = paginator(request, headers_list, 20)
     return render(request, "apitest/api_header.html",
                   {"username": username, "headers": headers_page_list, "selected_product_id": selected_product_id,
                    "product_list": product_list})
@@ -650,7 +663,8 @@ def trial_test(data_list, io_list, tester):
     product_id = Apis.objects.get(id=api_id_list[0]).Product_id
     host = ManageSql.get_host_of_product(product_id)
     case_list = model_list_to_case_list(api_to_test_list)
-    return TestCaseRequest(tester).flow_api_single_case_test(api_io_list, case_list, host)
+    is_success, try_refresh_token = TestCaseRequest(tester).flow_api_single_case_test(api_io_list, case_list, host)
+    return is_success, try_refresh_token
 
 
 def model_list_to_case_list(model_list):

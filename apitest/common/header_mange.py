@@ -31,18 +31,21 @@ class HeaderManage:
         print("刷新token url:", url)
         result = requests.post(url, headers=headers, json={})
         print("刷新结果：", result.status_code)
-        response_body = result.json()
-        access_token = response_body['x-jike-access-token']
-        refresh_token = response_body['x-jike-refresh-token']
-
-        sql = "update apitest_headers set header_value = %s where Product_Id = %s and header_key = %s;"
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
-        cursor = coon.cursor()
-        param1 = (access_token, product_id, 'x-jike-access-token')
-        param2 = (refresh_token, product_id, 'x-jike-refresh-token')
-        cursor.execute(sql, param1)
-        cursor.execute(sql, param2)
-        coon.commit()
-        cursor.close()
-        coon.close()
-        return
+        try:
+            response_body = result.json()
+            access_token = response_body['x-jike-access-token']
+            refresh_token = response_body['x-jike-refresh-token']
+            try_refresh_token = True
+            sql = "update apitest_headers set header_value = %s where Product_Id = %s and header_key = %s;"
+            coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+            cursor = coon.cursor()
+            param1 = (access_token, product_id, 'x-jike-access-token')
+            param2 = (refresh_token, product_id, 'x-jike-refresh-token')
+            cursor.execute(sql, param1)
+            cursor.execute(sql, param2)
+            coon.commit()
+            cursor.close()
+            coon.close()
+        except:
+            try_refresh_token = False
+        return try_refresh_token
