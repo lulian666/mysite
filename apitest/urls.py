@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import views, function_view
 
 app_name = 'apitest'
 urlpatterns = [
@@ -19,4 +19,5 @@ urlpatterns = [
     path('api_datasource/', views.datasource, name='api_datasource'),
     path('api_header/', views.api_header, name='api_header'),
     path('variables_manage/', views.variables_manage, name='variables_manage'),
+    path('change_api_not_for_test/', function_view.change_api_not_for_test, name='change_api_not_for_test'),
 ]

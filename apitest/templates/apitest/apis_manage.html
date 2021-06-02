@@ -97,8 +97,8 @@
                             <th class="th">测试通过？</th>
                             <th class="th">测试状态码</th>
                             <th class="th">测试结果</th>
-                            <th class="th">编辑</th>
                             <th class="th">不测试标记</th>
+                            <th class="th">编辑</th>
                             <th class="th">删除</th>
                         </tr>
                         </thead>
@@ -117,8 +117,14 @@
                                 <td class="td">{{ apis.test_result }}</td>
                                 <td class="td">{{ apis.api_response_status_code }}</td>
                                 <td class="td">{{ apis.api_response }}</td>
-                                <td class="td"></td>
-                                <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                                <td class="td">
+                                    {% if apis.not_for_test %}
+                                        <label><input name="not_for_test" type="checkbox" checked onclick="not_for_test(this, {{ apis.id }})"/>不参与单一接口测试</label>
+                                    {% else %}
+                                        <label><input name="not_for_test" type="checkbox" onclick="not_for_test(this, {{ apis.id }})"/>不参与单一接口测试</label>
+                                    {% endif %}
+                                </td>
+                                <td class="td" style="padding: 10px"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
                                 <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                             </tr>
                         {% endfor %}
@@ -159,6 +165,20 @@
     </div>
     </div>
 </div>
-
+<script>
+    function not_for_test(ele, case_id) {
+        var is_not_for_test = ele.checked
+        $.ajax({
+            url: "{% url 'apitest:change_api_not_for_test' %}",
+            type: "POST",
+            data: {"case_id": case_id, 'is_not_for_test': is_not_for_test},
+            success: function (e){
+                if (e=="0"){
+                    alert('标记失败')
+                }
+            },
+        })
+    }
+</script>
 </body>
 </html>
