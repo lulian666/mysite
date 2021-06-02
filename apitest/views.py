@@ -199,7 +199,7 @@ def apis_manage(request):
                            "selected_test_type": selected_test_type, "selected_test_result": selected_test_result,
                            "list_count": len(file_list)})
 
-    apis_count, apis_page_list = paginator(request, api_list, 8)
+    apis_count, apis_page_list = paginator(request, api_list, 12)
     return render(request, 'apitest/apis_manage.html',
                   {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
@@ -435,7 +435,7 @@ def variables_manage(request):
                 selected_test_result = -1  # 默认是-1 表示全选
                 api_list = Apis.objects.filter(Product_id=selected_product_id)
 
-                apis_count, apis_page_list = paginator(request, api_list, 6)
+                apis_count, apis_page_list = paginator(request, api_list, 12)
                 return render(request, 'apitest/apis_manage.html',
                               {'api_list': apis_page_list, "product_list": product_list, "username": username,
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,

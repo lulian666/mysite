@@ -45,6 +45,7 @@ class Apis(models.Model):
     api_response = models.CharField('测试结果', max_length=1000, null=True)
     api_response_status_code = models.IntegerField('预期状态码', null=True)
     test_result = models.BooleanField('是否通过', null=True)
+    not_for_test = models.BooleanField('是否不进行单接口测试', null=True)
     create_time = models.DateTimeField('创建时间', auto_now=True, null=True)
 
     class Meta:

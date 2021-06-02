@@ -27,6 +27,9 @@
             align-items: flex-start;
             width: 100%;
         }
+        .td,.th {
+            white-space:nowrap
+        }
     </style>
 </head>
 <body role="document">
@@ -82,41 +85,41 @@
                     <table class="table table-striped">
                         <thead>
                         <tr style="text-align:left; padding: 1px">
-                            <th width="5%">ID</th>
-                            <th width="10%">产品</th>
-                            <th width="5%">接口名称</th>
-                            <th width="15%">URL 地址</th>
-                            <th width="15%">请求参数</th>
-                            <th width="15%">请求 body</th>
-                            <th width="5%">方法</th>
-                            <th width="5%">预期状态码</th>
-                            <th width="5%">预期结果</th>
-                            <th width="3%">测试通过？</th>
-                            <th width="5%">测试状态码</th>
-                            <th width="3%">测试结果</th>
-                            <th width="8%">用例添加时间</th>
-                            <th width="3%">编辑</th>
-                            <th width="3%">删除</th>
+                            <th class="th">ID</th>
+                            <th class="th">产品</th>
+                            <th class="th">接口名称</th>
+                            <th class="th">URL 地址</th>
+                            <th class="th">请求参数</th>
+                            <th class="th">请求 body</th>
+                            <th class="th">方法</th>
+                            <th class="th">预期状态码</th>
+                            <th class="th">预期结果</th>
+                            <th class="th">测试通过？</th>
+                            <th class="th">测试状态码</th>
+                            <th class="th">测试结果</th>
+                            <th class="th">编辑</th>
+                            <th class="th">不测试标记</th>
+                            <th class="th">删除</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for apis in api_list %}
                             <tr>
-                                <td width=100px>{{ apis.id }}</td>
-                                <td width=200px>{{ apis.Product.product_name }}</td>
-                                <td width=300px>{{ apis.api_name }}</td>
-                                <td width=400px>{{ apis.api_url }}</td>
-                                <td width=300px>{{ apis.api_param_value }}</td>
-                                <td width=400px>{{ apis.api_body_value }}</td>
-                                <td width=150px>{{ apis.api_method }}</td>
-                                <td width=300px>{{ apis.api_expect_status_code }}</td>
-                                <td width=300px>{{ apis.api_expect_response }}</td>
-                                <td width=200px>{{ apis.test_result }}</td>
-                                <td width=200px>{{ apis.api_response_status_code }}</td>
-                                <td width=300px>{{ apis.api_response }}</td>
-                                <td width=200px>{{ apis.create_time }}</td>
-                                <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
-                                <td width=100px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
+                                <td class="td">{{ apis.id }}</td>
+                                <td class="td">{{ apis.Product.product_name }}</td>
+                                <td class="td">{{ apis.api_name }}</td>
+                                <td class="td">{{ apis.api_url }}</td>
+                                <td class="td">{{ apis.api_param_value }}</td>
+                                <td class="td">{{ apis.api_body_value }}</td>
+                                <td class="td">{{ apis.api_method }}</td>
+                                <td class="td">{{ apis.api_expect_status_code }}</td>
+                                <td class="td">{{ apis.api_expect_response }}</td>
+                                <td class="td">{{ apis.test_result }}</td>
+                                <td class="td">{{ apis.api_response_status_code }}</td>
+                                <td class="td">{{ apis.api_response }}</td>
+                                <td class="td"></td>
+                                <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
+                                <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -156,18 +159,6 @@
     </div>
     </div>
 </div>
-{#<script type="text/javascript" src="{% static 'js/jquery-3.5.1.min.js' %}"></script>#}
-{#<script type="text/javascript">#}
-{#    function next_page(page, selected_product_id, selected_test_result, api_list){#}
-{#        $.ajax({#}
-{#            url: '{% url 'apitest:apis_manage' %}',#}
-{#            type: 'GET',#}
-{#            data: {'page': page, 'selected_product_id': selected_product_id, 'selected_product_id': selected_product_id, 'api_list': api_list},#}
-{#            success: function (e) {#}
-{##}
-{#            },#}
-{#        });#}
-{#    }#}
-{#</script>#}
+
 </body>
 </html>
