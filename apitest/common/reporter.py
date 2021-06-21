@@ -1,8 +1,7 @@
 # coding:utf-8
-import time, os
 
 
-class Template_mixin(object):
+class TemplateMixin(object):
     """html报告"""
     HTML_TMPL = r"""
         <!DOCTYPE html>
@@ -15,6 +14,9 @@ class Template_mixin(object):
             <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> %(value)s</p>
             <style type="text/css" media="screen">
         body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
         </style>
         </head>
         <body>

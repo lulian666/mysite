@@ -192,10 +192,11 @@ def apis_manage(request):
             try_refresh_token = test_case(api_list, username)
             fail_message = '更新token失败，请检查access-token是否已经过期'
             if not try_refresh_token:
+                apis_count, apis_page_list = paginator(request, api_list, 12)
                 return render(request, 'apitest/apis_manage.html',
-                              {'api_list': api_list, "product_list": product_list, 'username': username,
+                              {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,
-                               'selected_product_id': selected_product_id, 'fail_message': fail_message})
+                               'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
             # 以下是跳转报告列表页所需数据
             root = os.path.abspath(".")
             filepath = os.path.join(root, "apitest/templates/report")
@@ -243,8 +244,9 @@ def test_case(model_list, tester):
     # cmd = 'py.test -s -v %s' % file
     # os.system(cmd)
 
-    # 将测试结果更新数据库
-    ManageSql.update_case_to_sql(case_list)
+    # 将测试结果更新数据库（如果没有遇到401问题）
+    if try_refresh_token:
+        ManageSql.update_case_to_sql(case_list)
     return try_refresh_token
 
 @login_required
@@ -366,7 +368,7 @@ def datasource(request):
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
                 # 接口也保存下来
-                new_case_list = CaseReady().data_form(selected_product_id, 2, 3, case_list, variables_list)
+                new_case_list = CaseReady().data_form(selected_product_id, 3, 4, case_list, variables_list)
                 ManageSql.write_case_to_sql(new_case_list, selected_product_id)
 
                 variables_count, variables_page_list = paginator(request, variables_list, 12)
@@ -511,18 +513,18 @@ def save_variables_to_sql(selected_product_id, basic_case_list):
     """
     variables_dict = {}
     for case in basic_case_list:
-        if case[3] != {}:  # 处理body的
-            variables_dict = search_variables(case[3], case[0], variables_dict)
-        elif case[2] != {}:
-            variables_dict = search_variables(case[2], case[0], variables_dict)
+        if case[4] != {}:  # 处理body的
+            variables_dict = search_variables(case[4], case[1], variables_dict)
+        elif case[3] != {}:
+            variables_dict = search_variables(case[3], case[1], variables_dict)
     ManageSql().write_variables_to_sql(selected_product_id, variables_dict)
 
 
-def search_variables(case_variables, case_name, variables_dict):
+def search_variables(case_variables, case_url, variables_dict):
     """
     找出传入的case_variables中有多少个变量
     :param case_variables: 一般传入的是body或者parameters，格式是：
-    :param case_name: 一般是接口url，用作接口名称
+    :param case_url: 一般是接口url，用作接口名称
     :param variables_dict: 
     :return: 
     """
@@ -533,7 +535,7 @@ def search_variables(case_variables, case_name, variables_dict):
             # param_list的格式需要从string变成dict，{variable_key:xxx, variable_optional:xxx, variable_type:xxx}
             param_list.append({'variable_key': key, 'variable_optional': not case_variables[key]['required'], 'variable_type': case_variables[key]['type']})
     if len(param_list) >= 0:
-        variables_dict.update({case_name: param_list})
+        variables_dict.update({case_url: param_list})
     return variables_dict
 
 

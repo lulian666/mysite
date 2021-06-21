@@ -15,7 +15,7 @@ class Read_config:
     def get_variable(self, variable_list, productId, api, item):
         # 任务是从variable_list里面找出对应productId, api里的item的值
         # variable_list应该是长这个样子：[[2,xxx,xxx,xxx],[...]]
-
+        """"
         if item == 'favours':
             return ['MU_YING_YONG_PIN', 'NAN_ZHUANG', 'GE_HU_QING_JIE_NAN']
         elif item == "configs":
@@ -97,3 +97,9 @@ class Read_config:
                 return 1
             else:
                 return value
+            """
+        value = ''
+        for variable_info in variable_list:
+            if variable_info.Product_id == productId and variable_info.from_api == api and variable_info.variable_key == item:
+                value = variable_info.variable_value
+        return value

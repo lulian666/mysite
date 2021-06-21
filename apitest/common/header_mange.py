@@ -28,7 +28,7 @@ class HeaderManage:
     def update_header(product_id, host):
         url = host+'/app_auth_tokens.refresh'
         headers = HeaderManage.read_header(product_id)
-        print("刷新token url:", url)
+        # print("刷新token url:", url)
         result = requests.post(url, headers=headers, json={})
         print("刷新结果：", result.status_code)
         try:

@@ -54,14 +54,16 @@ class CaseGenerate:
         }
       }
     '''
-    def __init__(self, url, method, parameters, body):
+
+    def __init__(self, case_name, url, method, parameters, body):
+        self.case_name = case_name
         self.url = url
         self.method = method
         self.parameters = parameters
         self.body = body
 
     def generate(self):
-        self.basic_case.append([self.url, self.method, self.parameters, self.body,200])
+        self.basic_case.append([self.case_name, self.url, self.method, self.parameters, self.body, 200])
         self.miss_unrequired()
         self.miss_required()
         all_case = self.basic_case + self.ok_case + self._400_case
@@ -82,16 +84,15 @@ class CaseGenerate:
                     del body[each]
                     has_unrequired = True
         if has_unrequired:
-            self.ok_case.append([self.url, self.method, parameters, body,200])
-
+            self.ok_case.append([self.case_name, self.url, self.method, parameters, body, 200])
         return self.ok_case
 
     # 统计有多少个required，有n个就会生成n个case，每个case少一个必要参数
     def miss_required(self):
         if len(self.parameters) > 0:
-            self.data_trans(self.parameters,2)
+            self.data_trans(self.parameters, 3)
         if len(self.body) > 0:
-            self.data_trans(self.body, 3)
+            self.data_trans(self.body, 4)
 
         self._400_case = self._400_case1 + self._400_case2
         return self._400_case
@@ -113,23 +114,34 @@ class CaseGenerate:
                     if whichpart[params]['required'] is True:
                         n += 1
                 if len(params_combi) == 0:
-                    if serial == 2:
-                        self._400_case1.append([self.url, self.method, {}, self.body, 400])
+                    if serial == 3:
+                        self._400_case1.append([self.case_name, self.url, self.method, {}, self.body, 400])
                     else:
-                        self._400_case2.append([self.url, self.method, self.parameters, {}, 400])
+                        self._400_case2.append([self.case_name, self.url, self.method, self.parameters, {}, 400])
                 if n == m - 1 and len(params_combi) != 0:
                     # 如果正好小1，那就是我们想要的case
                     # 需要把params_combi变回原来的格式
                     for i in range(len(params_combi)):
-                        # 哈！就是在这里把enum丢了的！！！
                         if 'enum' in whichpart[params_combi[i]]:
+                            # 有emun的话一般就没有二级json了
                             temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
                                                            'type': whichpart[params_combi[i]]['type'],
                                                            'enum': whichpart[params_combi[i]]['enum']}})
                         else:
-                            temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
-                                                       'type': whichpart[params_combi[i]]['type']}})
-                    if serial == 2:
-                        self._400_case1.append([self.url, self.method, temp, self.body, 400])
+                            # print('么有enum')
+                            # print('变量：', params_combi[i])
+                            # print('变量内容：', whichpart[params_combi[i]])
+                            # 这里应该加入二级json里也有enum的情况
+                            if 'son' in whichpart[params_combi[i]]:
+                                temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
+                                                               'type': whichpart[params_combi[i]]['type'],
+                                                               'son': whichpart[params_combi[i]]['son']}})
+                            else:
+                                temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
+                                                               'type': whichpart[params_combi[i]]['type']}})
+                    # print('处理后的temp:', temp)
+                    # print('～')
+                    if serial == 3:
+                        self._400_case1.append([self.case_name, self.url, self.method, temp, self.body, 400])
                     else:
-                        self._400_case2.append([self.url, self.method, self.parameters, temp, 400])
+                        self._400_case2.append([self.case_name, self.url, self.method, self.parameters, temp, 400])
