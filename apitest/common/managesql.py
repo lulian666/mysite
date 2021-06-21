@@ -72,13 +72,15 @@ class ManageSql:
                 # 如果本身不是空的，代替的值也不是空的，就可以代替
                 if value == "" or value is None or value == "None":  # enum的不需要代替
                     try:
-                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
+                            "variable_value", flat=True)[0]
                     except:
                         answer = None
                     body[key] = answer
                 else:
                     try:
-                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
+                            "variable_value", flat=True)[0]
                     except:
                         answer = None
                     if answer is not None and answer != "" and answer != "None" and answer != value:
@@ -87,13 +89,15 @@ class ManageSql:
             for key, value in parameter.items():
                 if value == "" or value is None or value == "None":  # enum的不需要代替
                     try:
-                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
+                            "variable_value", flat=True)[0]
                     except:
                         answer = None
                     parameter[key] = answer
                 else:
                     try:
-                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list("variable_value", flat=True)[0]
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
+                            "variable_value", flat=True)[0]
                     except:
                         answer = None
                     if answer is not None and answer != "" and answer != "None":
@@ -152,11 +156,14 @@ class ManageSql:
         for api, variable_list in variables_dict.items():
             for variable_info in variable_list:
                 if api not in variables.values_list('from_api', flat=True):
-                    param = (api, product_id, variable_info['variable_key'], variable_info['variable_optional'], variable_info['variable_type'])
+                    param = (api, product_id, variable_info['variable_key'], variable_info['variable_optional'],
+                             variable_info['variable_type'])
                     cursor.execute(sql, param)
                     coon.commit()
-                elif variable_info['variable_key'] not in variables.filter(from_api=api).values_list("variable_key", flat=True):
-                    param = (api, product_id, variable_info['variable_key'], variable_info['variable_optional'], variable_info['variable_type'])
+                elif variable_info['variable_key'] not in variables.filter(from_api=api).values_list("variable_key",
+                                                                                                     flat=True):
+                    param = (api, product_id, variable_info['variable_key'], variable_info['variable_optional'],
+                             variable_info['variable_type'])
                     cursor.execute(sql, param)
                     coon.commit()
         cursor.close()
@@ -255,6 +262,16 @@ class ManageSql:
         cursor.close()
         coon.close()
         return value_list
+
+    @staticmethod
+    def add_new_product(new_product_name, new_product_description, new_product_host):
+        create_time = datetime.now()
+        sql = "insert into product_product(product_name,product_desc,product_host,create_time) values(%s,%s,%s,%s);"
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        param = (new_product_name, new_product_description, new_product_host, create_time)  # 不转换成str会出错，因为值里面有引号
+        cursor.execute(sql, param)
+        coon.commit()
 
 
 def handle_data_type(case_list):

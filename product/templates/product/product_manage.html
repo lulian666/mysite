@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {% load bootstrap4 %}
+    {% load static %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <meta charset="UTF-8">
@@ -33,27 +34,28 @@
     </div>
 </nav>
 <!-- 搜索栏-->
-<div class="page-header" style="padding-top: 70px">
-    <form class="navbar-form" method="get" action="{% url 'product:search' %}">
-        {%  csrf_token %}
-        <input type="search" name="productname" placeholder="名称" required>
-        <button type="submit">搜索</button>
-    </form>
-</div>
+{#<div class="page-header" style="padding-top: 70px">#}
+{#    <form class="navbar-form" method="get" action="{% url 'product:search' %}">#}
+{#        {%  csrf_token %}#}
+{#        <input type="search" name="productname" placeholder="名称" required>#}
+{#        <button type="submit">搜索</button>#}
+{#    </form>#}
+{#</div>#}
 <!-- 添加数据-->
 <div style="float: top">
-    <select name="Product" id="id_Product">
-        <option value="" selected>-----产品-----</option>
-        {% for product in products %}
-            <option value={{ product.id }}>{{ product.product_name }}</option>
-        {% endfor %}
-    </select>
-    <a class="related-widget-wrapper-link change-related" id="change_id_Apitest" data-href-template="/admin/apitest/apitest/?????/change/?_to_field=id&amp;_popup=1" title="更改选中的测试用例">
-        <img src="/static/admin/img/icon-changelink.svg" alt="修改"/>修改
-    </a>
-    <a class="related-widget-wrapper-link change-related" id="add_id_Apitest" href="/admin/product/product/add/?_to_filed=id&amp;_popup=1" title="增加一个测试用例">
-        <img src="/static/admin/img/icon-addlink.svg" alt="增加"/>增加
-    </a>
+{#    <select name="Product" id="id_Product">#}
+{#        <option value="" selected>-----产品-----</option>#}
+{#        {% for product in products %}#}
+{#            <option value={{ product.id }}>{{ product.product_name }}</option>#}
+{#        {% endfor %}#}
+{#    </select>#}
+{#    <a class="related-widget-wrapper-link change-related" id="change_id_Apitest" data-href-template="/admin/apitest/apitest/?????/change/?_to_field=id&amp;_popup=1" title="更改选中的测试用例">#}
+{#        <img src="/static/admin/img/icon-changelink.svg" alt="修改"/>修改#}
+{#    </a>#}
+{#    <a class="related-widget-wrapper-link change-related" id="add_id_Apitest" href="/admin/product/product/add/?_to_filed=id&amp;_popup=1" title="增加一个测试用例">#}
+{#        <img src="/static/admin/img/icon-addlink.svg" alt="增加"/>增加#}
+{#    </a>#}
+
 </div>
 <!-- 产品列表-->
 <div class="row" style="padding-top: 20px;">
@@ -63,8 +65,8 @@
             <tr><td>&nbsp;</td></tr>
             <tr>
                 <th>ID</th>
-                <th>产品名称</th>
-                <th>产品描述</th>
+                <th>项目名称</th>
+                <th>项目描述</th>
                 <th>域名</th>
                 <th>创建时间</th>
                 <th>编辑</th>
@@ -83,6 +85,15 @@
                 <td width=200px><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Product" href="/admin/product/product/{{ product.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
             </tr>
             {% endfor %}
+            <tr>
+                <td>自增</td>
+                <td><input type="text" id="new_product_name" placeholder="项目名称"></td>
+                <td><input type="text" id="new_product_description" placeholder="项目描述"></td>
+                <td><input type="text" id="new_product_host" placeholder="域名"></td>
+                <td>默认此刻</td>
+                <td><button style="padding-inline: 15px" onclick="add_product()">添加新项目</button></td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -117,8 +128,41 @@
 <div style="position: absolute; right:800px; width:100px;">
     <tr>
         <th>总数</th>
-        <td>{{ productcounts }}</td>
+        <td>{{ product_count }}</td>
     </tr>
 </div>
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+    function add_product(_row) {
+        var new_product_name = document.getElementById('new_product_name').value
+        var new_product_description = document.getElementById('new_product_description').value
+        var new_product_host = document.getElementById('new_product_host').value
+
+        if (new_product_name == ''){
+            alert('项目名称未填')
+        }else if (new_product_description == ''){
+            alert('项目描述未填')
+        }else if (new_product_host == ''){
+            alert('域名未填')
+        }else {
+            $.ajax({
+                url: "{% url 'product:product_manage' %}",
+                type: "POST",
+                data: {"new_product_name": new_product_name, 'new_product_description': new_product_description, 'new_product_host': new_product_host},
+                success: function (e){
+                    if (e=="1"){
+                        window.location.reload();
+                    }else if (e=="0"){
+                        alert('添加失败')
+                    }else if (e=='2'){
+                        alert('变量格式不符合要求')
+                    }
+                },
+            })
+        }
+    }
+</script>
 </body>
+
 </html>
