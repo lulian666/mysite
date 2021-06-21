@@ -424,20 +424,32 @@ def variables_manage(request):
         if 'change_value' in request.POST:
             new_value = request.POST.get('new_value')
             variable_id = request.POST.get('variable_id')
-
-            print("new_value:", new_value, type(new_value))
-            # print("variable_id:", request.POST.get('variable_id'))
+            set_for_all = request.POST.get('set_for_all')
             try:
                 variable = Variables.objects.get(id=variable_id)
-                # oh my dear don't over thinking this. baby steps. start with little things like string and integer
-                # 前端传过来的好像都是string
-                is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
-                if is_legal:
-                    variable.variable_value = new_value
-                    variable.save()
+                if set_for_all == 'true':
+                    variable_name = variable.variable_key
+                    product_id = variable.Product_id
+                    variables_share_the_same_name = Variables.objects.filter(Product_id=product_id).filter(variable_key=variable_name)
+                    for each in variables_share_the_same_name:
+                        is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
+                        if is_legal:
+                            print('changing')
+                            each.variable_value = new_value
+                            each.save()
+                        else:
+                            return HttpResponse("2")
                     return HttpResponse("1")
                 else:
-                    return HttpResponse("2")
+                    # oh my dear don't over thinking this. baby steps. start with little things like string and integer
+                    # 前端传过来的好像都是string
+                    is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
+                    if is_legal:
+                        variable.variable_value = new_value
+                        variable.save()
+                        return HttpResponse("1")
+                    else:
+                        return HttpResponse("2")
             except:
                 return HttpResponse("0")
         variables_list, selected_product_id, null_value_only = model_list_filter2(request.POST, variables_list)
