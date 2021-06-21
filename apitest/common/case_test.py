@@ -10,7 +10,7 @@ from json import JSONDecodeError
 from apitest.common.header_mange import HeaderManage
 
 from apitest.common.emailer import Email
-from apitest.common.reporter import Template_mixin
+from apitest.common.reporter import TemplateMixin
 from apitest.models import Apis
 
 
@@ -19,7 +19,7 @@ class TestCaseRequest:
         self.header = HeaderManage.read_header(2)
         self.table_tr_fail = self.table_tr_success = ''
         self.num_success = self.num_fail = 0
-        self.html = Template_mixin()
+        self.html = TemplateMixin()
         self.tester = tester
 
     def flow_api_case_test(self, multiple_case_list):
@@ -69,28 +69,27 @@ class TestCaseRequest:
         return num_success == count, try_refresh_token
 
     def single_api_test(self, case_list, host):
+        try_refresh_token = True
         for case in case_list:
             result, try_refresh_token = test_avoid_401(case, host, self.header)
             if try_refresh_token:
                 print('----------')
-                print('测试api：', case[1])
+                # print('测试api：', case[1])
                 if result.status_code != case[5]:
+                    print('测试失败')
                     print("request query:", case[3])
                     print("request body:", case[4])
-                print('测试结果：', result.status_code)
-                print(result.json())
+                # print('测试结果：', result.status_code)
+                # print(result.json())
                 self.save_report_info(result, case)
                 # 测试结果存数据库
                 api_response = "这里我有解决不了的问题，先放着"
                 case.append(result.status_code)
                 case.append(api_response)
                 case.append(result.status_code == case[5])
+                report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
             else:
-                api_response = "刷新token时401"
-                case.append(401)
-                case.append('刷新token时401')
-                case.append(False)
-        report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
+                break
         return case_list, try_refresh_token
 
     def save_report_info(self, result, case):
@@ -180,8 +179,10 @@ def replace(name, json_string, api_id, parameters):
 
 
 def test_avoid_401(case, host, header):
+    try_refresh_token = True
     result = request(case, host, header)
     if result.status_code == 401:
+        print('token 过期，当前正在测试的case是：', case)
         case_id = case[0]
         product_id = Apis.objects.get(id=case_id).Product_id
         try_refresh_token = HeaderManage.update_header(product_id, host)

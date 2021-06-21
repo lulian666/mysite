@@ -22,35 +22,35 @@ class ManageSql:
         # url、parameter、body都一样
         for case in case_list:
             # 为什么这里的case会那么长
-            if case[0] not in list(cases.values_list("api_url", flat=True)):
+            if case[1] not in list(cases.values_list("api_url", flat=True)):
 
-                param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
+                param = (case[0], case[1], case[2], case[3].__str__(), case[4].__str__(), case[5].__str__(),
                          product_id)
                 cursor.execute(sql, param)
                 coon.commit()
             else:
-                remain_cases = cases.filter(api_url=case[0])
+                remain_cases = cases.filter(api_url=case[1])
                 case_in = False
                 for case_in_sql in remain_cases:
-                    variable_count_in_parameter = len(case[2])
-                    variable_count_in_body = len(case[3])
+                    variable_count_in_parameter = len(case[3])
+                    variable_count_in_body = len(case[4])
                     n_for_parameter = n_for_body = 0
                     body = ast.literal_eval(case_in_sql.api_body_value)
                     parameter = ast.literal_eval(case_in_sql.api_param_value)
                     variable_count_in_sql_case_parameter = len(parameter)
                     variable_count_in_sql_case_body = len(body)
-                    for variable, variable_value in case[2].items():
+                    for variable, variable_value in case[3].items():
                         if variable in parameter:
                             if variable_value == parameter[variable]:
                                 n_for_parameter += 1
-                    for variable, variable_value in case[3].items():
+                    for variable, variable_value in case[4].items():
                         if variable in body:
                             if variable_value == body[variable]:
                                 n_for_body += 1
                     if variable_count_in_parameter == n_for_parameter and variable_count_in_body == n_for_body and variable_count_in_sql_case_body == variable_count_in_body and variable_count_in_sql_case_parameter == variable_count_in_parameter:
                         case_in = True
                 if not case_in:
-                    param = ('test', case[0], case[1], case[2].__str__(), case[3].__str__(), case[4].__str__(),
+                    param = (case[0], case[1], case[2], case[3].__str__(), case[4].__str__(), case[5].__str__(),
                              product_id)
                     cursor.execute(sql, param)
                     coon.commit()
@@ -128,6 +128,7 @@ class ManageSql:
 
         # 这里开始循环更新表
         for case in case_list:
+            print('case:', case)
             param = (case[7].__str__(), case[8].__str__().strip(), case[9], case[0].__str__())  # 不转换成str会出错，因为值里面有引号
             cursor.execute(sql, param)
             coon.commit()
