@@ -1,0 +1,646 @@
+{
+  "info": {
+    "title": "Respect Service",
+    "description": "如果要在线测试接口，需要 Authroize，填入登录用户的JSON，如 `{\"id\": \"5bxxxxxxxxxxxxxx\"}`",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/1.0/respect/validate": {
+      "post": {
+        "summary": "发起夸夸前的预校验",
+        "description": "客户端通过该接口校验用户是否可以发出夸夸（比如当日配额限制、拉黑关系等），同时获悉是否必填推荐语",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "targetUser": {
+                  "type": "string",
+                  "required": true,
+                  "description": "「夸夸」对象的用户 username",
+                  "example": "「夸夸」对象的用户 username，例如：xxxx-xxxx-xxxx"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "example": {
+                    "contentRequired": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "夸夸相关"
+        ],
+        "security": [
+          {
+            "user": [
+
+            ]
+          }
+        ]
+      }
+    },
+    "/1.0/respect/add": {
+      "post": {
+        "summary": "发起夸夸",
+        "description": "创建夸夸动态，成功时返回夸夸详情",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "targetUser": {
+                  "type": "string",
+                  "required": true,
+                  "description": "「夸夸」对象的用户 username",
+                  "example": "「夸夸」对象的用户 username，例如：xxxx-xxxx-xxxx"
+                },
+                "content": {
+                  "type": "string",
+                  "required": false,
+                  "description": "推荐语",
+                  "example": "向即友们介绍一下"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "example": {
+                    "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                    "user": {
+                      "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                      "username": "xxxxxx",
+                      "screenName": "用户昵称",
+                      "createdAt": "2020-11-30T11:10:22.638Z",
+                      "updatedAt": "2020-11-30T11:10:22.638Z",
+                      "isVerified": false,
+                      "verifyMessage": "",
+                      "briefIntro": "bio",
+                      "avatarImage": {
+                        "thumbnailUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                        "smallPicUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/300x300%3E",
+                        "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E",
+                        "format": "jpeg",
+                        "badgeUrl": ""
+                      },
+                      "profileImageUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                      "trailingIcons": [
+
+                      ],
+                      "statsCount": {
+                        "topicSubscribed": 100,
+                        "topicCreated": 0,
+                        "followedCount": 100,
+                        "followingCount": 100,
+                        "highlightedPersonalUpdates": 0,
+                        "liked": 100,
+                        "respectedCount": 0
+                      },
+                      "backgroundImage": {
+                        "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E"
+                      },
+                      "bio": "bio",
+                      "gender": "MALE",
+                      "city": "xxxx",
+                      "country": "xxx",
+                      "province": "xxxx",
+                      "ref": "RESPECT_OTHER_SEND",
+                      "following": false
+                    },
+                    "targetUser": {
+                      "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                      "username": "xxxxxx",
+                      "screenName": "用户昵称",
+                      "createdAt": "2020-11-30T11:10:22.638Z",
+                      "updatedAt": "2020-11-30T11:10:22.638Z",
+                      "isVerified": false,
+                      "verifyMessage": "",
+                      "briefIntro": "bio",
+                      "avatarImage": {
+                        "thumbnailUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                        "smallPicUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/300x300%3E",
+                        "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E",
+                        "format": "jpeg",
+                        "badgeUrl": ""
+                      },
+                      "profileImageUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                      "trailingIcons": [
+
+                      ],
+                      "statsCount": {
+                        "topicSubscribed": 100,
+                        "topicCreated": 0,
+                        "followedCount": 100,
+                        "followingCount": 100,
+                        "highlightedPersonalUpdates": 0,
+                        "liked": 100,
+                        "respectedCount": 0
+                      },
+                      "backgroundImage": {
+                        "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E"
+                      },
+                      "bio": "bio",
+                      "gender": "MALE",
+                      "city": "xxxx",
+                      "country": "xxx",
+                      "province": "xxxx",
+                      "ref": "RESPECT_OTHER_SEND",
+                      "following": false
+                    },
+                    "content": "夸夸推荐语",
+                    "createdAt": "2020-12-01T11:58:52.530Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "夸夸相关"
+        ],
+        "security": [
+          {
+            "user": [
+
+            ]
+          }
+        ]
+      }
+    },
+    "/1.0/respect/listRespect": {
+      "post": {
+        "summary": "获取「TA夸过的」的夸夸详情列表",
+        "description": "主态下可翻页加载，客态下仅显示最新5条",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "required": true,
+                  "description": "username",
+                  "example": "xxxxxx"
+                },
+                "limit": {
+                  "type": "number",
+                  "required": false,
+                  "description": "限制返回数量",
+                  "example": "5"
+                },
+                "loadMoreKey": {
+                  "type": "string",
+                  "required": false,
+                  "description": "翻页加载 Key",
+                  "example": "[可选]翻页加载 Key，例如：5xxxxxxxxxxxxxxxxxxxxxxx"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "example": {
+                      "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                      "user": {
+                        "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                        "username": "xxxxxx",
+                        "screenName": "用户昵称",
+                        "createdAt": "2020-11-30T11:10:22.638Z",
+                        "updatedAt": "2020-11-30T11:10:22.638Z",
+                        "isVerified": false,
+                        "verifyMessage": "",
+                        "briefIntro": "bio",
+                        "avatarImage": {
+                          "thumbnailUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                          "smallPicUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/300x300%3E",
+                          "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E",
+                          "format": "jpeg",
+                          "badgeUrl": ""
+                        },
+                        "profileImageUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                        "trailingIcons": [
+
+                        ],
+                        "statsCount": {
+                          "topicSubscribed": 100,
+                          "topicCreated": 0,
+                          "followedCount": 100,
+                          "followingCount": 100,
+                          "highlightedPersonalUpdates": 0,
+                          "liked": 100,
+                          "respectedCount": 0
+                        },
+                        "backgroundImage": {
+                          "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E"
+                        },
+                        "bio": "bio",
+                        "gender": "MALE",
+                        "city": "xxxx",
+                        "country": "xxx",
+                        "province": "xxxx",
+                        "ref": "RESPECT_OTHER_SEND",
+                        "following": false
+                      },
+                      "targetUser": {
+                        "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                        "username": "xxxxxx",
+                        "screenName": "用户昵称",
+                        "createdAt": "2020-11-30T11:10:22.638Z",
+                        "updatedAt": "2020-11-30T11:10:22.638Z",
+                        "isVerified": false,
+                        "verifyMessage": "",
+                        "briefIntro": "bio",
+                        "avatarImage": {
+                          "thumbnailUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                          "smallPicUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/300x300%3E",
+                          "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E",
+                          "format": "jpeg",
+                          "badgeUrl": ""
+                        },
+                        "profileImageUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                        "trailingIcons": [
+
+                        ],
+                        "statsCount": {
+                          "topicSubscribed": 100,
+                          "topicCreated": 0,
+                          "followedCount": 100,
+                          "followingCount": 100,
+                          "highlightedPersonalUpdates": 0,
+                          "liked": 100,
+                          "respectedCount": 0
+                        },
+                        "backgroundImage": {
+                          "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E"
+                        },
+                        "bio": "bio",
+                        "gender": "MALE",
+                        "city": "xxxx",
+                        "country": "xxx",
+                        "province": "xxxx",
+                        "ref": "RESPECT_OTHER_SEND",
+                        "following": false
+                      },
+                      "content": "夸夸推荐语",
+                      "createdAt": "2020-12-01T11:58:52.530Z"
+                    }
+                  }
+                },
+                "loadMoreKey": {
+                  "type": "string",
+                  "example": "翻页加载 Key"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "夸夸相关"
+        ],
+        "security": [
+          {
+            "user": [
+
+            ]
+          }
+        ]
+      }
+    },
+    "/1.0/respect/listLatestRespected": {
+      "post": {
+        "summary": "获取「最新夸TA」的夸夸详情列表",
+        "description": "主态下可翻页加载，客态下仅显示最新5条",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "required": true,
+                  "description": "username",
+                  "example": "xxxxxx"
+                },
+                "limit": {
+                  "type": "number",
+                  "required": false,
+                  "description": "限制返回数量",
+                  "example": "5"
+                },
+                "loadMoreKey": {
+                  "type": "string",
+                  "required": false,
+                  "description": "翻页加载 Key",
+                  "example": "[可选]翻页加载 Key，例如：5xxxxxxxxxxxxxxxxxxxxxxx"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "example": {
+                      "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                      "user": {
+                        "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                        "username": "xxxxxx",
+                        "screenName": "用户昵称",
+                        "createdAt": "2020-11-30T11:10:22.638Z",
+                        "updatedAt": "2020-11-30T11:10:22.638Z",
+                        "isVerified": false,
+                        "verifyMessage": "",
+                        "briefIntro": "bio",
+                        "avatarImage": {
+                          "thumbnailUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                          "smallPicUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/300x300%3E",
+                          "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E",
+                          "format": "jpeg",
+                          "badgeUrl": ""
+                        },
+                        "profileImageUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                        "trailingIcons": [
+
+                        ],
+                        "statsCount": {
+                          "topicSubscribed": 100,
+                          "topicCreated": 0,
+                          "followedCount": 100,
+                          "followingCount": 100,
+                          "highlightedPersonalUpdates": 0,
+                          "liked": 100,
+                          "respectedCount": 0
+                        },
+                        "backgroundImage": {
+                          "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E"
+                        },
+                        "bio": "bio",
+                        "gender": "MALE",
+                        "city": "xxxx",
+                        "country": "xxx",
+                        "province": "xxxx",
+                        "ref": "RESPECT_OTHER_SEND",
+                        "following": false
+                      },
+                      "targetUser": {
+                        "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                        "username": "xxxxxx",
+                        "screenName": "用户昵称",
+                        "createdAt": "2020-11-30T11:10:22.638Z",
+                        "updatedAt": "2020-11-30T11:10:22.638Z",
+                        "isVerified": false,
+                        "verifyMessage": "",
+                        "briefIntro": "bio",
+                        "avatarImage": {
+                          "thumbnailUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                          "smallPicUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/300x300%3E",
+                          "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E",
+                          "format": "jpeg",
+                          "badgeUrl": ""
+                        },
+                        "profileImageUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                        "trailingIcons": [
+
+                        ],
+                        "statsCount": {
+                          "topicSubscribed": 100,
+                          "topicCreated": 0,
+                          "followedCount": 100,
+                          "followingCount": 100,
+                          "highlightedPersonalUpdates": 0,
+                          "liked": 100,
+                          "respectedCount": 0
+                        },
+                        "backgroundImage": {
+                          "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E"
+                        },
+                        "bio": "bio",
+                        "gender": "MALE",
+                        "city": "xxxx",
+                        "country": "xxx",
+                        "province": "xxxx",
+                        "ref": "RESPECT_OTHER_SEND",
+                        "following": false
+                      },
+                      "content": "夸夸推荐语",
+                      "createdAt": "2020-12-01T11:58:52.530Z"
+                    }
+                  }
+                },
+                "loadMoreKey": {
+                  "type": "string",
+                  "example": "翻页加载 Key"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "夸夸相关"
+        ],
+        "security": [
+          {
+            "user": [
+
+            ]
+          }
+        ]
+      }
+    },
+    "/1.0/respect/getLastRespecters": {
+      "post": {
+        "summary": "最近30位夸TA的用户中的6位",
+        "description": "随机选取最近30位夸TA的用户中的6位",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "targetUser": {
+                  "type": "string",
+                  "required": true,
+                  "description": "「夸夸」对象的用户 username",
+                  "example": "「夸夸」对象的用户 username，例如：xxxx-xxxx-xxxx"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "example": {
+                      "id": "5xxxxxxxxxxxxxxxxxxxxxxxxxx",
+                      "screenName": "用户昵称",
+                      "avatarImage": {
+                        "thumbnailUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/120x120%3E",
+                        "smallPicUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/300x300%3E",
+                        "middlePicUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/800x800%3E",
+                        "picUrl": "https://cdn.jellow.site/xxxxxx.jpeg?imageMogr2/auto-orient/heic-exif/1/format/jpeg/thumbnail/1000x1000%3E",
+                        "format": "jpeg",
+                        "badgeUrl": ""
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "夸夸相关"
+        ],
+        "security": [
+          {
+            "user": [
+
+            ]
+          }
+        ]
+      }
+    },
+    "/1.0/respect/remove": {
+      "post": {
+        "summary": "删除夸夸",
+        "description": "被夸用户删除一条夸夸",
+        "parameters": [
+          {
+            "name": "data",
+            "description": "request body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "required": true,
+                  "description": "夸夸ID",
+                  "example": "夸夸ID，例如：5xxxxxxxxxxxxxxxxxxxxxxx"
+                }
+              }
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "夸夸相关"
+        ],
+        "security": [
+          {
+            "user": [
+
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "responses": {
+
+  },
+  "definitions": {
+
+  },
+  "tags": [
+
+  ],
+  "swagger": "2.0",
+  "securityDefinitions": {
+    "user": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "x-jike-user-info"
+    }
+  }
+}

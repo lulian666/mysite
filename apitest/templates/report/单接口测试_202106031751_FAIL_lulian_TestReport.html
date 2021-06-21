@@ -1,0 +1,1704 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 130，通过 61，失败 69</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:33</td>
+            <td>/1.0/goodsNews/search</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'limit': '', 'text': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:33</td>
+            <td>/1.0/goodsNews/unlike</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'goods news id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:33</td>
+            <td>/2.0/goods/clipboard/search</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'text': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'text is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:33</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'DUODUO'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.NullPointerException: The mapper returned a null value.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:35</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'JD'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该商品没有在平台中找到', 'msg': '555915797275 is not found in JD.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:36</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'ELEME'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:36</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT_OFFICIAL'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:36</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT_ALLIANCE'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:37</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'KFC'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:37</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'QIANZHU_MOVIE'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:37</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:39</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'JD'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.NullPointerException'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:39</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT_OFFICIAL'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:39</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT_ALLIANCE'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:40</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'KFC'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:40</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'QIANZHU_MOVIE'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:40</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'RED_PACKET'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:40</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'UNKNOWN'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:41</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:41</td>
+            <td>/2.0/goodsNews/read/report</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'goodsNewsIds': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:41</td>
+            <td>/2.0/goodsNews/share</td>
+            <td>get</td>
+            <td>{'id': ''}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.IllegalArgumentException: invalid hexadecimal representation of an ObjectId: []'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:47</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'vendor': 'UNRECOGNIZED'}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': "java.lang.IllegalArgumentException: Can't get the number of an unknown enum value."}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:47</td>
+            <td>/3.0/goodsNews/detail</td>
+            <td>get</td>
+            <td>{'id': ''}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.IllegalArgumentException: invalid hexadecimal representation of an ObjectId: []'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:47</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'MU_YING_YONG_PIN', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:47</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'MAO_GOU_YONG_PIN', 'goodsNewsType': 'HOT', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:48</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'NAN_ZHUANG', 'goodsNewsType': 'REALTIME', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:48</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'LV_YOU_CHU_XING', 'goodsNewsType': 'CHOICE', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:48</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'RI_YONG_BAI_HUO', 'goodsNewsType': 'CATEGORY', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:49</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'SHU_MA_ZHUANG_BEI', 'goodsNewsType': 'FAVOURS', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:49</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'SHUI_GUO_SHENG_XIAN', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:49</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'MEI_ZHUANG_HU_FU', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:49</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'NV_SHENG_HU_LI', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:50</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'NAN_SHI_QING_JIE', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:50</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'SHI_PIN_YIN_LIAO', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:50</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'HAO_YANG_MAO', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:51</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'LATEST_COMMENT', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:51</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'GE_HU_QING_JIE_NV', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:52</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'GE_HU_QING_JIE_NAN', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:53</td>
+            <td>/4.0/goodsNews/detail</td>
+            <td>get</td>
+            <td>{'id': ''}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.IllegalArgumentException: invalid hexadecimal representation of an ObjectId: []'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:53</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'MU_YING_YONG_PIN', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:53</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'MAO_GOU_YONG_PIN', 'goodsNewsType': 'HOT', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:53</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'NAN_ZHUANG', 'goodsNewsType': 'REALTIME', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:54</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'LV_YOU_CHU_XING', 'goodsNewsType': 'CHOICE', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:55</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'RI_YONG_BAI_HUO', 'goodsNewsType': 'CATEGORY', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:55</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'SHU_MA_ZHUANG_BEI', 'goodsNewsType': 'FAVOURS', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:56</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'SHUI_GUO_SHENG_XIAN', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:56</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'MEI_ZHUANG_HU_FU', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:56</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'NV_SHENG_HU_LI', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:56</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'NAN_SHI_QING_JIE', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:57</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'SHI_PIN_YIN_LIAO', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:57</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'HAO_YANG_MAO', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:57</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'LATEST_COMMENT', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:58</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'GE_HU_QING_JIE_NV', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:49:58</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'category': 'GE_HU_QING_JIE_NAN', 'goodsNewsType': 'RECOMMEND', 'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:01</td>
+            <td>/bill/shopping/get</td>
+            <td>get</td>
+            <td>{'orderId': ''}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.IllegalArgumentException: invalid hexadecimal representation of an ObjectId: []'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:03</td>
+            <td>/billSettlement/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:03</td>
+            <td>/comment/create</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'content': '哈哈', 'images': [], 'replyToCommentId': '60408cbe25cb8f1e69e0defd', 'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'GoodsNews'}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该内容无法评论。', 'msg': 'target not found'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:03</td>
+            <td>/comment/create</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'content': '哈哈', 'images': [], 'replyToCommentId': '60408cbe25cb8f1e69e0defd', 'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'Comment'}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该内容无法评论。', 'msg': 'target not found'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:04</td>
+            <td>/comment/delete</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'comment id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:04</td>
+            <td>/comment/like</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'comment id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:05</td>
+            <td>/comment/listThread</td>
+            <td>get</td>
+            <td>{'limit': '', 'threadId': ''}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': "Required Integer parameter 'limit' is not present"}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:05</td>
+            <td>/comment/report</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'comment id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:06</td>
+            <td>/comment/select</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'comment id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:06</td>
+            <td>/comment/unlike</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'comment id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:12</td>
+            <td>/goodsNews/delete</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'id': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'id is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:12</td>
+            <td>/incomeLog/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'limit': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'limit is null.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:13</td>
+            <td>/order/state/sync</td>
+            <td>post</td>
+            <td>{'orderId': ''}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': "Required String parameter 'orderId' is not present"}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:16</td>
+            <td>/user/simpleInfo/get</td>
+            <td>get</td>
+            <td>{'userId': ''}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.IllegalArgumentException: invalid hexadecimal representation of an ObjectId: []'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-03 17:50:16</td>
+            <td>/user/sms/loginOrSignup</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{'areaCode': '', 'mobilePhoneNumber': '', 'verifyCode': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '错误的请求参数', 'msg': 'areaCode is null or empty.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:35</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:38</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'DUODUO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:38</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:42</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'PUSH_VENDOR_UNSPECIFIED'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:42</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'APN'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:42</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'FCM'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:42</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'JPUSH'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:43</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'GTPUSH'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:43</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'FLYME'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:43</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'HMS'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:44</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'XIAOMI'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:44</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'OPPO'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:44</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'VIVO'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:45</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'WECHAT'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:45</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'QQ'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:46</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'vendor': 'GZH'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:52</td>
+                <td>/3.0/goodsNews/recommend</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'limit': ''}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:58</td>
+                <td>/activity/banner/list</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:58</td>
+                <td>/appVersion/usable/check</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:59</td>
+                <td>/apple-app-site-association</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:59</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'dateType': 'DAY', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:59</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'dateType': 'WEEK', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:49:59</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'dateType': 'MONTH', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:00</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'dateType': 'YEAR', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:00</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'dateType': 'UNTIL_NOW', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:00</td>
+                <td>/bill/income/show</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:01</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'billStatus': 'COMING', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:01</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'billStatus': 'ARRIVAL', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:01</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'billStatus': 'RUST', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:02</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'billStatus': 'COMING', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:02</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'billStatus': 'ARRIVAL', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:02</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'billStatus': 'RUST', 'limit': 10}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:04</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': 10, 'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'GoodsNews'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:05</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': 10, 'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'Comment'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:06</td>
+                <td>/config/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:06</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'USER_GUIDE'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:07</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'HOME_PAGE'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:07</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'ALL'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:07</td>
+                <td>/flashScreen/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:08</td>
+                <td>/goods/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'baiYiBuTie': '', 'keyword': '测试', 'limit': '', 'page': '', 'platformType': 'TAOBAO', 'sorter': 'SMART', 'withCoupon': ''}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:09</td>
+                <td>/goods/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'baiYiBuTie': '', 'keyword': '测试', 'limit': '', 'page': '', 'platformType': 'JD', 'sorter': 'SALES_DESC', 'withCoupon': ''}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:10</td>
+                <td>/goods/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'baiYiBuTie': '', 'keyword': '测试', 'limit': '', 'page': '', 'platformType': 'DUODUO', 'sorter': 'PROMOTE_RATE_DESC', 'withCoupon': ''}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:11</td>
+                <td>/goods/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'baiYiBuTie': '', 'keyword': '测试', 'limit': '', 'page': '', 'platformType': 'TAOBAO', 'sorter': 'PRICE_ASC', 'withCoupon': ''}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:11</td>
+                <td>/goods/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'baiYiBuTie': '', 'keyword': '测试', 'limit': '', 'page': '', 'platformType': 'TAOBAO', 'sorter': 'PRICE_DESC', 'withCoupon': ''}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:11</td>
+                <td>/goods/searchSuggestions</td>
+                <td>get</td>
+                <td>{'keyword': '测试'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:12</td>
+                <td>/notice/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:13</td>
+                <td>/noticeBall/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:13</td>
+                <td>/orderShare/unreadCount/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:13</td>
+                <td>/popups/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:14</td>
+                <td>/user/cancel</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:16</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86', 'codeUsage': 'LOGIN_OR_SIGNUP', 'mobilePhoneNumber': '17602135924'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:16</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86', 'codeUsage': 'BIND', 'mobilePhoneNumber': '17602135924'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:50:38</td>
+                <td>/user/simpleInfo/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:51:04</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86', 'codeUsage': 'LOGIN_OR_SIGNUP'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:51:04</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86', 'codeUsage': 'BIND'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:51:04</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'areaCode': '', 'mobilePhoneNumber': ''}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:51:05</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'codeUsage': 'LOGIN_OR_SIGNUP', 'mobilePhoneNumber': '17602135924'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:51:05</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'codeUsage': 'BIND', 'mobilePhoneNumber': '17602135924'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:51:05</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'areaCode': '', 'mobilePhoneNumber': ''}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:51:05</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'areaCode': '', 'verifyCode': ''}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-03 17:51:05</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'mobilePhoneNumber': '', 'verifyCode': ''}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            </table>
+        </body>
+        </html>
