@@ -45,7 +45,7 @@
     <select name="Product" id="id_Product">
         <option value="" selected>-----产品-----</option>
         {% for product in products %}
-            <option value={{ product.id }}>{{ product.productname }}</option>
+            <option value={{ product.id }}>{{ product.product_name }}</option>
         {% endfor %}
     </select>
     <a class="related-widget-wrapper-link change-related" id="change_id_Apitest" data-href-template="/admin/apitest/apitest/?????/change/?_to_field=id&amp;_popup=1" title="更改选中的测试用例">

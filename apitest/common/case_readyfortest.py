@@ -1,10 +1,5 @@
 # coding:utf-8
-import configparser
 import copy
-import os
-from random import Random
-
-import pymysql
 
 from apitest.common.read_config import Read_config
 
@@ -33,54 +28,22 @@ class CaseReady:
                 new_case_list.append(case_list[n-1])
         return new_case_list  # 这个list是最终的case
 
-    @staticmethod
-    def data_replace(param, param_value, product_id, api, variable_list):
-        # 这个方法是制定了一系列复杂的规则，以替换参数的值（其实也不复杂）
-        if param == 'keyword':
-            value = "测试"
-        elif len(param_value) > 2:  # 二级json来了
-            cp_param_value = copy.deepcopy(param_value)
-            for index, item in enumerate(param_value):
-                item_value = Read_config().get_variable(variable_list, product_id, api, item)
-                cp_param_value[index] = item_value
-            return cp_param_value  # 直接返回一个dict
-        else:
-            value = Read_config().get_variable(variable_list, product_id, api, param)
-        return value
-
-        '''
-        二级json举例
-        {
-            'encore': {'required': False, 'type': 'boolean'}, 
-            'location': {
-                             'required': False, 
-                             'type': 'object',
-                             'son': {
-                                        'lng': {'required': True, 'type': 'string'}, 
-                                        'lat': {'required': True, 'type': 'string'},
-                                        'coordType': {'required': True, 'type': 'string'}
-                                    }
-                         }
-        }
-        '''
-
     def enum_data(self, case, n, case_full_info, new_case_list, nn, product_id, case_list, variable_list):
         # 这个方法是处理接口参数里的enum
         para_info_list = list(case.values())  # 这个list里的每一个值都是个dict
         para_list = list(case.keys())
 
-        enum_count = 0;
+        enum_count = 0
         enum_dict = {}
-        for key in para_info_list:
-            param = para_list[para_info_list.index(key)]
-            if 'enum' in key:
+        for info in para_info_list:
+            param = para_list[para_info_list.index(info)]
+            if 'enum' in info:
                 enum_count += 1
                 # 这里顺便把哪几个参数类型是enum的找出来
-                enum_list1 = key['enum']
+                enum_list1 = info['enum']
                 enum_dict.update({param: enum_list1})
-            if 'son' in key:
-                case[param] = key['son']
-
+            if 'son' in info:
+                case[param] = info['son']
         '''
         上面处理完以后 会变成
         {
@@ -93,8 +56,31 @@ class CaseReady:
         }                
         '''
         if enum_count == 0:  # 参数里面没有enum类型的时候，只要正常替换参数就好
+            # 这里就该处理二级json里面有enum的情况，太复杂了，处理不好，苏哪里
+            # if 'enum' in str(case):
+            #     # 这里我只处理只有1个enum的情况，有2个的去死吧……
+            #     for param in case:
+            #         if 'enum' in str(case[param]):
+            #             case_param_list = {}
+            #             value = ''
+            #             print('here case[param]:', case[param])
+            #             for key, value in case[param].items():
+            #                 if 'enum' in value:
+            #                     enum_list2 = case[param]['enum']
+            #                     for enum in enum_list2:
+            #                         case_param_list.update({key: enum})
+            #
+            #         else:
+            #             value = self.data_replace(param, case[param], product_id, case_full_info[1], variable_list)  # 二级json的逻辑都在data_replace里处理（不包含耳机里面还有enum的情况）
+            #         case[param] = value
+            # else:
+            #     for param in case:
+            #         # print('there')
+            #         value = self.data_replace(param, case[param], product_id, case_full_info[1], variable_list)  # 二级json的逻辑都在data_replace里处理（不包含耳机里面还有enum的情况）
+            #         case[param] = value
+            #     new_case_list.append(copy.deepcopy(case_list[n - 1]))
             for param in case:
-                value = self.data_replace(param, case[param], product_id, case_full_info[0], variable_list)  # 二级json的逻辑都在data_replace里处理
+                value = self.data_replace(param, case[param], product_id, case_full_info[1], variable_list)  # 二级json的逻辑都在data_replace里处理（不包含耳机里面还有enum的情况）
                 case[param] = value
             new_case_list.append(copy.deepcopy(case_list[n - 1]))
 
@@ -117,12 +103,11 @@ class CaseReady:
                         new_case_m.update({param: new_value})
                     else:
                         # 当我再次看到这里的时候，我已经不记得这些参数是什么意思了，但不妨碍我进行修改
-                        new_case_m.update({param: self.data_replace(param, case[param], product_id, case_full_info[0], variable_list)})
-
+                        new_case_m.update({param: self.data_replace(param, case[param], product_id, case_full_info[1], variable_list)})
                 if nn == 3:
-                    new_case_list.append([case_full_info[0], case_full_info[1], case_full_info[2], new_case_m, case_full_info[4]])
+                    new_case_list.append([case_full_info[1], case_full_info[2], case_full_info[3], new_case_m, case_full_info[5]])
                 elif nn == 2:
-                    new_case_list.append([case_full_info[0], case_full_info[1], new_case_m, case_full_info[3], case_full_info[4]])
+                    new_case_list.append([case_full_info[1], case_full_info[2], new_case_m, case_full_info[4], case_full_info[5]])
 
         if enum_count == 1:
             for param in case:
@@ -135,7 +120,48 @@ class CaseReady:
             for item in new_case_list[-how_many:]:  # 这里终于对了
                 for param in item[nn]:
                     if 'type' in item[nn][param]:
-                        value = self.data_replace(param, item[nn][param], 2, case_full_info[0], variable_list)
+                        value = self.data_replace(param, item[nn][param], 2, case_full_info[1], variable_list)
                         item[nn][param] = value
 
+    @staticmethod
+    def data_replace(param, param_value, product_id, api, variable_list):
+        """
+        这个方法是制定了一系列复杂的规则，以替换参数的值（其实也不复杂）
+        :param param: 变量的名称
+        :param param_value: 变量的内容
+        :param product_id: 项目id
+        :param api: 完整case信息
+        :param variable_list: 变量列表
+        :return: 
+        """
+        # 二级json来了，为什么是这个判断条件，是因为如果是二级的话，她的字典值的某个字典值也是字典（绕口令了）
+        if isinstance(list(param_value.values())[0], dict):
+            cp_param_value = copy.deepcopy(param_value)
+            for index, item in enumerate(param_value):
+                # 这里别把son里面的enum丢了
+                if 'enum' in param_value[item]:
+                    # 这里就有点麻烦，先默认enum可选值只有一个
+                    item_value = param_value[item]['enum'][0]
+                else:
+                    item_value = Read_config().get_variable(variable_list, product_id, api, item)
+                cp_param_value[item] = item_value
+            return cp_param_value  # 直接返回一个dict
+        else:
+            value = Read_config().get_variable(variable_list, product_id, api, param)
+        return value
 
+        '''
+        二级json举例
+        {
+            'encore': {'required': False, 'type': 'boolean'}, 
+            'location': {
+                             'required': False, 
+                             'type': 'object',
+                             'son': {
+                                        'lng': {'required': True, 'type': 'string'}, 
+                                        'lat': {'required': True, 'type': 'string'},
+                                        'coordType': {'required': True, 'type': 'string'}
+                                    }
+                         }
+        }
+        '''

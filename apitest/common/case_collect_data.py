@@ -16,16 +16,16 @@ class CaseCollect:
 
     def collect_data_accordingly(self, interfaces_not_wanted):
         # 处理interfaces_not_wanted，传进来的是string
-        interfaces_not_wanted = interfaces_not_wanted.split(',')
-        print(interfaces_not_wanted, type(interfaces_not_wanted))
+        if interfaces_not_wanted:
+            interfaces_not_wanted = interfaces_not_wanted.split(',')
         with open(self.filepath, 'r', encoding='utf8')as fp:
             json_data = json.load(fp)
-        try:
+        if 'paths' in json_data:
             path_data = json_data['paths']
             print("调用了collect_data_swagger")
             basic_case_list, case_list = self.collect_data_swagger(json_data, path_data, interfaces_not_wanted)
             print('basic_case_list, case_list:', len(basic_case_list), len(case_list))
-        except TypeError:
+        else:
             print("调用了collect_data_jike")
             basic_case_list, case_list = self.collect_data_jike(json_data, interfaces_not_wanted)
         return basic_case_list, case_list
@@ -34,26 +34,28 @@ class CaseCollect:
     @staticmethod
     def collect_data_swagger(json_data, path_data, interfaces_not_wanted):
         basic_case_list = []
+        case_list = []
         # 如果不照着json文件看，可能会理解上有困难
         for path_keys in path_data:
             url = path_keys
             method = list(path_data[url].keys())[0]
             case_wanted = True
-
-            for each in interfaces_not_wanted:
-                if fnmatch(url, "*" + each + "*"):
-                    case_wanted = False
+            if interfaces_not_wanted:
+                for each in interfaces_not_wanted:
+                    if fnmatch(url, "*" + each + "*"):
+                        case_wanted = False
 
             # 有一些废弃的接口，也要排除一下
             if 'deprecated' in path_data[url].get(method):
                 deprecated = path_data[url].get(method).get('deprecated')
                 if deprecated is True:
                     case_wanted = False
-
             # 很烦人的是有时候method大小写还不一致，有时候是post，有时候是POST……也要处理一下
             if case_wanted:
                 for path_values in path_data[url]:
                     other_info = path_data[url][method]
+                    if 'summary' in other_info:
+                        case_name = other_info['summary']
                     if 'parameters' in other_info:  # 如果有parameters的话，有的接口是没有的
                         parameters_maybe = other_info['parameters']
                         parameters = {}
@@ -77,16 +79,19 @@ class CaseCollect:
                         parameters = {}
                         body = {}
 
-                basic_case_list.append([url, method, parameters, body])
-                case_list = CaseGenerate(url, method, parameters, body).generate()
+                basic_case_list.append([case_name, url, method, parameters, body])
+                case_list = CaseGenerate(case_name, url, method, parameters, body).generate()
         return basic_case_list, case_list
 
     @staticmethod
     def collect_data_jike(json_data, interfaces_not_wanted):
         basic_case_list = []
         for api in json_data:
+            parameters = {}
+            body = {}
             url = jsonpath.jsonpath(api, "$.url")[0]
             method = jsonpath.jsonpath(api, "$.type")[0]
+            case_name = jsonpath.jsonpath(api, "$.title")[0]
             if "parameter" in api:
                 parameters_data = jsonpath.jsonpath(api, "$.parameter")
             else:
@@ -99,8 +104,8 @@ class CaseCollect:
             else:
                 parameters = {}
                 body = {}
-            basic_case_list.append([url, method, parameters, body])
-            case_list = CaseGenerate(url, method, parameters, body).generate()
+            basic_case_list.append([case_name, url, method, parameters, body])
+            case_list = CaseGenerate(case_name, url, method, parameters, body).generate()
         return basic_case_list, case_list
 
 
@@ -113,11 +118,13 @@ def parameters_info_jike(parameters_data):
             if not fnmatch(item["field"], '*' + '.' + '*'):
                 parameters_dict.update({item["field"]: {"required": not item["optional"], "type": item["type"]}})
                 # 还需要处理enum和二级json
+                if "allowedValues" in item:
+                    parameters_dict[item["field"]].update({"enum": item["allowedValues"]})
             else:
                 father = item["field"].split(".")[0]
                 son.update({item["field"].split(".")[1]: {"required": not item["optional"], "type": item["type"]}})
-            if "allowedValues" in item:
-                parameters_dict[item["field"]].update({"enum": item["allowedValues"]})
+                if "allowedValues" in item:
+                    son[item["field"].split(".")[1]].update({"enum": item["allowedValues"]})
         if son != {}:
             parameters_dict[father].update({"son": son})
     else:
@@ -141,32 +148,53 @@ def parameters_info_swagger(params, parameters, son_json, father):
 def body_info_swagger(params, json_data, body, son_json, father):
     # 要先从schema里取出ref（body的结构要去另一处找，这段结构里面只提供了ref）
     schema = params['schema']
-    ref = schema['$ref']
-    ref = ref.split('/')[-1]
-    if ref == 'null':
-        body = {}
+    if '$ref' in schema:
+        ref = schema['$ref']
+        ref = ref.split('/')[-1]
+        if ref == 'null':
+            body = {}
+        else:
+            definitions_data = json_data['definitions']
+            refs_data = definitions_data[ref]
+            # 取出每一个然后加上是否required和type
+            for each in refs_data['properties']:
+                required = False
+                if 'required' in refs_data:
+                    if each in refs_data['required']:
+                        required = True
+                param_data = refs_data['properties'][each]
+                try:
+                    param_type = param_data['type']
+                except KeyError:
+                    param_type = 'string'
+                # 如果是enum
+                enum = []
+                if 'enum' in param_data:
+                    enum = param_data['enum']
+                elif 'Enum' in param_data:
+                    enum = param_data['Enum']
+
+                parameters, son_json, father = exclude_loadmorekey_and_avatar(body, each, son_json, required,
+                                                                              param_type, enum, father)
+        return body, son_json, father
     else:
-        definitions_data = json_data['definitions']
-        refs_data = definitions_data[ref]
-        # 取出每一个然后加上是否required和type
-        for each in refs_data['properties']:
+        properties = schema['properties']
+        for prop in properties:
             required = False
-            if 'required' in refs_data:
-                if each in refs_data['required']:
-                    required = True
-            param_data = refs_data['properties'][each]
+            if 'required' in properties[prop]:
+                required = properties[prop]['required']
             try:
-                param_type = param_data['type']
+                param_type = properties[prop]['type']
             except KeyError:
                 param_type = 'string'
             # 如果是enum
             enum = []
-            if 'enum' in param_data:
-                enum = param_data['enum']
-            elif 'Enum' in param_data:
-                enum = param_data['Enum']
-
-            parameters, son_json, father = exclude_loadmorekey_and_avatar(body, each, son_json, required,
+            if 'enum' in properties[prop]:
+                enum = properties[prop]['enum']
+            elif 'Enum' in properties[prop]:
+                enum = properties[prop]['Enum']
+            print('required:', required, 'type:', type(required))
+            parameters, son_json, father = exclude_loadmorekey_and_avatar(body, prop, son_json, required,
                                                                           param_type, enum, father)
     return body, son_json, father
 
@@ -184,7 +212,8 @@ def exclude_loadmorekey_and_avatar(parameters, name, son_json, required, param_t
     :return:
     """
     param_name = name.lower()
-    if ((not fnmatch(param_name, 'loadmorekey' + '*')) and param_name != 'avatarFile') and len(enum) == 0 and (not fnmatch(param_name, '*' + '.' + '*')):
+    if ((not fnmatch(param_name, 'loadmorekey' + '*')) and param_name != 'avatarFile') and len(enum) == 0 and (
+    not fnmatch(param_name, '*' + '.' + '*')):
         parameters.update({name: {'required': required, 'type': param_type}})
     elif ((not fnmatch(param_name, 'loadmorekey' + '*')) and param_name != 'avatarFile') and len(enum) > 0:
         parameters.update({name: {'required': required, 'type': param_type, 'enum': enum}})
