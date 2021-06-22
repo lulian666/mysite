@@ -19,6 +19,8 @@ class CaseReady:
         for case in case_list:
             n += 1
             if case[body_index] != {}:  # 处理body的
+                print('~~debug~~')
+                print('case[body_index]:', case[body_index])
                 self.enum_data(case[body_index], n, case, new_case_list, body_index, product_id, case_list, variable_list)
             elif case[parameter_index] != {}:
                 # 处理parameters的
@@ -135,7 +137,7 @@ class CaseReady:
         :return: 
         """
         # 二级json来了，为什么是这个判断条件，是因为如果是二级的话，她的字典值的某个字典值也是字典（绕口令了）
-        if isinstance(list(param_value.values())[0], dict):
+        if param_value != '' and isinstance(list(param_value.values())[0], dict):
             cp_param_value = copy.deepcopy(param_value)
             for index, item in enumerate(param_value):
                 # 这里别把son里面的enum丢了
