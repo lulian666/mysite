@@ -273,6 +273,16 @@ class ManageSql:
         cursor.execute(sql, param)
         coon.commit()
 
+    @staticmethod
+    def write_header_to_sql(header_key, header_value, product_id):
+        print(header_key, header_value, product_id)
+        # 这里还要考虑会不会重复（可能不用，只有本来无header的是才会用到这里）
+        sql = "insert into apitest_headers(header_key,header_value,product_id) values(%s,%s,%s);"
+        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        cursor = coon.cursor()
+        param = (header_key, header_value, product_id)  # 不转换成str会出错，因为值里面有引号
+        cursor.execute(sql, param)
+        coon.commit()
 
 def handle_data_type(case_list):
     """

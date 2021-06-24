@@ -27,6 +27,8 @@
 </head>
 <body role="document">
 <!-- 导航栏-->
+{% load static %}
+{% load my_tags %}
 {% include 'apitest/header_for_single_api_test.html' %}
 <div class="box">
     <div class="row">
@@ -50,9 +52,24 @@
             </div>
         </span>
         <span class="item1">
-        <!-- header-->
-        <div class="row" style="padding-top: 50px;">
-        <div class="col-md-11">
+        <div class="row" style="padding-top: 10px;">
+        {% if headers|length == 0 %}
+            <form class="navbar-form" method="post" action="{% url 'apitest:api_header' %}" style="padding-left: 10px">
+                {%  csrf_token %}
+                <div class="row" style="padding-left: 10px; padding-top: 10px">
+                    <input type="hidden" name="selected_product_id" value={{ selected_product_id }} />
+                    <div>
+                        <h4>该项目暂无header，请添加:</h4>
+                        <h5>支持Charles中raw格式直接复制过来</h5>
+                        <label>请注意是否格式是xxx: xxxx</label>
+                        <br><textarea rows="30" cols="50" id="new_headers" name="new_headers" placeholder="注意检查格式哦" style="resize:none; margin-top: 10px">{{ new_headers }}</textarea>
+                        <br><button type="submit" name="check">检查格式</button>
+                        <button type="submit" name="add">添加</button>
+                        <br style="color: red">{{ check_info }}
+                    </div>
+                </div>
+            </form>
+        {% else %}
             <table class="table table-striped" style="table-layout:fixed;">
                 <thead>
                 <tr style="text-align:left">
@@ -65,8 +82,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for header in headers %}
-                    <tr>
+                    {% for header in headers %}
+                        <tr>
                         <td>{{ header.id }}</td>
                         <td>{{ header.Product.product_name }}</td>
                         <td>{{ header.header_key }}</td>
@@ -74,11 +91,20 @@
                         <td><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
                         <td><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Headers" href="/admin/apitest/headers/{{ header.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                     </tr>
-                {% endfor %}
+                    {% endfor %}
+                    <tr>
+                        <td>自增</td>
+                        <td><input type="text" id="product_id" placeholder="项目名称"></td>
+                        <td><input type="text" id="new_variable_name" placeholder="变量名"></td>
+                        <td><input type="text" id="new_variable_value" placeholder="变量值"></td>
+                        <td><button style="padding-inline: 15px" onclick="add_new_header()">添加新header</button></td>
+                        <td></td>
+                    </tr>
+
                 </tbody>
             </table>
+        {% endif %}
         </div>
-    </div>
         </span>
         <span class="item2">
         <!-- 翻页功能-->
@@ -91,15 +117,6 @@
                 {% else %}
                     <li class="previous disabled"><a href="#">上一页</a></li>
                 {% endif %}
-                &nbsp;&nbsp;
-                {% for num in headers.paginator.page_range %}
-                    {% if num == currentPage %}
-                        <li class="item active" style="color: red"><a href="/apitest/api_header/?page={{ num }}&selected_product_id={{ selected_product_id }}">{{ num }}</a></li>
-                    {% else %}
-                        <li class="item"><a href="/apitest/api_header/?page={{ num }}">{{ num }}</a></li>
-                    {% endif %}
-                    &nbsp;&nbsp;
-                {% endfor %}
 
                 {# 下一页链接开始 #}
                 {% if headers.has_next %}
@@ -112,5 +129,35 @@
         </span>
     </div>
 </div>
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+    function add_new_header() {
+        var product_id = document.getElementById('product_id').value
+        var new_variable_name = document.getElementById('new_variable_name').value
+        var new_variable_value = document.getElementById('new_variable_value').value
+
+        if (product_id == ''){
+            alert('项目名称未填')
+        }else if (new_variable_name == ''){
+            alert('变量名未填')
+        }else if (new_variable_value == ''){
+            alert('变量值未填')
+        }else {
+            $.ajax({
+                url: "{% url 'apitest:api_header' %}",
+                type: "POST",
+                data: {"new_headers": new_variable_name + ':' + new_variable_value, 'add': '', 'selected_product_id': product_id},
+                success: function (e){
+                    if (e=="0"){
+                        alert('没有找到该项目')
+                    }else {
+                        window.location.reload();
+                    }
+                },
+            })
+        }
+    }
+</script>
 </body>
 </html>

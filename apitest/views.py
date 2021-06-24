@@ -388,22 +388,48 @@ def datasource(request):
 
 # header 管理
 @login_required
+@csrf_exempt
 def api_header(request):
     username = request.user
     headers_list = Headers.objects.all()
     product_list = Product.objects.all()
     selected_product_id = -1  # 默认是-1 表示全选
+    check_info, new_headers_raw = '', ''
 
     if 'selected_product_id' in request.GET:
         headers_list, selected_test_result, selected_product_id = model_list_filter(request.GET, headers_list)
 
-    if "filter" in request.POST:
+    if 'filter' in request.POST:
         headers_list, selected_test_result, selected_product_id = model_list_filter(request.POST, headers_list)
 
-    headers_count, headers_page_list = paginator(request, headers_list, 20)
+    if 'check' in request.POST:
+        new_headers_raw = request.POST['new_headers'].strip()
+        selected_product_id = request.POST['selected_product_id']
+        if '\n' not in new_headers_raw or ':' not in new_headers_raw:
+            check_info = '格式似乎有问题，再检查一下呢'
+        else:
+            check_info = '看起来是没问题的，添加完了再看看结果吧！'
+        headers_list = Headers.objects.filter(Product_id=selected_product_id)
+
+    if 'add' in request.POST:
+        new_headers_raw = request.POST['new_headers']
+        selected_product_id = request.POST['selected_product_id']
+        try:
+            selected_product_id = int(selected_product_id)
+        except ValueError:
+            try:
+                selected_product_id = Product.objects.get(product_name=selected_product_id.strip()).id
+            except:
+                return HttpResponse('0')
+        new_headers_list = new_headers_raw.split('\n')
+        for header in new_headers_list:
+            ManageSql.write_header_to_sql(header.split(':')[0].strip(), header.split(':')[-1].strip(), selected_product_id)
+        headers_list = Headers.objects.filter(Product_id=selected_product_id)
+
+    headers_count, headers_page_list = paginator(request, headers_list, 10)
     return render(request, "apitest/api_header.html",
-                  {"username": username, "headers": headers_page_list, "selected_product_id": selected_product_id,
-                   "product_list": product_list})
+                  {"username": username, "headers": headers_page_list, "selected_product_id": int(selected_product_id),
+                   "product_list": product_list, 'check_info': check_info, 'new_headers': new_headers_raw})
 
 
 # 变量管理
