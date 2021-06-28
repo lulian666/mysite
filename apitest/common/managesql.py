@@ -66,61 +66,10 @@ class ManageSql:
             body = ast.literal_eval(api.api_body_value)
             parameter = ast.literal_eval(api.api_param_value)
             # 把body和parameter里面的变量值都替换掉，然后再把api更新一下
-            for key, value in body.items():
-                # 下面有bug，如果是更新了变量的值，会因为这个判断而更新不进来
-                # 如果本身是空的，就可以代替
-                # 如果本身不是空的，代替的值也不是空的，就可以代替
-                if isinstance(value, dict):
-                    print('-----')
-                    print("key, value:", key, value)
-                    for value_key, value_value in value.items():
-                        print("value_key, value_value:", value_key, value_value)
-                        try:
-                            answer = variable_list.filter(from_api=api.api_url).filter(variable_key=value_key).values_list(
-                                "variable_value", flat=True)[0]
-                        except:
-                            answer = None
-                        print("answer:", answer)
-                        if value_value is None or value_value == "None":  # enum的不需要代替
-                            body[key][value_key] = answer
-                        elif answer is not None and answer != "None" and answer != value:
-                            body[key][value_key] = answer
-                else:
-                    try:
-                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
-                            "variable_value", flat=True)[0]
-                    except:
-                        answer = None
-                    if value is None or value == "None":  # enum的不需要代替
-                        body[key] = answer
-                    elif answer is not None and answer != "None" and answer != value:
-                        body[key] = answer
+            body = update(variable_list, body)
             api.api_body_value = body
-            for key, value in parameter.items():
-                if isinstance(value, dict):
-                    # print("key, value:", key, value)
-                    for value_key, value_value in value.items():
-                        # print("value_key, value_value:", value_key, value_value)
-                        try:
-                            answer = variable_list.filter(from_api=api.api_url).filter(variable_key=value_key).values_list(
-                                "variable_value", flat=True)[0]
-                        except:
-                            answer = None
-                        # print("answer:", answer)
-                        if value_value is None or value_value == "None":  # enum的不需要代替
-                            parameter[key][value_key] = answer
-                        elif answer is not None and answer != "None" and answer != value:
-                            parameter[key][value_key] = answer
-                else:
-                    try:
-                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
-                            "variable_value", flat=True)[0]
-                    except:
-                        answer = None
-                    if value is None or value == "None":  # enum的不需要代替
-                        parameter[key] = answer
-                    elif answer is not None and answer != "None" and answer != value:
-                        parameter[key] = answer
+
+            parameter = update(variable_list, parameter)
             api.api_param_value = parameter
             api.save()
         return
@@ -303,6 +252,7 @@ class ManageSql:
         cursor.execute(sql, param)
         coon.commit()
 
+
 def handle_data_type(case_list):
     """
     将case_list里body和param从字符串变成json格式
@@ -313,3 +263,29 @@ def handle_data_type(case_list):
         case[3] = ast.literal_eval(case[3])
         case[4] = ast.literal_eval(case[4])
     return case_list
+
+
+def update(variable_list, body):
+    for key, value in body.items():
+        if isinstance(value, dict):
+            for value_key, value_value in value.items():
+                try:
+                    answer = variable_list.filter(from_api=api.api_url).filter(variable_key=value_key).values_list(
+                        "variable_value", flat=True)[0]
+                except:
+                    answer = None
+                if value_value is None or value_value == "None":  # enum的不需要代替
+                    body[key][value_key] = answer
+                elif answer is not None and answer != "None" and answer != value:
+                    body[key][value_key] = answer
+        else:
+            try:
+                answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
+                    "variable_value", flat=True)[0]
+            except:
+                answer = None
+            if value is None or value == "None":  # enum的不需要代替
+                body[key] = answer
+            elif answer is not None and answer != "None" and answer != value:
+                body[key] = answer
+    return body

@@ -460,7 +460,6 @@ def variables_manage(request):
                     for each in variables_share_the_same_name:
                         is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
                         if is_legal:
-                            print('changing')
                             each.variable_value = new_value
                             each.save()
                         else:
@@ -566,7 +565,6 @@ def search_variables(case_variables, case_url, variables_dict):
     :param variables_dict: 
     :return: 
     """
-    # print("case_variables:", case_variables)
     param_list = []
     for num, key in list(enumerate(case_variables)):
         if 'enum' not in case_variables[key] and 'son' not in case_variables[key]:
