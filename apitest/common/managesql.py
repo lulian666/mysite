@@ -70,26 +70,57 @@ class ManageSql:
                 # 下面有bug，如果是更新了变量的值，会因为这个判断而更新不进来
                 # 如果本身是空的，就可以代替
                 # 如果本身不是空的，代替的值也不是空的，就可以代替
-                try:
-                    answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
-                        "variable_value", flat=True)[0]
-                except:
-                    answer = None
-                if value is None or value == "None":  # enum的不需要代替
-                    body[key] = answer
-                elif answer is not None and answer != "None" and answer != value:
-                    body[key] = answer
+                if isinstance(value, dict):
+                    print('-----')
+                    print("key, value:", key, value)
+                    for value_key, value_value in value.items():
+                        print("value_key, value_value:", value_key, value_value)
+                        try:
+                            answer = variable_list.filter(from_api=api.api_url).filter(variable_key=value_key).values_list(
+                                "variable_value", flat=True)[0]
+                        except:
+                            answer = None
+                        print("answer:", answer)
+                        if value_value is None or value_value == "None":  # enum的不需要代替
+                            body[key][value_key] = answer
+                        elif answer is not None and answer != "None" and answer != value:
+                            body[key][value_key] = answer
+                else:
+                    try:
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
+                            "variable_value", flat=True)[0]
+                    except:
+                        answer = None
+                    if value is None or value == "None":  # enum的不需要代替
+                        body[key] = answer
+                    elif answer is not None and answer != "None" and answer != value:
+                        body[key] = answer
             api.api_body_value = body
             for key, value in parameter.items():
-                try:
-                    answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
-                        "variable_value", flat=True)[0]
-                except:
-                    answer = None
-                if value is None or value == "None":  # enum的不需要代替
-                    parameter[key] = answer
-                elif answer is not None and answer != "None" and answer != value:
-                    parameter[key] = answer
+                if isinstance(value, dict):
+                    # print("key, value:", key, value)
+                    for value_key, value_value in value.items():
+                        # print("value_key, value_value:", value_key, value_value)
+                        try:
+                            answer = variable_list.filter(from_api=api.api_url).filter(variable_key=value_key).values_list(
+                                "variable_value", flat=True)[0]
+                        except:
+                            answer = None
+                        # print("answer:", answer)
+                        if value_value is None or value_value == "None":  # enum的不需要代替
+                            parameter[key][value_key] = answer
+                        elif answer is not None and answer != "None" and answer != value:
+                            parameter[key][value_key] = answer
+                else:
+                    try:
+                        answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
+                            "variable_value", flat=True)[0]
+                    except:
+                        answer = None
+                    if value is None or value == "None":  # enum的不需要代替
+                        parameter[key] = answer
+                    elif answer is not None and answer != "None" and answer != value:
+                        parameter[key] = answer
             api.api_param_value = parameter
             api.save()
         return

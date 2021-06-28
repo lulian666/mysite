@@ -573,6 +573,9 @@ def search_variables(case_variables, case_url, variables_dict):
             # 如果这个参数的值里面，有enum这个字段，就不需要存了
             # param_list的格式需要从string变成dict，{variable_key:xxx, variable_optional:xxx, variable_type:xxx}
             param_list.append({'variable_key': key, 'variable_optional': not case_variables[key]['required'], 'variable_type': case_variables[key]['type']})
+        elif 'son' in case_variables[key]:  # 这里需要处理有son的情况
+            for item, value in case_variables[key]['son'].items():
+                param_list.append({'variable_key': item, 'variable_optional': not case_variables[key]['son'][item]['required'], 'variable_type': case_variables[key]['son'][item]['type']})
     if len(param_list) >= 0:
         variables_dict.update({case_url: param_list})
     return variables_dict
