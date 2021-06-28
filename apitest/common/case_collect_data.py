@@ -140,8 +140,8 @@ def parameters_info_swagger(params, parameters, son_json, father):
         enum = params['enum']
     elif 'Enum' in params:
         enum = params['Enum']
-    parameters, son_json, father = exclude_loadmorekey_and_avatar(parameters, params['name'], son_json,
-                                                                  required, param_type, enum, father)
+    # parameters, son_json, father = exclude_loadmorekey_and_avatar(parameters, params['name'], son_json,
+    #                                                               required, param_type, enum, father)
     return parameters, son_json, father
 
 
@@ -174,8 +174,8 @@ def body_info_swagger(params, json_data, body, son_json, father):
                 elif 'Enum' in param_data:
                     enum = param_data['Enum']
 
-                parameters, son_json, father = exclude_loadmorekey_and_avatar(body, each, son_json, required,
-                                                                              param_type, enum, father)
+                # parameters, son_json, father = exclude_loadmorekey_and_avatar(body, each, son_json, required,
+                #                                                               param_type, enum, father)
         return body, son_json, father
     else:
         properties = schema['properties']
@@ -194,8 +194,8 @@ def body_info_swagger(params, json_data, body, son_json, father):
             elif 'Enum' in properties[prop]:
                 enum = properties[prop]['Enum']
             print('required:', required, 'type:', type(required))
-            parameters, son_json, father = exclude_loadmorekey_and_avatar(body, prop, son_json, required,
-                                                                          param_type, enum, father)
+            # parameters, son_json, father = exclude_loadmorekey_and_avatar(body, prop, son_json, required,
+            #                                                               param_type, enum, father)
     return body, son_json, father
 
 
