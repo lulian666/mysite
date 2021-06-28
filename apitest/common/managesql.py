@@ -66,10 +66,10 @@ class ManageSql:
             body = ast.literal_eval(api.api_body_value)
             parameter = ast.literal_eval(api.api_param_value)
             # 把body和parameter里面的变量值都替换掉，然后再把api更新一下
-            body = update(variable_list, body)
+            body = update(variable_list, body, api.api_url)
             api.api_body_value = body
 
-            parameter = update(variable_list, parameter)
+            parameter = update(variable_list, parameter, api.api_url)
             api.api_param_value = parameter
             api.save()
         return
@@ -265,12 +265,12 @@ def handle_data_type(case_list):
     return case_list
 
 
-def update(variable_list, body):
+def update(variable_list, body, url):
     for key, value in body.items():
         if isinstance(value, dict):
             for value_key, value_value in value.items():
                 try:
-                    answer = variable_list.filter(from_api=api.api_url).filter(variable_key=value_key).values_list(
+                    answer = variable_list.filter(from_api=url).filter(variable_key=value_key).values_list(
                         "variable_value", flat=True)[0]
                 except:
                     answer = None
@@ -280,7 +280,7 @@ def update(variable_list, body):
                     body[key][value_key] = answer
         else:
             try:
-                answer = variable_list.filter(from_api=api.api_url).filter(variable_key=key).values_list(
+                answer = variable_list.filter(from_api=url).filter(variable_key=key).values_list(
                     "variable_value", flat=True)[0]
             except:
                 answer = None
