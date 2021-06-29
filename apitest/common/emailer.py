@@ -75,7 +75,7 @@ class Email:
         """
         root = os.path.abspath('.')
         filepath = os.path.join(root, 'apitest/templates/report')
-        filetime = time.strftime('%Y%m%d%H%M')
+        filetime = time.strftime('%Y.%m.%d-%H:%M')
         filename = [file for file in listdir(filepath) if fnmatch(file, '*' + filetime + '*')]
         filename = "".join(str(item) for item in filename)
         filename = os.path.join(filepath, filename)

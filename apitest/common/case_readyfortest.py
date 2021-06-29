@@ -19,8 +19,6 @@ class CaseReady:
         for case in case_list:
             n += 1
             if case[body_index] != {}:  # 处理body的
-                print('~~debug~~')
-                print('case[body_index]:', case[body_index])
                 self.enum_data(case[body_index], n, case, new_case_list, body_index, product_id, case_list, variable_list)
             elif case[parameter_index] != {}:
                 # 处理parameters的

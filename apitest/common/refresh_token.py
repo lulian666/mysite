@@ -11,8 +11,7 @@ class Refresh_token:
     def refresh(self):
         #refresh的url：
         #https://bitter.orangelovely.com/app_auth_tokens.refresh
-        #post
-        root = os.path.abspath('.') #获取当前工作目录路径
+        root = os.path.abspath('.')  # 获取当前工作目录路径
         filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
         with open(filepath, 'r', encoding='utf8')as fp:
             header = json.load(fp)
@@ -33,22 +32,15 @@ class Refresh_token:
 
         # url = 'https://commerce.codefuture.top/app_auth_tokens.refresh'
         url = Read_config().get_value('REQUEST','host')+'/app_auth_tokens.refresh'
-        # print(url)
 
         result = requests.post(url, headers=header, json={})
-        print('刷新token成功了吗？',result.status_code)
         response_body = result.json()
-        # print(response_body)
+
         access_token = response_body['x-jike-access-token']
         refresh_token = response_body['x-jike-refresh-token']
 
         header["x-jike-access-token"] = access_token
         header["x-jike-refresh-token"] = refresh_token
-        # print(access_token)
-        # print(refresh_token)
-
-        # root = os.path.abspath('.') #获取当前工作目录路径
-        # filepath = os.path.join(root, 'apitest/config/header_kuainiao.json')
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(header, f)
         f.close()

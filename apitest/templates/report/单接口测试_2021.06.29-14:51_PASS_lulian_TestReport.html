@@ -6,9 +6,12 @@
             <title>自动化测试报告</title>
             <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
             <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
-            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 2，通过 2，失败 0</p>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 3，通过 3，失败 0</p>
             <style type="text/css" media="screen">
         body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
         </style>
         </head>
         <body>
@@ -52,24 +55,34 @@
                 </tr>
                 
             <tr class='failClass warning'>
-                <td>2021-05-27 19:52:26</td>
-                <td>/userRelation/fans/paginate</td>
+                <td>2021-06-29 14:51:35</td>
+                <td>/1.0/goodsNews/search</td>
                 <td>post</td>
                 <td>{}</td>
-                <td>{'fansQueryType': 'INDIRECT_LOCKED'}</td>
-                <td>400</td>
+                <td>{'limit': '10', 'text': '猫砂'}</td>
+                <td>200</td>
                 <td>测试成功</td>
-                <td>400</td>
+                <td>200</td>
             </tr>
             <tr class='failClass warning'>
-                <td>2021-05-27 19:52:26</td>
-                <td>/userRelation/fans/paginate</td>
+                <td>2021-06-29 14:51:35</td>
+                <td>/1.0/goodsNews/unlike</td>
                 <td>post</td>
                 <td>{}</td>
-                <td>{'limit': None}</td>
-                <td>400</td>
+                <td>{'id': '60b61858f6e5a068b03f1cae'}</td>
+                <td>200</td>
                 <td>测试成功</td>
-                <td>400</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 14:51:35</td>
+                <td>/2.0/goods/clipboard/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'text': 'https://item.taobao.com/item.htm?id=641960817858'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
             </tr>
             </table>
         </body>

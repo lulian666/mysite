@@ -71,14 +71,15 @@ class TestCaseRequest:
     def single_api_test(self, case_list, host):
         try_refresh_token = True
         for case in case_list:
+            print('case:', case)
             result, try_refresh_token = test_avoid_401(case, host, self.header)
             if try_refresh_token:
                 print('----------')
                 # print('测试api：', case[1])
-                if result.status_code != case[5]:
+                if int(result.status_code) != int(case[5]):
                     print('测试失败')
-                    print("request query:", case[3])
-                    print("request body:", case[4])
+                    print("result.status_code:", result.status_code)
+                    print("case[5]:", case[5])
                 # print('测试结果：', result.status_code)
                 # print(result.json())
                 self.save_report_info(result, case)
@@ -87,9 +88,9 @@ class TestCaseRequest:
                 case.append(result.status_code)
                 case.append(api_response)
                 case.append(result.status_code == case[5])
-                report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
             else:
                 break
+        report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
         return case_list, try_refresh_token
 
     def save_report_info(self, result, case):
@@ -122,7 +123,7 @@ def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, ca
     is_success = "PASS" if num_success == (num_fail + num_success) else "FAIL"
 
     # 生成html报告
-    filename = '{called_by}_{date}_{is_success}_{tester}_TestReport.html'.format(date=time.strftime('%Y%m%d%H%M'), called_by=called_by, is_success=is_success, tester=tester)
+    filename = '{called_by}_{date}_{is_success}_{tester}_TestReport.html'.format(date=time.strftime('%Y.%m.%d-%H:%M'), called_by=called_by, is_success=is_success, tester=tester)
     root = os.path.abspath('.')
     filepath = os.path.join(root, 'apitest/templates/report/' + filename)
 
@@ -181,8 +182,11 @@ def replace(name, json_string, api_id, parameters):
 def test_avoid_401(case, host, header):
     try_refresh_token = True
     result = request(case, host, header)
+    print('host:', host)
+    print('header:', header)
+    print('result.status_code:', result.status_code)
     if result.status_code == 401:
-        print('token 过期，当前正在测试的case是：', case)
+        print('token 过期，正在刷新。。。')
         case_id = case[0]
         product_id = Apis.objects.get(id=case_id).Product_id
         try_refresh_token = HeaderManage.update_header(product_id, host)
