@@ -121,11 +121,15 @@ def parameters_info_jike(parameters_data):
                 parameters_dict.update({item["field"]: {"required": not item["optional"], "type": item["type"]}})
                 # 还需要处理enum和二级json
                 if "allowedValues" in item:
+                    for index, each in enumerate(item["allowedValues"]):
+                        item["allowedValues"][index] = each.strip('\'\"').strip('\"\'')
                     parameters_dict[item["field"]].update({"enum": item["allowedValues"]})
             else:
                 father = item["field"].split(".")[0]
                 son.update({item["field"].split(".")[1]: {"required": not item["optional"], "type": item["type"]}})
                 if "allowedValues" in item:
+                    for index, each in enumerate(item["allowedValues"]):
+                        item["allowedValues"][index] = each.strip('\'\"').strip('\"\'')
                     son[item["field"].split(".")[1]].update({"enum": item["allowedValues"]})
         if son != {}:
             parameters_dict[father].update({"son": son})
