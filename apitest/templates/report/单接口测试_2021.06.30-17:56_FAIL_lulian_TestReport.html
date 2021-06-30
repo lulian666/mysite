@@ -1,0 +1,519 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 31，通过 1，失败 30</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:50:57</td>
+            <td>/1.0/im/conversation/restart</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'conversationId': '60cc45740ac62b00118d93a5'}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'code': 'E101', 'error': '聊天对话状态错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:50:58</td>
+            <td>/1.0/match/recommend</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'encore': 'false', 'location': {'lng': '121.50788622989471', 'lat': '31.306750404984403', 'coordType': 'wgs84'}}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'code': 'E101', 'error': '今天的「再来一批」使用次数已达上限'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:50:58</td>
+            <td>/1.0/profile/listPhotos</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'targetUserId': '5ff70e36df391849e5a2ede5', 'loadMoreKey': {'lastId': ''}}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'code': 9, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:50:58</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '[]', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'name': '7001', 'photos': '[]', 'photoIds': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:50:58</td>
+            <td>/1.0/profile/getOne</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>204</td>
+            <td>b''</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:50:59</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'name': '7001', 'photos': '[]', 'photoIds': '[]'}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:52:59</td>
+            <td>/1.0/products/list</td>
+            <td>GET</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>503</td>
+            <td>b'<!doctype html>\n<html>\n  <head>\n    <meta charset="utf-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\n    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n    <title>Connection Closed</title>\n    <style>\n      * { margin: 0; -webkit-font-smoothing: antialiased; }\n      body { font-family: Helvetica, sans-serif; font-size: 14px; }\n      .header {\n        background: #f7f7f7;\n        height: 100px;\n      }\n      .header-bottom {\n        margin-top: -95px;\n        background-image: url(data:image/png;base64,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);\n        background-size: 100% 112px;\n        height: 112px;\n      }\n      h2 { padding-left: 40px; font-weight: lighter; margin: 0; line-height: 100px; font-size: 32px; color: #a6a6a6; text-transform: uppercase; }\n      .error-code { margin-right: 10px; color: #7b7b7b; }\n      .surge { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAABU1BMVEUAAACLf/Fgle92ifBokPByi/B+hfBqj/Cxa/KjcvFal++QfPFYmO+5Z/KsbvKZd/FhlO9flfCKf/G0afJflfBnkfCfdPGrbvKlcfGzavKFgvCQfPG7ZvKvbPJXme+tbfK7ZvJXme+7ZvKZd/G2aPKtbfK7ZvJmkfBYmO+tbfK7ZvJmkfBXme+tbfK8ZvKFgfCrbvG8ZfJlkvCOffGGgfCtbfK7ZfKwa/KqbvG3aPKpcPFhk+9pj/CWefF9hfC0avK3aPJZmO9mkfB8hvBglO+xa/Jjk++rbvGpb/GYePGgc/FwjfB/hfB5h/C6Z/Jelu92ifBbl++8ZvKCg/CvbPJqj/CQfPGbdvGjc/FpkPClcvGncfF0ivCWefFyi/COffGFgfCSe/FXme+UevFtjvCfdPFrj/CtbfKddfFdlu+Kf/FujvCHgPCMfvGcdvGEgvBzi/D5hi2ZAAAAP3RSTlMAAYh4iIeGeId4eHfhh3h4eCQXFBTih4eHeHb34+LNzMyOjYV4cXFxcT4+Pj4kI/bi381fX/z7jo3g4ODLXl6/k2jFAAAEDklEQVRYw63WV1MaYRTG8V3TAykIpGCJmsQYY2IvqegqYMEKFqyIBWP//lc5vO95zu6NmTM7+9y5zvxm32H/LE64JbsGxwa7kk5U+9a61ljrt4g8t2PNrsONBuxdWlqyYm80YDeBluyOBvwwOcnis8hAJsOC7uePHz+7ARBiSPDru3q5XH73VcDspFlYMDlQKNSJbMOD/DabZTIcODFbKBhyXMDGwoM/ZklskG0CmoUGd2ZnLTkKMJe1C4Bub3d3r6sESbSkgDkmH0vdHSZFXdzbO0wCfJ6DCDDZah/01qQK3AYJsJxjEmAX0unSgFtbhgyCZSYBfkc6gxpwfotIc5MA63UmAWaRzpgKnJ/nmwRYKLAYAJnUgSQaUkASDQlQ0lGBJycgASKdsg+C1IBnZyABIh0fNNOC1xABPkE69dd8BenowM1NkAAlHQFzIDXg3CZIgJKOgBB14NwcidckApR0ACIdNcg3CRDpCIh0dODeHkiAks4bvjJaB6kBj0i0JEBJB+AA0mlTgUdMCijpAJxAOuMa8PCQREMCRDoCJgdsOm1JDbhxyCTAF5LOG/9NW6DhTYthzSOZkeYAuEGkObeAEF/d9VsgODfTX61W+zPy34MNJgWUdAD+d5lSqXRDZEbAAyLNuQEiHRXYXCyWDNmPU18dgAQo6WjAP0VaQ7wZAXhFpDk3QElHA96bZrH0kK+cn5NI80FJRwdOMwnw8hwkQElHCTIp4CWRdG4BY5LOew24uMgkwGqVxAYpoKSjAyH6IEiASEcHriwyCfDmxohEApR0dOAKkwDNc25IvjAs6fzWgLsrlgyAIPHst3A6Lc0qcHfXigCLRZAOzszpxBwNuH/LJEBJR0A31kJiS+yOb5cvnz59cQPgPpEN8QFfoQ+cbzJQ/HBs+I7zJoY8r1L5lcDfjxYWiKSbDICo0VEslfa8hphO+SCTPghSAzbl83lD3gd4cWHJW4CSTlED/syzmAZ4fMyigBBV4MxMnkmAp6dMApR0pnUgSIDrRrzwQaSjA5dnQAq4bkkBkY4ShChgxYhEApR0FjXg32WQAlYsKSDSUYIkWhKg5zGJB2kB6axowNVVQ/rgS49mRIBIRwuCBJi3YiUAgtSAU1MQASIdaUfS0YEkWlJAFj2Aks6+DmRSQKQjoKSjAuNTTMYBIh0BJZ0FDdhZm7Lr9EEmASIdHZiK1wwZTwGUdJr4SmUdpKNZor1GZLt8Yz9FOgJKOseOam5fT0+f6wgo6QCUdAAqBxDpCJhGOumQINIB2ORxjffDgZIOwFTappNOhQSRTpP/pm2IQwknLMgkQPktEBpkEiAWFkQ6UYE9tRqTPdGAfQRasi8a0G1nsd11olkibsR4wolqqc54Ld6ZckLtH/57QoU51TO8AAAAAElFTkSuQmCC); }\n      .header .logo { float: right; margin-right: 40px; margin-top: 30px; background-size: 40px 40px; width: 40px; height: 40px; }\n      .wrapper { max-width: 666px; margin: 60px auto 60px; padding: 0 20px; }\n      h1 { color: #5c5c5c; font-size: 24px; text-align: center; }\n      .error-detail { margin-top: 60px; font-family: Verdana, sans-serif; color: #5c5c5c; word-break: break-all; }\n      p { margin-bottom: 10px; }\n      a { color: #5c5c5c; }\n      .footer { text-align: center; color: #e3e3e3; margin-bottom: 40px; }\n      .footer .logo { margin: 0 auto 10px; opacity: 0.2; background-size: 32px 32px; width: 32px; height: 32px; -webkit-filter: grayscale(100%); filter: gray; filter: grayscale(100%); }\n    </style>\n  </head>\n  <body>\n    <div class="header">\n      <div class="logo surge"></div>\n      <h2>Error</h2>\n    </div>\n    <div class="header-bottom"></div>\n    <div class="wrapper">\n      <h1>Connection Closed</h1>\n      <div class="error-detail"><p>\xe8\xae\xbf\xe9\x97\xae\xe7\x9a\x84 URL \xe4\xb8\x8d\xe5\x8f\xaf\xe7\x94\xa8: <br /><b>http://orange-match-beta.staging.codefuture.top/1.0/products/list</b></p><p><br /></p><p>Policy: DIRECT</p><p><br /></p><p>\xe9\x94\x99\xe8\xaf\xaf\xe6\x8f\x8f\xe8\xbf\xb0\xef\xbc\x9a</p><li>Socket closed by remote peer</li></div>     \n    </div>\n    <div class="footer">\n      <div class="logo surge"></div>\n      SGSocketErrorDomain - 7<br />Generated 2021/6/30 17:52 by Surge Mac/3.5.7\n    </div>\n  </body>\n</html>'</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:53:59</td>
+            <td>/1.0/search/company</td>
+            <td>GET</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>503</td>
+            <td>b'<!doctype html>\n<html>\n  <head>\n    <meta charset="utf-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\n    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n    <title>Connection Closed</title>\n    <style>\n      * { margin: 0; -webkit-font-smoothing: antialiased; }\n      body { font-family: Helvetica, sans-serif; font-size: 14px; }\n      .header {\n        background: #f7f7f7;\n        height: 100px;\n      }\n      .header-bottom {\n        margin-top: -95px;\n        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB7IAAADgCAMAAAC5KdklAAAAmVBMVEUAAADr6+vr6+vq6urq6urq6urq6urq6urs7Ozs7Ozs7Ozq6urq6urq6urr6+vq6urw8PDq6ury8vLq6urq6urq6urq6urr6+vr6+vr6+vr6+vq6urq6urq6ur////q6urr6+vu7u7q6urt7e3q6urx8fHr6+vq6ur////q6ur39/fp6enz8/Pr6+v19fXw8PDu7u7t7e3y8vKgM3mXAAAAKnRSTlMARD3a6brSwC4iNY7wl1uvF8YM4syedWhPe273h/wHpGEdtiiCEkqqA1UvgnUUAAALLklEQVR42uzVAQ0AAAzDoOu5f4HT0QRMcA8ABCgbABKUDQAJygaABGUDQIKyASBB2QCQoGwASFA2ACQoGwASlA0ACcoGgARlA0CCsgEgQdkAkKBsAEhQNgAkKBsAEpQNAAnKBoAEZQNAgrIBIEHZAJCgbABIUDYAJCgbABKUDQAJygaABGUDQIKyASBB2QAw9uqABAAAAEDQ/9ftCPSEC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbABaUDQALygaABWUDwIKyAWBB2QCwoGwAWFA2ACwoGwAWlA0AC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAYq8OSAAAAAAE/X/djkBPuKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbABaUDQALygaABWUDwIKyAWBB2QCwoGwAWFA2ACwoGwAWlA0AC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBIPbqgAQAAABA0P/X7Qj0hAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbABaUDQALygaABWUDwIKyAWBB2QCwoGwAWFA2ACwoGwAWlA0AC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbAGKvDkgAAAAABP1/3Y5AT7igbABYUDYALCgbABaUDQALygaABWUDwIKyAWBB2QCwoGwAWFA2ACwoGwAWlA0AC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbABaUDQALygaABWUDwIKyASD27SBJQRgIoOh9REC5/+EGQkIYx4VlqZOW90pZU2w+3UAIkg0AIUg2AIQg2QAQgmQDQAiSDQAhSDYAhCDZABCCZANACJINACFINgCEINkAEIJkA0AIkg0AIUg2AIQg2QAQgmQDQAiSDQAhSDYAhCDZAK0Y7jq/1nDfifZJNsBT/hR1mqZx/lWXzXXW9/O/6Lrl0LLl/PpiOf3r7FKNxZScC7cAbyPZAMm+vrv0bsnNvW09tO3J4V8u4K/Y185L/IMkG/huQ7INwckWYQluTt/t8762fVzTLuySDUQ2LEqOa437qxR/szy1b1HP8/oBki7ZQMtqk8eFIvNQ0UvQU8+/J+eSDfyv2yynpbUo8x5zzEvN19k8VMslG/iQfZjz0+S+02VakCfznPJmSy7ZwEvlNO/LbF4mqPR9W9mwN9BxyQaeVNtcttmW2RxAHsiXin8245INPOCmztIM9x6Rj7O0VD+9hWQDN1Ke6+xsqw1PSRF/6SQu2XBw6/Q8pjx7Sxt+2Luz5kShIAzDGIMLjoq4RRTFBZRCkuj//3HT3RwCM1nURCPi91ykKhep5O5N9znC5USZhn8v4Ug2wF2RPqvxGX0GuJ404ccXHMkGKLBMoHc75Bkgz7jgB2ZwJBugOOITaFwPAygAFfB/+o1kA9yspNC4IVYIjjMej/+QR9IlZVGJ9UiHVTP0xEL/VFXpxHqkIsqiyx4J/WL6/Y4TQh5Fkeq3FsYfL9tu8/igFwB4X+hXzNB54IyprlxWCiqllMLZbq9ns36z2Wg0JqvVaDQY2PZw6LqtVhA8Pfml0gMxjFqttlzW6/X53DQ9z7Km081Gy4/NdDq1LM8zzfmc/srlslYzDIP+8lLJ95+CoNVy3eHQtgeD0Wi1mjQazWa/P1uv24uFXq12epUK/ydA/wOM0f/z08KMKKJ68xyOfANcmZxDo9C/xqHxtiv1reoLSm+/3+TwcnaH1FwuLuWWYlvn0FrTPEU2vzZTyzPn1P2aQcn3n7j3XPvRasKln1Hndao8R/4RiT812VmRDN/7PfINcCRcFMsjh0bhcplLLCFucoalwgFH2OAEc4E1yAEqvDnnvkveue6DuO2Udi67hD28a1p4EPoNcFbqo9B4jtjPOTIa96q6ynFc4zjG1GKkuIik65x1qvqQJ/YGzevcdEl6wUd1LTxVJOtz7M8BTujzHo8q+SY6MFZNTpLcClSRPQvbaXhnY3lSdP+p5cqULj2nEb0QOdfCH0qeq5qDV5wAXJnkObkjhndkHM2Js7xoz/pcZZmTVZQ1gHPm3KwvqeY8no9o5S4xL3dvaNuuhWclMzgSDsX3Vmfk+WhjWmJLmJuN1cgeqi5jew3Xxy2v0ao9Tnl/zWN59zGHJdfCi0rfbrLfYpMON0nirOqMlz8fQ6WZNtk8MrcCKvOybmJghpuz8eYylLsUcroEp9Nx+ZU7roW/LY14Ht4XDvBxm3Ex7CBZaGfb/FR6oKEZB8xQbBuLOs4D+WDF83in0v3FQ3ItzAGpuHrTKDIOF/asdtppmhHnQ2RyrnR02WmrOGNuBkhMea+uKt7We5eaxXOS7I9Eacf3slRHyeE7I/OLhFnKjOvaRxrTZbDOYs1XwWxX6uzhuBngJBuPIu63hrRRny2qNImHZ5DjZH9MlVylHC2/azItJ5tsNTDLQTO6fArebfP0THmm4dlYzj0stgHI+c/FeRC3R2oOd8LT3V6yv8AxT/brNFttkfMblyb5ZS9JZrsIn23+gTGfPcd9dqXPOHgGuBKLE+7aK5rCO5XjNumFSvZXIrJT43mSdPaMqF/DM9uKfToiy2VsrK/PJw00nz5jvQ2QZ3HBB5PmWu99tka/m2QfFokdr93ZS1L2/Va1HXX/3LOyje1lLBavaYrR4suSQtMJdLPBG+4Ho24i0AC3amouJeD9drWS7tCR7G+KwqTwknjx8oaTpVqfDX4Os/+ctU3tYy9vXhM7zq8ahVHga5JC63RHTHbctTqOoAGKyqsbvjto9BcdzVo+tOxJf1F5LMDjV29TROjr/3ZK+v2HvviJVBhixL11Y7km1m+suNCYoQHu3caslbje7U75TwgAV5QtdFAylig0AHxqOud8r5rtKqZvgIvLXhTzH7DlBoAfrdHlHlu10s3hY9IBbsyfbrlDE7QEGktuALgci+bvYEjn4G0KOBboAF9zqM89PftRaDzmEwCuQi6i+y17hIIDxE8SqybP4fbxGG4AyLMN7dBLgTtYNWeScByDQ0E5UufkOdwB8gwAt8+ay4PRBxNueK+cxzeGAxyMc+YdVgHeYQUA9+LfV5R1MIlDbvCps7Q5npz5YlgNN8MAAN5V3A9cm19SxhnHMA4XJFMz77R5bB7Zybuf8fxtAIDv2Vjm0uCO8ziehBwDOZzQZRmZJcyTES+0fRmaLZQZAP62dy/JCQJRFIYL5CkYG0SNEloa0j72v8Gce7XiyKpMQhlz/g3A7KtzJ80myXoHyQMc1vc7pXxIG1r+T7upnA64ZF9Z7mUw02XGGHvusMrzK+bY5buPYrE+LWPhfBW19PxP1rURDthK8gkkF59q8uWoKDvPd54ZY+wVs7VxYyagXzDPN9jnSvqQVmp6SdSnrSuxj1XjGBzrRIbHe9yu3xXk0RmKzBhj7NFI96o6WD/C9V5hx1ZfrA+gPVbbgTt1f7CHxeDVbJY01TfD4rBC3L/dKJZxbDxv1owxxqbqbMX3fMyw28MAxIvx/RbKg3k4X4j0oP60BPZxmlZV0yRJMoP5QD8qy7Z9Cvi7rm1LWBuJtgj/2Ai5MHdYQt3DWtwtVN7dBvZue9ylRd8gFH/HUQQmwYwxxl6989nauq69N8Y453I0okyaS+G94EeF9+ZSpo0oR84ZA2E9vmmt5dmZMcYYY4wxxn6lL4ESLMsm+o0iAAAAAElFTkSuQmCC);\n        background-size: 100% 112px;\n        height: 112px;\n      }\n      h2 { padding-left: 40px; font-weight: lighter; margin: 0; line-height: 100px; font-size: 32px; color: #a6a6a6; text-transform: uppercase; }\n      .error-code { margin-right: 10px; color: #7b7b7b; }\n      .surge { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAABU1BMVEUAAACLf/Fgle92ifBokPByi/B+hfBqj/Cxa/KjcvFal++QfPFYmO+5Z/KsbvKZd/FhlO9flfCKf/G0afJflfBnkfCfdPGrbvKlcfGzavKFgvCQfPG7ZvKvbPJXme+tbfK7ZvJXme+7ZvKZd/G2aPKtbfK7ZvJmkfBYmO+tbfK7ZvJmkfBXme+tbfK8ZvKFgfCrbvG8ZfJlkvCOffGGgfCtbfK7ZfKwa/KqbvG3aPKpcPFhk+9pj/CWefF9hfC0avK3aPJZmO9mkfB8hvBglO+xa/Jjk++rbvGpb/GYePGgc/FwjfB/hfB5h/C6Z/Jelu92ifBbl++8ZvKCg/CvbPJqj/CQfPGbdvGjc/FpkPClcvGncfF0ivCWefFyi/COffGFgfCSe/FXme+UevFtjvCfdPFrj/CtbfKddfFdlu+Kf/FujvCHgPCMfvGcdvGEgvBzi/D5hi2ZAAAAP3RSTlMAAYh4iIeGeId4eHfhh3h4eCQXFBTih4eHeHb34+LNzMyOjYV4cXFxcT4+Pj4kI/bi381fX/z7jo3g4ODLXl6/k2jFAAAEDklEQVRYw63WV1MaYRTG8V3TAykIpGCJmsQYY2IvqegqYMEKFqyIBWP//lc5vO95zu6NmTM7+9y5zvxm32H/LE64JbsGxwa7kk5U+9a61ljrt4g8t2PNrsONBuxdWlqyYm80YDeBluyOBvwwOcnis8hAJsOC7uePHz+7ARBiSPDru3q5XH73VcDspFlYMDlQKNSJbMOD/DabZTIcODFbKBhyXMDGwoM/ZklskG0CmoUGd2ZnLTkKMJe1C4Bub3d3r6sESbSkgDkmH0vdHSZFXdzbO0wCfJ6DCDDZah/01qQK3AYJsJxjEmAX0unSgFtbhgyCZSYBfkc6gxpwfotIc5MA63UmAWaRzpgKnJ/nmwRYKLAYAJnUgSQaUkASDQlQ0lGBJycgASKdsg+C1IBnZyABIh0fNNOC1xABPkE69dd8BenowM1NkAAlHQFzIDXg3CZIgJKOgBB14NwcidckApR0ACIdNcg3CRDpCIh0dODeHkiAks4bvjJaB6kBj0i0JEBJB+AA0mlTgUdMCijpAJxAOuMa8PCQREMCRDoCJgdsOm1JDbhxyCTAF5LOG/9NW6DhTYthzSOZkeYAuEGkObeAEF/d9VsgODfTX61W+zPy34MNJgWUdAD+d5lSqXRDZEbAAyLNuQEiHRXYXCyWDNmPU18dgAQo6WjAP0VaQ7wZAXhFpDk3QElHA96bZrH0kK+cn5NI80FJRwdOMwnw8hwkQElHCTIp4CWRdG4BY5LOew24uMgkwGqVxAYpoKSjAyH6IEiASEcHriwyCfDmxohEApR0dOAKkwDNc25IvjAs6fzWgLsrlgyAIPHst3A6Lc0qcHfXigCLRZAOzszpxBwNuH/LJEBJR0A31kJiS+yOb5cvnz59cQPgPpEN8QFfoQ+cbzJQ/HBs+I7zJoY8r1L5lcDfjxYWiKSbDICo0VEslfa8hphO+SCTPghSAzbl83lD3gd4cWHJW4CSTlED/syzmAZ4fMyigBBV4MxMnkmAp6dMApR0pnUgSIDrRrzwQaSjA5dnQAq4bkkBkY4ShChgxYhEApR0FjXg32WQAlYsKSDSUYIkWhKg5zGJB2kB6axowNVVQ/rgS49mRIBIRwuCBJi3YiUAgtSAU1MQASIdaUfS0YEkWlJAFj2Aks6+DmRSQKQjoKSjAuNTTMYBIh0BJZ0FDdhZm7Lr9EEmASIdHZiK1wwZTwGUdJr4SmUdpKNZor1GZLt8Yz9FOgJKOseOam5fT0+f6wgo6QCUdAAqBxDpCJhGOumQINIB2ORxjffDgZIOwFTappNOhQSRTpP/pm2IQwknLMgkQPktEBpkEiAWFkQ6UYE9tRqTPdGAfQRasi8a0G1nsd11olkibsR4wolqqc54Ld6ZckLtH/57QoU51TO8AAAAAElFTkSuQmCC); }\n      .header .logo { float: right; margin-right: 40px; margin-top: 30px; background-size: 40px 40px; width: 40px; height: 40px; }\n      .wrapper { max-width: 666px; margin: 60px auto 60px; padding: 0 20px; }\n      h1 { color: #5c5c5c; font-size: 24px; text-align: center; }\n      .error-detail { margin-top: 60px; font-family: Verdana, sans-serif; color: #5c5c5c; word-break: break-all; }\n      p { margin-bottom: 10px; }\n      a { color: #5c5c5c; }\n      .footer { text-align: center; color: #e3e3e3; margin-bottom: 40px; }\n      .footer .logo { margin: 0 auto 10px; opacity: 0.2; background-size: 32px 32px; width: 32px; height: 32px; -webkit-filter: grayscale(100%); filter: gray; filter: grayscale(100%); }\n    </style>\n  </head>\n  <body>\n    <div class="header">\n      <div class="logo surge"></div>\n      <h2>Error</h2>\n    </div>\n    <div class="header-bottom"></div>\n    <div class="wrapper">\n      <h1>Connection Closed</h1>\n      <div class="error-detail"><p>\xe8\xae\xbf\xe9\x97\xae\xe7\x9a\x84 URL \xe4\xb8\x8d\xe5\x8f\xaf\xe7\x94\xa8: <br /><b>http://orange-match-beta.staging.codefuture.top/1.0/search/company</b></p><p><br /></p><p>Policy: DIRECT</p><p><br /></p><p>\xe9\x94\x99\xe8\xaf\xaf\xe6\x8f\x8f\xe8\xbf\xb0\xef\xbc\x9a</p><li>Socket closed by remote peer</li></div>     \n    </div>\n    <div class="footer">\n      <div class="logo surge"></div>\n      SGSocketErrorDomain - 7<br />Generated 2021/6/30 17:53 by Surge Mac/3.5.7\n    </div>\n  </body>\n</html>'</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:54:59</td>
+            <td>/1.0/search/university</td>
+            <td>GET</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>503</td>
+            <td>b'<!doctype html>\n<html>\n  <head>\n    <meta charset="utf-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\n    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n    <title>Connection Closed</title>\n    <style>\n      * { margin: 0; -webkit-font-smoothing: antialiased; }\n      body { font-family: Helvetica, sans-serif; font-size: 14px; }\n      .header {\n        background: #f7f7f7;\n        height: 100px;\n      }\n      .header-bottom {\n        margin-top: -95px;\n        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB7IAAADgCAMAAAC5KdklAAAAmVBMVEUAAADr6+vr6+vq6urq6urq6urq6urq6urs7Ozs7Ozs7Ozq6urq6urq6urr6+vq6urw8PDq6ury8vLq6urq6urq6urq6urr6+vr6+vr6+vr6+vq6urq6urq6ur////q6urr6+vu7u7q6urt7e3q6urx8fHr6+vq6ur////q6ur39/fp6enz8/Pr6+v19fXw8PDu7u7t7e3y8vKgM3mXAAAAKnRSTlMARD3a6brSwC4iNY7wl1uvF8YM4syedWhPe273h/wHpGEdtiiCEkqqA1UvgnUUAAALLklEQVR42uzVAQ0AAAzDoOu5f4HT0QRMcA8ABCgbABKUDQAJygaABGUDQIKyASBB2QCQoGwASFA2ACQoGwASlA0ACcoGgARlA0CCsgEgQdkAkKBsAEhQNgAkKBsAEpQNAAnKBoAEZQNAgrIBIEHZAJCgbABIUDYAJCgbABKUDQAJygaABGUDQIKyASBB2QAw9uqABAAAAEDQ/9ftCPSEC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbABaUDQALygaABWUDwIKyAWBB2QCwoGwAWFA2ACwoGwAWlA0AC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAYq8OSAAAAAAE/X/djkBPuKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbABaUDQALygaABWUDwIKyAWBB2QCwoGwAWFA2ACwoGwAWlA0AC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBIPbqgAQAAABA0P/X7Qj0hAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbABaUDQALygaABWUDwIKyAWBB2QCwoGwAWFA2ACwoGwAWlA0AC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbAGKvDkgAAAAABP1/3Y5AT7igbABYUDYALCgbABaUDQALygaABWUDwIKyAWBB2QCwoGwAWFA2ACwoGwAWlA0AC8oGgAVlA8CCsgFgQdkAsKBsAFhQNgAsKBsAFpQNAAvKBoAFZQPAgrIBYEHZALCgbABYUDYALCgbABaUDQALygaABWUDwIKyASD27SBJQRgIoOh9REC5/+EGQkIYx4VlqZOW90pZU2w+3UAIkg0AIUg2AIQg2QAQgmQDQAiSDQAhSDYAhCDZABCCZANACJINACFINgCEINkAEIJkA0AIkg0AIUg2AIQg2QAQgmQDQAiSDQAhSDYAhCDZAK0Y7jq/1nDfifZJNsBT/hR1mqZx/lWXzXXW9/O/6Lrl0LLl/PpiOf3r7FKNxZScC7cAbyPZAMm+vrv0bsnNvW09tO3J4V8u4K/Y185L/IMkG/huQ7INwckWYQluTt/t8762fVzTLuySDUQ2LEqOa437qxR/szy1b1HP8/oBki7ZQMtqk8eFIvNQ0UvQU8+/J+eSDfyv2yynpbUo8x5zzEvN19k8VMslG/iQfZjz0+S+02VakCfznPJmSy7ZwEvlNO/LbF4mqPR9W9mwN9BxyQaeVNtcttmW2RxAHsiXin8245INPOCmztIM9x6Rj7O0VD+9hWQDN1Ke6+xsqw1PSRF/6SQu2XBw6/Q8pjx7Sxt+2Luz5kShIAzDGIMLjoq4RRTFBZRCkuj//3HT3RwCM1nURCPi91ykKhep5O5N9znC5USZhn8v4Ug2wF2RPqvxGX0GuJ404ccXHMkGKLBMoHc75Bkgz7jgB2ZwJBugOOITaFwPAygAFfB/+o1kA9yspNC4IVYIjjMej/+QR9IlZVGJ9UiHVTP0xEL/VFXpxHqkIsqiyx4J/WL6/Y4TQh5Fkeq3FsYfL9tu8/igFwB4X+hXzNB54IyprlxWCiqllMLZbq9ns36z2Wg0JqvVaDQY2PZw6LqtVhA8Pfml0gMxjFqttlzW6/X53DQ9z7Km081Gy4/NdDq1LM8zzfmc/srlslYzDIP+8lLJ95+CoNVy3eHQtgeD0Wi1mjQazWa/P1uv24uFXq12epUK/ydA/wOM0f/z08KMKKJ68xyOfANcmZxDo9C/xqHxtiv1reoLSm+/3+TwcnaH1FwuLuWWYlvn0FrTPEU2vzZTyzPn1P2aQcn3n7j3XPvRasKln1Hndao8R/4RiT812VmRDN/7PfINcCRcFMsjh0bhcplLLCFucoalwgFH2OAEc4E1yAEqvDnnvkveue6DuO2Udi67hD28a1p4EPoNcFbqo9B4jtjPOTIa96q6ynFc4zjG1GKkuIik65x1qvqQJ/YGzevcdEl6wUd1LTxVJOtz7M8BTujzHo8q+SY6MFZNTpLcClSRPQvbaXhnY3lSdP+p5cqULj2nEb0QOdfCH0qeq5qDV5wAXJnkObkjhndkHM2Js7xoz/pcZZmTVZQ1gHPm3KwvqeY8no9o5S4xL3dvaNuuhWclMzgSDsX3Vmfk+WhjWmJLmJuN1cgeqi5jew3Xxy2v0ao9Tnl/zWN59zGHJdfCi0rfbrLfYpMON0nirOqMlz8fQ6WZNtk8MrcCKvOybmJghpuz8eYylLsUcroEp9Nx+ZU7roW/LY14Ht4XDvBxm3Ex7CBZaGfb/FR6oKEZB8xQbBuLOs4D+WDF83in0v3FQ3ItzAGpuHrTKDIOF/asdtppmhHnQ2RyrnR02WmrOGNuBkhMea+uKt7We5eaxXOS7I9Eacf3slRHyeE7I/OLhFnKjOvaRxrTZbDOYs1XwWxX6uzhuBngJBuPIu63hrRRny2qNImHZ5DjZH9MlVylHC2/azItJ5tsNTDLQTO6fArebfP0THmm4dlYzj0stgHI+c/FeRC3R2oOd8LT3V6yv8AxT/brNFttkfMblyb5ZS9JZrsIn23+gTGfPcd9dqXPOHgGuBKLE+7aK5rCO5XjNumFSvZXIrJT43mSdPaMqF/DM9uKfToiy2VsrK/PJw00nz5jvQ2QZ3HBB5PmWu99tka/m2QfFokdr93ZS1L2/Va1HXX/3LOyje1lLBavaYrR4suSQtMJdLPBG+4Ho24i0AC3amouJeD9drWS7tCR7G+KwqTwknjx8oaTpVqfDX4Os/+ctU3tYy9vXhM7zq8ahVHga5JC63RHTHbctTqOoAGKyqsbvjto9BcdzVo+tOxJf1F5LMDjV29TROjr/3ZK+v2HvviJVBhixL11Y7km1m+suNCYoQHu3caslbje7U75TwgAV5QtdFAylig0AHxqOud8r5rtKqZvgIvLXhTzH7DlBoAfrdHlHlu10s3hY9IBbsyfbrlDE7QEGktuALgci+bvYEjn4G0KOBboAF9zqM89PftRaDzmEwCuQi6i+y17hIIDxE8SqybP4fbxGG4AyLMN7dBLgTtYNWeScByDQ0E5UufkOdwB8gwAt8+ay4PRBxNueK+cxzeGAxyMc+YdVgHeYQUA9+LfV5R1MIlDbvCps7Q5npz5YlgNN8MAAN5V3A9cm19SxhnHMA4XJFMz77R5bB7Zybuf8fxtAIDv2Vjm0uCO8ziehBwDOZzQZRmZJcyTES+0fRmaLZQZAP62dy/JCQJRFIYL5CkYG0SNEloa0j72v8Gce7XiyKpMQhlz/g3A7KtzJ80myXoHyQMc1vc7pXxIG1r+T7upnA64ZF9Z7mUw02XGGHvusMrzK+bY5buPYrE+LWPhfBW19PxP1rURDthK8gkkF59q8uWoKDvPd54ZY+wVs7VxYyagXzDPN9jnSvqQVmp6SdSnrSuxj1XjGBzrRIbHe9yu3xXk0RmKzBhj7NFI96o6WD/C9V5hx1ZfrA+gPVbbgTt1f7CHxeDVbJY01TfD4rBC3L/dKJZxbDxv1owxxqbqbMX3fMyw28MAxIvx/RbKg3k4X4j0oP60BPZxmlZV0yRJMoP5QD8qy7Z9Cvi7rm1LWBuJtgj/2Ai5MHdYQt3DWtwtVN7dBvZue9ylRd8gFH/HUQQmwYwxxl6989nauq69N8Y453I0okyaS+G94EeF9+ZSpo0oR84ZA2E9vmmt5dmZMcYYY4wxxn6lL4ESLMsm+o0iAAAAAElFTkSuQmCC);\n        background-size: 100% 112px;\n        height: 112px;\n      }\n      h2 { padding-left: 40px; font-weight: lighter; margin: 0; line-height: 100px; font-size: 32px; color: #a6a6a6; text-transform: uppercase; }\n      .error-code { margin-right: 10px; color: #7b7b7b; }\n      .surge { background-image: url(data:image/png;base64,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); }\n      .header .logo { float: right; margin-right: 40px; margin-top: 30px; background-size: 40px 40px; width: 40px; height: 40px; }\n      .wrapper { max-width: 666px; margin: 60px auto 60px; padding: 0 20px; }\n      h1 { color: #5c5c5c; font-size: 24px; text-align: center; }\n      .error-detail { margin-top: 60px; font-family: Verdana, sans-serif; color: #5c5c5c; word-break: break-all; }\n      p { margin-bottom: 10px; }\n      a { color: #5c5c5c; }\n      .footer { text-align: center; color: #e3e3e3; margin-bottom: 40px; }\n      .footer .logo { margin: 0 auto 10px; opacity: 0.2; background-size: 32px 32px; width: 32px; height: 32px; -webkit-filter: grayscale(100%); filter: gray; filter: grayscale(100%); }\n    </style>\n  </head>\n  <body>\n    <div class="header">\n      <div class="logo surge"></div>\n      <h2>Error</h2>\n    </div>\n    <div class="header-bottom"></div>\n    <div class="wrapper">\n      <h1>Connection Closed</h1>\n      <div class="error-detail"><p>\xe8\xae\xbf\xe9\x97\xae\xe7\x9a\x84 URL \xe4\xb8\x8d\xe5\x8f\xaf\xe7\x94\xa8: <br /><b>http://orange-match-beta.staging.codefuture.top/1.0/search/university</b></p><p><br /></p><p>Policy: DIRECT</p><p><br /></p><p>\xe9\x94\x99\xe8\xaf\xaf\xe6\x8f\x8f\xe8\xbf\xb0\xef\xbc\x9a</p><li>Socket closed by remote peer</li></div>     \n    </div>\n    <div class="footer">\n      <div class="logo surge"></div>\n      SGSocketErrorDomain - 7<br />Generated 2021/6/30 17:54 by Surge Mac/3.5.7\n    </div>\n  </body>\n</html>'</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:55:59</td>
+            <td>/1.0/widgetEvents/list</td>
+            <td>GET</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>503</td>
+            <td>b'<!doctype html>\n<html>\n  <head>\n    <meta charset="utf-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\n    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n    <title>Connection Closed</title>\n    <style>\n      * { margin: 0; -webkit-font-smoothing: antialiased; }\n      body { font-family: Helvetica, sans-serif; font-size: 14px; }\n      .header {\n        background: #f7f7f7;\n        height: 100px;\n      }\n      .header-bottom {\n        margin-top: -95px;\n        background-image: url(data:image/png;base64,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);\n        background-size: 100% 112px;\n        height: 112px;\n      }\n      h2 { padding-left: 40px; font-weight: lighter; margin: 0; line-height: 100px; font-size: 32px; color: #a6a6a6; text-transform: uppercase; }\n      .error-code { margin-right: 10px; color: #7b7b7b; }\n      .surge { background-image: url(data:image/png;base64,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); }\n      .header .logo { float: right; margin-right: 40px; margin-top: 30px; background-size: 40px 40px; width: 40px; height: 40px; }\n      .wrapper { max-width: 666px; margin: 60px auto 60px; padding: 0 20px; }\n      h1 { color: #5c5c5c; font-size: 24px; text-align: center; }\n      .error-detail { margin-top: 60px; font-family: Verdana, sans-serif; color: #5c5c5c; word-break: break-all; }\n      p { margin-bottom: 10px; }\n      a { color: #5c5c5c; }\n      .footer { text-align: center; color: #e3e3e3; margin-bottom: 40px; }\n      .footer .logo { margin: 0 auto 10px; opacity: 0.2; background-size: 32px 32px; width: 32px; height: 32px; -webkit-filter: grayscale(100%); filter: gray; filter: grayscale(100%); }\n    </style>\n  </head>\n  <body>\n    <div class="header">\n      <div class="logo surge"></div>\n      <h2>Error</h2>\n    </div>\n    <div class="header-bottom"></div>\n    <div class="wrapper">\n      <h1>Connection Closed</h1>\n      <div class="error-detail"><p>\xe8\xae\xbf\xe9\x97\xae\xe7\x9a\x84 URL \xe4\xb8\x8d\xe5\x8f\xaf\xe7\x94\xa8: <br /><b>http://orange-match-beta.staging.codefuture.top/1.0/widgetEvents/list</b></p><p><br /></p><p>Policy: DIRECT</p><p><br /></p><p>\xe9\x94\x99\xe8\xaf\xaf\xe6\x8f\x8f\xe8\xbf\xb0\xef\xbc\x9a</p><li>Socket closed by remote peer</li></div>     \n    </div>\n    <div class="footer">\n      <div class="logo surge"></div>\n      SGSocketErrorDomain - 7<br />Generated 2021/6/30 17:55 by Surge Mac/3.5.7\n    </div>\n  </body>\n</html>'</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:55:59</td>
+            <td>/1.0/account/toggleGhostMode</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{'id': '5ff70e36df391849e5a2ede5', 'gender': 'FEMALE', 'birthday': '1981-09-17', 'age': '39', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fuf0OzOba-78FvKU1aZ98smq_wkb.jpg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 784, 'height': 1045, 'cropperPosX': 0.22166666666666668, 'cropperPosY': 0.16875}, 'screenName': '7001女', 'isVIP': False, 'university': '巴黎第十一大学', 'hometown': {'province': '安徽', 'city': '安庆'}, 'avatarVerified': 'pass', 'height': 155, 'company': '三一重工', 'job': '产品', 'industry': '互联网', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': ['Tom'], 'visitedCities': ['新德里'], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 100, 'aboutme': '她咯来咯套路我们去来了来了\n我\n我\n我\n我\n我\n\n我\n我\n我吗\n我', 'interestedEvents': [], 'outlooksOnLove': [{'id': '5eb281255cec6c8287024e4b', 'name': '爱要慢慢来', 'gender': 'FEMALE', 'iconEmoji': '😌'}, {'id': '5eb281255cec6c8287024e50', 'name': '更倾向颜性恋', 'gender': 'FEMALE', 'iconEmoji': '👀'}, {'id': '5eb281255cec6c8287024e55', 'name': '拒绝冷暴力', 'gender': 'FEMALE', 'iconEmoji': '💆🏻\u200d♀️'}], 'lonelyTag': {'id': '5eaad0d19edf381521a76aaf', 'name': '打算终结母胎solo'}, 'title': {'prefix': {'id': '5eb281d95cec6c8287024e6d', 'name': '爱国敬业的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [{'id': '607f969ea1f1440018e2854c', 'picUrl': 'https://image-qiniu.jellow.site/FpBXreBa-VX5va3qesgLttz23ycU.png?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 400, 'height': 400}, {'id': '607f9685a1f1440018e2854a', 'picUrl': 'https://image-qiniu.jellow.site/FjLBCglCwsqfWmzxHQb3xIfttmeO.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '607f94a6a1f1440018e28548', 'picUrl': 'https://image-qiniu.jellow.site/FpBXreBa-VX5va3qesgLttz23ycU.png?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 400, 'height': 400}, {'id': '608559e044a93100185324ff', 'picUrl': 'https://image-qiniu.jellow.site/FimtuntawKvptQylsoupPLi-TwMd.jpg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 720, 'height': 915}, {'id': '607ed88bd235f200181df198', 'picUrl': 'https://image-qiniu.jellow.site/FjLBCglCwsqfWmzxHQb3xIfttmeO.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '607ed7d4d235f200181df195', 'picUrl': 'https://image-qiniu.jellow.site/FudwX80F2vUEUQPebxR23H5_XE54.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '607f9693a1f1440018e2854b', 'picUrl': 'https://image-qiniu.jellow.site/FpHJJyS2itQbpl7GpUtsEqWMh7sk.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '60d5491a38c1690011901c6c', 'picUrl': 'https://image-qiniu.jellow.site/FtmU1hI8bhH4RdCQ5UeWJDMnS-K8.jpg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 4032, 'height': 3024}, {'id': '60d4352e38c1690011901c6b', 'picUrl': 'https://image-qiniu.jellow.site/Fsu48K5bk5I5Fep3DdriaTviJOnX.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2340, 'height': 1080}, {'id': '60d4352e38c1690011901c69', 'picUrl': 'https://image-qiniu.jellow.site/FjFwYUVtCWzGpMG0NYScPM65kV9b.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '60d4351d38c1690011901c68', 'picUrl': 'https://image-qiniu.jellow.site/Frge8jhzuyaXCIUV1mtMSzyCgtiS.png?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1096, 'height': 691}], 'totalCount': 11}, 'wechat': 'xzthemeofsss', 'zodiac': {'name': '处女座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, 'socialActivities': ['打王者、吃鸡'], 'quiz': {'answered': True, 'answeredCount': 10, 'totalQuestionCount': 9}, 'abtestInfo': '{}', 'isGhost': False, 'avatarVerifiedTime': '2021-04-22T09:55:36.588Z', 'survivalStatus': 'alive', 'hitPoints': 100, 'hitPointsDescription': '💔生命值\x08耗尽，就无法继续使用橙App啦', 'aliveSince': '2021-06-30T05:38:53.906Z', 'killCount': 3, 'revivable': True, 'canEditBirthday': False, 'availableFeatures': ['internalUsers']}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:55:59</td>
+            <td>/1.0/account/sms/getCode</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'areaCode': '+86'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:00</td>
+            <td>/1.0/account/sms/getCode</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'mobilePhoneNumber': '14012347001'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:00</td>
+            <td>/1.0/charges/create</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'id': '5f20266424a80a052a72f490'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:00</td>
+            <td>/1.0/charges/create</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'provider': 'WECHAT_PAY_APP'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:00</td>
+            <td>/1.0/charges/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{'data': [{'id': '60dc2420752dfd00113d38e3', 'createdAt': '2021-06-30T07:58:24.095Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 4442}, {'id': '60dc211f8e2a84001227fd66', 'createdAt': '2021-06-30T07:45:35.712Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 4542}, {'id': '60dc20088e2a84001227fcf4', 'createdAt': '2021-06-30T07:40:56.168Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 4642}, {'id': '60dc1fc3752dfd00113d386a', 'createdAt': '2021-06-30T07:39:47.871Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 4742}, {'id': '60dc07aa752dfd00113d385c', 'createdAt': '2021-06-30T05:56:58.591Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 4842}, {'id': '60dc07758e2a84001227fcc5', 'createdAt': '2021-06-30T05:56:05.231Z', 'action': '重启对话 * 10次', 'amount': -700, 'walletBalance': 4942}, {'id': '60dc0773752dfd00113d3853', 'createdAt': '2021-06-30T05:56:03.118Z', 'action': '重启对话 * 10次', 'amount': -700, 'walletBalance': 5642}, {'id': '60dc07718e2a84001227fcc3', 'createdAt': '2021-06-30T05:56:01.210Z', 'action': '重启对话 * 10次', 'amount': -700, 'walletBalance': 6342}, {'id': '60dc076f752dfd00113d3851', 'createdAt': '2021-06-30T05:55:59.074Z', 'action': '重启对话 * 10次', 'amount': -700, 'walletBalance': 7042}, {'id': '60dc076c8e2a84001227fcc1', 'createdAt': '2021-06-30T05:55:56.769Z', 'action': '重启对话 * 10次', 'amount': -700, 'walletBalance': 7742}, {'id': '60db242f752dfd00113d384e', 'createdAt': '2021-06-29T13:46:23.575Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 8442}, {'id': '60db228d752dfd00113d3837', 'createdAt': '2021-06-29T13:39:25.994Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 8542}, {'id': '60d588fa38c1690011901c95', 'createdAt': '2021-06-25T07:42:50.367Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 8642}, {'id': '60d588eead70980011d9449c', 'createdAt': '2021-06-25T07:42:38.610Z', 'action': '很想认识TA * 1次', 'amount': -100, 'walletBalance': 8742}, {'id': '60d552bd38c1690011901c7d', 'createdAt': '2021-06-25T03:51:25.558Z', 'action': '重启对话 * 1次', 'amount': -100, 'walletBalance': 8842}, {'id': '60d54dd738c1690011901c71', 'createdAt': '2021-06-25T03:30:31.557Z', 'action': '赠送', 'amount': 10, 'walletBalance': 8942}, {'id': '60cad483a29c150012794f67', 'createdAt': '2021-06-17T04:50:11.889Z', 'action': '赠送', 'amount': 10, 'walletBalance': 8932}, {'id': '608a6d8de04a420018702326', 'createdAt': '2021-04-29T08:25:49.242Z', 'action': '重启对话 * 1次', 'amount': -100, 'walletBalance': 8922}, {'id': '60868f1332d4b4001819fdcd', 'createdAt': '2021-04-26T09:59:47.068Z', 'action': '赠送', 'amount': 10, 'walletBalance': 9022}, {'id': '6085590c44a93100185324fe', 'createdAt': '2021-04-25T11:57:00.468Z', 'action': '赠送', 'amount': 10, 'walletBalance': 9012}]}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:00</td>
+            <td>/1.0/charges/validateIAPReceipt</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '充值服务不稳定，橙币到账延迟，若充值失败，我们会与你联系退款'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:00</td>
+            <td>/1.0/config/appGet</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:01</td>
+            <td>/1.0/im/interaction/pat</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'conversationId': '60cc45740ac62b00118d93a5'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:01</td>
+            <td>/1.0/im/conversation/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'code': 9, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:01</td>
+            <td>/1.0/im/message/send</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'type': 'text', 'conversationId': '60cc45740ac62b00118d93a5'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>404</td>
+            <td>b'Not Found'</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:01</td>
+            <td>/1.0/orders/create</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:01</td>
+            <td>/1.0/profile/avatarComparison</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:01</td>
+            <td>/1.0/profile/deletePhoto</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{'userInfo': {'id': '5ff70e36df391849e5a2ede5', 'gender': 'FEMALE', 'birthday': '1981-09-17', 'age': '39', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fuf0OzOba-78FvKU1aZ98smq_wkb.jpg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 784, 'height': 1045, 'cropperPosX': 0.22166666666666668, 'cropperPosY': 0.16875}, 'screenName': '7001女', 'isVIP': False, 'university': '巴黎第十一大学', 'hometown': {'province': '安徽', 'city': '安庆'}, 'avatarVerified': 'pass', 'height': 155, 'company': '三一重工', 'job': '产品', 'industry': '互联网', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': ['Tom'], 'visitedCities': ['新德里'], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 100, 'aboutme': '她咯来咯套路我们去来了来了\n我\n我\n我\n我\n我\n\n我\n我\n我吗\n我', 'interestedEvents': [], 'outlooksOnLove': [{'id': '5eb281255cec6c8287024e4b', 'name': '爱要慢慢来', 'gender': 'FEMALE', 'iconEmoji': '😌'}, {'id': '5eb281255cec6c8287024e50', 'name': '更倾向颜性恋', 'gender': 'FEMALE', 'iconEmoji': '👀'}, {'id': '5eb281255cec6c8287024e55', 'name': '拒绝冷暴力', 'gender': 'FEMALE', 'iconEmoji': '💆🏻\u200d♀️'}], 'lonelyTag': {'id': '5eaad0d19edf381521a76aaf', 'name': '打算终结母胎solo'}, 'title': {'prefix': {'id': '5eb281d95cec6c8287024e6d', 'name': '爱国敬业的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [{'id': '607f969ea1f1440018e2854c', 'picUrl': 'https://image-qiniu.jellow.site/FpBXreBa-VX5va3qesgLttz23ycU.png?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 400, 'height': 400}, {'id': '607f9685a1f1440018e2854a', 'picUrl': 'https://image-qiniu.jellow.site/FjLBCglCwsqfWmzxHQb3xIfttmeO.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '607f94a6a1f1440018e28548', 'picUrl': 'https://image-qiniu.jellow.site/FpBXreBa-VX5va3qesgLttz23ycU.png?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 400, 'height': 400}, {'id': '608559e044a93100185324ff', 'picUrl': 'https://image-qiniu.jellow.site/FimtuntawKvptQylsoupPLi-TwMd.jpg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 720, 'height': 915}, {'id': '607ed88bd235f200181df198', 'picUrl': 'https://image-qiniu.jellow.site/FjLBCglCwsqfWmzxHQb3xIfttmeO.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '607ed7d4d235f200181df195', 'picUrl': 'https://image-qiniu.jellow.site/FudwX80F2vUEUQPebxR23H5_XE54.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '607f9693a1f1440018e2854b', 'picUrl': 'https://image-qiniu.jellow.site/FpHJJyS2itQbpl7GpUtsEqWMh7sk.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '60d5491a38c1690011901c6c', 'picUrl': 'https://image-qiniu.jellow.site/FtmU1hI8bhH4RdCQ5UeWJDMnS-K8.jpg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 4032, 'height': 3024}, {'id': '60d4352e38c1690011901c6b', 'picUrl': 'https://image-qiniu.jellow.site/Fsu48K5bk5I5Fep3DdriaTviJOnX.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2340, 'height': 1080}, {'id': '60d4352e38c1690011901c69', 'picUrl': 'https://image-qiniu.jellow.site/FjFwYUVtCWzGpMG0NYScPM65kV9b.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340}, {'id': '60d4351d38c1690011901c68', 'picUrl': 'https://image-qiniu.jellow.site/Frge8jhzuyaXCIUV1mtMSzyCgtiS.png?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1096, 'height': 691}], 'totalCount': 11}, 'wechat': 'xzthemeofsss', 'zodiac': {'name': '处女座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, 'socialActivities': ['打王者、吃鸡'], 'quiz': {'answered': True, 'answeredCount': 10, 'totalQuestionCount': 9}, 'abtestInfo': '{}', 'isGhost': False, 'avatarVerifiedTime': '2021-04-22T09:55:36.588Z', 'survivalStatus': 'alive', 'hitPoints': 100, 'hitPointsDescription': '💔生命值\x08耗尽，就无法继续使用橙App啦', 'aliveSince': '2021-06-30T05:38:53.906Z', 'killCount': 3, 'revivable': True, 'canEditBirthday': False, 'availableFeatures': ['internalUsers']}}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:02</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '[]', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'name': '7001', 'photos': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:02</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '[]', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'name': '7001', 'photoIds': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:02</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '[]', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'photos': '[]', 'photoIds': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:02</td>
+            <td>/1.0/profile/uploadAvatar</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:02</td>
+            <td>/1.0/propertyDetails/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'voucherType': 'superlike'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{'data': [{'id': '60dc2420752dfd00113d38e2', 'createdAt': '2021-06-30T07:58:24.089Z', 'voucherLeft': 10, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '60dc211f8e2a84001227fd65', 'createdAt': '2021-06-30T07:45:35.706Z', 'voucherLeft': 9, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '60dc20088e2a84001227fcf3', 'createdAt': '2021-06-30T07:40:56.163Z', 'voucherLeft': 8, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '60dc1fc3752dfd00113d3869', 'createdAt': '2021-06-30T07:39:47.866Z', 'voucherLeft': 7, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '60dc07aa752dfd00113d385b', 'createdAt': '2021-06-30T05:56:58.586Z', 'voucherLeft': 6, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '60db242f752dfd00113d384d', 'createdAt': '2021-06-29T13:46:23.567Z', 'voucherLeft': 5, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '60db228d752dfd00113d3836', 'createdAt': '2021-06-29T13:39:25.988Z', 'voucherLeft': 4, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '60d588fa38c1690011901c94', 'createdAt': '2021-06-25T07:42:50.168Z', 'voucherLeft': 3, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '60d588eead70980011d9449b', 'createdAt': '2021-06-25T07:42:38.602Z', 'voucherLeft': 2, 'voucherChange': 1, 'text': '兑换很想认识 * 1次'}, {'id': '6085314444a9310018532255', 'createdAt': '2021-04-25T09:07:16.010Z', 'voucherLeft': 1, 'voucherChange': -1, 'text': '很想认识了8013'}, {'id': '60852fe244a931001853222c', 'createdAt': '2021-04-25T09:01:22.036Z', 'voucherLeft': 2, 'voucherChange': -1, 'text': '很想认识了614'}, {'id': '6084e48daffeb00018e01535', 'createdAt': '2021-04-25T03:39:57.346Z', 'voucherLeft': 3, 'voucherChange': -1, 'text': '很想认识了615'}, {'id': '6084e0b4affeb00018e014db', 'createdAt': '2021-04-25T03:23:32.425Z', 'voucherLeft': 4, 'voucherChange': -1, 'text': '很想认识了8043'}, {'id': '6084e0b2affeb00018e014d9', 'createdAt': '2021-04-25T03:23:30.743Z', 'voucherLeft': 5, 'voucherChange': 5, 'text': '兑换很想认识 * 5次'}, {'id': '6082aeeb79fb3e001896c598', 'createdAt': '2021-04-23T11:26:35.503Z', 'voucherLeft': 0, 'voucherChange': -1, 'text': '很想认识了jjjc'}, {'id': '6082ad7d79fb3e001896c595', 'createdAt': '2021-04-23T11:20:29.879Z', 'voucherLeft': 1, 'voucherChange': -1, 'text': '很想认识了8056'}, {'id': '6082ad4779fb3e001896c593', 'createdAt': '2021-04-23T11:19:35.296Z', 'voucherLeft': 2, 'voucherChange': -1, 'text': '很想认识了璀璨的宝石'}, {'id': '6082acff79fb3e001896c590', 'createdAt': '2021-04-23T11:18:23.188Z', 'voucherLeft': 3, 'voucherChange': -1, 'text': '很想认识了00100129'}, {'id': '6082acd879fb3e001896c58e', 'createdAt': '2021-04-23T11:17:44.985Z', 'voucherLeft': 4, 'voucherChange': -1, 'text': '很想认识了JC'}, {'id': '6082acbf79fb3e001896c586', 'createdAt': '2021-04-23T11:17:19.696Z', 'voucherLeft': 5, 'voucherChange': 5, 'text': '兑换很想认识 * 5次'}, {'id': '6082ac9479fb3e001896c582', 'createdAt': '2021-04-23T11:16:36.373Z', 'voucherLeft': 0, 'voucherChange': -1, 'text': '很想认识了8066'}, {'id': '6082aaf779fb3e001896c56b', 'createdAt': '2021-04-23T11:09:43.676Z', 'voucherLeft': 1, 'voucherChange': -1, 'text': '很想认识了8066'}, {'id': '6082aae379fb3e001896c569', 'createdAt': '2021-04-23T11:09:23.181Z', 'voucherLeft': 2, 'voucherChange': -1, 'text': '很想认识了8044'}, {'id': '6048767b4627f100188a6041', 'createdAt': '2021-03-10T07:34:19.738Z', 'voucherLeft': 3, 'voucherChange': -1, 'text': '很想认识了8098'}, {'id': '6048763a4627f100188a600c', 'createdAt': '2021-03-10T07:33:14.436Z', 'voucherLeft': 4, 'voucherChange': -1, 'text': '很想认识了14086'}, {'id': '604876384627f100188a600a', 'createdAt': '2021-03-10T07:33:12.691Z', 'voucherLeft': 5, 'voucherChange': 5, 'text': '兑换很想认识 * 5次'}]}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-30 17:56:02</td>
+            <td>/1.0/propertyDetails/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'loadMoreKey': '""'}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{'data': []}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-06-30 17:50:58</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'payload': {'text': 'test'}, 'conversationId': '60cc45740ac62b00118d93a5'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            </table>
+        </body>
+        </html>

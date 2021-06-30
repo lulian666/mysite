@@ -96,7 +96,7 @@ class TestCaseRequest:
             else:
                 break
         report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
-        return case_list, try_refresh_token
+        return result, case_list, try_refresh_token
 
     def save_report_info(self, result, case):
         if result.status_code != case[5]:
@@ -155,10 +155,14 @@ def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, ca
 
 
 def request(case, host, header):
+    url = host + case[1]
+    # data = json.dumps(case[4]) if len(case[4]) == 0 else case[4]
+    # Content_Length = Buffer.byteLength(JSON.stringify(param),'utf8')
+    print('header:', header)
     if case[2] == 'get' or case[2] == 'GET':
-        result = requests.get(host + case[1], headers=header, params=case[3], data=case[4])
+        result = requests.get(url=url, headers=header, params=case[3], data=json.dumps(case[4]))
     else:
-        result = requests.post(host + case[1], data=case[4], headers=header)
+        result = requests.post(url=url, data=json.dumps(case[4]), headers=header)
     return result
 
 

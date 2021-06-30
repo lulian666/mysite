@@ -197,7 +197,7 @@ def apis_manage(request):
             else:
                 # 这里加一遍过滤，not_for_test字段是1的不参与测试
                 api_list = api_list.filter(not_for_test__isnull=True)
-                try_refresh_token = test_case(api_list, username)
+                result, try_refresh_token = test_case(api_list, username)
                 fail_message = '更新token失败，请检查access-token是否已经过期'
                 if not try_refresh_token:
                     apis_count, apis_page_list = paginator(request, api_list, 12)
@@ -220,6 +220,15 @@ def apis_manage(request):
                            "test_result_list": test_result_list, "test_type_list": test_type_list,
                            "selected_test_type": selected_test_type, "selected_test_result": selected_test_result,
                            "list_count": len(file_list)})
+        elif 'debug' in request.POST:
+            case_id = request.POST.get('case_id')
+            api_list = api_list.filter(id=case_id)
+            result, try_refresh_token = test_case(api_list, username)
+            show_result = '状态码：' + str(result.status_code) + '\n' + '返回结果：' + result.text
+            if try_refresh_token:
+                return HttpResponse(show_result)
+            else:
+                return HttpResponse(show_result)
 
     apis_count, apis_page_list = paginator(request, api_list, 12)
     return render(request, 'apitest/apis_manage.html',
@@ -242,7 +251,7 @@ def test_case(model_list, tester):
 
     # 进行测试
     tester = TestCaseRequest(tester, product_id)
-    case_list, try_refresh_token = tester.single_api_test(case_list, host)
+    result, case_list, try_refresh_token = tester.single_api_test(case_list, host)
 
     # 用pytest进行测试
     # save_case_locally(case_list, host)
@@ -255,7 +264,7 @@ def test_case(model_list, tester):
     # 将测试结果更新数据库（如果没有遇到401问题）
     if try_refresh_token:
         ManageSql.update_case_to_sql(case_list)
-    return try_refresh_token
+    return result, try_refresh_token
 
 @login_required
 def test_report(request):

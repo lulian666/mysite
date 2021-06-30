@@ -95,11 +95,10 @@
                             <th class="th" style="width: 300px">请求 body</th>
                             <th class="th">方法</th>
                             <th class="th">预期状态码</th>
-                            <th class="th">预期结果</th>
                             <th class="th">测试通过？</th>
                             <th class="th">测试状态码</th>
-                            <th class="th">测试结果</th>
                             <th class="th">不测试标记</th>
+                            <th class="th">调试</th>
                             <th class="th">编辑</th>
                             <th class="th">删除</th>
                         </tr>
@@ -115,10 +114,8 @@
                                 <td class="td">{{ apis.api_body_value }}</td>
                                 <td class="td">{{ apis.api_method }}</td>
                                 <td class="td">{{ apis.api_expect_status_code }}</td>
-                                <td class="td">{{ apis.api_expect_response }}</td>
                                 <td class="td">{{ apis.test_result }}</td>
                                 <td class="td">{{ apis.api_response_status_code }}</td>
-                                <td class="td">{{ apis.api_response }}</td>
                                 <td class="td">
                                     {% if apis.not_for_test %}
                                         <label><input name="not_for_test" type="checkbox" checked onclick="not_for_test(this, {{ apis.id }})"/>不参与单一接口测试</label>
@@ -126,6 +123,7 @@
                                         <label><input name="not_for_test" type="checkbox" onclick="not_for_test(this, {{ apis.id }})"/>不参与单一接口测试</label>
                                     {% endif %}
                                 </td>
+                                <td class="td"><button style="padding-inline: 15px" onclick="debug({{ apis.id }}, {{ selected_test_result }}, {{ selected_product_id }})">测试此接口</button></td>
                                 <td class="td" style="padding: 10px"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/change/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-changelink.svg"/></a></td>
                                 <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Apis" href="/admin/apitest/apis/{{ apis.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                             </tr>
@@ -184,6 +182,17 @@
 
     function show_loading() {
         alert('正在执行测试，测试完毕后会自动跳转报告列表页，请耐心等待！')
+    }
+
+    function debug(case_id, selected_test_result, selected_product_id){
+        $.ajax({
+            url: "{% url 'apitest:apis_manage' %}",
+            type: "POST",
+            data: {"case_id": case_id, 'debug': '', 'selected_test_result': selected_test_result, 'selected_product_id': selected_product_id},
+            success: function (result){
+                alert(result)
+            },
+        })
     }
 </script>
 </body>
