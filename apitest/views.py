@@ -187,16 +187,24 @@ def apis_manage(request):
     if request.method == 'POST':
         api_list, selected_test_result, selected_product_id = model_list_filter(request.POST, api_list)
         if 'run_test' in request.POST:
-            # 这里加一遍过滤，not_for_test字段是1的不参与测试
-            api_list = api_list.filter(not_for_test__isnull=True)
-            try_refresh_token = test_case(api_list, username)
-            fail_message = '更新token失败，请检查access-token是否已经过期'
-            if not try_refresh_token:
+            if int(selected_product_id) == -1:
+                fail_message = '还没选择项目'
                 apis_count, apis_page_list = paginator(request, api_list, 12)
                 return render(request, 'apitest/apis_manage.html',
                               {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                                'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
+            else:
+                # 这里加一遍过滤，not_for_test字段是1的不参与测试
+                api_list = api_list.filter(not_for_test__isnull=True)
+                try_refresh_token = test_case(api_list, username)
+                fail_message = '更新token失败，请检查access-token是否已经过期'
+                if not try_refresh_token:
+                    apis_count, apis_page_list = paginator(request, api_list, 12)
+                    return render(request, 'apitest/apis_manage.html',
+                                  {'api_list': apis_page_list, "product_list": product_list, 'username': username,
+                                   'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                                   'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
             # 以下是跳转报告列表页所需数据
             root = os.path.abspath(".")
             filepath = os.path.join(root, "apitest/templates/report")
@@ -442,7 +450,8 @@ def variables_manage(request):
     variables_list = Variables.objects.all()
     product_list = Product.objects.all()
     selected_product_id = '-1'
-    null_value_only = ""
+    null_value_only = ''
+    fail_message = ''
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
 
     if 'selected_product_id' in request.GET:
@@ -482,7 +491,7 @@ def variables_manage(request):
         variables_list, selected_product_id, null_value_only = model_list_filter2(request.POST, variables_list)
         if 'birth' in request.POST:
             selected_product_id = request.POST.get("selected_product_id")
-            if selected_product_id != "-1":
+            if int(selected_product_id) != -1:
                 ManageSql.update_variable_in_case(selected_product_id)
                 # 跳转去单一接口列表页
                 product_list = Product.objects.all()
@@ -494,12 +503,14 @@ def variables_manage(request):
                               {'api_list': apis_page_list, "product_list": product_list, "username": username,
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                                'selected_product_id': int(selected_product_id), 'apis_count': apis_count})
-
+            else:
+                fail_message = '还没选择项目'
     variables_count, variables_page_list = paginator(request, variables_list, 12)
     return render(request, "apitest/variables_manage.html",
                   {"username": username, "variables": variables_page_list, "variables_count": variables_count,
                    "warning": "只点击一次就好，会跳转到用例列表", "product_list": product_list,
-                   "selected_product_id": int(selected_product_id), "null_value_only": null_value_only})
+                   "selected_product_id": int(selected_product_id), "null_value_only": null_value_only,
+                   'fail_message': fail_message})
 
 
 def check_variable_legal_validity(variable_type, variable_value):
