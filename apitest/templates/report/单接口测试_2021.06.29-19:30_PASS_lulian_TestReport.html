@@ -1,0 +1,1219 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 116，通过 116，失败 0</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'DUODUO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/2.0/goodsNews/share</td>
+                <td>get</td>
+                <td>{'id': '60b72ea8f6e5a068b041c9e9'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/activity/banner/list</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/appVersion/usable/check</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/apple-app-site-association</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/bill/income/show</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:13</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'GoodsNews'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:14</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'Comment'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:14</td>
+                <td>/comment/listThread</td>
+                <td>get</td>
+                <td>{'limit': '10', 'threadId': '60408cbe25cb8f1e69e0defd'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:14</td>
+                <td>/config/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:14</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'USER_GUIDE'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:14</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'HOME_PAGE'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:14</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'ALL'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:14</td>
+                <td>/flashScreen/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:15</td>
+                <td>/goods/searchSuggestions</td>
+                <td>get</td>
+                <td>{'keyword': '猫砂'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:15</td>
+                <td>/notice/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:15</td>
+                <td>/noticeBall/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:15</td>
+                <td>/orderShare/unreadCount/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:15</td>
+                <td>/popups/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:15</td>
+                <td>/user/cancel</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:15</td>
+                <td>/user/info/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:16</td>
+                <td>/user/pdd/auth/check</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:16</td>
+                <td>/user/pdd/auth/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:16</td>
+                <td>/user/simpleInfo/get</td>
+                <td>get</td>
+                <td>{'userId': '5e061495b117150e01055196'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:16</td>
+                <td>/user/sms/unbind</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:16</td>
+                <td>/userRelation/son/app/count</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:16</td>
+                <td>/userRelation/unbind</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:16</td>
+                <td>/vendorConfig/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:16</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'id': '555915797275'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'DUODUO'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'JD'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'ELEME'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'MT_OFFICIAL'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'MT_ALLIANCE'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'KFC'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'QIANZHU_MOVIE'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:17</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'RED_PACKET'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'UNKNOWN'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'MT'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'id': '555915797275'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'DUODUO'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'JD'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'ELEME'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'MT_OFFICIAL'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:18</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'MT_ALLIANCE'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'KFC'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'QIANZHU_MOVIE'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'RED_PACKET'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'UNKNOWN'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'MT'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/2.0/goodsNews/share</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/3.0/goodsNews/detail</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/4.0/goodsNews/detail</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:19</td>
+                <td>/bill/shopping/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetId': '603f322bfa9e907a0d10d07c'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetType': 'GoodsNews'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetType': 'Comment'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'GoodsNews'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'Comment'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/comment/listThread</td>
+                <td>get</td>
+                <td>{'limit': '10'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/comment/listThread</td>
+                <td>get</td>
+                <td>{'threadId': '60408cbe25cb8f1e69e0defd'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/goods/searchSuggestions</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:20</td>
+                <td>/order/state/sync</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/user/simpleInfo/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/1.0/goodsNews/like</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/1.0/goodsNews/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"limit\": \"10\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/1.0/goodsNews/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"text\": \"\\u732b\\u7802\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/1.0/goodsNews/unlike</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/2.0/goods/clipboard/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/3.0/goodsNews/recommend</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:21</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"dateType\": \"DAY\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"dateType\": \"WEEK\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"dateType\": \"MONTH\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"dateType\": \"YEAR\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"dateType\": \"UNTIL_NOW\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"limit\": \"10\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"billStatus\": \"COMING\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"billStatus\": \"ARRIVAL\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"billStatus\": \"RUST\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"billStatus\": \"COMING\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:22</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"billStatus\": \"ARRIVAL\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"billStatus\": \"RUST\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/billSettlement/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"content\": \"\\u54c8\\u54c8\", \"images\": \"[]\", \"replyToCommentId\": \"60408cbe25cb8f1e69e0defd\", \"targetId\": \"603f322bfa9e907a0d10d07c\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"content\": \"\\u54c8\\u54c8\", \"images\": \"[]\", \"replyToCommentId\": \"60408cbe25cb8f1e69e0defd\", \"targetType\": \"GoodsNews\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"content\": \"\\u54c8\\u54c8\", \"images\": \"[]\", \"replyToCommentId\": \"60408cbe25cb8f1e69e0defd\", \"targetType\": \"Comment\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"content\": \"\\u54c8\\u54c8\", \"replyToCommentId\": \"60408cbe25cb8f1e69e0defd\", \"targetId\": \"603f322bfa9e907a0d10d07c\", \"targetType\": \"GoodsNews\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"content\": \"\\u54c8\\u54c8\", \"replyToCommentId\": \"60408cbe25cb8f1e69e0defd\", \"targetId\": \"603f322bfa9e907a0d10d07c\", \"targetType\": \"Comment\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"images\": \"[]\", \"replyToCommentId\": \"60408cbe25cb8f1e69e0defd\", \"targetId\": \"603f322bfa9e907a0d10d07c\", \"targetType\": \"GoodsNews\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:23</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"images\": \"[]\", \"replyToCommentId\": \"60408cbe25cb8f1e69e0defd\", \"targetId\": \"603f322bfa9e907a0d10d07c\", \"targetType\": \"Comment\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/comment/delete</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/comment/like</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/comment/report</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/comment/select</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/comment/unlike</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/goodsNews/delete</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/incomeLog/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/user/favours/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"areaCode\": \"+86\", \"codeUsage\": \"LOGIN_OR_SIGNUP\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:24</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"areaCode\": \"+86\", \"codeUsage\": \"BIND\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"areaCode\": \"+86\", \"mobilePhoneNumber\": \"17602135924\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"codeUsage\": \"LOGIN_OR_SIGNUP\", \"mobilePhoneNumber\": \"17602135924\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"codeUsage\": \"BIND\", \"mobilePhoneNumber\": \"17602135924\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"areaCode\": \"+86\", \"mobilePhoneNumber\": \"17602135924\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"areaCode\": \"+86\", \"verifyCode\": \"3036\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"mobilePhoneNumber\": \"17602135924\", \"verifyCode\": \"3036\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/userRelation/fans/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"fansQueryType\": \"DIRECT\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/userRelation/fans/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"fansQueryType\": \"INDIRECT\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/userRelation/fans/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"fansQueryType\": \"INDIRECT_LOCKED\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 19:30:25</td>
+                <td>/userRelation/fans/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>"{\"limit\": \"10\"}"</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            </table>
+        </body>
+        </html>

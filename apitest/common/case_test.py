@@ -1,5 +1,6 @@
 # coding:utf-8
 import inspect
+import json
 import os
 import time
 
@@ -15,8 +16,8 @@ from apitest.models import Apis
 
 
 class TestCaseRequest:
-    def __init__(self, tester):
-        self.header = HeaderManage.read_header(2)
+    def __init__(self, tester, product_id):
+        self.header = HeaderManage.read_header(product_id)
         self.table_tr_fail = self.table_tr_success = ''
         self.num_success = self.num_fail = 0
         self.html = TemplateMixin()
@@ -46,7 +47,7 @@ class TestCaseRequest:
                 case = input_parameter(io_list[index][1], case, parameters)
 
             # 去测试
-            result, try_refresh_token = test_avoid_401(case, host, self.header)
+            result, try_refresh_token = self.test_avoid_401(case, host)
             if try_refresh_token:
                 print('----------')
                 print('测试api：', case[1])
@@ -71,17 +72,21 @@ class TestCaseRequest:
     def single_api_test(self, case_list, host):
         try_refresh_token = True
         for case in case_list:
+            print('----------')
             print('case:', case)
-            result, try_refresh_token = test_avoid_401(case, host, self.header)
+            result, try_refresh_token = self.test_avoid_401(case, host)
             if try_refresh_token:
-                print('----------')
                 # print('测试api：', case[1])
                 if int(result.status_code) != int(case[5]):
                     print('测试失败')
+                    print('预期状态码：', case[5])
                     print("result.status_code:", result.status_code)
-                    print("case[5]:", case[5])
-                # print('测试结果：', result.status_code)
-                # print(result.json())
+                    try:
+                        result_json = result.json()
+                    except JSONDecodeError:
+                        result_json = result.content
+                    print("result_json:", result_json)
+                    # print("case[5]:", case[5])
                 self.save_report_info(result, case)
                 # 测试结果存数据库
                 api_response = "这里我有解决不了的问题，先放着"
@@ -99,7 +104,7 @@ class TestCaseRequest:
             try:
                 result_json = result.json()
             except JSONDecodeError:
-                result_json = '由于异常，无法读取结果'
+                result_json = result.content
             btw = '可能的原因：\n' \
                   '1、某个参数没加required等于true\n' \
                   '2、参数类型传错了（请联系QA）\n' \
@@ -115,6 +120,20 @@ class TestCaseRequest:
                                                         method=case[2], parameters=case[3], body=case[4], expectcode=case[5],
                                                         testresult='测试成功', testcode=result.status_code,)
             self.table_tr_success += table_td
+
+    def test_avoid_401(self, case, host):
+        try_refresh_token = True
+        result = request(case, host, self.header)
+
+        if result.status_code == 401:
+            print('token 过期，正在刷新。。。')
+            case_id = case[0]
+            product_id = Apis.objects.get(id=case_id).Product_id
+            try_refresh_token = HeaderManage.update_header(product_id, host)
+            self.header = HeaderManage.read_header(product_id)
+            result = request(case, host, self.header)
+            print('刷新token过后，状态码：', result.status_code)
+        return result, try_refresh_token
 
 
 def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, called_by, tester):
@@ -137,19 +156,17 @@ def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, ca
 
 def request(case, host, header):
     if case[2] == 'get' or case[2] == 'GET':
-        result = requests.get(host + case[1], headers=header, params=case[3], json=case[4])
+        result = requests.get(host + case[1], headers=header, params=case[3], data=case[4])
     else:
-        result = requests.post(host + case[1], json=case[4], headers=header)
+        result = requests.post(host + case[1], data=case[4], headers=header)
     return result
 
 
 def output_parameter(json_pattern, result):
-    print("result:", result)
     try:
         json_data = result.json()
         value = jsonpath.jsonpath(json_data, json_pattern)
     except JSONDecodeError:
-        # json_data = '由于异常，无法读取结果'
         value = '由于异常，无法读取结果'
     return value
 
@@ -179,17 +196,4 @@ def replace(name, json_string, api_id, parameters):
     return json_string
 
 
-def test_avoid_401(case, host, header):
-    try_refresh_token = True
-    result = request(case, host, header)
-    print('host:', host)
-    print('header:', header)
-    print('result.status_code:', result.status_code)
-    if result.status_code == 401:
-        print('token 过期，正在刷新。。。')
-        case_id = case[0]
-        product_id = Apis.objects.get(id=case_id).Product_id
-        try_refresh_token = HeaderManage.update_header(product_id, host)
-        header = HeaderManage.read_header(product_id)
-        result = request(case, host, header)
-    return result, try_refresh_token
+

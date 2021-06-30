@@ -124,21 +124,21 @@ class CaseGenerate:
                     for i in range(len(params_combi)):
                         if 'enum' in whichpart[params_combi[i]]:
                             # 有emun的话一般就没有二级json了
-                            temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
-                                                           'type': whichpart[params_combi[i]]['type'],
-                                                           'enum': whichpart[params_combi[i]]['enum']}})
+                            temp.update({params_combi[i]: {"required": whichpart[params_combi[i]]['required'],
+                                                           "type": whichpart[params_combi[i]]['type'],
+                                                           "enum": whichpart[params_combi[i]]['enum']}})
                         else:
                             # print('么有enum')
                             # print('变量：', params_combi[i])
                             # print('变量内容：', whichpart[params_combi[i]])
                             # 这里应该加入二级json里也有enum的情况
                             if 'son' in whichpart[params_combi[i]]:
-                                temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
-                                                               'type': whichpart[params_combi[i]]['type'],
-                                                               'son': whichpart[params_combi[i]]['son']}})
+                                temp.update({params_combi[i]: {"required": whichpart[params_combi[i]]['required'],
+                                                               "type": whichpart[params_combi[i]]['type'],
+                                                               "son": whichpart[params_combi[i]]['son']}})
                             else:
-                                temp.update({params_combi[i]: {'required': whichpart[params_combi[i]]['required'],
-                                                               'type': whichpart[params_combi[i]]['type']}})
+                                temp.update({params_combi[i]: {"required": whichpart[params_combi[i]]['required'],
+                                                               "type": whichpart[params_combi[i]]['type']}})
                     # print('处理后的temp:', temp)
                     # print('～')
                     if serial == 3:

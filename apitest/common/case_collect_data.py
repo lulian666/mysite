@@ -71,10 +71,10 @@ class CaseCollect:
                         # 这俩遍历是用来寻找参数中2级json的父级
                         for item in parameters:
                             if item == father:
-                                parameters[item].update({'son': son_json})
+                                parameters[item].update({"son": son_json})
                         for item in body:
                             if item == father:
-                                body[item].update({'son': son_json})
+                                body[item].update({"son": son_json})
                     else:
                         parameters = {}
                         body = {}
@@ -99,8 +99,10 @@ class CaseCollect:
             if parameters_data != {}:
                 if method.lower() == "post":
                     body = parameters_info_jike(parameters_data)
+                    # print('body:', body, type(body))
                 else:
                     parameters = parameters_info_jike(parameters_data)
+                    # print('parameters:', parameters, type(parameters))
             else:
                 parameters = {}
                 body = {}

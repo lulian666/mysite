@@ -1,0 +1,14 @@
+import requests
+
+url = "http://orange-match-beta.staging.codefuture.top/1.0/im/conversation/countUnread"
+
+payload={}
+headers = {
+    'x-jike-device-id': '3272A7CD-872B-4DA1-B967-CECB5D908A26',
+    'OS': 'iOS',
+    'x-jike-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiTE1GMnRQWExqVlpHSFEyTk5kMStOVTg5dTFvY3phWVJkeU9rR3BmVmhWVVFkWUJcL3hiTnZ1VThsMklDMkFMMzIxUDY3SWN3OXJmRCtLNnhkNDBJd052czZoNGVQckdpeUZTbWVsQkxkc3ZqaDk2bW1VamJzeUlDRVA4Wm4xeHBZUzB4UFNraFdVdnpXTEJZRGMrT3ExaEg3MUFyN3dTSWJJZnh4a1U1R1A1QmpVcWN4RXNCeXB3VW5weGhPc0tWNlhHeGtTXC9tYm5EcTIrVzVcLzBZRUt5eFhtSGp3UThYZTFRYnJqODZleTc5RDltbG1sUzdXTWxmOG1SYWJ3V0RqWTMxR2NJS3VsZUhjTFJUNzF5allSSVJZN1V2bUt6RlNmM0F0RUU4dUZ0a1Vyd2k0ZzNQMm84UUpWYytwU29rK0gyS1g1dHpUd1pjVmt6U01NNzNQeEl5RSsrT2xuSCtseEZTUU1rZ0VoVjVBSk4rbHFaU1AzZlRabHhVcFRyRXlpbFZESFwvM25Ja0N0bXE4Q2NlbWhoNnJZV3JSZ3lvd1lvNFFYb0hlaDVUcVE9IiwidiI6MywiaXYiOiI3MjVQMkxYeDFnRFRWY0oxQlNaUGN3PT0iLCJpYXQiOjE2MjQ5NzI3MjQuMjk4fQ.WtDtFVHJi0A_kUjvN14N9RsCgTtZ7CxSkIzbETPpMzU'
+}
+
+response = requests.request("GET", url, headers=headers, params={})
+
+print(response.text)

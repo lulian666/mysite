@@ -73,7 +73,7 @@
                             {% endfor %}
                         </select>
                     <button type="submit" name="filter" style="margin-left: 50px">查看所选测试用例</button>
-                    <button type="submit" name="run_test" style="margin-left: 20px">执行测试</button>
+                    <button type="submit" name="run_test" style="margin-left: 20px" onclick="show_loading()">执行测试</button>
                     <label style="color: red">{{ fail_message }}</label>
                 </form>
             </div>
@@ -180,6 +180,10 @@
                 }
             },
         })
+    }
+
+    function show_loading() {
+        alert('正在执行测试，测试完毕后会自动跳转报告列表页，请耐心等待！')
     }
 </script>
 </body>

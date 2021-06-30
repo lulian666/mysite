@@ -1,0 +1,109 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 4，通过 2，失败 2</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-06-29 15:40:31</td>
+            <td>/1.0/orders/create</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 15:40:31</td>
+            <td>/1.0/profile/listPhotos</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'loadMoreKey': ''}</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-06-29 15:40:30</td>
+                <td>/1.0/match/dislike</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 15:40:30</td>
+                <td>/1.0/match/like</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'superlike': 'true', 'superlikeReason': 'test'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            </table>
+        </body>
+        </html>

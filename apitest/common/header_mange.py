@@ -1,5 +1,7 @@
 # coding:utf-8
+import json
 import os
+import time
 
 import pymysql
 import requests
@@ -29,27 +31,6 @@ class HeaderManage:
         url = host+'/app_auth_tokens.refresh'
         headers = HeaderManage.read_header(product_id)
         result = requests.post(url, headers=headers, json={})
-        '''
-        # 调试
-        print('refresh url：', url)
-        print('old access token:', headers['x-jike-access-token'])
-        print(result.status_code)
-        response_body = result.json()
-        access_token = response_body['x-jike-access-token']
-        refresh_token = response_body['x-jike-refresh-token']
-        print('new access token:', access_token)
-        try_refresh_token = True
-        sql = "update apitest_headers set header_value = %s where Product_Id = %s and header_key = %s;"
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
-        cursor = coon.cursor()
-        param1 = (access_token, product_id, 'x-jike-access-token')
-        param2 = (refresh_token, product_id, 'x-jike-refresh-token')
-        cursor.execute(sql, param1)
-        cursor.execute(sql, param2)
-        coon.commit()
-        cursor.close()
-        coon.close()
-        '''
         try:
             response_body = result.json()
             access_token = response_body['x-jike-access-token']
@@ -65,6 +46,7 @@ class HeaderManage:
             coon.commit()
             cursor.close()
             coon.close()
+            print('写入了新的token')
         except:
             try_refresh_token = False
         return try_refresh_token

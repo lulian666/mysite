@@ -1,0 +1,2479 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 200，通过 116，失败 84</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:25</td>
+            <td>/1.0/goodsNews/like</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"id": "60b61858f6e5a068b03f1cae"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:25</td>
+            <td>/1.0/goodsNews/search</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"limit": "10", "text": "\u732b\u7802"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:25</td>
+            <td>/1.0/goodsNews/unlike</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"id": "60b61858f6e5a068b03f1cae"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:25</td>
+            <td>/2.0/goods/clipboard/search</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"text": "https://item.taobao.com/item.htm?id=641960817858"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:25</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'DUODUO'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.NullPointerException: The mapper returned a null value.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:27</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'JD'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该商品没有在平台中找到', 'msg': '555915797275 is not found in JD.'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:27</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'ELEME'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:28</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT_OFFICIAL'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:28</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT_ALLIANCE'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:28</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'KFC'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:28</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'QIANZHU_MOVIE'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:28</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'RED_PACKET'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:28</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'UNKNOWN'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:28</td>
+            <td>/2.0/goods/detail</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:29</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'JD'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.NullPointerException'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:29</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'ELEME'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:29</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT_OFFICIAL'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:29</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT_ALLIANCE'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:29</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'KFC'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'QIANZHU_MOVIE'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'RED_PACKET'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'UNKNOWN'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/goods/detailImage</td>
+            <td>get</td>
+            <td>{'id': '555915797275', 'platformType': 'MT'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该平台还未支持', 'msg': 'The platform is not supported'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/goodsNews/read/report</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"goodsNewsIds": "60b72ea8f6e5a068b041c9e9"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "PUSH_VENDOR_UNSPECIFIED"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "APN"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "FCM"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:30</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "JPUSH"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:31</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "GTPUSH"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:31</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "FLYME"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:31</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "HMS"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:31</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "XIAOMI"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:31</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "OPPO"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:31</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "VIVO"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:31</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "WECHAT"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:31</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "QQ"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:32</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "GZH"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:32</td>
+            <td>/2.0/user/logout</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"vendor": "UNRECOGNIZED"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:32</td>
+            <td>/3.0/goodsNews/detail</td>
+            <td>get</td>
+            <td>{'id': '60b45684403e774f763e25d6'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该线报没有在系统中找到', 'msg': '60b45684403e774f763e25d6 is not found'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:32</td>
+            <td>/3.0/goodsNews/recommend</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:32</td>
+            <td>/4.0/goodsNews/detail</td>
+            <td>get</td>
+            <td>{'id': '60b45684403e774f763e25d6'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '该线报没有在系统中找到', 'msg': '60b45684403e774f763e25d6 is not found'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:32</td>
+            <td>/bill/income/details</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"dateType": "DAY", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:33</td>
+            <td>/bill/income/details</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"dateType": "WEEK", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:33</td>
+            <td>/bill/income/details</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"dateType": "MONTH", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:33</td>
+            <td>/bill/income/details</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"dateType": "YEAR", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:33</td>
+            <td>/bill/income/details</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"dateType": "UNTIL_NOW", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:33</td>
+            <td>/bill/memberShopping/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"billStatus": "COMING", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:33</td>
+            <td>/bill/memberShopping/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"billStatus": "ARRIVAL", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:33</td>
+            <td>/bill/memberShopping/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"billStatus": "RUST", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:33</td>
+            <td>/bill/shopping/get</td>
+            <td>get</td>
+            <td>{'orderId': '65553852506054689'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '服务内部出现问题', 'msg': 'java.lang.IllegalArgumentException: invalid hexadecimal representation of an ObjectId: [65553852506054689]'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:34</td>
+            <td>/bill/shopping/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"billStatus": "COMING", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:34</td>
+            <td>/bill/shopping/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"billStatus": "ARRIVAL", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:34</td>
+            <td>/bill/shopping/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"billStatus": "RUST", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:34</td>
+            <td>/billSettlement/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:34</td>
+            <td>/comment/create</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"content": "\u54c8\u54c8", "images": "[]", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetId": "603f322bfa9e907a0d10d07c", "targetType": "GoodsNews"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:34</td>
+            <td>/comment/create</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"content": "\u54c8\u54c8", "images": "[]", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetId": "603f322bfa9e907a0d10d07c", "targetType": "Comment"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:34</td>
+            <td>/comment/delete</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"id": "60b733229ef40b7b5a50db88"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:34</td>
+            <td>/comment/like</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"id": "60408cbe25cb8f1e69e0defd"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:35</td>
+            <td>/comment/report</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"id": "60408cbe25cb8f1e69e0defd"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:35</td>
+            <td>/comment/select</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"id": "60408cbe25cb8f1e69e0defd"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:35</td>
+            <td>/comment/unlike</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"id": "60408cbe25cb8f1e69e0defd"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:36</td>
+            <td>/goodsNews/delete</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"id": null}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:36</td>
+            <td>/incomeLog/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:36</td>
+            <td>/order/state/sync</td>
+            <td>post</td>
+            <td>{'orderId': '60b5aa6cf6e5a068b03dbc7d'}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': "Required String parameter 'orderId' is not present"}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:37</td>
+            <td>/user/deviceId/upload</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"androidId": "\u201c\u201d", "idfa": "\u201c\u201d", "imei": "\u201c\u201d", "meid": "\u201c\u201d", "oaid": "\u201c\u201d"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:37</td>
+            <td>/user/favours/update</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"favours": "[\"MU_YING_YONG_PIN\", \"NAN_ZHUANG\", \"NV_SHENG_HU_LI\"]"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:37</td>
+            <td>/user/info/update</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"favours": "[\"MU_YING_YONG_PIN\", \"NAN_ZHUANG\", \"NV_SHENG_HU_LI\"] }", "gender": "MALE"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:37</td>
+            <td>/user/info/update</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"favours": "[\"MU_YING_YONG_PIN\", \"NAN_ZHUANG\", \"NV_SHENG_HU_LI\"] }", "gender": "FEMALE"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:38</td>
+            <td>/user/sms/getCode</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"areaCode": "+86", "codeUsage": "LOGIN_OR_SIGNUP", "mobilePhoneNumber": "17602135924"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:38</td>
+            <td>/user/sms/getCode</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"areaCode": "+86", "codeUsage": "BIND", "mobilePhoneNumber": "17602135924"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:38</td>
+            <td>/user/sms/loginOrSignup</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"areaCode": "+86", "mobilePhoneNumber": "17602135924", "verifyCode": "3036"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:38</td>
+            <td>/userRelation/fans/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"fansQueryType": "DIRECT", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:38</td>
+            <td>/userRelation/fans/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"fansQueryType": "INDIRECT", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:38</td>
+            <td>/userRelation/fans/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"fansQueryType": "INDIRECT_LOCKED", "limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:39</td>
+            <td>/2.0/goodsNews/read/report</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:39</td>
+            <td>/3.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:39</td>
+            <td>/4.0/goodsNews/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:39</td>
+            <td>/bill/memberShopping/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:39</td>
+            <td>/bill/shopping/paginate</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"limit": "10"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:40</td>
+            <td>/comment/create</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"content": "\u54c8\u54c8", "images": "[]", "targetId": "603f322bfa9e907a0d10d07c", "targetType": "GoodsNews"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:40</td>
+            <td>/comment/create</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"content": "\u54c8\u54c8", "images": "[]", "targetId": "603f322bfa9e907a0d10d07c", "targetType": "Comment"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:40</td>
+            <td>/goods/search</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{"keyword": "\u732b\u7802"}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:40</td>
+            <td>/user/deviceId/upload</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-06-29 20:40:40</td>
+            <td>/user/info/update</td>
+            <td>post</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'error': '请求异常', 'msg': 'Failed to read HTTP message'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:27</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:28</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'DUODUO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:29</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'id': '555915797275', 'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:30</td>
+                <td>/2.0/goodsNews/share</td>
+                <td>get</td>
+                <td>{'id': '60b72ea8f6e5a068b041c9e9'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:32</td>
+                <td>/activity/banner/list</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:32</td>
+                <td>/appVersion/usable/check</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:32</td>
+                <td>/apple-app-site-association</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:33</td>
+                <td>/bill/income/show</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:34</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'GoodsNews'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:35</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'Comment'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:35</td>
+                <td>/comment/listThread</td>
+                <td>get</td>
+                <td>{'limit': '10', 'threadId': '60408cbe25cb8f1e69e0defd'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:35</td>
+                <td>/config/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:35</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'USER_GUIDE'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:35</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'HOME_PAGE'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:36</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{'scene': 'ALL'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:36</td>
+                <td>/flashScreen/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:36</td>
+                <td>/goods/searchSuggestions</td>
+                <td>get</td>
+                <td>{'keyword': '猫砂'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:36</td>
+                <td>/notice/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:36</td>
+                <td>/noticeBall/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:37</td>
+                <td>/orderShare/unreadCount/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:37</td>
+                <td>/popups/getAll</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:37</td>
+                <td>/user/cancel</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:37</td>
+                <td>/user/info/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:38</td>
+                <td>/user/pdd/auth/check</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:38</td>
+                <td>/user/pdd/auth/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:38</td>
+                <td>/user/simpleInfo/get</td>
+                <td>get</td>
+                <td>{'userId': '5e061495b117150e01055196'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:38</td>
+                <td>/user/sms/unbind</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:39</td>
+                <td>/userRelation/son/app/count</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:39</td>
+                <td>/userRelation/unbind</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:39</td>
+                <td>/vendorConfig/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:40</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'id': '555915797275'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:40</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'DUODUO'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:40</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:40</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'JD'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:40</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'ELEME'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'MT_OFFICIAL'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'MT_ALLIANCE'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'KFC'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'QIANZHU_MOVIE'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'RED_PACKET'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'UNKNOWN'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detail</td>
+                <td>get</td>
+                <td>{'platformType': 'MT'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'id': '555915797275'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'DUODUO'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:41</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'TAOBAO'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'JD'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'ELEME'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'MT_OFFICIAL'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'MT_ALLIANCE'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'KFC'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'QIANZHU_MOVIE'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'RED_PACKET'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'UNKNOWN'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goods/detailImage</td>
+                <td>get</td>
+                <td>{'platformType': 'MT'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:42</td>
+                <td>/2.0/goodsNews/share</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:43</td>
+                <td>/3.0/goodsNews/detail</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:43</td>
+                <td>/4.0/goodsNews/detail</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:43</td>
+                <td>/bill/shopping/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:43</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetId': '603f322bfa9e907a0d10d07c'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:43</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetType': 'GoodsNews'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:43</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'limit': '10', 'targetType': 'Comment'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:43</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'GoodsNews'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:43</td>
+                <td>/comment/listPrimary</td>
+                <td>get</td>
+                <td>{'targetId': '603f322bfa9e907a0d10d07c', 'targetType': 'Comment'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/comment/listThread</td>
+                <td>get</td>
+                <td>{'limit': '10'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/comment/listThread</td>
+                <td>get</td>
+                <td>{'threadId': '60408cbe25cb8f1e69e0defd'}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/favoursConfig/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/goods/searchSuggestions</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/order/state/sync</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/user/simpleInfo/get</td>
+                <td>get</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/1.0/goodsNews/like</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/1.0/goodsNews/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"limit": "10"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/1.0/goodsNews/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"text": "\u732b\u7802"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:44</td>
+                <td>/1.0/goodsNews/unlike</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/2.0/goods/clipboard/search</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/2.0/user/logout</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/3.0/goodsNews/recommend</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"dateType": "DAY"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"dateType": "WEEK"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"dateType": "MONTH"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"dateType": "YEAR"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"dateType": "UNTIL_NOW"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/bill/income/details</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"limit": "10"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:45</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"billStatus": "COMING"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"billStatus": "ARRIVAL"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/bill/memberShopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"billStatus": "RUST"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"billStatus": "COMING"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"billStatus": "ARRIVAL"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/bill/shopping/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"billStatus": "RUST"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/billSettlement/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"content": "\u54c8\u54c8", "images": "[]", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetId": "603f322bfa9e907a0d10d07c"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"content": "\u54c8\u54c8", "images": "[]", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetType": "GoodsNews"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"content": "\u54c8\u54c8", "images": "[]", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetType": "Comment"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:46</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"content": "\u54c8\u54c8", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetId": "603f322bfa9e907a0d10d07c", "targetType": "GoodsNews"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"content": "\u54c8\u54c8", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetId": "603f322bfa9e907a0d10d07c", "targetType": "Comment"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"images": "[]", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetId": "603f322bfa9e907a0d10d07c", "targetType": "GoodsNews"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/comment/create</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"images": "[]", "replyToCommentId": "60408cbe25cb8f1e69e0defd", "targetId": "603f322bfa9e907a0d10d07c", "targetType": "Comment"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/comment/delete</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/comment/like</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/comment/report</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/comment/select</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/comment/unlike</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:47</td>
+                <td>/goodsNews/delete</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:48</td>
+                <td>/incomeLog/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:48</td>
+                <td>/user/favours/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:48</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"areaCode": "+86", "codeUsage": "LOGIN_OR_SIGNUP"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:48</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"areaCode": "+86", "codeUsage": "BIND"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:48</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"areaCode": "+86", "mobilePhoneNumber": "17602135924"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:48</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"codeUsage": "LOGIN_OR_SIGNUP", "mobilePhoneNumber": "17602135924"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:48</td>
+                <td>/user/sms/getCode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"codeUsage": "BIND", "mobilePhoneNumber": "17602135924"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:48</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"areaCode": "+86", "mobilePhoneNumber": "17602135924"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:49</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"areaCode": "+86", "verifyCode": "3036"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:49</td>
+                <td>/user/sms/loginOrSignup</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"mobilePhoneNumber": "17602135924", "verifyCode": "3036"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:49</td>
+                <td>/userRelation/fans/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"fansQueryType": "DIRECT"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:50</td>
+                <td>/userRelation/fans/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"fansQueryType": "INDIRECT"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:50</td>
+                <td>/userRelation/fans/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"fansQueryType": "INDIRECT_LOCKED"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-06-29 20:40:50</td>
+                <td>/userRelation/fans/paginate</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{"limit": "10"}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            </table>
+        </body>
+        </html>

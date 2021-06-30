@@ -233,7 +233,7 @@ def test_case(model_list, tester):
     host = ManageSql().get_host_of_product(product_id)
 
     # 进行测试
-    tester = TestCaseRequest(tester)
+    tester = TestCaseRequest(tester, product_id)
     case_list, try_refresh_token = tester.single_api_test(case_list, host)
 
     # 用pytest进行测试
@@ -365,6 +365,8 @@ def datasource(request):
             if selected_product_id != '-1':
                 interfaces_not_wanted = Product.objects.get(id=selected_product_id).exclude_api
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted)
+                # for case in case_list:
+                #     print(case)
                 save_variables_to_sql(selected_product_id, basic_case_list)
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
                 # 接口也保存下来
