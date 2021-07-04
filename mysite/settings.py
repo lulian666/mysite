@@ -145,7 +145,7 @@ HERE = os.path.join(HERE, '../')
 STATICFILES_DIRS = (os.path.join(HERE, 'static/'),)
 
 # # 静态文件收集目录
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
