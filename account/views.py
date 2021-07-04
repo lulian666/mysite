@@ -20,11 +20,10 @@ def user_login(request):
 
             if user:
                 login(request, user)
-                return HttpResponse('welcome')
             else:
-                return HttpResponse('sorry loser')
+                return HttpResponse('sorry, your username or password is not right')
         else:
-            return HttpResponse('pardon?')
+            return HttpResponse('invalid login')
 
     if request.method == 'GET':
         login_form = LoginForm()
@@ -33,7 +32,6 @@ def user_login(request):
 
 def register(request):
     if request.method == 'POST':
-        print(request.POST)
         user_form = RegistrationForm(request.POST)
         userprofile_form = UserProfileForm(request.POST)
         if user_form.is_valid() * userprofile_form.is_valid():
