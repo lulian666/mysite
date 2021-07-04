@@ -471,8 +471,10 @@ def variables_manage(request):
             new_value = request.POST.get('new_value')
             variable_id = request.POST.get('variable_id')
             set_for_all = request.POST.get('set_for_all')
+            variable = Variables.objects.get(id=variable_id)
+            print(variable)
             try:
-                variable = Variables.objects.get(id=variable_id)
+
                 if set_for_all == 'true':
                     variable_name = variable.variable_key
                     product_id = variable.Product_id

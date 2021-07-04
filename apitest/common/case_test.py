@@ -156,13 +156,11 @@ def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, ca
 
 def request(case, host, header):
     url = host + case[1]
-    # data = json.dumps(case[4]) if len(case[4]) == 0 else case[4]
-    # Content_Length = Buffer.byteLength(JSON.stringify(param),'utf8')
-    print('header:', header)
-    if case[2] == 'get' or case[2] == 'GET':
-        result = requests.get(url=url, headers=header, params=case[3], data=json.dumps(case[4]))
+    json_data = json.dumps(case[4]) if len(case[4]) > 0 else {}
+    if case[2].lower() == 'get':
+        result = requests.get(url=url, headers=header, params=case[3], data=json_data)
     else:
-        result = requests.post(url=url, data=json.dumps(case[4]), headers=header)
+        result = requests.post(url=url, data=json_data, headers=header)
     return result
 
 

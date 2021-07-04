@@ -1,0 +1,74 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 1，通过 0，失败 1</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-07-01 20:36:45</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '{"size":131991,"appId":"bTBiJJqs4kWZ","name":"","ext":".jpg","mimeType":"image\\/jpeg","exif":{"ColorSpace":{"type":3,"val":"Uncalibrated"},"PixelXDimension":{"type":4,"val":"932"},"ResolutionUnit":{"type":3,"val":"Inch"},"ExifVersion":{"type":7,"val":"Exif Version 2.1"},"FlashPixVersion":{"type":7,"val":"FlashPix Version 1.0"},"PixelYDimension":{"type":4,"val":"1242"},"XResolution":{"type":5,"val":"72"},"Orientation":{"type":3,"val":"Top-left"},"YResolution":{"type":5,"val":"72"}},"hash":"FvKfIV3qF1CkEWXSO03L_T6DZIjH","key":"FvKfIV3qF1CkEWXSO03L_T6DZIjH.jpg","storage":"QINIU","avInfo":{"Audios":null,"Videos":[{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}],"audio":null,"format":{"format_long_name":"piped jpeg sequence","bit_rate":"","format_name":"jpeg_pipe","duration":"","nb_streams":1,"size":"131991","start_time":""},"subtitle":null,"Subtitles":null,"MaxAB":-1,"video":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"},"AttachedPic":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}},"bucket":"balloon-image-public","resource":"IMAGE","imageInfo":{"format":"jpeg","orientation":"Top-left","size":131991,"height":1242,"width":932,"colorModel":"ycbcr"}}', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'name': '7001', 'photos': '[]', 'photoIds': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>500</td>
+            <td>{'success': False, 'error': '系统错误'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            </table>
+        </body>
+        </html>

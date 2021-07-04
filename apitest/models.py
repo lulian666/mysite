@@ -37,7 +37,7 @@ class Apis(models.Model):
     api_name = models.CharField('接口名称', max_length=100)
     api_url = models.CharField('url 地址', max_length=200)
     api_param_value = models.CharField('请求参数', max_length=1000, null=True)
-    api_body_value = models.CharField('请求body', max_length=2000, null=True)
+    api_body_value = models.CharField('请求body', max_length=10000, null=True)
     REQUEST_METHOD = (('get', 'get'), ('post', 'post'), ('put', 'put'), ('delete', 'delete'), ('patch', 'patch'))
     api_method = models.CharField('请求方法', choices=REQUEST_METHOD, default='0', max_length=200)
     api_expect_response = models.CharField('预期结果', max_length=500, null=True)
@@ -72,7 +72,7 @@ class Headers(models.Model):
 class Variables(models.Model):
     Product = models.ForeignKey('product.Product', on_delete=models.CASCADE, null=True)
     variable_key = models.CharField('变量名', max_length=100)
-    variable_value = models.CharField('变量值', max_length=1000, null=True)
+    variable_value = models.CharField('变量值', max_length=10000, null=True)
     variable_type = models.CharField('变量类型', max_length=100, null=True)
     variable_optional = models.BooleanField('是否可选', null=True)
     from_api = models.CharField('所属接口', max_length=1000, null=True)
