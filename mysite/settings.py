@@ -142,7 +142,7 @@ STATIC_URL = '/static/'
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 HERE = os.path.join(HERE, '../')
-STATICFILES_DIRS = (os.path.join(HERE, 'static/'),)
+STATICFILES_DIRS = (os.path.join(HERE, 'static/'), 'static/')
 
 # # 静态文件收集目录
 STATIC_ROOT = os.path.join('home/sites/smarttest/mysite', '/collect_static/')
