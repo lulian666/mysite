@@ -34,7 +34,7 @@ def login(request):
     return render(request, 'apitest/login.html')
 
 
-@login_required
+@login_required(login_url='/account/login/')
 def home(request):
     context = {'username': request.session.get('user', '')}
     return render(request, 'apitest/home.html', context)
@@ -44,7 +44,7 @@ def logout(request):
     return render(request, 'apitest/login.html')
 
 
-@login_required
+@login_required(login_url='/account/login/')
 @csrf_exempt
 def form_api_flow_case(request):
     username = request.user
@@ -107,7 +107,7 @@ def form_api_flow_case(request):
                    'case_name': case_name})
 
 
-@login_required
+@login_required(login_url='/account/login/')
 def api_flow_test_manage(request):
     username = request.user
     # 过滤规则筛选的是api_flow_test_list，传给前端的是relation_list
@@ -167,7 +167,7 @@ def flow_case_test(api_flow_test_list, tester):
     return test_result, try_refresh_token
 
 
-@login_required
+@login_required(login_url='/account/login/')
 @csrf_exempt
 def apis_manage(request):
     """
@@ -266,7 +266,8 @@ def test_case(model_list, tester):
         ManageSql.update_case_to_sql(case_list)
     return result, try_refresh_token
 
-@login_required
+
+@login_required(login_url='/account/login/')
 def test_report(request):
     username = request.user
     root = os.path.abspath(".")
@@ -297,7 +298,7 @@ def test_report(request):
                    "list_count": len(file_list)})
 
 
-@login_required
+@login_required(login_url='/account/login/')
 def test_report_detail(request, report_name):
     return render(request, "report/" + report_name, {})
 
@@ -306,7 +307,7 @@ def left(request):
     return render(request, "apitest/left.html")
 
 
-@login_required
+@login_required(login_url='/account/login/')
 def search(request):
     username = request.session.get('user', '')
     search_apitestname = request.GET.get("apitestname", "")
@@ -314,7 +315,7 @@ def search(request):
     return render(request, "apitest/api_flow_test_manage.html", {"user": username, "apitests": apitest_list})
 
 
-@login_required
+@login_required(login_url='/account/login/')
 def apissearch(request):
     username = request.session.get('user', '')
     apiname = request.GET.get("apiname", "")
@@ -324,12 +325,13 @@ def apissearch(request):
                                                         "apis_count": api_count})
 
 
+@login_required(login_url='/account/login/')
 def welcome(request):
     return render(request, "apitest/welcome.html")
 
 
 # 处理源数据
-@login_required
+@login_required(login_url='/account/login/')
 @csrf_exempt
 def datasource(request):
     username = request.user
@@ -406,7 +408,7 @@ def datasource(request):
 
 
 # header 管理
-@login_required
+@login_required(login_url='/account/login/')
 @csrf_exempt
 def api_header(request):
     username = request.user
@@ -452,7 +454,7 @@ def api_header(request):
 
 
 # 变量管理
-@login_required
+@login_required(login_url='/account/login/')
 @csrf_exempt
 def variables_manage(request):
     username = request.user
