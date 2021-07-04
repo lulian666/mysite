@@ -2,10 +2,18 @@
 import ast
 import pymysql
 from django.utils.datetime_safe import datetime
+
+import mysite.settings
 from apitest.models import Variables, Apis
 
 
 class ManageSql:
+    user = mysite.settings.DATABASES['default']['USER']
+    db = mysite.settings.DATABASES['default']['NAME']
+    passwd = mysite.settings.DATABASES['default']['PASSWORD']
+    host = mysite.settings.DATABASES['default']['HOST']
+    port = int(mysite.settings.DATABASES['default']['PORT'])
+
     @staticmethod
     def write_case_to_sql(case_list, product_id):
         """
@@ -16,7 +24,7 @@ class ManageSql:
         """
         cases = Apis.objects.filter(Product_id=product_id)
         sql = "insert into apitest_apis(api_name,api_url,api_method,api_param_value,api_body_value,api_expect_status_code,Product_id) values(%s,%s,%s,%s,%s,%s,%s);"
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
         # 这里开始循环写入表
         # url、parameter、body都一样
@@ -94,7 +102,7 @@ class ManageSql:
     @staticmethod
     def read_case_from_sql():
         sql = 'select id,api_url,api_method,api_param_value,api_body_value,api_expect_status_code,api_expect_response from apitest_apis'
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
         aa = cursor.execute(sql)
         info = cursor.fetchmany(aa)
@@ -112,7 +120,7 @@ class ManageSql:
     @staticmethod
     def update_case_to_sql(case_list):
         sql = "update apitest_apis set api_response_status_code = %s,api_response = %s,test_result = %s where id = %s;"
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
 
         # 这里开始循环更新表
@@ -135,7 +143,7 @@ class ManageSql:
         """
         variables = Variables.objects.filter(Product_id=product_id)
         sql = "INSERT INTO apitest_variables(from_api,Product_id,variable_key,variable_optional,variable_type) VALUES(%s,%s,%s,%s,%s)"
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
         for api, variable_list in variables_dict.items():
             for variable_info in variable_list:
@@ -158,7 +166,7 @@ class ManageSql:
     def get_variables_from_sql(selected_product_id):
         # 把数据库里变量的值存在本地
         sql = 'select Product_id,from_api,variable_key,variable_value from apitest_variables where Product_id = %s'
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         param = selected_product_id
         cursor = coon.cursor()
         aa = cursor.execute(sql, param)
@@ -176,7 +184,7 @@ class ManageSql:
     @staticmethod
     def get_host_of_product(product_id):
         sql = 'select product_host from product_product where id = %s'
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
         param = product_id
         aa = cursor.execute(sql, param)
@@ -189,7 +197,7 @@ class ManageSql:
     @staticmethod
     def write_flow_case_to_sql(case_name, case_desc, case_tester, product_id):
         sql = "insert into apitest_apiflowtest(case_name,case_desc,case_tester,Product_id) values(%s,%s,%s,%s);"
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
         param = (case_name, case_desc, case_tester, product_id)  # 不转换成str会出错，因为值里面有引号
         cursor.execute(sql, param)
@@ -209,7 +217,7 @@ class ManageSql:
     def write_to_table_api_flow_and_apis(flow_case_id, id_list, io_list):
         create_time = datetime.now()
         sql = "insert into apitest_apiflowandapis(ApiFlowTest_id,Apis_id,output_parameter,input_parameter,execution_order,create_time) values(%s,%s,%s,%s,%s,%s);"
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
         # execution_order应该就是传入list的顺序
         execution_order = 0
@@ -232,7 +240,7 @@ class ManageSql:
     @staticmethod
     def get_one_column_value(column_name, table_name):
         sql = "select %s from %s;" % (column_name, table_name)
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
 
         aa = cursor.execute(sql)
@@ -251,7 +259,7 @@ class ManageSql:
     def add_new_product(new_product_name, new_product_description, new_product_host):
         create_time = datetime.now()
         sql = "insert into product_product(product_name,product_desc,product_host,create_time) values(%s,%s,%s,%s);"
-        coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')
+        coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
         param = (new_product_name, new_product_description, new_product_host, create_time)  # 不转换成str会出错，因为值里面有引号
         cursor.execute(sql, param)
@@ -259,7 +267,6 @@ class ManageSql:
 
     @staticmethod
     def write_header_to_sql(header_key, header_value, product_id):
-        print(header_key, header_value, product_id)
         # 这里还要考虑会不会重复（可能不用，只有本来无header的是才会用到这里）
         sql = "insert into apitest_headers(header_key,header_value,product_id) values(%s,%s,%s);"
         coon = pymysql.connect(user='root', db='dj', passwd='52france', host='127.0.0.1', port=3306, charset='utf8')

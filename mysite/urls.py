@@ -30,5 +30,4 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('blog/', include('blog.urls')),
     path('article/', include('article.urls')),
-    path('home/', TemplateView.as_view(template_name='admin/home.html')),
 ]

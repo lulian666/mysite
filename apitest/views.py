@@ -222,7 +222,7 @@ def apis_manage(request):
                            "list_count": len(file_list)})
         elif 'debug' in request.POST:
             case_id = request.POST.get('case_id')
-            api_list = api_list.filter(id=case_id)
+            api_list = Apis.objects.filter(id=int(case_id))
             result, try_refresh_token = test_case(api_list, username)
             show_result = '状态码：' + str(result.status_code) + '\n' + '返回结果：' + result.text
             if try_refresh_token:
@@ -244,7 +244,7 @@ def test_case(model_list, tester):
     :return:
     """
     case_list = model_list_to_case_list(model_list)
-
+    print(len(case_list))
     # 获取host，取一个case的host即可
     product_id = Apis.objects.get(id=case_list[0][0]).Product_id
     host = ManageSql().get_host_of_product(product_id)
