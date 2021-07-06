@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-^dz4#9ru(zkj+uf9%81vo01zn3j0_5m@f^8ui5_l3(qtoxiw0d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '47.103.40.215']
+ALLOWED_HOSTS = ['*', 'localhost ', '47.103.40.215']
 
 # Application definition
 
@@ -142,10 +142,10 @@ STATIC_URL = '/static/'
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 HERE = os.path.join(HERE, '../')
-STATICFILES_DIRS = (os.path.join(HERE, 'static/'), 'static/')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 
 # # 静态文件收集目录
-STATIC_ROOT = os.path.join('home/sites/smarttest/mysite', '/collect_static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'collect_static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
@@ -156,8 +156,8 @@ LOGIN_REDIRECT_URL = '/article/list-article-title'
 # LOGOUT_REDIRECT_URL = '/apitest/login/'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'lulian@iftech.io'
-EMAIL_HOST_PASSWORD = '52france'
+EMAIL_HOST_USER = 'test'
+EMAIL_HOST_PASSWORD = 'test'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
