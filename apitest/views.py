@@ -34,10 +34,10 @@ def login(request):
     return render(request, 'apitest/login.html')
 
 
-@login_required(login_url='/account/login/')
-def home(request):
-    context = {'username': request.session.get('user', '')}
-    return render(request, 'apitest/home.html', context)
+# @login_required(login_url='/account/login/')
+# def home(request):
+#     context = {'username': request.session.get('user', '')}
+#     return render(request, 'apitest/home.html', context)
 
 
 def logout(request):
@@ -303,8 +303,8 @@ def test_report_detail(request, report_name):
     return render(request, "report/" + report_name, {})
 
 
-def left(request):
-    return render(request, "apitest/left.html")
+# def left(request):
+#     return render(request, "apitest/left.html")
 
 
 @login_required(login_url='/account/login/')

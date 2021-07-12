@@ -37,7 +37,7 @@ class ManageSql:
                 coon.commit()
         else:
             for case in case_list:
-                # 先判断url是不是在已有的url池里，不再就是新接口
+                # 先判断url是不是在已有的url池里，不在就是新接口
                 if case[1] not in list(cases.values_list("api_url", flat=True)):
                     param = (case[0], case[1], case[2], case[3].__str__(), case[4].__str__(), case[5].__str__(),
                              product_id)
