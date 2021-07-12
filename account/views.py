@@ -55,8 +55,8 @@ def register(request):
 @login_required(login_url='/account/login/')
 def myself(request):
     user = User.objects.get(username=request.user.username)
-    userprofile = UserProfile.objects.filter(user=user)
-    userinfo = UserInfo.objects.filter(user=user)
+    userprofile = UserProfile.objects.get(user=user)
+    userinfo = UserInfo.objects.get(user=user)
     return render(request, 'account/myself.html', {"user": user, "userprofile": userprofile, "userinfo": userinfo})
 
 
