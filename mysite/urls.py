@@ -30,4 +30,6 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('article/', include('article.urls')),
     path('', views.home, name='home'),
+    path('my_information/', views.my_information, name='my_information'),
+    path('left/', views.left, name='left'),
 ]
