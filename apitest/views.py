@@ -383,7 +383,7 @@ def datasource(request):
             selected_product_id = request.POST.get('selected_product_id')
             if selected_product_id != '-1':
                 interfaces_not_wanted = Product.objects.get(id=selected_product_id).exclude_api
-                basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted)
+                basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted, selected_product_id)
                 # for case in case_list:
                 #     print(case)
                 save_variables_to_sql(selected_product_id, basic_case_list)

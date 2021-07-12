@@ -14,27 +14,44 @@ class CaseCollect:
     root = os.path.abspath('.')  # 获取当前工作目录路径
     filepath = os.path.join(root, 'apitest/config/temp.json')
 
-    def collect_data_accordingly(self, interfaces_not_wanted):
+    def collect_data_accordingly(self, interfaces_not_wanted, product_id):
+        basic_case_list, case_list = [], []
         # 处理interfaces_not_wanted，传进来的是string
         if interfaces_not_wanted:
             interfaces_not_wanted = interfaces_not_wanted.split(',')
         with open(self.filepath, 'r', encoding='utf8')as fp:
             json_data = json.load(fp)
-        if 'paths' in json_data:
-            path_data = json_data['paths']
-            print("调用了collect_data_swagger")
-            basic_case_list, case_list = self.collect_data_swagger(json_data, path_data, interfaces_not_wanted)
-            print('basic_case_list, case_list:', len(basic_case_list), len(case_list))
-        else:
-            print("调用了collect_data_jike")
+        if product_id in ["1", "3"]:  # 1和3分别代表橙和即刻夸夸项目
+            print("按即刻接口文档格式解析")
             basic_case_list, case_list = self.collect_data_jike(json_data, interfaces_not_wanted)
+        elif product_id in ["4"]:
+            print("按小宇宙接口文档格式解析")
+            basic_case_list, case_list = self.collect_data_podcast(json_data, interfaces_not_wanted)
+        elif product_id in ["2"]:
+            path_data = json_data['paths']
+            print("按即刻接口swagger文档格式解析")
+            basic_case_list, case_list = self.collect_data_swagger(json_data, path_data, interfaces_not_wanted)
+
+        return basic_case_list, case_list
+
+    @staticmethod
+    def collect_data_podcast(json_data, interfaces_not_wanted):
+        basic_case_list, case_list = [], []
+        # 小宇宙的文档结构，是同一个功能的都放在一个结构里，json_data 里的每个都可能包含不止一个 api
+        # for apis in json_data:
+        #     if 'item' in apis:
+        #         for api in apis['item']:
+        #             parameters, body = {}, {}
+        #             url, method, case_name = '', '', ''
+        #             if 'url' in str(api):
+        #                 url = jsonpath.jsonpath(api, "$.url")[0]
+        # 小宇宙json文档待优化，先不解析
         return basic_case_list, case_list
 
     # 这里会删除所有老的case，把新的case写进数据库里面
     @staticmethod
     def collect_data_swagger(json_data, path_data, interfaces_not_wanted):
-        basic_case_list = []
-        case_list = []
+        basic_case_list, case_list = [], []
         # 如果不照着json文件看，可能会理解上有困难
         for path_keys in path_data:
             url = path_keys
@@ -87,8 +104,7 @@ class CaseCollect:
     def collect_data_jike(json_data, interfaces_not_wanted):
         basic_case_list, case_list = [], []
         for api in json_data:
-            parameters = {}
-            body = {}
+            parameters, body = {}, {}
             url, method, case_name = '', '', ''
             if 'url' in api:
                 url = jsonpath.jsonpath(api, "$.url")[0]
@@ -164,8 +180,8 @@ def parameters_info_swagger(params, parameters, son_json, father):
         enum = params['enum']
     elif 'Enum' in params:
         enum = params['Enum']
-    # parameters, son_json, father = exclude_loadmorekey_and_avatar(parameters, params['name'], son_json,
-    #                                                               required, param_type, enum, father)
+    parameters, son_json, father = collect_enum_and_json(parameters, params['name'], son_json,
+                                                                  required, param_type, enum, father)
     return parameters, son_json, father
 
 
@@ -198,8 +214,8 @@ def body_info_swagger(params, json_data, body, son_json, father):
                 elif 'Enum' in param_data:
                     enum = param_data['Enum']
 
-                # parameters, son_json, father = exclude_loadmorekey_and_avatar(body, each, son_json, required,
-                #                                                               param_type, enum, father)
+                parameters, son_json, father = collect_enum_and_json(body, each, son_json, required,
+                                                                              param_type, enum, father)
         return body, son_json, father
     else:
         properties = schema['properties']
@@ -218,14 +234,14 @@ def body_info_swagger(params, json_data, body, son_json, father):
             elif 'Enum' in properties[prop]:
                 enum = properties[prop]['Enum']
             print('required:', required, 'type:', type(required))
-            # parameters, son_json, father = exclude_loadmorekey_and_avatar(body, prop, son_json, required,
-            #                                                               param_type, enum, father)
+            parameters, son_json, father = collect_enum_and_json(body, prop, son_json, required,
+                                                                          param_type, enum, father)
     return body, son_json, father
 
 
-def exclude_loadmorekey_and_avatar(parameters, name, son_json, required, param_type, enum, father):
+def collect_enum_and_json(parameters, name, son_json, required, param_type, enum, father):
     """
-    橙的部分参数是loadMoreKey.xxxx，这些都统一不处理，哦还有avatarFile，不想搞
+    拼凑 enum 和二级 json
     :param parameters: 组织好的字典，参数-参数信息
     :param name: 参数名称
     :param son_json: 参数中的二级json
@@ -236,13 +252,12 @@ def exclude_loadmorekey_and_avatar(parameters, name, son_json, required, param_t
     :return:
     """
     param_name = name.lower()
-    if ((not fnmatch(param_name, 'loadmorekey' + '*')) and param_name != 'avatarFile') and len(enum) == 0 and (
-    not fnmatch(param_name, '*' + '.' + '*')):
+    if len(enum) == 0 and (not fnmatch(param_name, '*' + '.' + '*')):
         parameters.update({name: {'required': required, 'type': param_type}})
-    elif ((not fnmatch(param_name, 'loadmorekey' + '*')) and param_name != 'avatarFile') and len(enum) > 0:
+    elif len(enum) > 0:
         parameters.update({name: {'required': required, 'type': param_type, 'enum': enum}})
     # 如果存在参数 xxx.xxx 那说明传参里有2级json，那要特殊处理一下
-    elif (not fnmatch(param_name, 'loadmorekey' + '*')) and fnmatch(param_name, '*' + '.' + '*'):
+    elif fnmatch(param_name, '*' + '.' + '*'):
         father = name.split('.')[0]
         son = name.split('.')[1]
         son_json.update({son: {'required': required, 'type': param_type}})
