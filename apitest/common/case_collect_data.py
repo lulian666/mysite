@@ -85,30 +85,48 @@ class CaseCollect:
 
     @staticmethod
     def collect_data_jike(json_data, interfaces_not_wanted):
-        basic_case_list = []
+        basic_case_list, case_list = [], []
         for api in json_data:
             parameters = {}
             body = {}
-            url = jsonpath.jsonpath(api, "$.url")[0]
-            method = jsonpath.jsonpath(api, "$.type")[0]
-            case_name = jsonpath.jsonpath(api, "$.title")[0]
-            if "parameter" in api:
-                parameters_data = jsonpath.jsonpath(api, "$.parameter")
-            else:
-                parameters_data = {}
-            if parameters_data != {}:
-                if method.lower() == "post":
-                    body = parameters_info_jike(parameters_data)
-                    # print('body:', body, type(body))
+            url, method, case_name = '', '', ''
+            if 'url' in api:
+                url = jsonpath.jsonpath(api, "$.url")[0]
+            case_wanted = True
+            if interfaces_not_wanted:
+                for each in interfaces_not_wanted:
+                    if fnmatch(url, "*" + each + "*"):
+                        case_wanted = False
+            if case_wanted:
+                if 'type' in api:
+                    method = jsonpath.jsonpath(api, "$.type")[0]
+                if 'title' in api:
+                    case_name = jsonpath.jsonpath(api, "$.title")[0]
+                if "parameter" in api:
+                    parameters_data = jsonpath.jsonpath(api, "$.parameter")
                 else:
-                    parameters = parameters_info_jike(parameters_data)
-                    # print('parameters:', parameters, type(parameters))
-            else:
-                parameters = {}
-                body = {}
-            basic_case_list.append([case_name, url, method, parameters, body])
-            case_list = CaseGenerate(case_name, url, method, parameters, body).generate()
-        return basic_case_list, case_list
+                    parameters_data = {}
+                if parameters_data != {}:
+                    if method.lower() == "post":
+                        body = parameters_info_jike(parameters_data)
+                        # print('body:', body, type(body))
+                    else:
+                        parameters = parameters_info_jike(parameters_data)
+                        # print('parameters:', parameters, type(parameters))
+                else:
+                    parameters = {}
+                    body = {}
+                if url != '':
+                    basic_case_list.append([case_name, url, method, parameters, body])
+                    case_list = CaseGenerate(case_name, url, method, parameters, body).generate()
+        # 为了防止重复
+        print('before:', len(case_list))
+        no_repeat_case_list = []
+        for one in case_list:
+            if one not in no_repeat_case_list:
+                no_repeat_case_list.append(one)
+        print('after', len(no_repeat_case_list))
+        return basic_case_list, no_repeat_case_list
 
 
 def parameters_info_jike(parameters_data):

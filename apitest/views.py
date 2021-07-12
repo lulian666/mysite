@@ -390,7 +390,15 @@ def datasource(request):
                 variables_list = Variables.objects.filter(Product_id=selected_product_id)
                 # 接口也保存下来
                 new_case_list = CaseReady().data_form(selected_product_id, 3, 4, case_list, variables_list)
-                ManageSql.write_case_to_sql(new_case_list, selected_product_id)
+
+                # 为了防止重复
+                print('before:', len(new_case_list))
+                no_repeat_case_list = []
+                for one in new_case_list:
+                    if one not in no_repeat_case_list:
+                        no_repeat_case_list.append(one)
+                print('after', len(no_repeat_case_list))
+                ManageSql.write_case_to_sql(no_repeat_case_list, selected_product_id)
 
                 variables_count, variables_page_list = paginator(request, variables_list, 12)
                 return render(request, "apitest/variables_manage.html",
