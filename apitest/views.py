@@ -386,25 +386,28 @@ def datasource(request):
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted, selected_product_id)
                 # for case in case_list:
                 #     print(case)
-                save_variables_to_sql(selected_product_id, basic_case_list)
-                variables_list = Variables.objects.filter(Product_id=selected_product_id)
-                # 接口也保存下来
-                new_case_list = CaseReady().data_form(selected_product_id, 3, 4, case_list, variables_list)
+                if len(basic_case_list) == 0:
+                    error = '未解析出case，可能这种格式暂不支持，或者选择的项目不匹配此格式'
+                else:
+                    save_variables_to_sql(selected_product_id, basic_case_list)
+                    variables_list = Variables.objects.filter(Product_id=selected_product_id)
+                    # 接口也保存下来
+                    new_case_list = CaseReady().data_form(selected_product_id, 3, 4, case_list, variables_list)
 
-                # 为了防止重复
-                print('before:', len(new_case_list))
-                no_repeat_case_list = []
-                for one in new_case_list:
-                    if one not in no_repeat_case_list:
-                        no_repeat_case_list.append(one)
-                print('after', len(no_repeat_case_list))
-                ManageSql.write_case_to_sql(no_repeat_case_list, selected_product_id)
+                    # 为了防止重复
+                    print('before:', len(new_case_list))
+                    no_repeat_case_list = []
+                    for one in new_case_list:
+                        if one not in no_repeat_case_list:
+                            no_repeat_case_list.append(one)
+                    print('after', len(no_repeat_case_list))
+                    ManageSql.write_case_to_sql(no_repeat_case_list, selected_product_id)
 
-                variables_count, variables_page_list = paginator(request, variables_list, 12)
-                return render(request, "apitest/variables_manage.html",
-                              {'error': error, 'data': source, "username": username,
-                               "variables": variables_page_list, "variables_count": variables_count,
-                               "product_list": product_list, "selected_product_id": int(selected_product_id)})
+                    variables_count, variables_page_list = paginator(request, variables_list, 12)
+                    return render(request, "apitest/variables_manage.html",
+                                  {'error': error, 'data': source, "username": username,
+                                   "variables": variables_page_list, "variables_count": variables_count,
+                                   "product_list": product_list, "selected_product_id": int(selected_product_id)})
             else:
                 error = '还没有选择所属项目'
         else:
