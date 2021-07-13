@@ -4,7 +4,7 @@ import os
 from os import listdir
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Q
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -32,12 +32,6 @@ def login(request):
         else:
             return render(request, 'apitest/login.html', {'error': 'username or password error'})
     return render(request, 'apitest/login.html')
-
-
-# @login_required(login_url='/account/login/')
-# def home(request):
-#     context = {'username': request.session.get('user', '')}
-#     return render(request, 'apitest/home.html', context)
 
 
 def logout(request):
@@ -307,10 +301,6 @@ def test_report_detail(request, report_name):
     return render(request, "report/" + report_name, {})
 
 
-# def left(request):
-#     return render(request, "apitest/left.html")
-
-
 @login_required(login_url='/account/login/')
 def search(request):
     username = request.session.get('user', '')
@@ -320,13 +310,16 @@ def search(request):
 
 
 @login_required(login_url='/account/login/')
-def apissearch(request):
+def apis_search(request):
     username = request.session.get('user', '')
-    apiname = request.GET.get("apiname", "")
-    api_list = Apis.objects.filter(api_name__icontains=apiname)
+    search_keyword = request.GET.get("search_keyword")
+    product_list = Product.objects.all()
+    test_result_list = [0, 1]
+    api_list = Apis.objects.filter(Q(api_name__icontains=search_keyword) | Q(api_url__icontains=search_keyword))
     api_count, api_page_list = paginator(request, api_list, 10)
     return render(request, "apitest/apis_manage.html", {"user": username, "api_list": api_page_list,
-                                                        "apis_count": api_count})
+                                                        "apis_count": api_count, "product_list": product_list,
+                                                        'test_result_list': test_result_list})
 
 
 @login_required(login_url='/account/login/')
