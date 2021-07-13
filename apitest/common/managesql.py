@@ -142,7 +142,8 @@ class ManageSql:
         :return:
         """
         variables = Variables.objects.filter(Product_id=product_id)
-        sql = "INSERT INTO apitest_variables(from_api,Product_id,variable_key,variable_optional,variable_type) VALUES(%s,%s,%s,%s,%s)"
+        sql1 = "INSERT INTO apitest_variables(from_api,Product_id,variable_key,variable_optional,variable_type) VALUES(%s,%s,%s,%s,%s)"
+        sql2 = "update apitest_variables set variable_optional = %s,variable_type = %s where from_api = %s and variable_key = %s and Product_id = %s;"
         coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
         for api, variable_list in variables_dict.items():
@@ -150,13 +151,19 @@ class ManageSql:
                 if api not in variables.values_list('from_api', flat=True):
                     param = (api, product_id, variable_info['variable_key'], variable_info['variable_optional'],
                              variable_info['variable_type'])
-                    cursor.execute(sql, param)
+                    cursor.execute(sql1, param)
                     coon.commit()
+                # 这里有个小bug，如果变量只是更改了属性，比如variable_optional或者variable_type，原本的判断方式，可能会不去更新
+                # 更新成，如果变量名一样，属性不一样时，更新属性
                 elif variable_info['variable_key'] not in variables.filter(from_api=api).values_list("variable_key",
                                                                                                      flat=True):
                     param = (api, product_id, variable_info['variable_key'], variable_info['variable_optional'],
                              variable_info['variable_type'])
-                    cursor.execute(sql, param)
+                    cursor.execute(sql1, param)
+                    coon.commit()
+                elif variable_info['variable_optional'] != variables.filter(from_api=api).filter(variable_key=variable_info['variable_key']).values_list("variable_optional", flat=True) or variable_info['variable_type'] != variables.filter(from_api=api).filter(variable_key=variable_info['variable_key']).values_list("variable_type", flat=True):
+                    param = (variable_info['variable_optional'], variable_info['variable_type'], api, variable_info['variable_key'], product_id)
+                    cursor.execute(sql2, param)
                     coon.commit()
         cursor.close()
         coon.close()
