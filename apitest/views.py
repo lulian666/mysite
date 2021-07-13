@@ -180,12 +180,17 @@ def apis_manage(request):
     api_list = Apis.objects.all()
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
     selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+    show_not_for_test = ''
 
     if 'selected_test_result' in request.GET:
         api_list, selected_test_result, selected_product_id = model_list_filter(request.GET, api_list)
+        show_not_for_test = request.GET.get("show_not_for_test")
 
     if request.method == 'POST':
         api_list, selected_test_result, selected_product_id = model_list_filter(request.POST, api_list)
+        show_not_for_test = request.POST.get('show_not_for_test')
+        if request.POST.get('show_not_for_test') is None:
+            api_list = api_list.filter(not_for_test__isnull=True)
         if 'run_test' in request.POST:
             if int(selected_product_id) == -1:
                 fail_message = '还没选择项目'
@@ -229,12 +234,12 @@ def apis_manage(request):
                 return HttpResponse(show_result)
             else:
                 return HttpResponse(show_result)
-
     apis_count, apis_page_list = paginator(request, api_list, 12)
     return render(request, 'apitest/apis_manage.html',
                   {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                    'test_result_list': test_result_list, "selected_test_result": selected_test_result,
-                   'selected_product_id': selected_product_id, 'apis_count': apis_count})
+                   'selected_product_id': selected_product_id, 'apis_count': apis_count,
+                   'show_not_for_test': show_not_for_test})
 
 
 def test_case(model_list, tester):
@@ -244,7 +249,6 @@ def test_case(model_list, tester):
     :return:
     """
     case_list = model_list_to_case_list(model_list)
-    print(len(case_list))
     # 获取host，取一个case的host即可
     product_id = Apis.objects.get(id=case_list[0][0]).Product_id
     host = ManageSql().get_host_of_product(product_id)
@@ -485,7 +489,6 @@ def variables_manage(request):
             variable_id = request.POST.get('variable_id')
             set_for_all = request.POST.get('set_for_all')
             variable = Variables.objects.get(id=variable_id)
-            print(variable)
             try:
 
                 if set_for_all == 'true':

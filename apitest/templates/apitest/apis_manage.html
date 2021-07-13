@@ -72,6 +72,11 @@
                                 {% endifequal %}
                             {% endfor %}
                         </select>
+                    {% if show_not_for_test == "show_not_for_test" %}
+                        <label style="margin-left: 10px"><input name="show_not_for_test" type="checkbox" value="show_not_for_test" checked/>也显示不参与测试的接口  </label>
+                    {% else %}
+                        <label style="margin-left: 10px"><input name="show_not_for_test" type="checkbox" value="show_not_for_test"/>也显示不参与测试的接口  </label>
+                    {% endif %}
                     <button type="submit" name="filter" style="margin-left: 50px">查看所选测试用例</button>
                     <button type="submit" name="run_test" style="margin-left: 20px" onclick="show_loading()">执行测试</button>
                     <label style="color: red">{{ fail_message }}</label>
@@ -141,13 +146,13 @@
                 <ul class="pagination" id="pager">
                     {# 上一页链接开始 #}
                     {% if api_list.has_previous %}
-                        <li class="previous"><a href="/apitest/apis_manage/?page={{ api_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">上一页</a></li>
+                        <li class="previous"><a href="/apitest/apis_manage/?page={{ api_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}&show_not_for_test={{ show_not_for_test }}">上一页</a></li>
                     {% else %}
                         <li class="previous disabled"><a href="#">上一页</a></li>
                     {% endif %}
                     {# 下一页链接开始 #}
                     {% if api_list.has_next %}
-                        <li class="next"><a href="/apitest/apis_manage/?page={{ api_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}">下一页</a></li>
+                        <li class="next"><a href="/apitest/apis_manage/?page={{ api_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&api_list={{ api_list }}&show_not_for_test={{ show_not_for_test }}">下一页</a></li>
                     {% else %}
                         <li class="next disabled"><a href="#">下一页</a></li>
                     {% endif %}
