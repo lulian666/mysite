@@ -171,20 +171,22 @@ def apis_manage(request):
     """
     username = request.user
     product_list = Product.objects.all()
-    api_list = Apis.objects.all()
+    api_list = Apis.objects.filter(not_for_test__isnull=True)
     test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
     selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
     show_not_for_test = ''
 
     if 'selected_test_result' in request.GET:
-        api_list, selected_test_result, selected_product_id = model_list_filter(request.GET, api_list)
         show_not_for_test = request.GET.get("show_not_for_test")
+        if show_not_for_test == 'show_not_for_test':
+            api_list = Apis.objects.all()
+        api_list, selected_test_result, selected_product_id = model_list_filter(request.GET, api_list)
 
     if request.method == 'POST':
+        show_not_for_test = request.POST.get("show_not_for_test")
+        if show_not_for_test == 'show_not_for_test':
+            api_list = Apis.objects.all()
         api_list, selected_test_result, selected_product_id = model_list_filter(request.POST, api_list)
-        show_not_for_test = request.POST.get('show_not_for_test')
-        if request.POST.get('show_not_for_test') is None:
-            api_list = api_list.filter(not_for_test__isnull=True)
         if 'run_test' in request.POST:
             if int(selected_product_id) == -1:
                 fail_message = '还没选择项目'
@@ -483,7 +485,6 @@ def variables_manage(request):
             set_for_all = request.POST.get('set_for_all')
             variable = Variables.objects.get(id=variable_id)
             try:
-
                 if set_for_all == 'true':
                     variable_name = variable.variable_key
                     product_id = variable.Product_id
