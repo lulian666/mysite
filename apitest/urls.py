@@ -10,6 +10,7 @@ urlpatterns = [
     path('api_flow_test_manage/', views.api_flow_test_manage, name='api_flow_test_manage'),
     path('form_api_flow_case/', views.form_api_flow_case, name='form_api_flow_case'),
     path('apis_manage/', views.apis_manage, name='apis_manage'),
+    path('testAll/', views.testAll, name='testAll'),
     path('test_report/', views.test_report, name='test_report'),
     path('test_report/<report_name>', views.test_report_detail, name='test_report_detail'),
     # path('left/', views.left, name='left'),

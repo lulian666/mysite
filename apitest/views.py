@@ -161,6 +161,28 @@ def flow_case_test(api_flow_test_list, tester):
     return test_result, try_refresh_token
 
 
+# 专门写的对外的接口
+@csrf_exempt
+def testAll(request):
+    if request.method == 'POST':
+        selected_product_id = json.loads(request.body)['selected_product_id']
+        api_list = Apis.objects.filter(Product_id=selected_product_id).filter(not_for_test__isnull=True)
+        print(len(api_list))
+        # return HttpResponse(len(api_list))
+        result, try_refresh_token = test_case(api_list, 'from jenkins')
+        if try_refresh_token:
+            # api_list 里有失败的那就说明测试失败了，统计失败的有多少
+            success_case_num = len(api_list.filter(test_result='1'))
+            fail_case_num = len(api_list.filter(test_result='0'))
+            print('fail_case_num:', fail_case_num)
+            if fail_case_num > 0:
+                return HttpResponse("test fail")
+            else:
+                return HttpResponse("test succeed")
+        else:
+            return HttpResponse("token expired")
+
+
 @login_required(login_url='/account/login/')
 @csrf_exempt
 def apis_manage(request):
@@ -229,7 +251,7 @@ def apis_manage(request):
             if try_refresh_token:
                 return HttpResponse(show_result)
             else:
-                return HttpResponse(show_result)
+                return HttpResponse('token 过期')
     apis_count, apis_page_list = paginator(request, api_list, 12)
     return render(request, 'apitest/apis_manage.html',
                   {'api_list': apis_page_list, "product_list": product_list, 'username': username,
