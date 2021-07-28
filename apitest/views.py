@@ -168,7 +168,6 @@ def testAll(request):
         selected_product_id = json.loads(request.body)['selected_product_id']
         api_list = Apis.objects.filter(Product_id=selected_product_id).filter(not_for_test__isnull=True)
         print(len(api_list))
-        # return HttpResponse(len(api_list))
         result, try_refresh_token = test_case(api_list, 'from jenkins')
         if try_refresh_token:
             # api_list 里有失败的那就说明测试失败了，统计失败的有多少
@@ -176,11 +175,11 @@ def testAll(request):
             fail_case_num = len(api_list.filter(test_result='0'))
             print('fail_case_num:', fail_case_num)
             if fail_case_num > 0:
-                return HttpResponse("test fail")
+                return HttpResponse(content='有测试失败的 case', content_type='application/json', status=202)
             else:
-                return HttpResponse("test succeed")
+                return HttpResponse(content='测试成功 0 失败', content_type='application/json', status=200)
         else:
-            return HttpResponse("token expired")
+            return HttpResponse(content='token 刷新失败，没有进行测试', content_type='application/json', status=400)
 
 
 @login_required(login_url='/account/login/')

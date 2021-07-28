@@ -20,6 +20,7 @@ global host, user, password, port, sender, title, receivers
 
 class Email:
     def __init__(self, num_fail):
+        self.num_fail = num_fail
         global host, user, password, port, sender, title, receivers
         sender = localReadConfig.get_value('EMAIL', 'sender')  # 发件人
         # receivers = ['lulian@iftech.io','zhouxin@iftech.io','songwei@iftech.io']  # 收件人
@@ -94,17 +95,18 @@ class Email:
         :return:
         """
         print("sending email")
-        self.config_content()
-        self.config_header()
-        try:
-            smtp = smtplib.SMTP_SSL(host, port)
-            smtp.login(user, password)
-            smtp.sendmail(sender, receivers, self.msg.as_string())
-            print('发送成功')
-        except Exception as ex:
-            print('发送失败')
-            print(str(ex))
-            return "邮件发送失败"
-        finally:
-            smtp.quit()
+        if self.num_fail > 0:
+            self.config_content()
+            self.config_header()
+            try:
+                smtp = smtplib.SMTP_SSL(host, port)
+                smtp.login(user, password)
+                smtp.sendmail(sender, receivers, self.msg.as_string())
+                print('发送成功')
+            except Exception as ex:
+                print('发送失败')
+                print(str(ex))
+                return "邮件发送失败"
+            finally:
+                smtp.quit()
 

@@ -94,6 +94,7 @@ class TestCaseRequest:
                 case.append(api_response)
                 case.append(result.status_code == case[5])
             else:
+                report_file(0, 0, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
                 break
         report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
         return result, case_list, try_refresh_token
@@ -137,20 +138,21 @@ class TestCaseRequest:
 
 
 def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, called_by, tester):
-    total_str = '共 %s，通过 %s，失败 %s' % (num_fail + num_success, num_success, num_fail)
-    output = html.HTML_TMPL % dict(value=total_str, table_tr=table_tr_fail, table_tr2=table_tr_success, )
-    is_success = "PASS" if num_success == (num_fail + num_success) else "FAIL"
+    if num_success > 0:
+        total_str = '共 %s，通过 %s，失败 %s' % (num_fail + num_success, num_success, num_fail)
+        output = html.HTML_TMPL % dict(value=total_str, table_tr=table_tr_fail, table_tr2=table_tr_success, )
+        is_success = "PASS" if num_success == (num_fail + num_success) else "FAIL"
 
-    # 生成html报告
-    filename = '{called_by}_{date}_{is_success}_{tester}_TestReport.html'.format(date=time.strftime('%Y.%m.%d-%H:%M'), called_by=called_by, is_success=is_success, tester=tester)
-    root = os.path.abspath('.')
-    filepath = os.path.join(root, 'apitest/templates/report/' + filename)
+        # 生成html报告
+        filename = '{called_by}_{date}_{is_success}_{tester}_TestReport.html'.format(date=time.strftime('%Y.%m.%d-%H:%M'), called_by=called_by, is_success=is_success, tester=tester)
+        root = os.path.abspath('.')
+        filepath = os.path.join(root, 'apitest/templates/report/' + filename)
 
-    with open(filepath, 'wb') as f:
-        f.write(output.encode('utf8'))
+        with open(filepath, 'wb') as f:
+            f.write(output.encode('utf8'))
 
-    # if num_fail > 0:
-    Email(num_fail).send_email()
+        if num_fail > 0:
+            Email(num_fail).send_email()
     return
 
 
