@@ -40,6 +40,7 @@ class Apis(models.Model):
     api_body_value = models.CharField('请求body', max_length=10000, null=True)
     REQUEST_METHOD = (('get', 'get'), ('post', 'post'), ('put', 'put'), ('delete', 'delete'), ('patch', 'patch'))
     api_method = models.CharField('请求方法', choices=REQUEST_METHOD, default='0', max_length=200)
+    api_response_last_time = models.TextField('上次返回结果结果', max_length=50000, null=True)
     api_expect_response = models.CharField('预期结果', max_length=500, null=True)
     api_expect_status_code = models.IntegerField('预期状态码', default=200)
     api_response = models.CharField('测试结果', max_length=1000, null=True)

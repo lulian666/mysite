@@ -6,10 +6,11 @@ import time
 
 import jsonpath
 import requests
-import pytest
 from json import JSONDecodeError
-from apitest.common.header_mange import HeaderManage
 
+from deepdiff import DeepDiff
+
+from apitest.common.header_mange import HeaderManage
 from apitest.common.emailer import Email
 from apitest.common.reporter import TemplateMixin
 from apitest.models import Apis
@@ -77,16 +78,11 @@ class TestCaseRequest:
             result, try_refresh_token = self.test_avoid_401(case, host)
             if try_refresh_token:
                 # print('测试api：', case[1])
-                if int(result.status_code) != int(case[5]):
-                    print('测试失败')
-                    print('预期状态码：', case[5])
-                    print("result.status_code:", result.status_code)
-                    try:
-                        result_json = result.json()
-                    except JSONDecodeError:
-                        result_json = result.content
-                    print("result_json:", result_json)
-                    # print("case[5]:", case[5])
+                # 此处修改校验方法
+                is_succeed, response_this_time = verify_result(case, result)
+                # 还要把值覆盖到 response_last_time 里，为下一次测试作准备
+                if is_succeed:
+                    case[7] = response_this_time
                 self.save_report_info(result, case)
                 # 测试结果存数据库
                 api_response = "这里我有解决不了的问题，先放着"
@@ -135,6 +131,29 @@ class TestCaseRequest:
             result = request(case, host, self.header)
             print('刷新token过后，状态码：', result.status_code)
         return result, try_refresh_token
+
+
+def verify_result(case, result):
+    if int(result.status_code) != int(case[5]):
+        print('测试失败，状态码不正确')
+        print('预期状态码：', case[5])
+        print("实际状态码:", result.status_code)
+        return False, ''
+    else:
+        try:
+            result_json = result.json()
+        except JSONDecodeError:
+            result_json = result.content
+        # 没有 dictionary_item_removed，即没有删掉的字段，就认为 response 是对的了
+        if 'dictionary_item_removed' not in DeepDiff(case[7], result_json, ignore_order=True):
+            print('测试成功')
+            return True, result_json
+        else:
+            print('测试失败，response 缺少字段')
+            print('上次返回结果：', case[7])
+            print("这次返回结果：", result_json)
+            print('不同点：', DeepDiff(case[7], result_json))
+            return False, ''
 
 
 def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, called_by, tester):
