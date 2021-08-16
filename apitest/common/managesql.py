@@ -1,5 +1,7 @@
 # coding:utf-8
 import ast
+import json
+
 import pymysql
 from django.utils.datetime_safe import datetime
 
@@ -119,13 +121,13 @@ class ManageSql:
 
     @staticmethod
     def update_case_to_sql(case_list):
-        sql = "update apitest_apis set api_response_status_code = %s,api_response = %s,test_result = %s where id = %s;"
+        sql = "update apitest_apis set api_response_status_code = %s,api_response = %s,test_result = %s,api_response_last_time = %s where id = %s;"
         coon = pymysql.connect(user=ManageSql.user, db=ManageSql.db, passwd=ManageSql.passwd, host=ManageSql.host, port=ManageSql.port, charset='utf8')
         cursor = coon.cursor()
 
         # 这里开始循环更新表
         for case in case_list:
-            param = (case[7].__str__(), case[8].__str__().strip(), case[9], case[0].__str__())  # 不转换成str会出错，因为值里面有引号
+            param = (case[8].__str__(), case[9].__str__().strip(), case[10], json.dumps(case[7]), case[0].__str__())  # 不转换成str会出错，因为值里面有引号
             cursor.execute(sql, param)
             coon.commit()
 
