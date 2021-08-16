@@ -1,35 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <style>
         .box {
             display: flex;
             flex-wrap: wrap;
+            flex-direction: row;
             justify-content: flex-start;
-            padding-left: 20px;
-            padding-top: 50px;
+            align-content: flex-start;
+            width: 100%;
+        }
+        .column {
+            align-self: flex-start;
+            padding-left: 10px;
+            width: 100%;
         }
         .row{
             flex-basis: 100%;
             display:flex;
-            padding-top: 30px;
-            padding-left: 1px;
+            padding-left: 10px;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
         }
-        .item {
+        .item1, .item3 {
+            align-items: flex-start;
             width: 100%;
         }
         .td,.th {
             white-space: pre-wrap;
             width: 100px;
+            vertical-align: middle !important;
         }
     </style>
 </head>
-<body>
+<body role="document">
 <!-- 导航栏-->
 {% include 'apitest/header_for_single_api_test.html' %}
 <div class="box">
-    <div class="row">
-        <span class="item">
+    <div class="column">
+        <span class="item1">
+            <div class="container">
+            <!-- 搜索栏-->
+            <div class="page-header" style="padding-top: 30px">
             <form class="navbar-form" method="post" action="{% url 'apitest:variables_manage' %}">
                 {%  csrf_token %}
                 <label>所属项目：</label>
@@ -52,46 +65,68 @@
                 <button type="submit" name="birth" style="margin-left: 100px">用这些数据生成case</button>
                 <label style="color: red">{{ fail_message }}</label>
             </form>
+            </div>
+            </div>
         </span>
-        <span class="item">
-        <!-- 参数管理-->
-        <div class="col-md-11" style="padding-top: 10px">
-            <table class="table table-striped" style="table-layout: fixed">
-                <thead>
-                <tr style="text-align:left;">
-                    <th class="th">ID</th>
-                    <th class="th">所属产品</th>
-                    <th class="th">所属接口</th>
-                    <th class="th">变量名</th>
-                    <th class="th">变量类型</th>
-                    <th class="th">变量是否可缺省</th>
-                    <th class="th">变量值</th>
-                    <th class="th">编辑（打勾表示所有同名变量都设成同个值）</th>
-                    <th class="th">删除</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for variable in variables %}
-                    <tr>
-                        <td class="td">{{ variable.id }}</td>
-                        <td class="td">{{ variable.Product.product_name }}</td>
-                        <td class="td">{{ variable.from_api }}</td>
-                        <td class="td">{{ variable.variable_key }}</td>
-                        <td class="td">{{ variable.variable_type }}</td>
-                        <td class="td">{{ variable.variable_optional }}</td>
-                        <td class="td" id="previous_value" style="width: 300px">{{ variable.variable_value }}</td>
-                        <td class="td">
-                            <input type="checkbox" id="set_for_all">
-                            <input type="text" id="variable_value" placeholder="按enter更新值" onkeydown="if(event.keyCode===13) {change_value(this, {{ variable.id }})}">
-                        </td>
-                        <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    </div>
+    <div class="row">
+        <span class="item3">
+            <!-- 参数管理-->
+            <div class="row">
+                <div class="col-md-11">
+                    <table class="table table-striped" style="table-layout: fixed">
+                        <thead>
+                        <tr style="text-align:left; padding: 1px">
+                            <th class="th">ID</th>
+                            <th class="th">所属产品</th>
+                            <th class="th" style="width: 200px">所属接口</th>
+                            <th class="th">变量名</th>
+                            <th class="th">变量类型</th>
+                            <th class="th">变量是否可缺省</th>
+                            <th class="th" style="width: 200px">变量值</th>
+                            <th class="th" style="width: 200px">编辑</th>
+                            <th class="th" style="width: 200px">是否需要前置 + 前置依赖的接口 id</th>
+                            <th class="th" style="width: 200px">依赖接口中取值规则（满足 jsonpath 格式）</th>
+                            <th class="th">删除</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for variable in variables %}
+                            <tr>
+                                <td class="td">{{ variable.id }}</td>
+                                <td class="td">{{ variable.Product.product_name }}</td>
+                                <td class="td">{{ variable.from_api }}</td>
+                                <td class="td">{{ variable.variable_key }}</td>
+                                <td class="td">{{ variable.variable_type }}</td>
+                                <td class="td">{{ variable.variable_optional }}</td>
+                                <td class="td" id="previous_value" style="width: 300px">{{ variable.variable_value }}</td>
+                                <td class="td">
+                                    <label><input type="checkbox" id="set_for_all">赋值给所有同名变量</label>
+                                    <input type="text" id="variable_value" placeholder="按enter更新值" onkeydown="if(event.keyCode===13) {change_value(this, {{ variable.id }})}">
+                                </td>
+                                <td class="td" style="vertical-align: center">
+                                    {% if variable.variable_need_preparation %}
+                                        <label><input name="need_preparation" type="checkbox" checked onclick="need_preparation(this, {{ variable.id }})"/>需要数据准备</label>
+                                    {% else %}
+                                        <label><input name="need_preparation" type="checkbox" onclick="need_preparation(this, {{ variable.id }})"/>需要数据准备</label>
+                                    {% endif %}
+                                    <input type="text" id="depend_id" placeholder="按enter保存" onkeydown="if(event.keyCode===13) {set_depend_id(this, {{ variable.id }})}">
+                                </td>
+                                <td class="td">
+                                    <input type="text" id="json_path" placeholder="按enter保存" onkeydown="if(event.keyCode===13) {set_json_path(this, {{ variable.id }})}">
+                                    <button style="padding-inline: 15px" onclick="debug({{ variable.id }})">测试能否获取到数据</button>
+                                </td>
+                                <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </span>
-        <span class="item" style="position: absolute; right: 150px; bottom: 50px;">
+    </div>
+    <div class="column">
+        <span class="item4">
         <div class="container">
             <ul class="pagination" id="pager">
                 {# 上一页链接开始 #}
@@ -110,7 +145,7 @@
             </ul>
         </div>
         </span>
-        <span class="item">
+        <span class="item5">
             <div>
                 <tr>
                     <th>总数</th>
@@ -121,6 +156,71 @@
     </div>
 </div>
 <script>
+    function need_preparation(ele, variable_id) {
+        var mark_for_preparation = ele.checked
+        $.ajax({
+            url: "{% url 'apitest:mark_variable_for_preparation' %}",
+            type: "POST",
+            data: {"variable_id": variable_id, "mark_for_preparation": mark_for_preparation},
+            success: function (e){
+                if (e=="0"){
+                    alert('标记失败')
+                }
+            },
+        })
+    }
+
+    function set_depend_id(ele, variable_id) {
+        var depend_api_id = ele.value;
+        $.ajax({
+            url: "{% url 'apitest:update_variable_depend_api' %}",
+            type: "POST",
+            data: {"depend_api_id": depend_api_id, 'variable_id': variable_id},
+            success: function (e) {
+                if (e == "0") {
+                    alert('保存失败，没有此 ID 的接口，请检查下！')
+                } else if (e == '2') {
+                    alert('此 API 所属的项目和这个变量的不一致呢！')
+                } else {
+                    var previous_cell = ele.parentNode.parentNode.cells[6];
+                    previous_cell.innerText = "依赖的接口 id:" + depend_api_id + "\nurl:" + e;
+                }
+            },
+        })
+    }
+
+    function set_json_path(ele, variable_id) {
+        var json_path = ele.value;
+        $.ajax({
+            url: "{% url 'apitest:update_variable_json_path' %}",
+            type: "POST",
+            data: {"json_path": json_path, 'variable_id': variable_id},
+            success: function (e){
+                if (e == "0") {
+                    alert('保存失败，没有此 ID 的接口，请检查下！')
+                }else {
+                    var previous_cell = ele.parentNode.parentNode.cells[6];
+                    previous_cell.append("\n取值规则：" + json_path);
+                }
+            },
+        })
+    }
+
+    function debug(variable_id) {
+        $.ajax({
+            url: "{% url 'apitest:debug_variable_preparation' %}",
+            type: "POST",
+            data: {'variable_id': variable_id},
+            success: function (e){
+                if (e == "0") {
+                    alert('测试失败')
+                }else {
+                    alert(e)
+                }
+            },
+        })
+    }
+
     function change_value(ele, variable_id) {
         var set_for_all = ele.previousElementSibling.checked
         var new_value = ele.value;

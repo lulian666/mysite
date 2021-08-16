@@ -76,6 +76,9 @@ class Variables(models.Model):
     variable_value = models.CharField('变量值', max_length=10000, null=True)
     variable_type = models.CharField('变量类型', max_length=100, null=True)
     variable_optional = models.BooleanField('是否可选', null=True)
+    variable_need_preparation = models.BooleanField('数据准备', null=True)
+    variable_depend_api_id = models.CharField('依赖接口', max_length=200, null=True)
+    variable_reach_json_path = models.CharField('取参规则', max_length=200, null=True)
     from_api = models.CharField('所属接口', max_length=1000, null=True)
 
     class Meta:
