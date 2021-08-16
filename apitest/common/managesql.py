@@ -127,7 +127,7 @@ class ManageSql:
 
         # 这里开始循环更新表
         for case in case_list:
-            param = (case[8].__str__(), case[9].__str__().strip(), case[10], json.dumps(case[7]), case[0].__str__())  # 不转换成str会出错，因为值里面有引号
+            param = (case[8].__str__(), json.dumps(case[9]), case[10], json.dumps(case[7]), case[0].__str__())  # 不转换成str会出错，因为值里面有引号
             cursor.execute(sql, param)
             coon.commit()
 

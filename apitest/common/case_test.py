@@ -85,7 +85,7 @@ class TestCaseRequest:
                     case[7] = response_this_time
                 self.save_report_info(result, case)
                 # 测试结果存数据库
-                api_response = "这里我有解决不了的问题，先放着"
+                api_response = response_this_time
                 case.append(result.status_code)
                 case.append(api_response)
                 case.append(result.status_code == case[5])
