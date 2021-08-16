@@ -78,8 +78,8 @@
                         <label style="margin-left: 10px"><input name="show_not_for_test" type="checkbox" value="show_not_for_test"/>也显示不参与测试的接口  </label>
                     {% endif %}
                     <button type="submit" name="filter" style="margin-left: 50px">查看所选测试用例</button>
-                    <button type="submit" name="run_test" style="margin-left: 20px" onclick="show_loading()">执行测试</button>
-                    <label style="color: red">{{ fail_message }}</label>
+                    <button type="submit" name="run_test" style="margin-left: 20px">执行测试</button>
+                    <h2 style="color: red; position: relative;">{{ fail_message }}</h2>
                 </form>
             </div>
             </div>
@@ -185,9 +185,6 @@
         })
     }
 
-    function show_loading() {
-        alert('正在执行测试，测试完毕后会自动跳转报告列表页，请耐心等待！')
-    }
 
     function debug(case_id, selected_test_result, selected_product_id){
         $.ajax({

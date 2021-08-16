@@ -15,6 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from apitest.common.case_collect_data import CaseCollect
 from apitest.common.case_readyfortest import CaseReady
 from apitest.common.case_test import TestCaseRequest
+from apitest.common.header_mange import HeaderManage
 from apitest.common.managesql import ManageSql
 from apitest.models import ApiFlowTest, Apis, Headers, Variables, ApiFlowAndApis
 from product.models import Product
@@ -212,6 +213,13 @@ def apis_manage(request):
             if int(selected_product_id) == -1:
                 fail_message = '还没选择项目'
                 apis_count, apis_page_list = paginator(request, api_list, 12)
+                return render(request, 'apitest/apis_manage.html',
+                              {'api_list': apis_page_list, "product_list": product_list, 'username': username,
+                               'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                               'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
+            elif len(HeaderManage.read_header(int(selected_product_id))) == 0:
+                apis_count, apis_page_list = paginator(request, api_list, 12)
+                fail_message = '这个项目还没有配置 header 哦！'
                 return render(request, 'apitest/apis_manage.html',
                               {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,
