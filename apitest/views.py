@@ -772,9 +772,6 @@ def model_list_to_case_list(model_list):
     """
     case_list = []
     for case in model_list:
-        print('debug:', case)
-        print('debug:', case.api_response_last_time)
-        print('debug:', type(json.loads(case.api_response_last_time)))
         case_list.append([case.id, case.api_url, case.api_method, ast.literal_eval(case.api_param_value),
                           ast.literal_eval(case.api_body_value),
                           case.api_expect_status_code, case.api_expect_response, json.loads(case.api_response_last_time)])

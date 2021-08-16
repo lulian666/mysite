@@ -144,8 +144,9 @@ def verify_result(case, result):
             result_json = result.json()
         except JSONDecodeError:
             result_json = result.content
-        # 没有 dictionary_item_removed，即没有删掉的字段，就认为 response 是对的了
-        if 'dictionary_item_removed' not in DeepDiff(case[7], result_json, ignore_order=True):
+        # 没有 dictionary_item_removed 和 type_changes，即没有删掉的字段，也没有类型改变的字段，就认为 response 是对的了
+        diff = DeepDiff(case[7], result_json, ignore_order=True)
+        if 'dictionary_item_removed' not in diff and 'type_changes' not in diff:
             print('测试成功')
             return True, result_json
         else:
