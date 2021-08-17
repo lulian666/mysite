@@ -85,9 +85,8 @@ class TestCaseRequest:
                     case[7] = response_this_time
                 self.save_report_info(result, case)
                 # 测试结果存数据库
-                api_response = response_this_time
                 case.append(result.status_code)
-                case.append(api_response)
+                case.append(response_this_time)
                 case.append(result.status_code == case[5])
             else:
                 report_file(0, 0, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
@@ -154,7 +153,7 @@ def verify_result(case, result):
             print('上次返回结果：', case[7])
             print("这次返回结果：", result_json)
             print('不同点：', DeepDiff(case[7], result_json))
-            return False, ''
+            return False, result_json
 
 
 def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, called_by, tester):
