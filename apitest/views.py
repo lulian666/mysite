@@ -797,7 +797,7 @@ def renew_variables(selected_product_id, username):
     print('renewing variables......')
     variables_to_renew = Variables.objects.filter(Product_id=selected_product_id).filter(variable_need_preparation__isnull=False)
     for variable in variables_to_renew:
-        renew_variable(variable.variable_id, username)
+        renew_variable(variable.id, username)
 
 
 def renew_variable(variable_id, username):
