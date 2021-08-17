@@ -71,9 +71,8 @@ class TemplateMixin(object):
             <td>%(parameters)s</td>
             <td>%(body)s</td>
             <td>%(expectcode)s</td>
-            <td style="background-color:red">%(testresult)s</td>
             <td>%(testcode)s</td>
-            <td>%(resultbody)s</td>
+            <td style="background-color:red">%(testresult)s</td>
             <td>%(btw)s</td>
         </tr>"""
 

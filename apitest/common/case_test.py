@@ -102,14 +102,17 @@ class TestCaseRequest:
                 result_json = result.json()
             except JSONDecodeError:
                 result_json = result.content
-            btw = '可能的原因：\n' \
-                  '1、某个参数没加required等于true\n' \
-                  '2、参数类型传错了（请联系QA）\n' \
-                  '3、真bug'
+            if result.status_code != case[5]:
+                btw = '可能的原因：\n' \
+                      '1、某个参数没加required等于true\n' \
+                      '2、参数类型传错了（请联系QA）\n' \
+                      '3、真bug'
+            else:
+                diff = DeepDiff(case[7], result_json, ignore_order=True)
+                btw = 'response中少了字段或字段类型变更：\n' + str(diff) + '\n返回详情可见具体case或测试数据库'
             table_td = self.html.TABLE_TMPL_FAIL % dict(runtime=time.strftime('%Y-%m-%d %H:%M:%S'), interface=case[1],
                                                         method=case[2], parameters=case[3], body=case[4], expectcode=case[5],
-                                                        testresult='测试失败', testcode=result.status_code, resultbody=result_json,
-                                                        btw=btw)
+                                                        testcode=result.status_code, testresult='测试失败', btw=btw)
             self.table_tr_fail += table_td
         else:
             self.num_success += 1

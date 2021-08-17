@@ -167,19 +167,26 @@ def flow_case_test(api_flow_test_list, tester):
 @csrf_exempt
 def testAll(request):
     if request.method == 'POST':
-        selected_product_id = json.loads(request.body)['selected_product_id']
-        renew_variables(selected_product_id, 'outsider')
+        try:
+            user = json.loads(request.body)['user']
+        except:
+            user = 'outsider'
+        try:
+            selected_product_id = json.loads(request.body)['selected_product_id']
+        except:
+            return HttpResponse(content='未传入项目id', content_type='application/json', status=400)
+        renew_variables(selected_product_id, user)
         ManageSql.update_variable_in_case(selected_product_id)
         api_list = Apis.objects.filter(Product_id=selected_product_id).filter(not_for_test__isnull=True)
 
-        result, try_refresh_token = test_case(api_list, 'outsider')
+        result, try_refresh_token = test_case(api_list, user)
         if try_refresh_token:
             # api_list 里有失败的那就说明测试失败了，统计失败的有多少
             success_case_num = len(api_list.filter(test_result='1'))
             fail_case_num = len(api_list.filter(test_result='0'))
             print('fail_case_num:', fail_case_num)
             if fail_case_num > 0:
-                return HttpResponse(content='有测试失败的 case', content_type='application/json', status=202)
+                return HttpResponse(content='有测试失败的 case' + fail_case_num + '个', content_type='application/json', status=202)
             else:
                 return HttpResponse(content='测试成功 0 失败', content_type='application/json', status=200)
         else:
