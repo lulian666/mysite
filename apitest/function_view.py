@@ -78,5 +78,5 @@ def debug_variable_preparation(request):
     username = request.user
     variable_id = request.POST.get('variable_id')
     target_value = renew_variable(variable_id, username)
-    return HttpResponse('测试结果：' + target_value)
+    return HttpResponse(target_value)
 

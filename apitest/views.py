@@ -810,7 +810,10 @@ def renew_variable(variable_id, username):
     except:
         return "0"
     if try_refresh_token:
-        target_value = jsonpath.jsonpath(result.json(), variable.variable_reach_json_path)[0]
+        try:
+            target_value = jsonpath.jsonpath(result.json(), variable.variable_reach_json_path)[0]
+        except:
+            target_value = '没有取出数据，请检查 json path 保存了吗？'
         # print('debug:', target_value, type(target_value))
         variable.variable_value = target_value
         variable.save()

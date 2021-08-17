@@ -215,7 +215,9 @@
                 if (e == "0") {
                     alert('测试失败')
                 }else {
-                    alert(e)
+                    alert('测试结果：' + e)
+                    var previous_cell = ele.parentNode.parentNode.cells[6];
+                    previous_cell.innerText = e
                 }
             },
         })
