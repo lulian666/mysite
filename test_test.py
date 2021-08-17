@@ -10,24 +10,24 @@ a = {"Object": {
             "code": "0",
             "message": "success"
         },
-            "code": "0",
+            "code": 1,
             "message": "success"
         }
 
 b = {"Object": {
             "message": "success",
-            "code": "1"
+            "code": "0"
         },
-            "code1": "0",
+            "code": {},
             "message": "success"
         }
 
 print(DeepDiff(a, b, ignore_order=True))
 
-if 'dictionary_item_removed' in DeepDiff(a, b, ignore_order=True):
-    print('yes')
+# if 'dictionary_item_removed' in DeepDiff(a, b, ignore_order=True):
+#     print('yes')
 
-print(type(b))
-dumps_b = json.dumps(b)
-print(dumps_b)
-print(type(dumps_b))
+# print(type(b))
+# dumps_b = json.dumps(b)
+# print(dumps_b)
+# print(type(dumps_b))

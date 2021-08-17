@@ -87,6 +87,7 @@ class ManageSql:
 
     @staticmethod
     def update_variable_in_case(product_id):
+        print('updating variables......')
         variable_list = Variables.objects.filter(Product_id=product_id)
         case_list = Apis.objects.filter(Product_id=product_id)
         for api in case_list:

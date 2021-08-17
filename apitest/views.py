@@ -3,6 +3,7 @@ import json
 import os
 from os import listdir
 
+import jsonpath
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import QuerySet, Q
 from django.shortcuts import render
@@ -167,6 +168,8 @@ def flow_case_test(api_flow_test_list, tester):
 def testAll(request):
     if request.method == 'POST':
         selected_product_id = json.loads(request.body)['selected_product_id']
+        renew_variables(selected_product_id, 'outsider')
+        ManageSql.update_variable_in_case(selected_product_id)
         api_list = Apis.objects.filter(Product_id=selected_product_id).filter(not_for_test__isnull=True)
         print(len(api_list))
         result, try_refresh_token = test_case(api_list, 'from jenkins')
@@ -225,6 +228,10 @@ def apis_manage(request):
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                                'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
             else:
+                # 先做数据准备这一步，所有标记了 variable_need_preparation 的都需要准备，还要考虑数据准备失败的情况
+                renew_variables(selected_product_id, username)
+                # 用最新的 variables 去刷新一边 case 中的参数，可借用已存在的函数
+                ManageSql.update_variable_in_case(selected_product_id)
                 # 这里加一遍过滤，not_for_test字段是1的不参与测试
                 api_list = api_list.filter(not_for_test__isnull=True)
                 result, try_refresh_token = test_case(api_list, username)
@@ -784,3 +791,30 @@ def model_list_to_case_list(model_list):
                           ast.literal_eval(case.api_body_value),
                           case.api_expect_status_code, case.api_expect_response, json.loads(case.api_response_last_time)])
     return case_list
+
+
+def renew_variables(selected_product_id, username):
+    print('renewing variables......')
+    variables_to_renew = Variables.objects.filter(Product_id=selected_product_id).filter(variable_need_preparation__isnull=False)
+    for variable in variables_to_renew:
+        renew_variable(variable.variable_id, username)
+
+
+def renew_variable(variable_id, username):
+    try:
+        variable = Variables.objects.get(id=variable_id)
+        # 其实这里就是要去执行一个单接口测试，利用已有的函数实现
+        case_id = variable.variable_depend_api_id
+        api_list = Apis.objects.filter(id=int(case_id))
+        result, try_refresh_token = test_case(api_list, username)
+    except:
+        return "0"
+    if try_refresh_token:
+        target_value = jsonpath.jsonpath(result.json(), variable.variable_reach_json_path)[0]
+        # print('debug:', target_value, type(target_value))
+        variable.variable_value = target_value
+        variable.save()
+        print('one variable renewed......')
+        return target_value
+    else:
+        return "token 过期"

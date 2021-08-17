@@ -1,9 +1,8 @@
-import jsonpath
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from apitest.models import Apis, Variables
-from apitest.views import test_case
+from apitest.views import renew_variable
 
 
 @login_required
@@ -47,6 +46,8 @@ def update_variable_depend_api(request):
         # 要检查一下这两个的 product id 是不是一样
         if api.Product_id == variable.Product_id:
             variable.variable_depend_api_id = depend_api_id
+            # 有时前端操作会忘了勾选标记，如果输入了 id，就默认要标记
+            variable.variable_need_preparation = True
             variable.save()
             print('variable_depend_api_id:', variable.variable_depend_api_id)
             return HttpResponse(api.api_url)
@@ -75,22 +76,7 @@ def update_variable_json_path(request):
 @csrf_exempt
 def debug_variable_preparation(request):
     username = request.user
-    try:
-        variable_id = request.POST.get('variable_id')
-        variable = Variables.objects.get(id=variable_id)
-        # 其实这里就是要去执行一个单接口测试，利用已有的函数实现
-        case_id = variable.variable_depend_api_id
-        api_list = Apis.objects.filter(id=int(case_id))
-        result, try_refresh_token = test_case(api_list, username)
-    except:
-        return HttpResponse('0')
-    target_value = jsonpath.jsonpath(result.json(), variable.variable_reach_json_path)[0]
-    show_result = '依赖的接口 id：' + variable.variable_depend_api_id + '\n'\
-                  + '取参的规则：' + str(variable.variable_reach_json_path) + '\n' \
-                  + '请求状态码：' + str(result.status_code) + '\n' + '取出的参数：' + target_value
-    if try_refresh_token:
-        variable.variable_value = target_value
-        variable.save()
-        return HttpResponse(show_result)
-    else:
-        return HttpResponse('token 过期')
+    variable_id = request.POST.get('variable_id')
+    target_value = renew_variable(variable_id, username)
+    return HttpResponse('测试结果：' + target_value)
+
