@@ -58,7 +58,7 @@ class TestCaseRequest:
 
                 called_by = inspect.currentframe().f_back.f_code.co_name
                 if called_by == "flow_api_case_test":
-                    self.save_report_info(result, case)
+                    self.save_report_info(result, case, 1)  # 占位的1，后面记得改
 
                 if result.status_code == case[5]:
                     num_success = num_success + 1
@@ -83,7 +83,7 @@ class TestCaseRequest:
                 # 还要把值覆盖到 response_last_time 里，为下一次测试作准备
                 if is_succeed:
                     case[7] = response_this_time
-                self.save_report_info(result, case)
+                self.save_report_info(result, case, is_succeed)
                 # 测试结果存数据库
                 case.append(result.status_code)
                 case.append(response_this_time)
@@ -95,8 +95,8 @@ class TestCaseRequest:
             report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
         return result, case_list, try_refresh_token
 
-    def save_report_info(self, result, case):
-        if result.status_code != case[5]:
+    def save_report_info(self, result, case, is_succeed):
+        if not is_succeed:
             self.num_fail += 1
             try:
                 result_json = result.json()
