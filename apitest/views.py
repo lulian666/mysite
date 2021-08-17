@@ -428,7 +428,8 @@ def datasource(request):
                     variables_list = Variables.objects.filter(Product_id=selected_product_id)
                     # 接口也保存下来
                     new_case_list = CaseReady().data_form(selected_product_id, 3, 4, case_list, variables_list)
-
+                    for case in new_case_list:
+                        print(len(case), case)
                     # 为了防止重复
                     print('before:', len(new_case_list))
                     no_repeat_case_list = []

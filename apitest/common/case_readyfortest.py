@@ -104,9 +104,9 @@ class CaseReady:
                     else:
                         # 当我再次看到这里的时候，我已经不记得这些参数是什么意思了，但不妨碍我进行修改
                         new_case_m.update({param: self.data_replace(param, case[param], product_id, case_full_info[1], variable_list)})
-                if nn == 3:
+                if nn == 4:
                     new_case_list.append([case_full_info[0], case_full_info[1], case_full_info[2], case_full_info[3], new_case_m, case_full_info[5]])
-                elif nn == 2:
+                elif nn == 3:
                     new_case_list.append([case_full_info[0], case_full_info[1], case_full_info[2], new_case_m, case_full_info[4], case_full_info[5]])
 
         if enum_count == 1:
