@@ -27,7 +27,7 @@ class CaseCollect:
         elif product_id in ["4"]:
             print("按小宇宙接口文档格式解析")
             basic_case_list, case_list = self.collect_data_podcast(json_data, interfaces_not_wanted)
-        elif product_id in ["2"]:
+        else:
             path_data = json_data['paths']
             print("按即刻接口swagger文档格式解析")
             basic_case_list, case_list = self.collect_data_swagger(json_data, path_data, interfaces_not_wanted)
