@@ -91,7 +91,8 @@ class TestCaseRequest:
             else:
                 report_file(0, 0, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
                 break
-        report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
+        if len(case_list) > 1:
+            report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
         return result, case_list, try_refresh_token
 
     def save_report_info(self, result, case):

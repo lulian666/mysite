@@ -171,8 +171,8 @@ def testAll(request):
         renew_variables(selected_product_id, 'outsider')
         ManageSql.update_variable_in_case(selected_product_id)
         api_list = Apis.objects.filter(Product_id=selected_product_id).filter(not_for_test__isnull=True)
-        print(len(api_list))
-        result, try_refresh_token = test_case(api_list, 'from jenkins')
+
+        result, try_refresh_token = test_case(api_list, 'outsider')
         if try_refresh_token:
             # api_list 里有失败的那就说明测试失败了，统计失败的有多少
             success_case_num = len(api_list.filter(test_result='1'))
