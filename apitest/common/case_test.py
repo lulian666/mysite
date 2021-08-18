@@ -137,16 +137,17 @@ class TestCaseRequest:
 
 
 def verify_result(case, result):
+    try:
+        result_json = result.json()
+    except JSONDecodeError:
+        result_json = result.content
     if int(result.status_code) != int(case[5]):
         print('测试失败，状态码不正确')
         print('预期状态码：', case[5])
         print("实际状态码:", result.status_code)
-        return False, ''
+        print('返回结果：', result_json)
+        return False, result_json
     else:
-        try:
-            result_json = result.json()
-        except JSONDecodeError:
-            result_json = result.content
         # 没有 dictionary_item_removed 和 type_changes，即没有删掉的字段，也没有类型改变的字段，就认为 response 是对的了
         diff = DeepDiff(case[7], result_json, ignore_order=True)
         if 'dictionary_item_removed' not in diff and 'type_changes' not in diff:
