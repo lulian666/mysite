@@ -435,8 +435,6 @@ def datasource(request):
                     variables_list = Variables.objects.filter(Product_id=selected_product_id)
                     # 接口也保存下来
                     new_case_list = CaseReady().data_form(selected_product_id, 3, 4, case_list, variables_list)
-                    for case in new_case_list:
-                        print(len(case), case)
                     # 为了防止重复
                     print('before:', len(new_case_list))
                     no_repeat_case_list = []
@@ -536,6 +534,10 @@ def variables_manage(request):
                     for each in variables_share_the_same_name:
                         is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
                         if is_legal:
+                            if str(new_value).lower() == "false":
+                                new_value = False
+                            elif str(new_value).lower() == "true":
+                                new_value = True
                             each.variable_value = new_value
                             each.save()
                         else:
@@ -546,6 +548,10 @@ def variables_manage(request):
                     # 前端传过来的好像都是string
                     is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
                     if is_legal:
+                        if str(new_value).lower() == "false":
+                            new_value = False
+                        elif str(new_value).lower() == "true":
+                            new_value = True
                         variable.variable_value = new_value
                         variable.save()
                         return HttpResponse("1")

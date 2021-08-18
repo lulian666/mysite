@@ -87,7 +87,7 @@ class ManageSql:
 
     @staticmethod
     def update_variable_in_case(product_id):
-        print('updating variables......')
+        print('updating variables in cases......')
         variable_list = Variables.objects.filter(Product_id=product_id)
         case_list = Apis.objects.filter(Product_id=product_id)
         for api in case_list:
@@ -311,8 +311,10 @@ def update(variable_list, body, url):
         if isinstance(value, dict):
             for value_key, value_value in value.items():
                 try:
-                    answer = variable_list.filter(from_api=url).filter(variable_key=value_key).values_list(
-                        "variable_value", flat=True)[0]
+                    variable = variable_list.filter(from_api=url).get(variable_key=value_key)
+                    answer = variable.variable_value
+                    if variable.variable_type == 'Boolean':
+                        answer = True if str(answer).lower() == "true" else False
                 except:
                     answer = None
                 if value_value is None or value_value == "None":  # enum的不需要代替
@@ -321,8 +323,10 @@ def update(variable_list, body, url):
                     body[key][value_key] = answer
         else:
             try:
-                answer = variable_list.filter(from_api=url).filter(variable_key=key).values_list(
-                    "variable_value", flat=True)[0]
+                variable = variable_list.filter(from_api=url).get(variable_key=key)
+                answer = variable.variable_value
+                if str(variable.variable_type) == 'Boolean':
+                    answer = True if str(answer).lower() == "true" else False
             except:
                 answer = None
             if value is None or value == "None":  # enum的不需要代替
