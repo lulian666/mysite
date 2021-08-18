@@ -101,7 +101,8 @@
                                 <td class="td">{{ variable.variable_optional }}</td>
                                 <td class="td" id="previous_value" style="width: 300px">{{ variable.variable_value }}</td>
                                 <td class="td">
-                                    <label><input type="checkbox" id="set_for_all">赋值给所有同名变量</label>
+                                    <label>赋值给所有同名变量</label>
+                                    <input type="checkbox" id="set_for_all" class="set_for_all">
                                     <input type="text" id="variable_value" placeholder="按enter更新值" onkeydown="if(event.keyCode===13) {change_value(this, {{ variable.id }})}">
                                 </td>
                                 <td class="td" style="vertical-align: center">
