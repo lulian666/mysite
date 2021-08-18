@@ -62,18 +62,18 @@ class ManageSql:
                         # 挨个分析待写入接口里的参数
                         for variable, variable_value in case[3].items():
                             if variable in parameter:
-                                n_for_parameter += 1
-                                # if variable_value == parameter[variable]:  # 这里的条件除了参数名字要一样，值也得一样，是否过于苛刻？
-                                #     n_for_parameter += 1
+                                # n_for_parameter += 1
+                                if variable_value == parameter[variable] or variable_value == '':  # 这里的条件除了参数名字要一样，值也得一样，是否过于苛刻？
+                                    n_for_parameter += 1
                         for variable, variable_value in case[4].items():
                             if variable in body:
-                                n_for_body += 1
-                                # if variable_value == body[variable]:
-                                #     n_for_body += 1
+                                # n_for_body += 1
+                                if variable_value == body[variable] or variable_value == '':  # 除了参数值一样，还有一种情况是，以前的 case 参数里面有值，但是新的 case 参数里是空的，这样并不能认为是新的 case
+                                    n_for_body += 1
                         # 如果待写入接口的body和param的每一个参数，都在数据库接口里面，且数量刚好相等，且n_for_parameter、 n_for_body不都为0
                         if variable_count_in_parameter == n_for_parameter and variable_count_in_body == n_for_body and variable_count_in_sql_case_body == variable_count_in_body and variable_count_in_sql_case_parameter == variable_count_in_parameter:
                             case_in = True
-                        if n_for_parameter == 0 and n_for_body == 0:
+                        if n_for_parameter == 0 and n_for_body == 0 and variable_count_in_parameter == 0 and variable_count_in_body == 0 and variable_count_in_sql_case_parameter == 0 and variable_count_in_sql_case_body == 0:
                             case_in = True
                     if not case_in:
                         print('写入了case：', case)

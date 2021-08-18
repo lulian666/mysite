@@ -116,7 +116,11 @@ class CaseReady:
                     how_many = len(enum)
                     for enum_value in enum:
                         new_case_list.append(copy.deepcopy(case_list[n - 1]))
-                        new_case_list[-1][nn][param] = enum_value
+                        # 这里加一个判断，如果 type 是 string[] 类型，赋值应该是["xxx"]
+                        if case[param]['type'] == 'String[]':
+                            new_case_list[-1][nn][param] = [enum_value]
+                        else:
+                            new_case_list[-1][nn][param] = enum_value
             for item in new_case_list[-how_many:]:  # 这里终于对了
                 for param in item[nn]:
                     if 'type' in item[nn][param]:
