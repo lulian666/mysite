@@ -109,8 +109,14 @@ class TestCaseRequest:
                       '3、真bug'
             else:
                 diff = DeepDiff(case[7], result_json, ignore_order=True)
-                dictionary_item_removed = str(diff['dictionary_item_removed'])
-                type_changes = str(diff['type_changes'])
+                try:
+                    dictionary_item_removed = str(diff['dictionary_item_removed'])
+                except:
+                    dictionary_item_removed = ""
+                try:
+                    type_changes = str(diff['type_changes'])
+                except:
+                    type_changes = ""
                 btw = 'response中少了字段或字段类型变更：\n' + dictionary_item_removed + '\n' + type_changes + '\n返回详情可见具体case或测试数据库'
             table_td = self.html.TABLE_TMPL_FAIL % dict(runtime=time.strftime('%Y-%m-%d %H:%M:%S'), interface=case[1],
                                                         method=case[2], parameters=case[3], body=str(case[4])[:100] and '...', expectcode=case[5],
