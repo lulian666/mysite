@@ -175,8 +175,8 @@ def testAll(request):
             selected_product_id = json.loads(request.body)['selected_product_id']
         except:
             return HttpResponse(content='未传入项目id', content_type='application/json', status=400)
-        renew_variables(selected_product_id, user)
-        ManageSql.update_variable_in_case(selected_product_id)
+        # renew_variables(selected_product_id, user)
+        # ManageSql.update_variable_in_case(selected_product_id)
         api_list = Apis.objects.filter(Product_id=selected_product_id).filter(not_for_test__isnull=True)
 
         result, try_refresh_token = test_case(api_list, user)
@@ -186,7 +186,7 @@ def testAll(request):
             fail_case_num = len(api_list.filter(test_result='0'))
             print('fail_case_num:', fail_case_num)
             if fail_case_num > 0:
-                return HttpResponse(content='有测试失败的 case' + fail_case_num + '个', content_type='application/json', status=202)
+                return HttpResponse(content='有测试失败的 case' + str(fail_case_num) + '个', content_type='application/json', status=202)
             else:
                 return HttpResponse(content='测试成功 0 失败', content_type='application/json', status=200)
         else:
@@ -235,10 +235,6 @@ def apis_manage(request):
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                                'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
             else:
-                # 先做数据准备这一步，所有标记了 variable_need_preparation 的都需要准备，还要考虑数据准备失败的情况
-                renew_variables(selected_product_id, username)
-                # 用最新的 variables 去刷新一边 case 中的参数，可借用已存在的函数
-                ManageSql.update_variable_in_case(selected_product_id)
                 # 这里加一遍过滤，not_for_test字段是1的不参与测试
                 api_list = api_list.filter(not_for_test__isnull=True)
                 result, try_refresh_token = test_case(api_list, username)
@@ -281,7 +277,7 @@ def apis_manage(request):
                    'show_not_for_test': show_not_for_test})
 
 
-def test_case(model_list, tester):
+def test_case(model_list, tester_name):
     """
     根据筛选出来的list来执行测试（单接口测试）
     :param model_list: QuerySet类型
@@ -293,8 +289,13 @@ def test_case(model_list, tester):
     host = ManageSql().get_host_of_product(product_id)
 
     # 进行测试
-    tester = TestCaseRequest(tester, product_id)
-    result, case_list, try_refresh_token = tester.single_api_test(case_list, host)
+    test_manager = TestCaseRequest(tester_name, product_id)
+    # 先做数据准备这一步，所有标记了 variable_need_preparation 的都需要准备，还要考虑数据准备失败的情况
+    renew_variables(product_id, test_manager)
+    # 用最新的 variables 去刷新一边 case 中的参数，可借用已存在的函数
+    ManageSql.update_variable_in_case(product_id)
+
+    result, case_list, try_refresh_token = test_manager.single_api_test(case_list, host)
 
     # 用pytest进行测试
     # save_case_locally(case_list, host)
@@ -811,29 +812,34 @@ def model_list_to_case_list(model_list):
     return case_list
 
 
-def renew_variables(selected_product_id, username):
+def renew_variables(selected_product_id, test_manager):
     print('renewing variables......')
     variables_to_renew = Variables.objects.filter(Product_id=selected_product_id).filter(variable_need_preparation__isnull=False)
+    host = ManageSql().get_host_of_product(selected_product_id)
+
     for variable in variables_to_renew:
-        renew_variable(variable.id, username)
+        renew_variable(variable.id, test_manager, host)
 
 
-def renew_variable(variable_id, username):
+def renew_variable(variable_id, test_manager, host, **kwargs):
     try:
         variable = Variables.objects.get(id=variable_id)
-        # 其实这里就是要去执行一个单接口测试，利用已有的函数实现
         case_id = variable.variable_depend_api_id
-        api_list = Apis.objects.filter(id=int(case_id))
-        result, try_refresh_token = test_case(api_list, username)
     except:
         return "0"
+    api_list = Apis.objects.filter(id=int(case_id))
+    case_list = model_list_to_case_list(api_list)
+    result, case_list, try_refresh_token = test_manager.single_api_test(case_list, host)
     if try_refresh_token:
         try:
-            target_value = jsonpath.jsonpath(result.json(), variable.variable_reach_json_path)[0]
+            json_path = variable.variable_reach_json_path
+            if 'json_path' in kwargs:
+                json_path = kwargs['json_path']
+            target_value = jsonpath.jsonpath(result.json(), json_path)[0]
         except:
             target_value = '没有取出数据，请检查 json path 保存了吗？'
-        # print('debug:', target_value, type(target_value))
         variable.variable_value = target_value
+        variable.variable_reach_json_path = json_path
         variable.save()
         print('one variable renewed......')
         return target_value

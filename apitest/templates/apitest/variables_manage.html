@@ -115,7 +115,7 @@
                                 </td>
                                 <td class="td">
                                     <input type="text" id="json_path" placeholder="按enter保存" onkeydown="if(event.keyCode===13) {set_json_path(this, {{ variable.id }})}">
-                                    <button style="padding-inline: 15px" onclick="debug({{ variable.id }})">测试能否获取到数据</button>
+                                    <button style="padding-inline: 15px" onclick="debug(this, {{ variable.id }}, {{ selected_product_id }})">测试能否获取到数据</button>
                                 </td>
                                 <td class="td"><a style="color: lightblue" class="related-widget-wrapper-link add-related" id="add_id_Variables" href="/admin/apitest/variables/{{ variable.id }}/delete/?_to_field=id&amp;_popup=1"><img src="/static/admin/img/icon-deletelink.svg"/></a></td>
                             </tr>
@@ -207,16 +207,17 @@
         })
     }
 
-    function debug(variable_id) {
+    function debug(ele, variable_id, product_id) {
+        var json_path = ele.previousElementSibling.value
         $.ajax({
             url: "{% url 'apitest:debug_variable_preparation' %}",
             type: "POST",
-            data: {'variable_id': variable_id},
+            data: {'variable_id': variable_id, 'product_id': product_id, 'json_path': json_path},
             success: function (e){
                 if (e == "0") {
                     alert('测试失败')
                 }else {
-                    alert('测试结果：' + e)
+                    alert('测试结果：' + e + '\n顺便也帮你更新了这个 json_path 和取出来的值')
                     var previous_cell = ele.parentNode.parentNode.cells[6];
                     previous_cell.innerText = e
                 }

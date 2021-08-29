@@ -1,8 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+
+from apitest.common.case_test import TestCaseRequest
 from apitest.models import Apis, Variables
 from apitest.views import renew_variable
+from product.models import Product
 
 
 @login_required
@@ -77,6 +80,10 @@ def update_variable_json_path(request):
 def debug_variable_preparation(request):
     username = request.user
     variable_id = request.POST.get('variable_id')
-    target_value = renew_variable(variable_id, username)
+    product_id = request.POST.get('product_id')
+    json_path = request.POST.get('json_path')
+    host = Product.objects.get(id=product_id).product_host
+    test_manager = TestCaseRequest(username, product_id)
+    target_value = renew_variable(variable_id, test_manager, host, json_path=json_path)
     return HttpResponse(target_value)
 
