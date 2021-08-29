@@ -69,20 +69,7 @@ class CaseCollect:
                 if case_wanted and not deprecated:
                     case_name = get_value_with_default(method_value, '$.summary', default='没有找到接口名称')
                     parameters_wanna_be = get_value_with_default(method_value, '$.parameters', default={})
-                    if parameters_wanna_be:  # 如果有 parameters 的话，有的接口是没有的
-                        parameters, body, son_json = {}, {}, {}
-                        father = ''
-                        for params in parameters_wanna_be:
-                            if params['in'] in ['query', 'path']:  # 代表是 parameters
-                                parameters, son_json, father = parameters_info_swagger(params, parameters, son_json, father)
-                            else:  # 如果是body的话
-                                body, son_json, father = body_info_swagger(params, json_data, body, son_json, father)
-                        # 用来处理参数中 2 级 json
-                        json_in_parameters(parameters, father, son_json)
-                        json_in_parameters(body, father, son_json)
-                    else:
-                        parameters = {}
-                        body = {}
+                    parameters, body = delt_with_detail_info(parameters_wanna_be, json_data)
                     basic_case_list.append([case_name, url, method, parameters, body])
                     case_list = CaseGenerate(case_name, url, method, parameters, body).generate()
         return basic_case_list, case_list
@@ -112,6 +99,11 @@ class CaseCollect:
 
 
 def parameters_info_jike(parameters_data):
+    """
+    获取参数和 body 信息
+    :param parameters_data:
+    :return:
+    """
     if 'fields' in parameters_data:
         parameters_list = get_value_with_default(parameters_data, '$.fields.Parameter', default=[])
         parameters_dict, son = {}, {}
@@ -131,7 +123,38 @@ def parameters_info_jike(parameters_data):
     return parameters_dict
 
 
+def delt_with_detail_info(parameters_wanna_be, json_data):
+    """
+    处理参数的细节
+    :param parameters_wanna_be:
+    :param json_data:
+    :return: 返回字典格式的 参数和 body
+    """
+    if parameters_wanna_be:  # 如果有 parameters 的话，有的接口是没有的
+        parameters, body, son_json, father = {}, {}, {}, ''
+        for params in parameters_wanna_be:
+            if params['in'] in ['query', 'path']:  # 代表是 parameters
+                parameters, son_json, father = parameters_info_swagger(params, parameters, son_json, father)
+            else:  # 如果是body的话
+                body, son_json, father = body_info_swagger(params, json_data, body, son_json, father)
+        # 用来处理参数中 2 级 json
+        json_in_parameters(parameters, father, son_json)
+        json_in_parameters(body, father, son_json)
+    else:
+        parameters = {}
+        body = {}
+    return parameters, body
+
+
 def parameters_info_swagger(params, parameters, son_json, father):
+    """
+    获取参数信息
+    :param params:
+    :param parameters:
+    :param son_json:
+    :param father:
+    :return:
+    """
     required = params['required']
     param_type = params['type']
     enum = []
@@ -144,6 +167,15 @@ def parameters_info_swagger(params, parameters, son_json, father):
 
 
 def body_info_swagger(params, json_data, body, son_json, father):
+    """
+    获取 body 信息
+    :param params:
+    :param json_data:
+    :param body:
+    :param son_json:
+    :param father:
+    :return:
+    """
     # 要先从 schema 里取出 ref（body 的结构要去另一处找，这段结构里面只提供了 ref）
     schema = params['schema']
     if '$ref' in schema:
@@ -210,6 +242,13 @@ def is_case_wanted(url, api_not_wanted):
 
 
 def json_in_parameters(parameters, father, son_json):
+    """
+    处理 json 格式的参数
+    :param parameters:
+    :param father:
+    :param son_json:
+    :return:
+    """
     for item in parameters:
         if item == father:
             parameters[item].update({"son": son_json})
@@ -233,6 +272,13 @@ def get_type_and_required(param_data):
 
 
 def get_value_with_default(dic, json_path, default):
+    """
+    从 json 中取得相应的值，没找到就用默认参数 default
+    :param dic:
+    :param json_path:
+    :param default:
+    :return:
+    """
     value_list = jsonpath.jsonpath(dic, json_path)
     if not value_list:
         value = default
