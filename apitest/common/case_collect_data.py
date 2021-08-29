@@ -23,7 +23,7 @@ class CaseCollect:
         根据项目来选择对应的解析方式
         :param api_not_wanted: 前端传入的参数，表示不需要测试的接口，string 类型，每个 url 之间以逗号隔开
         :param product_id: 项目 ID
-        :return:
+        :return: 返回的 basic_case_list 是正向用例，case_list 是经过初步扩展的
         """
         if api_not_wanted:
             api_not_wanted = api_not_wanted.split(',')
@@ -39,7 +39,6 @@ class CaseCollect:
             paths = json_data['paths']
             print('按 swagger 文档格式解析')
             basic_case_list, case_list = self.collect_data_swagger(json_data, paths, api_not_wanted)
-
         return basic_case_list, case_list
 
     @staticmethod
@@ -86,7 +85,7 @@ class CaseCollect:
                 case_name = get_value_with_default(api, '$.title', default='')
                 parameters_data = get_value_with_default(api, '$.parameter', default={})
                 if parameters_data:
-                    if method.lower() == "post":
+                    if method.lower() == 'post':
                         body = parameters_info_jike(parameters_data)
                     else:
                         parameters = parameters_info_jike(parameters_data)
@@ -236,7 +235,7 @@ def is_case_wanted(url, api_not_wanted):
     case_wanted = True
     if api_not_wanted:
         for each in api_not_wanted:
-            if fnmatch(url, "*" + each + "*"):
+            if fnmatch(url, '*' + each + '*'):
                 case_wanted = False
     return case_wanted
 
@@ -251,7 +250,7 @@ def json_in_parameters(parameters, father, son_json):
     """
     for item in parameters:
         if item == father:
-            parameters[item].update({"son": son_json})
+            parameters[item].update({'son': son_json})
 
 
 def get_type_and_required(param_data):
