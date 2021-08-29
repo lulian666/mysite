@@ -113,7 +113,7 @@ class CaseGenerate:
                 for params in params_combi:
                     if whichpart[params]['required'] is True:
                         n += 1
-                if len(params_combi) == 0:
+                if not params_combi:
                     if serial == 3:
                         self._400_case1.append([self.case_name, self.url, self.method, {}, self.body, 400])
                     else:

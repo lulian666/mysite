@@ -252,7 +252,7 @@ def collect_enum_and_json(parameters, name, son_json, required, param_type, enum
     :return:
     """
     param_name = name.lower()
-    if len(enum) == 0 and (not fnmatch(param_name, '*' + '.' + '*')):
+    if not enum and (not fnmatch(param_name, '*' + '.' + '*')):
         parameters.update({name: {'required': required, 'type': param_type}})
     elif len(enum) > 0:
         parameters.update({name: {'required': required, 'type': param_type, 'enum': enum}})

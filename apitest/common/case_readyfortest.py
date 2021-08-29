@@ -55,7 +55,7 @@ class CaseReady:
                         }         
         }                
         '''
-        if enum_count == 0:  # 参数里面没有enum类型的时候，只要正常替换参数就好
+        if not enum_count:  # 参数里面没有enum类型的时候，只要正常替换参数就好
             # 这里就该处理二级json里面有enum的情况，太复杂了，处理不好，苏哪里
             # if 'enum' in str(case):
             #     # 这里我只处理只有1个enum的情况，有2个的去死吧……

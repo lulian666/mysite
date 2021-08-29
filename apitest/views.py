@@ -50,7 +50,7 @@ def form_api_flow_case(request):
     if 'choice' in request.POST:
         data = request.POST['data']
         data = json.loads(data)
-        if len(data) == 0:
+        if not data:
             return HttpResponse('0')
         else:
             return HttpResponse('1')
@@ -83,7 +83,7 @@ def form_api_flow_case(request):
 
         data_list = request.POST['data_list']
         data_list = json.loads(data_list)
-        if len(data_list) == 0:
+        if not data_list:
             return HttpResponse("3")
 
         api_id_list = data_to_list(data_list)
@@ -227,7 +227,7 @@ def apis_manage(request):
                               {'api_list': apis_page_list, "product_list": product_list, 'username': username,
                                'test_result_list': test_result_list, "selected_test_result": selected_test_result,
                                'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
-            elif len(HeaderManage.read_header(int(selected_product_id))) == 0:
+            elif not HeaderManage.read_header(int(selected_product_id)):
                 apis_count, apis_page_list = paginator(request, api_list, 12)
                 fail_message = '这个项目还没有配置 header 哦！'
                 return render(request, 'apitest/apis_manage.html',
@@ -429,7 +429,7 @@ def datasource(request):
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted, selected_product_id)
                 # for case in case_list:
                 #     print(case)
-                if len(basic_case_list) == 0:
+                if not basic_case_list:
                     error = '未解析出case，可能这种格式暂不支持，或者选择的项目不匹配此格式'
                 else:
                     save_variables_to_sql(selected_product_id, basic_case_list)

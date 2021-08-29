@@ -31,7 +31,7 @@ class ManageSql:
         # 这里开始循环写入表
         # url、parameter、body都一样
         # 如果本身没有case，那直接添加就好了
-        if len(cases) == 0:
+        if not cases:
             for case in case_list:
                 param = (case[0], case[1], case[2], case[3].__str__(), case[4].__str__(), case[5].__str__(),
                          product_id)
