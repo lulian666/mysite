@@ -7,7 +7,6 @@ import time
 import jsonpath
 import requests
 from json import JSONDecodeError
-
 from deepdiff import DeepDiff
 
 from apitest.common.header_mange import HeaderManage
@@ -18,7 +17,10 @@ from apitest.models import Apis
 
 class TestCaseRequest:
     def __init__(self, tester, product_id):
+        self.s = requests.Session()
+        print('!!!!!我创建了session!!!!!!!')
         self.header = HeaderManage.read_header(product_id)
+        self.s.headers = self.header
         self.table_tr_fail = self.table_tr_success = ''
         self.num_success = self.num_fail = 0
         self.html = TemplateMixin()
@@ -75,7 +77,7 @@ class TestCaseRequest:
         for case in case_list:
             print('----------')
             print('case:', case)
-            result, try_refresh_token = self.test_avoid_401(case, host)
+            result, try_refresh_token = self.test_avoid_401(case, host, self.s)
             if try_refresh_token:
                 # print('测试api：', case[1])
                 # 此处修改校验方法
@@ -129,9 +131,9 @@ class TestCaseRequest:
                                                         testresult='测试成功', testcode=result.status_code,)
             self.table_tr_success += table_td
 
-    def test_avoid_401(self, case, host):
+    def test_avoid_401(self, case, host, s):
         try_refresh_token = True
-        result = request(case, host, self.header)
+        result = request(case, host, self.header, s)
 
         if result.status_code == 401:
             print('token 过期，正在刷新。。。')
@@ -139,7 +141,7 @@ class TestCaseRequest:
             product_id = Apis.objects.get(id=case_id).Product_id
             try_refresh_token = HeaderManage.update_header(product_id, host)
             self.header = HeaderManage.read_header(product_id)
-            result = request(case, host, self.header)
+            result = request(case, host, self.header, s)
             print('刷新token过后，状态码：', result.status_code)
         return result, try_refresh_token
 
@@ -188,13 +190,13 @@ def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, ca
     return
 
 
-def request(case, host, header):
+def request(case, host, header, s):
     url = host + case[1]
     json_data = json.dumps(case[4]) if len(case[4]) > 0 else {}
     if case[2].lower() == 'get':
-        result = requests.get(url=url, headers=header, params=case[3], data=json_data)
+        result = s.get(url=url, headers=header, params=case[3], data=json_data)
     else:
-        result = requests.post(url=url, data=json_data, headers=header)
+        result = s.post(url=url, data=json_data, headers=header)
     return result
 
 
