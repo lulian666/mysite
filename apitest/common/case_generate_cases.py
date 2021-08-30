@@ -70,78 +70,85 @@ class CaseGenerate:
         return all_case
 
     def miss_unrequired(self):
-        body = self.body.copy()
-        parameters = self.parameters.copy()
-        has_unrequired = False
-        if self.parameters != {}:
-            for each in self.parameters:
-                if self.parameters[each]['required'] is False:
-                    del parameters[each]
-                    has_unrequired = True
-        if self.body != {}:
-            for each in self.body:
-                if self.body[each]['required'] is False:
-                    del body[each]
-                    has_unrequired = True
+        """
+        去除所有非必填参数，作为一条用例
+        :return:
+        """
+        parameters, has_unrequired = del_unrequired_params(self.parameters)
+        body, has_unrequired = del_unrequired_params(self.body)
         if has_unrequired:
             self.ok_case.append([self.case_name, self.url, self.method, parameters, body, 200])
         return self.ok_case
 
-    # 统计有多少个required，有n个就会生成n个case，每个case少一个必要参数
     def miss_required(self):
-        if len(self.parameters) > 0:
-            self.data_trans(self.parameters, 3)
-        if len(self.body) > 0:
-            self.data_trans(self.body, 4)
+        """
+        统计有多少个required，有n个就会生成n个case，每个case少一个必要参数
+        :return:
+        """
+        if self.parameters:
+            self.data_trans(which_part=self.parameters, serial=3)
+        if self.body:
+            self.data_trans(which_part=self.body, serial=4)
 
         self._400_case = self._400_case1 + self._400_case2
         return self._400_case
 
-    def data_trans(self, whichpart, serial):  # 才发现这里居然把enum信息全部丢了！！
-        # serial是2就代表是parameter，3就代表body
-        # whichpart 意思是body或者param
-        m = 0  # m是必要参数的数量
-        for each in whichpart:
-            if whichpart[each]['required'] is True:
-                m += 1
-        if m > 0:
-            # 得到的是body中所有参数的一个排列组合（准确地说是body中key值的排列组合
-            parameters_list = list(itertools.combinations(whichpart, len(whichpart) - 1))
-            for params_combi in parameters_list:
-                n = 0
+    def data_trans(self, which_part, serial):
+        """
+        去掉内容中的一个必要参数，形成 N 条用例，N = 必要参数的个数
+        :param which_part:
+        :param serial: 是 3 就代表是parameter，4 就代表body
+        :return:
+        """
+        required_count = 0  # required_count 是必要参数的数量
+        for each in which_part:
+            if which_part[each]['required']:
+                required_count += 1
+        if required_count > 0:
+            # 得到的是body中所有参数的一个排列组合（准确地说是body中key值的排列组合，每一个项都是元组格式
+            parameters_list = list(itertools.combinations(which_part, len(which_part) - 1))
+            for params_combo in parameters_list:
+                required_count_in_combo = 0
                 temp = {}
-                for params in params_combi:
-                    if whichpart[params]['required'] is True:
-                        n += 1
-                if not params_combi:
+                for params in params_combo:
+                    if which_part[params]['required']:
+                        required_count_in_combo += 1
+                if not params_combo:
                     if serial == 3:
                         self._400_case1.append([self.case_name, self.url, self.method, {}, self.body, 400])
                     else:
                         self._400_case2.append([self.case_name, self.url, self.method, self.parameters, {}, 400])
-                if n == m - 1 and len(params_combi) != 0:
-                    # 如果正好小1，那就是我们想要的case
-                    # 需要把params_combi变回原来的格式
-                    for i in range(len(params_combi)):
-                        if 'enum' in whichpart[params_combi[i]]:
-                            # 有emun的话一般就没有二级json了
-                            temp.update({params_combi[i]: {"required": whichpart[params_combi[i]]['required'],
-                                                           "type": whichpart[params_combi[i]]['type'],
-                                                           "enum": whichpart[params_combi[i]]['enum']}})
+                if required_count_in_combo == required_count - 1 and params_combo:
+                    for index, item in enumerate(list(params_combo)):
+                        if 'enum' in which_part[params_combo[index]]:
+                            temp.update({params_combo[index]: {'required': which_part[item]['required'],
+                                                               'type': which_part[item]['type'],
+                                                               'enum': which_part[item]['enum']}})
                         else:
-                            # print('么有enum')
-                            # print('变量：', params_combi[i])
-                            # print('变量内容：', whichpart[params_combi[i]])
-                            # 这里应该加入二级json里也有enum的情况
-                            if 'son' in whichpart[params_combi[i]]:
-                                temp.update({params_combi[i]: {"required": whichpart[params_combi[i]]['required'],
-                                                               "type": whichpart[params_combi[i]]['type'],
-                                                               "son": whichpart[params_combi[i]]['son']}})
+                            if 'son' in which_part[params_combo[index]]:
+                                temp.update({params_combo[index]: {'required': which_part[item]['required'],
+                                                                   'type': which_part[item]['type'],
+                                                                   'son': which_part[item]['son']}})
                             else:
-                                temp.update({params_combi[i]: {"required": whichpart[params_combi[i]]['required'],
-                                                               "type": whichpart[params_combi[i]]['type']}})
-                    # print('处理后的temp:', temp)
-                    # print('～')
+                                temp.update({params_combo[index]: {'required': which_part[item]['required'],
+                                                                   'type': which_part[item]['type']}})
                     if serial == 3:
                         self._400_case1.append([self.case_name, self.url, self.method, temp, self.body, 400])
                     else:
                         self._400_case2.append([self.case_name, self.url, self.method, self.parameters, temp, 400])
+
+
+def del_unrequired_params(parameters):
+    """
+    去除内容中的非必要参数
+    :param parameters:
+    :return: 返回去除后的内容（不对入参做改变）
+    """
+    params = parameters.copy()
+    has_unrequired = False
+    if parameters:
+        for each in parameters:
+            if parameters[each]['required'] is False:
+                del params[each]
+                has_unrequired = True
+    return params, has_unrequired
