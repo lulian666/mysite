@@ -120,18 +120,18 @@ class CaseGenerate:
                         self._400_case2.append([self.case_name, self.url, self.method, self.parameters, {}, 400])
                 if required_count_in_combo == required_count - 1 and params_combo:
                     for index, item in enumerate(list(params_combo)):
-                        if 'enum' in which_part[params_combo[index]]:
-                            temp.update({params_combo[index]: {'required': which_part[item]['required'],
-                                                               'type': which_part[item]['type'],
-                                                               'enum': which_part[item]['enum']}})
+                        if 'enum' in which_part[item]:
+                            temp.update({item: {'required': which_part[item]['required'],
+                                                'type': which_part[item]['type'],
+                                                'enum': which_part[item]['enum']}})
                         else:
-                            if 'son' in which_part[params_combo[index]]:
-                                temp.update({params_combo[index]: {'required': which_part[item]['required'],
-                                                                   'type': which_part[item]['type'],
-                                                                   'son': which_part[item]['son']}})
+                            if 'son' in which_part[item]:
+                                temp.update({item: {'required': which_part[item]['required'],
+                                                    'type': which_part[item]['type'],
+                                                    'son': which_part[item]['son']}})
                             else:
-                                temp.update({params_combo[index]: {'required': which_part[item]['required'],
-                                                                   'type': which_part[item]['type']}})
+                                temp.update({item: {'required': which_part[item]['required'],
+                                                    'type': which_part[item]['type']}})
                     if serial == 3:
                         self._400_case1.append([self.case_name, self.url, self.method, temp, self.body, 400])
                     else:
