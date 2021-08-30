@@ -14,7 +14,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from apitest.common.case_collect_data import CaseCollect
-from apitest.common.case_readyfortest import CaseReady
+from apitest.common.case_readyfortest import data_form
 from apitest.common.case_test import TestCaseRequest
 from apitest.common.header_mange import HeaderManage
 from apitest.common.managesql import ManageSql
@@ -426,7 +426,8 @@ def datasource(request):
             selected_product_id = request.POST.get('selected_product_id')
             if selected_product_id != '-1':
                 interfaces_not_wanted = Product.objects.get(id=selected_product_id).exclude_api
-                basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted, selected_product_id)
+                basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted,
+                                                                                    selected_product_id)
                 # for case in case_list:
                 #     print(case)
                 if not basic_case_list:
@@ -435,7 +436,7 @@ def datasource(request):
                     save_variables_to_sql(selected_product_id, basic_case_list)
                     variables_list = Variables.objects.filter(Product_id=selected_product_id)
                     # 接口也保存下来
-                    new_case_list = CaseReady().data_form(selected_product_id, 3, 4, case_list, variables_list)
+                    new_case_list = data_form(selected_product_id, 3, 4, case_list, variables_list)
                     # 为了防止重复
                     print('before:', len(new_case_list))
                     no_repeat_case_list = []
