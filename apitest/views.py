@@ -821,9 +821,9 @@ def renew_variable(variable_id, test_manager, host, **kwargs):
     try:
         variable = Variables.objects.get(id=variable_id)
         case_id = variable.variable_depend_api_id
+        api_list = Apis.objects.filter(id=int(case_id))
     except:
         return "0"
-    api_list = Apis.objects.filter(id=int(case_id))
     case_list = model_list_to_case_list(api_list)
     result, case_list, try_refresh_token = test_manager.single_api_test(case_list, host, report=False)
     if try_refresh_token:

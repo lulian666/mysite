@@ -82,6 +82,11 @@ def debug_variable_preparation(request):
     variable_id = request.POST.get('variable_id')
     product_id = request.POST.get('product_id')
     json_path = request.POST.get('json_path')
+    variable = Variables.objects.get(id=variable_id)
+    # 警惕，这里用户不一定输入了值
+    if not variable.variable_need_preparation or not variable.variable_depend_api_id or not variable.variable_reach_json_path:
+        return HttpResponse("0")
+
     host = Product.objects.get(id=product_id).product_host
     test_manager = TestCaseRequest(username, product_id)
     target_value = renew_variable(variable_id, test_manager, host, json_path=json_path)

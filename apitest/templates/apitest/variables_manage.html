@@ -215,7 +215,7 @@
             data: {'variable_id': variable_id, 'product_id': product_id, 'json_path': json_path},
             success: function (e){
                 if (e == "0") {
-                    alert('测试失败')
+                    alert('测试失败，似乎没指定接口和取值规则呢')
                 }else {
                     alert('测试结果：' + e + '\n顺便也帮你更新了这个 json_path 和取出来的值')
                     var previous_cell = ele.parentNode.parentNode.cells[6];
