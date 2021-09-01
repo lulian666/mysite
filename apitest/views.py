@@ -110,8 +110,8 @@ def api_flow_test_manage(request):
     api_flow_test_list = ApiFlowTest.objects.all()
     product_list = Product.objects.all()
 
-    test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
-    selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+    # test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
+    selected_test_result = selected_product_id = '-1'  # 默认是-1 表示全选
     test_result = False
     fail_message =''
 
@@ -132,7 +132,7 @@ def api_flow_test_manage(request):
     return render(request, "apitest/api_flow_test_manage.html",
                   {"username": username, "relation_list": relation_page_list,
                    "api_flow_test_counts": list_count, "product_list": product_list,
-                   'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                   'test_result_look_up_dict': test_result_look_up_dict, "selected_test_result": selected_test_result,
                    'selected_product_id': selected_product_id, "test_result": test_result, 'fail_message': fail_message})
 
 
@@ -204,8 +204,7 @@ def apis_manage(request):
     username = request.user
     product_list = Product.objects.all()
     api_list = Apis.objects.filter(not_for_test__isnull=True)
-    test_result_list = [0, 1]  # {"0": "测试不通过","1": "测试通过"}
-    selected_test_result = selected_product_id = -1  # 默认是-1 表示全选
+    selected_test_result = selected_product_id = '-1'  # 默认是-1 表示全选
     show_not_for_test = ''
 
     if 'selected_test_result' in request.GET:
@@ -225,14 +224,14 @@ def apis_manage(request):
                 apis_count, apis_page_list = paginator(request, api_list, 12)
                 return render(request, 'apitest/apis_manage.html',
                               {'api_list': apis_page_list, "product_list": product_list, 'username': username,
-                               'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                               'test_result_look_up_dict': test_result_look_up_dict, "selected_test_result": selected_test_result,
                                'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
             elif not HeaderManage.read_header(int(selected_product_id)):
                 apis_count, apis_page_list = paginator(request, api_list, 12)
                 fail_message = '这个项目还没有配置 header 哦！'
                 return render(request, 'apitest/apis_manage.html',
                               {'api_list': apis_page_list, "product_list": product_list, 'username': username,
-                               'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                               'test_result_look_up_dict': test_result_look_up_dict, "selected_test_result": selected_test_result,
                                'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
             else:
                 # 这里加一遍过滤，not_for_test字段是1的不参与测试
@@ -243,7 +242,7 @@ def apis_manage(request):
                     apis_count, apis_page_list = paginator(request, api_list, 12)
                     return render(request, 'apitest/apis_manage.html',
                                   {'api_list': apis_page_list, "product_list": product_list, 'username': username,
-                                   'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                                   'test_result_look_up_dict': test_result_look_up_dict, "selected_test_result": selected_test_result,
                                    'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
             # 以下是跳转报告列表页所需数据
             root = os.path.abspath(".")
@@ -257,7 +256,7 @@ def apis_manage(request):
             selected_test_type = selected_test_result = -1  # 默认是-1 表示全选
             return render(request, "apitest/report.html",
                           {"username": username, "file_list": file_list, "report_count": len(file_list),
-                           "test_result_list": test_result_list, "test_type_list": test_type_list,
+                           "test_result_look_up_dict": test_result_look_up_dict, "test_type_list": test_type_list,
                            "selected_test_type": selected_test_type, "selected_test_result": selected_test_result,
                            "list_count": len(file_list)})
         elif 'debug' in request.POST:
@@ -272,7 +271,7 @@ def apis_manage(request):
     apis_count, apis_page_list = paginator(request, api_list, 12)
     return render(request, 'apitest/apis_manage.html',
                   {'api_list': apis_page_list, "product_list": product_list, 'username': username,
-                   'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                   'test_result_look_up_dict': test_result_look_up_dict, "selected_test_result": selected_test_result,
                    'selected_product_id': selected_product_id, 'apis_count': apis_count,
                    'show_not_for_test': show_not_for_test})
 
@@ -323,22 +322,21 @@ def test_report(request):
     file_list = sorted(file_list, key=lambda x: x[2], reverse=True)
 
     # 过滤筛选
-    test_result_list = ["0", "1"]  # {"0": "测试不通过","1": "测试通过"}
     test_type_list = ["单接口测试", "流程接口测试"]  # {"0": "单接口测试","1": "流程接口测试"}
-    selected_test_type = selected_test_result = -1  # 默认是-1 表示全选
+    selected_test_type = selected_report_result = '-1'  # 默认是-1 表示全选
 
     # 这里备注是因为Django的分页只能对只能对QuerySet类型，这里还没想到解决办法
-    # if 'selected_test_result' in request.GET:
-    #     file_list, selected_test_type, selected_test_result = report_list_filter(request, file_list)
+    # if 'selected_report_result' in request.GET:
+    #     file_list, selected_test_type, selected_report_result = report_list_filter(request, file_list)
 
     if 'filter' in request.POST:
-        file_list, selected_test_type, selected_test_result = report_list_filter(request, file_list)
+        file_list, selected_test_type, selected_report_result = report_list_filter(request, file_list)
 
     # list_count, file_page_list = paginator(request, file_list, 10)
     return render(request, "apitest/report.html",
                   {"username": username, "file_list": file_list, "report_count": len(file_list),
-                   "test_result_list": test_result_list, "test_type_list": test_type_list,
-                   "selected_test_type": selected_test_type, "selected_test_result": selected_test_result,
+                   "report_result_look_up_dict": report_result_look_up_dict, "test_type_list": test_type_list,
+                   "selected_test_type": selected_test_type, "selected_report_result": selected_report_result,
                    "list_count": len(file_list)})
 
 
@@ -568,13 +566,12 @@ def variables_manage(request):
                 ManageSql.update_variable_in_case(selected_product_id)
                 # 跳转去单一接口列表页
                 product_list = Product.objects.all()
-                selected_test_result = -1  # 默认是-1 表示全选
                 api_list = Apis.objects.filter(Product_id=selected_product_id)
 
                 apis_count, apis_page_list = paginator(request, api_list, 12)
                 return render(request, 'apitest/apis_manage.html',
                               {'api_list': apis_page_list, "product_list": product_list, "username": username,
-                               'test_result_list': test_result_list, "selected_test_result": selected_test_result,
+                               'test_result_list': test_result_list,
                                'selected_product_id': int(selected_product_id), 'apis_count': apis_count})
             else:
                 fail_message = '还没选择项目'
@@ -711,15 +708,15 @@ def paginator(request, page_list, number):
 
 def report_list_filter(request, list_to_filter):
     selected_test_type = request.POST.get('selected_test_type')
-    selected_test_result = request.POST.get('selected_test_result')
+    selected_report_result = request.POST.get('selected_report_result')
     list_filtered = list_to_filter
 
     if selected_test_type != '-1':
         list_filtered = [item for item in list_filtered if item[1] == selected_test_type]
-    if selected_test_result != '-1':
+    if selected_report_result != '-1':
         list_filtered = [item for item in list_filtered if
-                         item[3] == ("PASS" if selected_test_result == "1" else "FAIL")]
-    return list_filtered, selected_test_type, selected_test_result
+                         item[3] == (report_result_look_up_dict[selected_report_result]['result'])]
+    return list_filtered, selected_test_type, selected_report_result
 
 
 def model_list_filter(request, list_to_filter):
@@ -732,13 +729,11 @@ def model_list_filter(request, list_to_filter):
     selected_product_id = request.get('selected_product_id')
     selected_test_result = request.get('selected_test_result')
     list_filtered = list_to_filter
-
     if selected_product_id != '-1' and selected_product_id is not None:
         list_filtered = list_to_filter.filter(Product_id=selected_product_id)
     if selected_test_result != '-1' and selected_test_result is not None:
-        list_filtered = list_filtered.filter(test_result=True if selected_test_result == '1' else False)
-
-    return list_filtered, int(selected_test_result) if selected_test_result is not None else -1, int(selected_product_id)
+        list_filtered = list_filtered.filter(test_result=test_result_look_up_dict[selected_test_result]['result'])
+    return list_filtered, selected_test_result if selected_test_result is not None else '-1', int(selected_product_id)
 
 
 def model_list_filter2(request, list_to_filter):
@@ -846,3 +841,30 @@ def renew_variable(variable_id, test_manager, host, **kwargs):
         return target_value
     else:
         return "token 过期"
+
+
+test_result_look_up_dict = {
+    '0': {
+        'result_name': '不通过',
+        'result': False
+    },
+    '1': {
+        'result_name': '通过',
+        'result': True
+    },
+    '2': {
+        'result_name': '未经测试',
+        'result': None
+    },
+}
+
+report_result_look_up_dict = {
+    '0': {
+        'result_name': '不通过',
+        'result': 'FAIL'
+    },
+    '1': {
+        'result_name': '通过',
+        'result': 'PASS'
+    },
+}

@@ -44,11 +44,11 @@
             <label style="margin-left: 20px">测试结果：</label>
             <select style="padding: 1px; width: 150px;" name="selected_test_result">
                 <option value="-1">全部</option>
-                {% for test_result in test_result_list %}
+                {% for test_result, result_info in test_result_look_up_dict.items %}
                     {% ifequal selected_test_result test_result %}
-                        <option value="{{ test_result }}" selected>{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                        <option value="{{ test_result }}" selected>{{ result_info.result_name }}</option>
                     {% else %}
-                        <option value="{{ test_result }}">{% if test_result %}通过{% else %}不通过{% endif %}</option>
+                        <option value="{{ test_result }}">{{ result_info.result_name }}</option>
                     {% endifequal %}
                 {% endfor %}
             </select>

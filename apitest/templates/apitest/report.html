@@ -54,13 +54,13 @@
                              {% endfor %}
                         </select>
                     <label style="margin-left: 20px">测试结果：</label>
-                        <select style="padding: 1px; width: 150px;" name="selected_test_result">
+                        <select style="padding: 1px; width: 150px;" name="selected_report_result">
                             <option value="-1">全部</option>
-                            {% for test_result in test_result_list %}
-                                {% ifequal selected_test_result test_result %}
-                                    <option value="{{ test_result }}" selected>{% if test_result == "1" %}通过{% else %}不通过{% endif %}</option>
+                            {% for test_result, result_info in report_result_look_up_dict.items %}
+                                {% ifequal selected_report_result test_result %}
+                                    <option value="{{ test_result }}" selected>{{ result_info.result_name }}</option>
                                 {% else %}
-                                    <option value="{{ test_result }}">{% if test_result == "1" %}通过{% else %}不通过{% endif %}</option>
+                                    <option value="{{ test_result }}">{{ result_info.result_name }}</option>
                                 {% endifequal %}
                             {% endfor %}
                         </select>
@@ -113,13 +113,13 @@
 {#                <ul class="pagination" id="pager">#}
                     {# 上一页链接开始 #}
 {#                    {% if file_list.has_previous %}#}
-{#                        <li class="previous"><a href="/apitest/test_report/?page={{ file_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&file_list={{ file_list }}">上一页</a></li>#}
+{#                        <li class="previous"><a href="/apitest/test_report/?page={{ file_list.previous_page_number }}&selected_product_id={{ selected_product_id }}&selected_report_result={{ selected_report_result }}&file_list={{ file_list }}">上一页</a></li>#}
 {#                    {% else %}#}
 {#                        <li class="previous disabled"><a href="#">上一页</a></li>#}
 {#                    {% endif %}#}
                     {# 下一页链接开始 #}
 {#                    {% if file_list.has_next %}#}
-{#                        <li class="next"><a href="/apitest/test_report/?page={{ file_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_test_result={{ selected_test_result }}&file_list={{ file_list }}">下一页</a></li>#}
+{#                        <li class="next"><a href="/apitest/test_report/?page={{ file_list.next_page_number }}&selected_product_id={{ selected_product_id }}&selected_report_result={{ selected_report_result }}&file_list={{ file_list }}">下一页</a></li>#}
 {#                    {% else %}#}
 {#                        <li class="next disabled"><a href="#">下一页</a></li>#}
 {#                    {% endif %}#}
