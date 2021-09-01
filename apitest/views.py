@@ -830,7 +830,7 @@ def renew_variable(variable_id, test_manager, host, **kwargs):
         return "0"
     api_list = Apis.objects.filter(id=int(case_id))
     case_list = model_list_to_case_list(api_list)
-    result, case_list, try_refresh_token = test_manager.single_api_test(case_list, host)
+    result, case_list, try_refresh_token = test_manager.single_api_test(case_list, host, report=False)
     if try_refresh_token:
         try:
             json_path = variable.variable_reach_json_path

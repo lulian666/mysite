@@ -72,13 +72,14 @@ class TestCaseRequest:
                 num_success = 0
         return num_success == count, try_refresh_token
 
-    def single_api_test(self, case_list, host):
+    def single_api_test(self, case_list, host, **kwargs):
         try_refresh_token = True
+        report = kwargs['report'] if 'report' in kwargs else True
         for case in case_list:
             print('----------')
             print('case:', case)
             result, try_refresh_token = self.test_avoid_401(case, host, self.s)
-            if try_refresh_token:
+            if try_refresh_token and report:
                 # print('测试api：', case[1])
                 # 此处修改校验方法
                 is_succeed, response_this_time = verify_result(case, result)
@@ -93,7 +94,7 @@ class TestCaseRequest:
             else:
                 report_file(0, 0, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
                 break
-        if len(case_list) > 1:
+        if len(case_list) > 1 and report:
             report_file(self.num_fail, self.num_success, self.html, self.table_tr_fail, self.table_tr_success, "单接口测试", self.tester)
         return result, case_list, try_refresh_token
 
@@ -147,6 +148,12 @@ class TestCaseRequest:
 
 
 def verify_result(case, result):
+    """
+    首先判断状态码，其次判断返回内容中是否缺少参数，或参数类型更改
+    :param case:
+    :param result:
+    :return:
+    """
     try:
         result_json = result.json()
     except JSONDecodeError:
@@ -159,7 +166,7 @@ def verify_result(case, result):
         return False, result_json
     else:
         # 没有 dictionary_item_removed 和 type_changes，即没有删掉的字段，也没有类型改变的字段，就认为 response 是对的了
-        diff = DeepDiff(case[7], result_json, ignore_order=True)
+        diff = DeepDiff(case[7], result_json, ignore_order=True, exclude_paths="root['debugInfo']")
         if 'dictionary_item_removed' not in diff and 'type_changes' not in diff:
             print('测试成功')
             return True, result_json
@@ -172,7 +179,7 @@ def verify_result(case, result):
 
 
 def report_file(num_fail, num_success, html, table_tr_fail, table_tr_success, called_by, tester):
-    if num_success > 0:
+    if num_success + num_fail > 0:
         total_str = '共 %s，通过 %s，失败 %s' % (num_fail + num_success, num_success, num_fail)
         output = html.HTML_TMPL % dict(value=total_str, table_tr=table_tr_fail, table_tr2=table_tr_success, )
         is_success = "PASS" if num_success == (num_fail + num_success) else "FAIL"
