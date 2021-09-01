@@ -7,7 +7,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 
-from apitest.common.managesql import ManageSql
+from apitest.common.manage_sql import ManageSql
 from product.models import Product
 
 
