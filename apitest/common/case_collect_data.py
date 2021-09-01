@@ -107,11 +107,11 @@ def parameters_info_jike(parameters_data):
         parameters_list = get_value_with_default(parameters_data, '$.fields.Parameter', default=[])
         parameters_dict, son = {}, {}
         for item in parameters_list:
-            if not fnmatch(item['field'], '*' + '.' + '*'):
+            if not fnmatch(item['field'], '*' + '.' + '*') and item['field'].lower() != 'loadmorekey':
                 parameters_dict.update({item['field']: {'required': not item['optional'], 'type': item['type']}})
                 # 还需要处理 enum 和二级 json
                 add_allowed_values(item, parameters_dict[item['field']])
-            else:
+            elif fnmatch(item['field'], '*' + '.' + '*') and item['field'].split('.')[0].lower() != 'loadmorekey':
                 father = item['field'].split('.')[0]
                 son.update({item['field'].split('.')[1]: {'required': not item['optional'], 'type': item['type']}})
                 add_allowed_values(item, son[item['field'].split('.')[1]])
@@ -203,7 +203,7 @@ def body_info_swagger(params, json_data, body, son_json, father):
 
 def collect_enum_and_json(parameters, name, son_json, required, param_type, enum, father):
     """
-    拼凑 enum 和二级 json
+    拼凑 enum 和二级 json，参数名称为 loadMoreKey 时也不保存，因为自动生成用例时无法知道 loadMoreKey 是什么值
     :param parameters: 组织好的字典，参数-参数信息
     :param name: 参数名称
     :param son_json: 参数中的二级json
@@ -214,12 +214,12 @@ def collect_enum_and_json(parameters, name, son_json, required, param_type, enum
     :return:
     """
     param_name = name.lower()
-    if not enum and (not fnmatch(param_name, '*' + '.' + '*')):
+    if not enum and (not fnmatch(param_name, '*' + '.' + '*')) and param_name != 'loadmorekey':
         parameters.update({name: {'required': required, 'type': param_type}})
-    elif enum:
+    elif enum and param_name != 'loadmorekey':
         parameters.update({name: {'required': required, 'type': param_type, 'enum': enum}})
     # 如果存在参数 xxx.xxx 那说明传参里有2级json，那要特殊处理一下
-    elif fnmatch(param_name, '*' + '.' + '*'):
+    elif fnmatch(param_name, '*' + '.' + '*') and param_name != 'loadmorekey':
         father, son = name.split('.')
         son_json.update({son: {'required': required, 'type': param_type}})
     return parameters, son_json, father
