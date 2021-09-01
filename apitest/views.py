@@ -17,7 +17,7 @@ from apitest.common.case_collect_data import CaseCollect
 from apitest.common.case_readyfortest import data_form
 from apitest.common.case_test import TestCaseRequest
 from apitest.common.header_mange import HeaderManage
-from apitest.common.managesql import ManageSql
+from apitest.common.manage_sql import ManageSql
 from apitest.models import ApiFlowTest, Apis, Headers, Variables, ApiFlowAndApis
 from product.models import Product
 
@@ -809,15 +809,38 @@ def model_list_to_case_list(model_list):
 
 
 def renew_variables(selected_product_id, test_manager):
+    """
+    数据准备工作，更新被标记需要更新的变量
+    :param selected_product_id: 项目 ID
+    :param test_manager: 测试类的对象
+    :return:
+    """
     print('renewing variables......')
     variables_to_renew = Variables.objects.filter(Product_id=selected_product_id).filter(variable_need_preparation__isnull=False)
     host = ManageSql().get_host_of_product(selected_product_id)
-
+    # 这里会有重复的，应该去重
+    # variables_to_renew 这个list 肯定不会重复，但是他们里面 variable_depend_api_id、variable_reach_json_path 如果有一样的就没必要重复氢气
+    temp_value_dict = {}
     for variable in variables_to_renew:
-        renew_variable(variable.id, test_manager, host)
+        key = str(variable.variable_depend_api_id) + variable.variable_reach_json_path
+        if key in temp_value_dict:
+            print('哈哈，抓到一个重复的！')
+            variable.variable_value = temp_value_dict[key]
+            variable.save()
+        else:
+            temp_value = renew_variable(variable.id, test_manager, host)
+            temp_value_dict.update({key: temp_value})
 
 
 def renew_variable(variable_id, test_manager, host, **kwargs):
+    """
+    更新单独的一个变量的方法
+    :param variable_id: 变量 ID
+    :param test_manager:
+    :param host:
+    :param kwargs: 可能有前端用来测试时会传过来的字段，如果有这个字段，就不使用从数据库里读到的 json_path 字段
+    :return:
+    """
     try:
         variable = Variables.objects.get(id=variable_id)
         case_id = variable.variable_depend_api_id
