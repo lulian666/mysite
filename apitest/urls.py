@@ -25,4 +25,5 @@ urlpatterns = [
     path('update_variable_depend_api/', function_view.update_variable_depend_api, name='update_variable_depend_api'),
     path('update_variable_json_path/', function_view.update_variable_json_path, name='update_variable_json_path'),
     path('debug_variable_preparation/', function_view.debug_variable_preparation, name='debug_variable_preparation'),
+    path('show_exclude_info/', function_view.show_exclude_info, name='show_exclude_info'),
 ]

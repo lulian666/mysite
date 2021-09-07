@@ -22,6 +22,9 @@ from apitest.models import ApiFlowTest, Apis, Headers, Variables, ApiFlowAndApis
 from product.models import Product
 
 
+root = os.path.abspath('.')  # 获取当前工作目录路径
+
+
 def login(request):
     if request.POST:
         username = request.POST.get('username')  # 意思是获取html中填写的username
@@ -245,7 +248,6 @@ def apis_manage(request):
                                    'test_result_look_up_dict': test_result_look_up_dict, "selected_test_result": selected_test_result,
                                    'selected_product_id': selected_product_id, 'apis_count': apis_count, 'fail_message': fail_message})
             # 以下是跳转报告列表页所需数据
-            root = os.path.abspath(".")
             filepath = os.path.join(root, "apitest/templates/report")
             # 所有的测试报告都在filepath内，将目录下所有的文件拼成一个list，每个list包含[文件名，测试类型，创建时间，测试结果，测试人]
             file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], file.split("_")[3]] for file in
@@ -299,7 +301,6 @@ def test_case(model_list, tester_name):
     # 用pytest进行测试
     # save_case_locally(case_list, host)
     #
-    # root = os.path.abspath('.')
     # file = os.path.join(root, 'apitest')
     # cmd = 'py.test -s -v %s' % file
     # os.system(cmd)
@@ -313,7 +314,6 @@ def test_case(model_list, tester_name):
 @login_required(login_url='/account/login/')
 def test_report(request):
     username = request.user
-    root = os.path.abspath(".")
     filepath = os.path.join(root, "apitest/templates/report")
     # 所有的测试报告都在filepath内，将目录下所有的文件拼成一个list，每个list包含[文件名，测试类型，创建时间，测试结果，测试人]
     file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], file.split("_")[3]] for file in
@@ -381,37 +381,25 @@ def datasource(request):
     source = request.POST.get('source', '').strip()
     error = exclude_data = check_info = ''
 
-    if 'selector' in request.POST:
-        # 更改下拉菜单时，把已有的内容更新到文本框内
-        product_id = request.POST['product_id']
-        if product_id != '-1' and product_id is not None:
-            exclude_data = list(Product.objects.filter(id=product_id).values_list('exclude_api', flat=True))
-            exclude_data = str(exclude_data[0]) if exclude_data[0] is not None else ''
-            return HttpResponse(exclude_data)
-        else:
-            return HttpResponse('')
-    elif 'exclude' in request.POST:
-        # 提交新的exclude信息到相应的product
+    if 'exclude' in request.POST:
         exclude_data = request.POST.get('exclude_api', '').strip()
         selected_product_id = request.POST.get('selected_product_id')
-        try:
-            product = Product.objects.get(id=selected_product_id)
-            product.exclude_api = exclude_data
-            product.save()
-        except:
-            # 需要检查数据格式
-            check_info = '没有选择项目（现在选的话先保存你已编辑的内容，否则会丢失！）' if selected_product_id == '-1' else ''
+        if exclude_data.find('，') != -1:
+            check_info = '用了中文逗号！'
+        else:
+            try:
+                product = Product.objects.get(id=selected_product_id)
+                product.exclude_api = exclude_data
+                product.save()
+            except:
+                check_info = '没有选择项目（现在选的话先保存你已编辑的内容，否则会丢失！）' if selected_product_id == '-1' else ''
 
     if 'analysis' in request.POST:
         # 这里要保存已经手动编辑的exclude文本内容，和选择的项目信息
         exclude_data = request.POST.get('exclude_api', '').strip()
         selected_product_id = request.POST.get('selected_product_id')
-        if not check_json_format(source):
-            error = 'json格式不正确！'
-        else:
-            error = '正确的json格式～'
+        error = 'json格式不正确！' if not check_json_format(source) else '正确的json格式～'
     elif 'save' in request.POST:  # 保存，就是写到本地文件里
-        root = os.path.abspath('.')  # 获取当前工作目录路径
         if not check_json_format(source):
             error = 'json格式不正确！'
         elif source != "{}":
@@ -426,14 +414,11 @@ def datasource(request):
                 interfaces_not_wanted = Product.objects.get(id=selected_product_id).exclude_api
                 basic_case_list, case_list = CaseCollect().collect_data_accordingly(interfaces_not_wanted,
                                                                                     selected_product_id)
-                # for case in case_list:
-                #     print(case)
                 if not basic_case_list:
                     error = '未解析出case，可能这种格式暂不支持，或者选择的项目不匹配此格式'
                 else:
                     save_variables_to_sql(selected_product_id, basic_case_list)
                     variables_list = Variables.objects.filter(Product_id=selected_product_id)
-                    # 接口也保存下来
                     new_case_list = data_form(selected_product_id, 3, 4, case_list, variables_list)
                     # 为了防止重复
                     print('before:', len(new_case_list))
@@ -443,7 +428,6 @@ def datasource(request):
                             no_repeat_case_list.append(one)
                     print('after', len(no_repeat_case_list))
                     ManageSql.write_case_to_sql(no_repeat_case_list, selected_product_id)
-
                     variables_count, variables_page_list = paginator(request, variables_list, 12)
                     return render(request, "apitest/variables_manage.html",
                                   {'error': error, 'data': source, "username": username,

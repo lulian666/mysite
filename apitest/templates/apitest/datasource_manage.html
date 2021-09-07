@@ -56,7 +56,7 @@
                         <br><label style="color: red">所有符合正则匹配的接口，都不会被保存到接口列表！！</label>
                         <br><textarea rows="20" cols="40" id="exclude_api" name="exclude_api" placeholder="用英文逗号分隔url" style="resize:none; margin-top: 10px">{{ exclude_data }}</textarea>
                         <br><button type="submit" name="exclude">提交</button>
-                        <br style="color: red">{{ check_info }}
+                        <br><h3 style="color: #b52a1d">{{ check_info }}</h3>
                     </div>
                     <div style="padding-left: 20px; padding-top: 10px;">
                         <br>
@@ -66,7 +66,7 @@
                         <textarea rows="20" cols="70" name="source" placeholder="把 JSON 格式的数据源粘贴进来" style="resize:none; margin-top: 10px;">{{ data }}</textarea>
                         <br> <button type="submit" name="analysis">1、检查粘贴内容是否正确</button>
                         <button type="submit" name="save" style="margin-left: 70px">2、保存case（检查项目选了没）</button>
-                        <br> <h3 style="color: #0000C0">{{ error }}</h3>
+                        <br> <h3 style="color: #b52a1d">{{ error }}</h3>
                     </div>
                 </div>
             </form>
@@ -78,7 +78,7 @@
     function show_exclude_api() {
         var product_id = $("#selected_product_id").val()
         $.ajax({
-            url: "{% url 'apitest:api_datasource' %}",
+            url: "{% url 'apitest:show_exclude_info' %}",
             type: "POST",
             data: {"product_id": product_id, 'selector': ''},
             success: function (exclude_data){

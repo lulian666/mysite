@@ -92,3 +92,12 @@ def debug_variable_preparation(request):
     target_value = renew_variable(variable_id, test_manager, host, json_path=json_path)
     return HttpResponse(target_value)
 
+
+@login_required
+@csrf_exempt
+def show_exclude_info(request):
+    # 更改下拉菜单时，把已有的内容更新到文本框内
+    product_id = request.POST['product_id']
+    exclude_data = list(Product.objects.filter(id=product_id).values_list('exclude_api', flat=True))
+    return HttpResponse(exclude_data)
+
