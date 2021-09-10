@@ -48,7 +48,7 @@ def logout(request):
 def form_api_flow_case(request):
     username = request.user
     api_to_choose_list = Apis.objects.filter(api_expect_status_code=200).filter(Product_id=2)
-    case_name = "默认名称"
+    case_name = '默认名称'
     # todo: 按照url过滤一遍
     if 'choice' in request.POST:
         data = request.POST['data']
@@ -66,19 +66,19 @@ def form_api_flow_case(request):
         data_list = json.loads(data_list)
         is_success, try_refresh_token = trial_test(data_list, io_list, username)
         if is_success and try_refresh_token:
-            return HttpResponse("1")
+            return HttpResponse('1')
         elif not try_refresh_token:
-            return HttpResponse("2")
+            return HttpResponse('2')
         else:
-            return HttpResponse("0")
+            return HttpResponse('0')
 
     if 'create' in request.POST:
         case_name = request.POST['case_name']
         # case_name不仅要校验空值，还要校验是否唯一
-        if case_name == "":
-            return HttpResponse("2")
-        elif not ManageSql.is_value_only(case_name, "case_name", "apitest_apiflowtest"):
-            return HttpResponse("4")
+        if case_name == '':
+            return HttpResponse('2')
+        elif not ManageSql.is_value_only(case_name, 'case_name', 'apitest_apiflowtest'):
+            return HttpResponse('4')
 
         io_list = request.POST['io_list']  # 出入参
         io_list = json.loads(io_list)
@@ -87,7 +87,7 @@ def form_api_flow_case(request):
         data_list = request.POST['data_list']
         data_list = json.loads(data_list)
         if not data_list:
-            return HttpResponse("3")
+            return HttpResponse('3')
 
         api_id_list = data_to_list(data_list)
         product_id = Apis.objects.get(id=api_id_list[0][0]).Product_id
@@ -96,13 +96,13 @@ def form_api_flow_case(request):
             # 然后创建一个flow_case和api之间的映射记录，包含双方的id，每一条api对应的出入参数
             # 这里如何确定case归属哪个项目？随便取一个api的项目好了
 
-            case_id = ManageSql.write_flow_case_to_sql(case_name, "默认描述", username, product_id)
+            case_id = ManageSql.write_flow_case_to_sql(case_name, '默认描述', username, product_id)
             ManageSql.write_to_table_api_flow_and_apis(case_id, api_id_list, api_io_list)
-            return HttpResponse("1")
+            return HttpResponse('1')
         except:
-            return HttpResponse("0")
-    return render(request, "apitest/form_api_flow_case_cp.html",
-                  {"username": username, 'api_to_choose_list': api_to_choose_list,
+            return HttpResponse('0')
+    return render(request, 'apitest/form_api_flow_case_cp.html',
+                  {'username': username, 'api_to_choose_list': api_to_choose_list,
                    'case_name': case_name})
 
 
@@ -132,11 +132,11 @@ def api_flow_test_manage(request):
     case_id_list = list(api_flow_test_list.values_list('id', flat=True))
     relation_list = ApiFlowAndApis.objects.filter(ApiFlowTest_id__in=case_id_list)
     list_count, relation_page_list = paginator(request, relation_list, 10)
-    return render(request, "apitest/api_flow_test_manage.html",
-                  {"username": username, "relation_list": relation_page_list,
-                   "api_flow_test_counts": list_count, "product_list": product_list,
-                   'test_result_look_up_dict': test_result_look_up_dict, "selected_test_result": selected_test_result,
-                   'selected_product_id': selected_product_id, "test_result": test_result, 'fail_message': fail_message})
+    return render(request, 'apitest/api_flow_test_manage.html',
+                  {'username': username, 'relation_list': relation_page_list,
+                   'api_flow_test_counts': list_count, 'product_list': product_list,
+                   'test_result_look_up_dict': test_result_look_up_dict, 'selected_test_result': selected_test_result,
+                   'selected_product_id': selected_product_id, 'test_result': test_result, 'fail_message': fail_message})
 
 
 def flow_case_test(api_flow_test_list, tester):
@@ -147,8 +147,8 @@ def flow_case_test(api_flow_test_list, tester):
     :return:
     """
     multiple_case_list = []
-    one_case_id = api_flow_test_list.values_list("id", flat=True)[0]
-    one_api_id = ApiFlowAndApis.objects.filter(ApiFlowTest_id=one_case_id).values_list("Apis_id", flat=True)[0]
+    one_case_id = api_flow_test_list.values_list('id', flat=True)[0]
+    one_api_id = ApiFlowAndApis.objects.filter(ApiFlowTest_id=one_case_id).values_list('Apis_id', flat=True)[0]
     product_id = Apis.objects.get(id=one_api_id).Product_id
     host = ManageSql.get_host_of_product(product_id)
     for case in api_flow_test_list:
@@ -158,7 +158,7 @@ def flow_case_test(api_flow_test_list, tester):
         for relation in relations:
             io_list.append([relation.output_parameter, relation.input_parameter])
 
-        id_list = relations.values_list("Apis_id", flat=True)
+        id_list = relations.values_list('Apis_id', flat=True)
         api_list = Apis.objects.filter(id__in=id_list)
         case_list = model_list_to_case_list(api_list)
         multiple_case_list.append([case_list, io_list, host])
@@ -211,13 +211,13 @@ def apis_manage(request):
     show_not_for_test = ''
 
     if 'selected_test_result' in request.GET:
-        show_not_for_test = request.GET.get("show_not_for_test")
+        show_not_for_test = request.GET.get('show_not_for_test')
         if show_not_for_test == 'show_not_for_test':
             api_list = Apis.objects.all()
         api_list, selected_test_result, selected_product_id = model_list_filter(request.GET, api_list)
 
     if request.method == 'POST':
-        show_not_for_test = request.POST.get("show_not_for_test")
+        show_not_for_test = request.POST.get('show_not_for_test')
         if show_not_for_test == 'show_not_for_test':
             api_list = Apis.objects.all()
         api_list, selected_test_result, selected_product_id = model_list_filter(request.POST, api_list)
@@ -272,8 +272,8 @@ def apis_manage(request):
                 return HttpResponse('token 过期')
     apis_count, apis_page_list = paginator(request, api_list, 12)
     return render(request, 'apitest/apis_manage.html',
-                  {'api_list': apis_page_list, "product_list": product_list, 'username': username,
-                   'test_result_look_up_dict': test_result_look_up_dict, "selected_test_result": selected_test_result,
+                  {'api_list': apis_page_list, 'product_list': product_list, 'username': username,
+                   'test_result_look_up_dict': test_result_look_up_dict, 'selected_test_result': selected_test_result,
                    'selected_product_id': selected_product_id, 'apis_count': apis_count,
                    'show_not_for_test': show_not_for_test})
 
@@ -314,10 +314,10 @@ def test_case(model_list, tester_name):
 @login_required(login_url='/account/login/')
 def test_report(request):
     username = request.user
-    filepath = os.path.join(root, "apitest/templates/report")
+    filepath = os.path.join(root, 'apitest/templates/report')
     # 所有的测试报告都在filepath内，将目录下所有的文件拼成一个list，每个list包含[文件名，测试类型，创建时间，测试结果，测试人]
-    file_list = [[file, file.split("_")[0], file.split("_")[1], file.split("_")[2], file.split("_")[3]] for file in
-                 listdir(filepath) if file != "__init__.py"]
+    file_list = [[file, file.split('_')[0], file.split('_')[1], file.split('_')[2], file.split('_')[3]] for file in
+                 listdir(filepath) if file != '__init__.py']
     # 按照list中第三个内容倒序排序（此处是创建时间）
     file_list = sorted(file_list, key=lambda x: x[2], reverse=True)
 
@@ -333,42 +333,42 @@ def test_report(request):
         file_list, selected_test_type, selected_report_result = report_list_filter(request, file_list)
 
     # list_count, file_page_list = paginator(request, file_list, 10)
-    return render(request, "apitest/report.html",
-                  {"username": username, "file_list": file_list, "report_count": len(file_list),
-                   "report_result_look_up_dict": report_result_look_up_dict, "test_type_list": test_type_list,
-                   "selected_test_type": selected_test_type, "selected_report_result": selected_report_result,
-                   "list_count": len(file_list)})
+    return render(request, 'apitest/report.html',
+                  {'username': username, 'file_list': file_list, 'report_count': len(file_list),
+                   'report_result_look_up_dict': report_result_look_up_dict, 'test_type_list': test_type_list,
+                   'selected_test_type': selected_test_type, 'selected_report_result': selected_report_result,
+                   'list_count': len(file_list)})
 
 
 @login_required(login_url='/account/login/')
 def test_report_detail(request, report_name):
-    return render(request, "report/" + report_name, {})
+    return render(request, 'report/' + report_name, {})
 
 
 @login_required(login_url='/account/login/')
 def search(request):
     username = request.session.get('user', '')
-    search_apitestname = request.GET.get("apitestname", "")
+    search_apitestname = request.GET.get('apitestname', '')
     apitest_list = ApiFlowTest.objects.filter(apitestname__icontains=search_apitestname)
-    return render(request, "apitest/api_flow_test_manage.html", {"user": username, "apitests": apitest_list})
+    return render(request, 'apitest/api_flow_test_manage.html', {'user': username, 'apitests': apitest_list})
 
 
 @login_required(login_url='/account/login/')
 def apis_search(request):
     username = request.session.get('user', '')
-    search_keyword = request.GET.get("search_keyword")
+    search_keyword = request.GET.get('search_keyword')
     product_list = Product.objects.all()
     test_result_list = [0, 1]
     api_list = Apis.objects.filter(Q(api_name__icontains=search_keyword) | Q(api_url__icontains=search_keyword))
     api_count, api_page_list = paginator(request, api_list, 10)
-    return render(request, "apitest/apis_manage.html", {"user": username, "api_list": api_page_list,
-                                                        "apis_count": api_count, "product_list": product_list,
+    return render(request, 'apitest/apis_manage.html', {'user': username, 'api_list': api_page_list,
+                                                        'apis_count': api_count, 'product_list': product_list,
                                                         'test_result_list': test_result_list})
 
 
 @login_required(login_url='/account/login/')
 def welcome(request):
-    return render(request, "apitest/welcome.html")
+    return render(request, 'apitest/welcome.html')
 
 
 # 处理源数据
@@ -402,10 +402,10 @@ def datasource(request):
     elif 'save' in request.POST:  # 保存，就是写到本地文件里
         if not check_json_format(source):
             error = 'json格式不正确！'
-        elif source != "{}":
+        elif source != '{}':
             error = '正确的json格式～'
             filepath = os.path.join(root, 'apitest/config/temp.json')
-            with open(filepath, "w", encoding="utf-8") as f:
+            with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(str(source))
             f.close()
             # 把接口里的变量保存下来
@@ -429,15 +429,15 @@ def datasource(request):
                     print('after', len(no_repeat_case_list))
                     ManageSql.write_case_to_sql(no_repeat_case_list, selected_product_id)
                     variables_count, variables_page_list = paginator(request, variables_list, 12)
-                    return render(request, "apitest/variables_manage.html",
-                                  {'error': error, 'data': source, "username": username,
-                                   "variables": variables_page_list, "variables_count": variables_count,
-                                   "product_list": product_list, "selected_product_id": int(selected_product_id)})
+                    return render(request, 'apitest/variables_manage.html',
+                                  {'error': error, 'data': source, 'username': username,
+                                   'variables': variables_page_list, 'variables_count': variables_count,
+                                   'product_list': product_list, 'selected_product_id': int(selected_product_id)})
             else:
                 error = '还没有选择所属项目'
         else:
             error = '请输入有内容的json'
-    return render(request, "apitest/datasource_manage.html",
+    return render(request, 'apitest/datasource_manage.html',
                   {'error': error, 'data': source, 'username': username,
                    'product_list': product_list, 'selected_product_id': int(selected_product_id),
                    'exclude_data': exclude_data, 'check_info': check_info})
@@ -484,9 +484,9 @@ def api_header(request):
         headers_list = Headers.objects.filter(Product_id=selected_product_id)
 
     headers_count, headers_page_list = paginator(request, headers_list, 10)
-    return render(request, "apitest/api_header.html",
-                  {"username": username, "headers": headers_page_list, "selected_product_id": int(selected_product_id),
-                   "product_list": product_list, 'check_info': check_info, 'new_headers': new_headers_raw})
+    return render(request, 'apitest/api_header.html',
+                  {'username': username, 'headers': headers_page_list, 'selected_product_id': int(selected_product_id),
+                   'product_list': product_list, 'check_info': check_info, 'new_headers': new_headers_raw})
 
 
 # 变量管理
@@ -518,34 +518,34 @@ def variables_manage(request):
                     for each in variables_share_the_same_name:
                         is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
                         if is_legal:
-                            if str(new_value).lower() == "false":
+                            if str(new_value).lower() == 'false':
                                 new_value = False
-                            elif str(new_value).lower() == "true":
+                            elif str(new_value).lower() == 'true':
                                 new_value = True
                             each.variable_value = new_value
                             each.save()
                         else:
-                            return HttpResponse("2")
-                    return HttpResponse("1")
+                            return HttpResponse('2')
+                    return HttpResponse('1')
                 else:
                     # oh my dear don't over thinking this. baby steps. start with little things like string and integer
                     # 前端传过来的好像都是string
                     is_legal, new_value = check_variable_legal_validity(variable.variable_type, new_value)
                     if is_legal:
-                        if str(new_value).lower() == "false":
+                        if str(new_value).lower() == 'false':
                             new_value = False
-                        elif str(new_value).lower() == "true":
+                        elif str(new_value).lower() == 'true':
                             new_value = True
                         variable.variable_value = new_value
                         variable.save()
-                        return HttpResponse("1")
+                        return HttpResponse('1')
                     else:
-                        return HttpResponse("2")
+                        return HttpResponse('2')
             except:
-                return HttpResponse("0")
+                return HttpResponse('0')
         variables_list, selected_product_id, null_value_only = model_list_filter2(request.POST, variables_list)
         if 'birth' in request.POST:
-            selected_product_id = request.POST.get("selected_product_id")
+            selected_product_id = request.POST.get('selected_product_id')
             if int(selected_product_id) != -1:
                 ManageSql.update_variable_in_case(selected_product_id)
                 # 跳转去单一接口列表页
@@ -554,16 +554,16 @@ def variables_manage(request):
 
                 apis_count, apis_page_list = paginator(request, api_list, 12)
                 return render(request, 'apitest/apis_manage.html',
-                              {'api_list': apis_page_list, "product_list": product_list, "username": username,
+                              {'api_list': apis_page_list, 'product_list': product_list, 'username': username,
                                'test_result_list': test_result_list,
                                'selected_product_id': int(selected_product_id), 'apis_count': apis_count})
             else:
                 fail_message = '还没选择项目'
     variables_count, variables_page_list = paginator(request, variables_list, 12)
-    return render(request, "apitest/variables_manage.html",
-                  {"username": username, "variables": variables_page_list, "variables_count": variables_count,
-                   "warning": "只点击一次就好，会跳转到用例列表", "product_list": product_list,
-                   "selected_product_id": int(selected_product_id), "null_value_only": null_value_only,
+    return render(request, 'apitest/variables_manage.html',
+                  {'username': username, 'variables': variables_page_list, 'variables_count': variables_count,
+                   'warning': '只点击一次就好，会跳转到用例列表', 'product_list': product_list,
+                   'selected_product_id': int(selected_product_id), 'null_value_only': null_value_only,
                    'fail_message': fail_message})
 
 
@@ -601,7 +601,7 @@ def check_variable_legal_validity(variable_type, variable_value):
         except:
             is_legal = False
     elif variable_type.lower() == 'boolean':
-        if variable_value.lower() in ['0', '1', "false", "true"]:
+        if variable_value.lower() in ['0', '1', 'false', 'true']:
             is_legal = True
         else:
             is_legal = False
@@ -728,11 +728,11 @@ def model_list_filter2(request, list_to_filter):
     :return:
     """
     selected_product_id = request.get('selected_product_id')
-    null_value_only = request.get("null_value_only")
+    null_value_only = request.get('null_value_only')
     list_filtered = list_to_filter
     if selected_product_id != '-1':
         list_filtered = list_filtered.filter(Product_id=selected_product_id)
-    if null_value_only == "null_value_only":
+    if null_value_only == 'null_value_only':
         list_filtered = list_filtered.filter(variable_value__isnull=True)
     return list_filtered, int(selected_product_id), null_value_only
 
@@ -830,7 +830,7 @@ def renew_variable(variable_id, test_manager, host, **kwargs):
         case_id = variable.variable_depend_api_id
         api_list = Apis.objects.filter(id=int(case_id))
     except:
-        return "0"
+        return '0'
     case_list = model_list_to_case_list(api_list)
     result, case_list, try_refresh_token = test_manager.single_api_test(case_list, host, report=False)
     if try_refresh_token:
@@ -847,7 +847,7 @@ def renew_variable(variable_id, test_manager, host, **kwargs):
         print('one variable renewed......')
         return target_value
     else:
-        return "token 过期"
+        return 'token 过期'
 
 
 test_result_look_up_dict = {
