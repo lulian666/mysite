@@ -44,7 +44,7 @@ class Apis(models.Model):
     api_expect_response = models.TextField('预期结果', max_length=50000, null=True)
     api_expect_status_code = models.IntegerField('预期状态码', default=200)
     api_response = models.TextField('测试结果', max_length=50000, null=True)
-    api_response_status_code = models.IntegerField('预期状态码', null=True)
+    api_response_status_code = models.IntegerField('实际状态码', null=True)
     test_result = models.BooleanField('是否通过', null=True)
     not_for_test = models.BooleanField('是否不进行单接口测试', null=True)
     create_time = models.DateTimeField('创建时间', auto_now=True, null=True)
