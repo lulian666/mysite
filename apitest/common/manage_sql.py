@@ -325,8 +325,10 @@ def update(variable_list, body, url):
             try:
                 variable = variable_list.filter(from_api=url).get(variable_key=key)
                 answer = variable.variable_value
-                if str(variable.variable_type) == 'Boolean':
+                if str(variable.variable_type).lower() == 'boolean':
                     answer = True if str(answer).lower() == "true" else False
+                elif str(variable.variable_type).lower() == 'integer' or str(variable.variable_type).lower() == 'number':
+                    answer = int(answer)
             except:
                 answer = None
             if value is None or value == "None":  # enum的不需要代替

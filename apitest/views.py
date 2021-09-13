@@ -594,7 +594,7 @@ def check_variable_legal_validity(variable_type, variable_value):
         # except:
         #     is_legal = True
         is_legal = True
-    elif variable_type.lower() == 'integer' or variable_value == 'number':
+    elif variable_type.lower() == 'integer' or variable_type.lower() == 'number':
         try:
             variable_value = int(variable_value)
             is_legal = True
@@ -607,6 +607,7 @@ def check_variable_legal_validity(variable_type, variable_value):
             is_legal = False
     else:
         is_legal = True
+    print(variable_value, type(variable_value))
     return is_legal, variable_value
 
 
