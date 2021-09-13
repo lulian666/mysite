@@ -36,9 +36,9 @@ class CaseCollect:
             print('按小宇宙接口文档格式解析')
             basic_case_list, case_list = self.collect_data_podcast(json_data, api_not_wanted)
         else:
-            paths = json_data['paths']
+            # paths = json_data['paths']
             print('按 swagger 文档格式解析')
-            basic_case_list, case_list = self.collect_data_swagger(json_data, paths, api_not_wanted)
+            basic_case_list, case_list = self.collect_data_jike(json_data, api_not_wanted)
         return basic_case_list, case_list
 
     @staticmethod

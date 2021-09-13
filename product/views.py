@@ -22,13 +22,12 @@ def product_manage(request):
             new_product_name = request.POST['new_product_name']
             new_product_description = request.POST['new_product_description']
             new_product_host = request.POST['new_product_host']
-
             ManageSql.add_new_product(new_product_name, new_product_description, new_product_host)
-            return HttpResponse("1")
+            return HttpResponse('1')
         except:
-            return HttpResponse("0")
-    return render(request, 'product/product_manage.html', {"username": username, "products": product_page_list,
-                                                           "product_count": product_count})
+            return HttpResponse('0')
+    return render(request, 'product/product_manage.html', {'username': username, 'products': product_page_list,
+                                                           'product_count': product_count})
 
 
 @login_required
