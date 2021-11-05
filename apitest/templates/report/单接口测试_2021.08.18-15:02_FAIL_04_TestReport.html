@@ -1,0 +1,1218 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 111，通过 98，失败 13</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:01:54</td>
+            <td>/1.0/im/conversation/get</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'conversationId': '6085300844a9310018532233'}</td>
+            <td>200</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>response中少了字段或字段类型变更：
+{'dictionary_item_removed': [root['user']['job'], root['user']['industry'], root['user']['wechat'], root['user']['avatar']['cropperPosX'], root['user']['avatar']['cropperPosY'], root['user']['quiz']['points']], 'values_changed': {"root['id']": {'new_value': '6085300844a9310018532233', 'old_value': '606eca3af856e4001942d863'}, "root['user']['id']": {'new_value': '5e959b87aabb4c514d923242', 'old_value': '5ff70c56df391849e5a2d023'}, "root['user']['age']": {'new_value': '26', 'old_value': '21'}, "root['user']['avatar']['picUrl']": {'new_value': 'https://image-qiniu.jellow.site/FmramFcJQTrrK0ol0aYn_70cheFW?imageView2/0/w/1000/format/jpg/q/70', 'old_value': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/1000/format/jpg/q/70'}, "root['user']['avatar']['width']": {'new_value': 864, 'old_value': 2929}, "root['user']['avatar']['height']": {'new_value': 864, 'old_value': 3906}, "root['user']['avatar']['thumbnailUrl']": {'new_value': 'https://image-qiniu.jellow.site/FmramFcJQTrrK0ol0aYn_70cheFW?imageView2/0/w/500/format/jpg/q/70', 'old_value': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/500/format/jpg/q/70'}, "root['user']['screenName']": {'new_value': '614', 'old_value': '8002'}, "root['user']['progress']": {'new_value': 31, 'old_value': 50}, "root['user']['album']['totalCount']": {'new_value': 0, 'old_value': 1}, "root['user']['zodiac']['name']": {'new_value': '摩羯座', 'old_value': '处女座'}, "root['user']['zodiac']['symbolLink']": {'new_value': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png', 'old_value': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, "root['user']['quiz']['matchPointsText']": {'new_value': '未知', 'old_value': '95%'}, "root['user']['quiz']['description']": {'new_value': '正在等待对方参与调查', 'old_value': '你们是爱与和平的共同体，错过会痛哭流涕呜呜'}, "root['user']['quiz']['theyAnswered']": {'new_value': False, 'old_value': True}, "root['matchId']": {'new_value': '5ff8527502f22800186020cd', 'old_value': '606eca37f856e4001942d846'}, "root['startedAt']": {'new_value': '2021-08-18T03:54:52.204Z', 'old_value': '2021-08-16T05:34:53.551Z'}, "root['updatedAt']": {'new_value': '2021-08-18T07:01:54.560Z', 'old_value': '2021-08-16T05:43:16.341Z'}, "root['lastUserMessageTime']": {'new_value': '2021-08-18T05:51:29.125Z', 'old_value': '2021-08-15T14:29:52.231Z'}, "root['status']": {'new_value': 'restarted', 'old_value': 'lingering'}, "root['dayInfo']['current']": {'new_value': 1, 'old_value': 2}, "root['restarterId']": {'new_value': '5ff70e36df391849e5a2ede5', 'old_value': '5ff70e38df391849e5a2edf7'}}, 'iterable_item_removed': {"root['user']['album']['photos'][0]": {'id': '6115064f2350ff00114ee7c6', 'picUrl': 'https://image-qiniu.jellow.site/FmOq8oCvArDffPg2dfhJzOZ5sLo8.jpg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1242, 'height': 2208, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FmOq8oCvArDffPg2dfhJzOZ5sLo8.jpg?imageView2/0/w/500/format/jpg/q/70'}, "root['user']['socialActivities'][0]": '吃鳗鱼饭'}}
+返回详情可见具体case或测试数据库</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:01:56</td>
+            <td>/1.0/im/conversation/restart</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'conversationId': '604889d71288550018cd9c2d'}</td>
+            <td>200</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>response中少了字段或字段类型变更：
+{'dictionary_item_removed': [root['lastUserMessageTime'], root['user']['job'], root['user']['industry'], root['user']['wechat'], root['user']['quiz']['points']], 'values_changed': {"root['id']": {'new_value': '604889d71288550018cd9c2d', 'old_value': '606eca3af856e4001942d863'}, "root['user']['id']": {'new_value': '5f3f8646df391849e5cd11cb', 'old_value': '5ff70c56df391849e5a2d023'}, "root['user']['age']": {'new_value': '28', 'old_value': '21'}, "root['user']['avatar']['picUrl']": {'new_value': 'https://image-qiniu.jellow.site/FhL6xqPjBYVHlBQCmPe8aYz7e9cY?imageView2/0/w/1000/format/jpg/q/70', 'old_value': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/1000/format/jpg/q/70'}, "root['user']['avatar']['width']": {'new_value': 1536, 'old_value': 2929}, "root['user']['avatar']['height']": {'new_value': 2047, 'old_value': 3906}, "root['user']['avatar']['thumbnailUrl']": {'new_value': 'https://image-qiniu.jellow.site/FhL6xqPjBYVHlBQCmPe8aYz7e9cY?imageView2/0/w/500/format/jpg/q/70', 'old_value': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/500/format/jpg/q/70'}, "root['user']['avatar']['cropperPosX']": {'new_value': 0.4141666666666667, 'old_value': 0.4925}, "root['user']['avatar']['cropperPosY']": {'new_value': 0.435, 'old_value': 0.39875}, "root['user']['screenName']": {'new_value': '14093男', 'old_value': '8002'}, "root['user']['progress']": {'new_value': 31, 'old_value': 50}, "root['user']['album']['totalCount']": {'new_value': 0, 'old_value': 1}, "root['user']['zodiac']['name']": {'new_value': '摩羯座', 'old_value': '处女座'}, "root['user']['zodiac']['symbolLink']": {'new_value': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png', 'old_value': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, "root['user']['quiz']['matchPointsText']": {'new_value': '未知', 'old_value': '95%'}, "root['user']['quiz']['description']": {'new_value': '正在等待对方参与调查', 'old_value': '你们是爱与和平的共同体，错过会痛哭流涕呜呜'}, "root['user']['quiz']['theyAnswered']": {'new_value': False, 'old_value': True}, "root['matchId']": {'new_value': '604888f91288550018cd9c16', 'old_value': '606eca37f856e4001942d846'}, "root['startedAt']": {'new_value': '2021-08-18T07:01:56.132Z', 'old_value': '2021-08-16T05:34:53.551Z'}, "root['updatedAt']": {'new_value': '2021-08-18T07:01:56.181Z', 'old_value': '2021-08-16T05:34:53.756Z'}, "root['restarterId']": {'new_value': '5ff70e36df391849e5a2ede5', 'old_value': '5ff70e38df391849e5a2edf7'}}, 'iterable_item_removed': {"root['user']['album']['photos'][0]": {'id': '6115064f2350ff00114ee7c6', 'picUrl': 'https://image-qiniu.jellow.site/FmOq8oCvArDffPg2dfhJzOZ5sLo8.jpg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1242, 'height': 2208, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FmOq8oCvArDffPg2dfhJzOZ5sLo8.jpg?imageView2/0/w/500/format/jpg/q/70'}, "root['user']['socialActivities'][0]": '吃鳗鱼饭'}}
+返回详情可见具体case或测试数据库</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:01:57</td>
+            <td>/1.0/match/recommend</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'encore': 'false', 'location': {'lng': '121.50788622989471', 'lat': '31.306750404984403', 'coordType': 'wgs84'}}</td>
+            <td>200</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:02</td>
+            <td>/1.0/match/recommend</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{}</td>
+            <td>200</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>response中少了字段或字段类型变更：
+{'dictionary_item_removed': [root['debugInfo']['templateLevel']], 'values_changed': {"root['recommendNewCards']": {'new_value': False, 'old_value': True}, "root['todayLeftEncoreTime']": {'new_value': 0, 'old_value': 1}, "root['data'][2]": {'new_value': {'id': '611c9f669f641f00113cfbdd', 'userProfile': {'id': '606e9e54df391849e5009f5c', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fqci3YtwMcpIgd9OCbHENn1ZjF1q.jpg?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 681, 'height': 908, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fqci3YtwMcpIgd9OCbHENn1ZjF1q.jpg?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.4558333333333333, 'cropperPosY': 0.484375}, 'screenName': '1001', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 31, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '06fb2e2b0cdfa4267b503cb8f0914cbd', 'deckRank': 3, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': 5, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location'], 'hitPoints': 182}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}, 'old_value': {'id': '611c8486a667c00011ecea71', 'userProfile': {'id': '606e9e54df391849e5009f5c', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fqci3YtwMcpIgd9OCbHENn1ZjF1q.jpg?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 681, 'height': 908, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fqci3YtwMcpIgd9OCbHENn1ZjF1q.jpg?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.4558333333333333, 'cropperPosY': 0.484375}, 'screenName': '1001', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 31, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '06fb2e2b0cdfa4267b503cb8f0914cbd', 'deckRank': 3, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': 0, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location'], 'hitPoints': 182}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}}, "root['data'][4]": {'new_value': {'id': '611c9f669f641f00113cfbdf', 'userProfile': {'id': '5e831528d12aabbc9d600d4e', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/FueKwvezUNnaCNHILu2T5-KnMv9V?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 665, 'height': 665, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FueKwvezUNnaCNHILu2T5-KnMv9V?imageView2/0/w/500/format/jpg/q/70'}, 'screenName': 'M033155', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海市', 'city': '上海市', 'district': '上海市'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 25, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '512587725e81c011ad592fb47a8f9f8b', 'deckRank': 5, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': 5, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location'], 'hitPoints': 198}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}, 'old_value': {'id': '611c8486a667c00011ecea73', 'userProfile': {'id': '5e831528d12aabbc9d600d4e', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/FueKwvezUNnaCNHILu2T5-KnMv9V?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 665, 'height': 665, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FueKwvezUNnaCNHILu2T5-KnMv9V?imageView2/0/w/500/format/jpg/q/70'}, 'screenName': 'M033155', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海市', 'city': '上海市', 'district': '上海市'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 25, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '512587725e81c011ad592fb47a8f9f8b', 'deckRank': 5, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': -30, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location'], 'hitPoints': 198}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}}, "root['data'][0]": {'new_value': {'id': '611c9f669f641f00113cfbdb', 'userProfile': {'id': '5ff70cccdf391849e5a2d7a9', 'gender': 'MALE', 'age': '21', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2929, 'height': 3906, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.4925, 'cropperPosY': 0.39875}, 'screenName': '8022', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 31, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '处女座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': 'ab0d507fb898ecfb7133d21941474639', 'deckRank': 1, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': 0, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location']}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}, 'old_value': {'id': '611c69fca667c00011ecea31', 'userProfile': {'id': '5ff70cccdf391849e5a2d7a9', 'gender': 'MALE', 'age': '21', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2929, 'height': 3906, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.4925, 'cropperPosY': 0.39875}, 'screenName': '8022', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 31, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '处女座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'lottery', 'pairId': 'ab0d507fb898ecfb7133d21941474639', 'deckRank': 1, 'recommendReason': '来自橙子摇摇乐', 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': 5, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location']}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}}, "root['data'][5]": {'new_value': {'id': '611c9f669f641f00113cfbe0', 'userProfile': {'id': '5eb3d19e51b35575bd868975', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/FqFwt498qYshtb1994Z83tKzW2ss?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1776, 'height': 2368, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FqFwt498qYshtb1994Z83tKzW2ss?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.7925, 'cropperPosY': 0.500625}, 'screenName': 'mmmm', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海市', 'city': '上海市', 'district': '上海市'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 25, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '94531aef1829cb5774596bbba81828c9', 'deckRank': 6, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': 5, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location'], 'hitPoints': 196}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}, 'old_value': {'id': '611c8486a667c00011ecea74', 'userProfile': {'id': '5eb3d19e51b35575bd868975', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/FqFwt498qYshtb1994Z83tKzW2ss?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1776, 'height': 2368, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FqFwt498qYshtb1994Z83tKzW2ss?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.7925, 'cropperPosY': 0.500625}, 'screenName': 'mmmm', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海市', 'city': '上海市', 'district': '上海市'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 25, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '94531aef1829cb5774596bbba81828c9', 'deckRank': 6, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': -30, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location'], 'hitPoints': 196}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}}, "root['data'][3]": {'new_value': {'id': '611c9f669f641f00113cfbde', 'userProfile': {'id': '5e7aefbcd12aabbc9d600d1d', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fu0h1rZr-wBqFb2VIOo-LPiDuDTM?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2701, 'height': 2701, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fu0h1rZr-wBqFb2VIOo-LPiDuDTM?imageView2/0/w/500/format/jpg/q/70'}, 'screenName': 'M032547', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海市', 'city': '上海市', 'district': '上海市'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 25, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '6da776155e470e09983562f96ba3db5e', 'deckRank': 4, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': 5, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location'], 'hitPoints': 198}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}, 'old_value': {'id': '611c8486a667c00011ecea72', 'userProfile': {'id': '5e7aefbcd12aabbc9d600d1d', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fu0h1rZr-wBqFb2VIOo-LPiDuDTM?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2701, 'height': 2701, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fu0h1rZr-wBqFb2VIOo-LPiDuDTM?imageView2/0/w/500/format/jpg/q/70'}, 'screenName': 'M032547', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海市', 'city': '上海市', 'district': '上海市'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 25, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '6da776155e470e09983562f96ba3db5e', 'deckRank': 4, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': -30, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location'], 'hitPoints': 198}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}}, "root['data'][1]": {'new_value': {'id': '611c9f669f641f00113cfbdc', 'userProfile': {'id': '5ff70d04df391849e5a2dcda', 'gender': 'MALE', 'age': '21', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2929, 'height': 3906, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.4925, 'cropperPosY': 0.39875}, 'screenName': '8078', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '北京', 'city': '北京', 'district': '北京'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 31, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '处女座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '27cf4c3e0f21f3bfa8bd06e2c77fba2a', 'deckRank': 2, 'featured': False, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': -30, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location']}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}, 'old_value': {'id': '611c8486a667c00011ecea70', 'userProfile': {'id': '5ff70d04df391849e5a2dcda', 'gender': 'MALE', 'age': '21', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2929, 'height': 3906, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.4925, 'cropperPosY': 0.39875}, 'screenName': '8078', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '北京', 'city': '北京', 'district': '北京'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 31, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '处女座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'status': 'ready', 'source': 'match', 'pairId': '27cf4c3e0f21f3bfa8bd06e2c77fba2a', 'deckRank': 2, 'featured': True, 'trackInfo': {'rankScoreMap': {'profile': 5, 'age': -100, 'location': 5, 'university': -30}, 'rerankScoreMap': {'active': -300, 'exposure': 0, 'noNewLike': 0, 'liked': 0, 'newUser': 0}, 'recallPolicies': ['location']}, 'viewType': 'MatchCard', 'modelType': 'UserProfile'}}}}
+返回详情可见具体case或测试数据库</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:11</td>
+            <td>/1.0/im/conversation/listActive</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+            <td>200</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:11</td>
+            <td>/1.0/im/message/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'conversationId': '6085300844a9310018532233', 'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+            <td>200</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:12</td>
+            <td>/1.0/im/conversation/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'status': 'fullDuplex', 'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+            <td>200</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:12</td>
+            <td>/1.0/im/conversation/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'status': 'expired', 'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+            <td>200</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:13</td>
+            <td>/1.0/match/recommend</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'encore': 'false', 'location': {'lng': '121.50788622989471', 'lat': '31.306750404984403', 'coordType': 'wgs84'}}</td>
+            <td>200</td>
+            <td>400</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:13</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '{"size":131991,"appId":"bTBiJJqs4kWZ","name":"","ext":".jpg","mimeType":"image\\/jpeg","exif":{"ColorSpace":{"type":3,"val":"Uncalibrated"},"PixelXDimension":{"type":4,"val":"932"},"ResolutionUnit":{"type":3,"val":"Inch"},"ExifVersion":{"type":7,"val":"Exif Version 2.1"},"FlashPixVersion":{"type":7,"val":"FlashPix Version 1.0"},"PixelYDimension":{"type":4,"val":"1242"},"XResolution":{"type":5,"val":"72"},"Orientation":{"type":3,"val":"Top-left"},"YResolution":{"type":5,"val":"72"}},"hash":"FvKfIV3qF1CkEWXSO03L_T6DZIjH","key":"FvKfIV3qF1CkEWXSO03L_T6DZIjH.jpg","storage":"QINIU","avInfo":{"Audios":null,"Videos":[{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}],"audio":null,"format":{"format_long_name":"piped jpeg sequence","bit_rate":"","format_name":"jpeg_pipe","duration":"","nb_streams":1,"size":"131991","start_time":""},"subtitle":null,"Subtitles":null,"MaxAB":-1,"video":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"},"AttachedPic":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}},"bucket":"balloon-image-public","resource":"IMAGE","imageInfo":{"format":"jpeg","orientation":"Top-left","size":131991,"height":1242,"width":932,"colorModel":"ycbcr"}}', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'name': '7001', 'photos': '[]', 'photoIds': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>200</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:14</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '{"size":131991,"appId":"bTBiJJqs4kWZ","name":"","ext":".jpg","mimeType":"image\\/jpeg","exif":{"ColorSpace":{"type":3,"val":"Uncalibrated"},"PixelXDimension":{"type":4,"val":"932"},"ResolutionUnit":{"type":3,"val":"Inch"},"ExifVersion":{"type":7,"val":"Exif Version 2.1"},"FlashPixVersion":{"type":7,"val":"FlashPix Version 1.0"},"PixelYDimension":{"type":4,"val":"1242"},"XResolution":{"type":5,"val":"72"},"Orientation":{"type":3,"val":"Top-left"},"YResolution":{"type":5,"val":"72"}},"hash":"FvKfIV3qF1CkEWXSO03L_T6DZIjH","key":"FvKfIV3qF1CkEWXSO03L_T6DZIjH.jpg","storage":"QINIU","avInfo":{"Audios":null,"Videos":[{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}],"audio":null,"format":{"format_long_name":"piped jpeg sequence","bit_rate":"","format_name":"jpeg_pipe","duration":"","nb_streams":1,"size":"131991","start_time":""},"subtitle":null,"Subtitles":null,"MaxAB":-1,"video":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"},"AttachedPic":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}},"bucket":"balloon-image-public","resource":"IMAGE","imageInfo":{"format":"jpeg","orientation":"Top-left","size":131991,"height":1242,"width":932,"colorModel":"ycbcr"}}', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'name': '7001', 'photos': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>400</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:14</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '{"size":131991,"appId":"bTBiJJqs4kWZ","name":"","ext":".jpg","mimeType":"image\\/jpeg","exif":{"ColorSpace":{"type":3,"val":"Uncalibrated"},"PixelXDimension":{"type":4,"val":"932"},"ResolutionUnit":{"type":3,"val":"Inch"},"ExifVersion":{"type":7,"val":"Exif Version 2.1"},"FlashPixVersion":{"type":7,"val":"FlashPix Version 1.0"},"PixelYDimension":{"type":4,"val":"1242"},"XResolution":{"type":5,"val":"72"},"Orientation":{"type":3,"val":"Top-left"},"YResolution":{"type":5,"val":"72"}},"hash":"FvKfIV3qF1CkEWXSO03L_T6DZIjH","key":"FvKfIV3qF1CkEWXSO03L_T6DZIjH.jpg","storage":"QINIU","avInfo":{"Audios":null,"Videos":[{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}],"audio":null,"format":{"format_long_name":"piped jpeg sequence","bit_rate":"","format_name":"jpeg_pipe","duration":"","nb_streams":1,"size":"131991","start_time":""},"subtitle":null,"Subtitles":null,"MaxAB":-1,"video":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"},"AttachedPic":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}},"bucket":"balloon-image-public","resource":"IMAGE","imageInfo":{"format":"jpeg","orientation":"Top-left","size":131991,"height":1242,"width":932,"colorModel":"ycbcr"}}', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'name': '7001', 'photoIds': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>400</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-18 15:02:14</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'screenName': '7001', 'height': '166', 'avatarFile': '{"size":131991,"appId":"bTBiJJqs4kWZ","name":"","ext":".jpg","mimeType":"image\\/jpeg","exif":{"ColorSpace":{"type":3,"val":"Uncalibrated"},"PixelXDimension":{"type":4,"val":"932"},"ResolutionUnit":{"type":3,"val":"Inch"},"ExifVersion":{"type":7,"val":"Exif Version 2.1"},"FlashPixVersion":{"type":7,"val":"FlashPix Version 1.0"},"PixelYDimension":{"type":4,"val":"1242"},"XResolution":{"type":5,"val":"72"},"Orientation":{"type":3,"val":"Top-left"},"YResolution":{"type":5,"val":"72"}},"hash":"FvKfIV3qF1CkEWXSO03L_T6DZIjH","key":"FvKfIV3qF1CkEWXSO03L_T6DZIjH.jpg","storage":"QINIU","avInfo":{"Audios":null,"Videos":[{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}],"audio":null,"format":{"format_long_name":"piped jpeg sequence","bit_rate":"","format_name":"jpeg_pipe","duration":"","nb_streams":1,"size":"131991","start_time":""},"subtitle":null,"Subtitles":null,"MaxAB":-1,"video":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"},"AttachedPic":{"codec_type":"video","codec_time_base":"0\\/1","profile":"192","duration":"","coded_width":932,"color_range":"pc","index":0,"sample_aspect_ratio":"1:1","Disposition":{"attached_pic":0},"avg_frame_rate":"0\\/0","bit_rate":"","codec_long_name":"Motion JPEG","coded_height":1242,"display_aspect_ratio":"466:621","level":-99,"nb_frames":"","pix_fmt":"yuvj420p","refs":1,"height":1242,"width":932,"start_time":"","r_frame_rate":"25\\/1","codec_name":"mjpeg"}},"bucket":"balloon-image-public","resource":"IMAGE","imageInfo":{"format":"jpeg","orientation":"Top-left","size":131991,"height":1242,"width":932,"colorModel":"ycbcr"}}', 'sportHobbies': '["足球"]', 'visitedCities': '["新德里"]', 'favMovies': '["闪灵"]', 'pet': '', 'purpose': '[]', 'questionId': '', 'answer': '', 'selfIntroduce': 'hh', 'aboutme': '我是一个没有感情的测试号', 'universityId': '5df8db6c9c6d0a4873889bc3', 'industry': '互联网', 'job': '产品', 'company': '三一重工', 'residence': '', 'hometown': '{"province":"安徽","city":"安庆"}', 'wechat': '3432653212', 'interestedEvents': '[]', 'socialActivities': '["打王者、吃鸡"]', 'photos': '[]', 'photoIds': '[]', 'lonelyTag': '5eaad0d19edf381521a76aaf', 'outlooksOnLove': '["5eb281255cec6c8287024e4b","5eb281255cec6c8287024e50","5eb281255cec6c8287024e55"]', 'title': {'province': '安徽', 'city': '安庆', 'interestedEvent': '', 'file': '', 'prefix': '', 'suffix': ''}, 'entertainment': ''}</td>
+            <td>400</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:52</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'status': 'on'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:52</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'status': 'off'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:52</td>
+                <td>/1.0/account/device/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'location': {'lng': '121.50788622989471', 'lat': '31.306750404984403', 'coordType': 'wgs84'}, 'timezone': 'GMT+08:00', 'idfa': '93E036FE-DC4B-49ED-9BAA-25767D2EE334', 'idfv': '69C6EBDF-A0CE-4D32-AB4F-ADE180A10D50', 'instanceid': '53521f80f81070d9', 'guid': '44d7a94f-fc1c-4937-a3ca-232272778852', 'imei': '""', 'oaid': '10719274D1094B9B94D0D5CF3CC6118D8199004036cff2eeacbfacbeb536ed13'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:52</td>
+                <td>/1.0/account/token/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'deviceToken': '953C0780BE70310FE698061054E30ED80FA8EF58E733470D5A20D97D22287095', 'vendor': 'OPPO'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:53</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86', 'mobilePhoneNumber': '14012347001'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:53</td>
+                <td>/1.0/badge/getStats</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:53</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'id': '5f20266424a80a052a72f490', 'provider': 'WECHAT_PAY_APP'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:53</td>
+                <td>/1.0/charges/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': '""'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:53</td>
+                <td>/1.0/chargeOptions/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:54</td>
+                <td>/1.0/im/conversation/countUnread</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:54</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'targetId': '6085300844a9310018532233', 'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:54</td>
+                <td>/1.0/im/suggestion/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:55</td>
+                <td>/1.0/im/conversation/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:55</td>
+                <td>/1.0/im/message/requestFillingSocialActivities</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:56</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'payload': {'text': 'test'}, 'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:56</td>
+                <td>/1.0/maleInboxCards/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:57</td>
+                <td>/1.0/match/getNewMatches</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:57</td>
+                <td>/1.0/match/getRecommendInfo</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:57</td>
+                <td>/1.0/matchHistory/listDisliked</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:57</td>
+                <td>/1.0/matchHistory/listLiked</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:58</td>
+                <td>/1.0/orders/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'id': '5f3b43ac01c9692ae135df7c'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:58</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{'category': 'encore'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:58</td>
+                <td>/1.0/profile/listPhotos</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'targetUserId': '5ff70e38df391849e5a2edf7'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:58</td>
+                <td>/1.0/profile/getOne</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'userId': '5ff70e36df391849e5a2ede5'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:58</td>
+                <td>/1.0/profile/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:59</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'voucherType': 'superlike', 'loadMoreKey': '""'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:59</td>
+                <td>/1.0/search/company</td>
+                <td>GET</td>
+                <td>{'input': '一'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:59</td>
+                <td>/1.0/search/university</td>
+                <td>GET</td>
+                <td>{'input': '一'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:59</td>
+                <td>/1.0/time/get</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:01:59</td>
+                <td>/1.0/stickerGroups/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:00</td>
+                <td>/1.0/wallet/get</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:00</td>
+                <td>/1.0/widgetEvents/list</td>
+                <td>GET</td>
+                <td>{'userId': '5e74c814a2f2e503cebe89be'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:00</td>
+                <td>/1.0/im/conversation/listActive</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:01</td>
+                <td>/1.0/im/message/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:01</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'status': 'fullDuplex'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:02</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'status': 'expired'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:02</td>
+                <td>/1.0/profile/listPhotos</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'targetUserId': '5ff70e38df391849e5a2edf7'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:02</td>
+                <td>/1.0/profile/getOne</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:03</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:03</td>
+                <td>/1.0/search/company</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:03</td>
+                <td>/1.0/search/university</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:03</td>
+                <td>/1.0/widgetEvents/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:03</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:03</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:03</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'mobilePhoneNumber': '14012347001'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:04</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'verifyCode': '3036', 'areaCode': '+86', 'pageName': '14012347001'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:04</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'verifyCode': '3036', 'mobilePhoneNumber': '14012347001', 'pageName': '14012347001'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:04</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86', 'mobilePhoneNumber': '14012347001', 'pageName': '14012347001'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:04</td>
+                <td>/1.0/account/email/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'email': ''}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:04</td>
+                <td>/1.0/account/email/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'password': '3036'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:04</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'id': '5f20266424a80a052a72f490'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:04</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'provider': 'WECHAT_PAY_APP'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:05</td>
+                <td>/1.0/charges/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:05</td>
+                <td>/1.0/charges/validateIAPReceipt</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:05</td>
+                <td>/1.0/im/message/exchangeWechat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:05</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'targetId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:05</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:05</td>
+                <td>/1.0/im/conversation/break</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:06</td>
+                <td>/1.0/im/conversation/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:06</td>
+                <td>/1.0/im/suggestion/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:06</td>
+                <td>/1.0/im/message/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:06</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:06</td>
+                <td>/1.0/im/conversation/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:06</td>
+                <td>/1.0/im/message/requestFillingSocialActivities</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:06</td>
+                <td>/1.0/im/conversation/restart</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:07</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'payload': {'text': 'test'}}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:07</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'conversationId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:07</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'payload': {'text': 'test'}, 'conversationId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:07</td>
+                <td>/1.0/match/dislike</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:08</td>
+                <td>/1.0/match/like</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'superlike': 'true', 'superlikeReason': 'test'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:08</td>
+                <td>/1.0/match/view</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:08</td>
+                <td>/1.0/orders/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:08</td>
+                <td>/1.0/profile/avatarComparison</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:08</td>
+                <td>/1.0/profile/deletePhoto</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:08</td>
+                <td>/1.0/profile/uploadAvatar</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:09</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'voucherType': 'superlike'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:09</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': '""'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:09</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{'category': 'encore'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:09</td>
+                <td>/1.0/account/device/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'location': {'lng': '121.50788622989471', 'lat': '31.306750404984403', 'coordType': 'wgs84'}, 'timezone': 'GMT+08:00', 'idfa': '93E036FE-DC4B-49ED-9BAA-25767D2EE334', 'idfv': '69C6EBDF-A0CE-4D32-AB4F-ADE180A10D50', 'instanceid': '53521f80f81070d9', 'guid': '44d7a94f-fc1c-4937-a3ca-232272778852', 'imei': '""', 'oaid': '10719274D1094B9B94D0D5CF3CC6118D8199004036cff2eeacbfacbeb536ed13'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:09</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['socialActivities']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:09</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['girlSuggestions']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:09</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['boySuggestions']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:10</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['prologueSuggestions']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:10</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['emojis']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:10</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['forceInviteCode']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:10</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['question']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:10</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['interestedEvents']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:10</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['entertainments']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:11</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['outlooksOnLove']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:11</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['lonelyTags']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:11</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['titleTags']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:11</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'configs': ['conversationToasts']}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:12</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'payload': {'text': 'test'}, 'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:13</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:13</td>
+                <td>/1.0/im/message/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:13</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:14</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'payload': {'text': 'test'}}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-18 15:02:14</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'payload': {'text': 'test'}, 'conversationId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            </table>
+        </body>
+        </html>

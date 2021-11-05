@@ -1,0 +1,1237 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 111，通过 94，失败 17</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:24:50</td>
+            <td>/1.0/im/conversation/get</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>response中少了字段或字段类型变更：
+[root['user']['job'], root['user']['industry'], root['user']['wechat'], root['user']['avatar']['cropperPosX'], root['user']['avatar']['cropperPosY'], root['user']['quiz']['points']]
+
+返回详情可见具体case或测试数据库</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:24:50</td>
+            <td>/1.0/im/conversation/restart</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>response中少了字段或字段类型变更：
+[root['user']['job'], root['user']['industry'], root['user']['quiz']['points']]
+
+返回详情可见具体case或测试数据库</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:24:51</td>
+            <td>/1.0/match/recommend</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>response中少了字段或字段类型变更：
+[root['debugInfo']['templateLevel']]
+
+返回详情可见具体case或测试数据库</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:24:53</td>
+            <td>/1.0/match/recommend</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>response中少了字段或字段类型变更：
+[root['debugInfo']['templateLevel']]
+
+返回详情可见具体case或测试数据库</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:24:56</td>
+            <td>/1.0/im/conversation/listActive</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:24:56</td>
+            <td>/1.0/im/message/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:01</td>
+            <td>/1.0/im/conversation/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>500</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:06</td>
+            <td>/1.0/im/conversation/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:07</td>
+            <td>/1.0/match/recommend</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:07</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>200</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:07</td>
+            <td>/1.0/im/message/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>400</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:07</td>
+            <td>/1.0/im/conversation/list</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>400</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:07</td>
+            <td>/1.0/im/message/send</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>400</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:07</td>
+            <td>/1.0/im/message/send</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>400</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:07</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>400</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:08</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>400</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-26 17:25:08</td>
+            <td>/1.0/profile/update</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>...</td>
+            <td>400</td>
+            <td>503</td>
+            <td style="background-color:red">测试失败</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:49</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:49</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:49</td>
+                <td>/1.0/account/device/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:49</td>
+                <td>/1.0/account/token/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:49</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:49</td>
+                <td>/1.0/badge/getStats</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:49</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:49</td>
+                <td>/1.0/charges/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:50</td>
+                <td>/1.0/chargeOptions/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:50</td>
+                <td>/1.0/im/conversation/countUnread</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:50</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:50</td>
+                <td>/1.0/im/suggestion/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:50</td>
+                <td>/1.0/im/conversation/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:50</td>
+                <td>/1.0/im/message/requestFillingSocialActivities</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/maleInboxCards/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/match/getNewMatches</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/match/getRecommendInfo</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/matchHistory/listDisliked</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/matchHistory/listLiked</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/orders/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{'category': 'encore'}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:51</td>
+                <td>/1.0/profile/listPhotos</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/profile/getOne</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/profile/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/search/company</td>
+                <td>GET</td>
+                <td>{'input': '一'}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/search/university</td>
+                <td>GET</td>
+                <td>{'input': '一'}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/time/get</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/stickerGroups/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/wallet/get</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/widgetEvents/list</td>
+                <td>GET</td>
+                <td>{'userId': '5e74c814a2f2e503cebe89be'}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/im/conversation/listActive</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:52</td>
+                <td>/1.0/im/message/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/profile/listPhotos</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/profile/getOne</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/search/company</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/search/university</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/widgetEvents/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:53</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/account/email/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/account/email/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/charges/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/charges/validateIAPReceipt</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/message/exchangeWechat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/conversation/break</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/conversation/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/suggestion/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/message/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/conversation/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/message/requestFillingSocialActivities</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/conversation/restart</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:54</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/match/dislike</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/match/like</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/match/view</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/orders/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/profile/avatarComparison</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/profile/deletePhoto</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/profile/uploadAvatar</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{'category': 'encore'}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/account/device/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:55</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:56</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:56</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:56</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:56</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:56</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:56</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:24:56</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:25:07</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-26 17:25:07</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>...</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            </table>
+        </body>
+        </html>

@@ -35,20 +35,20 @@
         <span class="item0">
             <div class="container page-header" style="padding-top: 30px;">
                 <form class="navbar-form" method="post" action="{% url 'apitest:api_header' %}">
-                {%  csrf_token %}
-                <label>所属项目：</label>
-                    <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
-                            <option value="-1">全部</option>
-                        {%  for product in product_list %}
-                            {% if product.id == selected_product_id %}
-                                <option value ="{{ product.id }}" selected="selected">{{ product.product_name }}</option>
-                            {% else %}
-                                <option value ="{{ product.id }}">{{ product.product_name }}</option>
-                            {% endif %}
-                        {% endfor %}
-                        </select>
-                <button type="submit" name="filter" style="margin-left: 100px">过滤（不好意思又让你多点一下鼠标）</button>
-            </form>
+                    {%  csrf_token %}
+                    <label>所属项目：</label>
+                        <select style="padding: 1px; width: 150px;" name="selected_product_id" autocomplete="off">
+                                <option value="-1">全部</option>
+                            {%  for product in product_list %}
+                                {% if product.id == selected_product_id %}
+                                    <option value ="{{ product.id }}" selected="selected">{{ product.product_name }}</option>
+                                {% else %}
+                                    <option value ="{{ product.id }}">{{ product.product_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            </select>
+                    <button type="submit" name="filter" style="margin-left: 100px">过滤（不好意思又让你多点一下鼠标）</button>
+                </form>
             </div>
         </span>
         <span class="item1">

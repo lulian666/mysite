@@ -89,14 +89,29 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'dj',
+#         'USER': 'root',
+#         'PASSWORD': '52france',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dj',
+        'NAME': 'django_app',
         'USER': 'root',
-        'PASSWORD': '52france',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'mypassword',
+        'HOST': 'db',
         'PORT': '3306',
+        'TEST': {
+            'CHARSET': 'utf8',
+            'COLLATION': 'utf8_general_ci'
+        }
     }
 }
 
@@ -145,7 +160,7 @@ HERE = os.path.join(HERE, '../')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 
 # # 静态文件收集目录
-STATIC_ROOT = os.path.join(BASE_DIR, 'collect_static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field

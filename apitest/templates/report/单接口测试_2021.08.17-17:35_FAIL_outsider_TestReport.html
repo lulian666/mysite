@@ -1,0 +1,909 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>自动化测试报告</title>
+            <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+            <h1 style="font-family: Microsoft YaHei">接口自动化测试报告</h1>
+            <p class='attribute' style="font-size:30px;color:red"><strong>测试结果 : </strong> 共 83，通过 79，失败 4</p>
+            <style type="text/css" media="screen">
+        body  { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px;}
+        .td,.th {
+            white-space:nowrap
+        }
+        </style>
+        </head>
+        <body>
+            <table id='result_table_fail' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>测试时间</th>
+                        <th>测试接口</th>
+                        <th>接口方法</th>
+                        <th>url参数</th>
+                        <th>body内容</th>
+                        <th >预期状态码</th>
+                        <th>测试结果</th>
+                    <th>实际状态码</th>
+                    <th>返回结果</th>
+                    <th>备注</th>
+                </tr>
+                
+        <tr class='failClass warning'>
+            <td>2021-08-17 17:35:51</td>
+            <td>/1.0/im/conversation/get</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'conversationId': '6085300844a9310018532233'}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{'id': '6085300844a9310018532233', 'user': {'id': '5e959b87aabb4c514d923242', 'gender': 'MALE', 'age': '26', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/FmramFcJQTrrK0ol0aYn_70cheFW?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 864, 'height': 864, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FmramFcJQTrrK0ol0aYn_70cheFW?imageView2/0/w/500/format/jpg/q/70'}, 'screenName': '614', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 31, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '摩羯座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_capricorn%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'matchId': '5ff8527502f22800186020cd', 'startedAt': '2021-08-17T04:13:47.059Z', 'updatedAt': '2021-08-17T09:35:51.215Z', 'lastUserMessageTime': '2021-08-17T09:01:48.732Z', 'unread': True, 'status': 'restarted', 'sentDrug': False, 'dayInfo': {'current': 1, 'total': 3}, 'superlike': False, 'restarterId': '5ff70e36df391849e5a2ede5', 'exchangedWechat': False, 'viewType': 'Conversation', 'modelType': 'Conversation'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-17 17:35:52</td>
+            <td>/1.0/im/conversation/restart</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'conversationId': '6049f92898a33a0019e06f25'}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{'id': '6049f92898a33a0019e06f25', 'user': {'id': '5ff70cc7df391849e5a2d73b', 'gender': 'MALE', 'age': '21', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 2929, 'height': 3906, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fu5IGiHskQxU1qbg9dUyEzDKc3P7?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.4925, 'cropperPosY': 0.39875}, 'screenName': '8016', 'avatarVerified': 'pass', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': [], 'visitedCities': [], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 31, 'interestedEvents': [], 'outlooksOnLove': [], 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [], 'totalCount': 0}, 'zodiac': {'name': '处女座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, 'socialActivities': [], 'quiz': {'matchPointsText': '未知', 'description': '正在等待对方参与调查', 'answered': True, 'theyAnswered': False}}, 'matchId': '6049f90598a33a0019e06f07', 'startedAt': '2021-08-17T09:35:51.978Z', 'updatedAt': '2021-08-17T09:35:52.028Z', 'unread': True, 'status': 'restarted', 'sentDrug': False, 'dayInfo': {'current': 1, 'total': 3}, 'superlike': False, 'restarterId': '5ff70e36df391849e5a2ede5', 'exchangedWechat': False, 'viewType': 'Conversation', 'modelType': 'Conversation'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-17 17:35:53</td>
+            <td>/1.0/match/recommend</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'encore': 'false', 'location': {'lng': '121.50788622989471', 'lat': '31.306750404984403', 'coordType': 'wgs84'}}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>400</td>
+            <td>{'success': False, 'code': 'E101', 'error': '今天的「再来一批」使用次数已达上限'}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+        <tr class='failClass warning'>
+            <td>2021-08-17 17:35:53</td>
+            <td>/1.0/profile/getOne</td>
+            <td>POST</td>
+            <td>{}</td>
+            <td>{'userId': '5ff70e38df391849e5a2edf7'}</td>
+            <td>200</td>
+            <td style="background-color:red">测试失败</td>
+            <td>200</td>
+            <td>{'id': '5ff70e38df391849e5a2edf7', 'gender': 'FEMALE', 'age': '21', 'avatar': {'picUrl': 'https://image-qiniu.jellow.site/Fh3G0S5YGpp36kE_c6UgFZ63JCeB.jpg?imageView2/0/w/1000/format/jpg/q/70', 'format': 'IMAGE', 'width': 519, 'height': 692, 'thumbnailUrl': 'https://image-qiniu.jellow.site/Fh3G0S5YGpp36kE_c6UgFZ63JCeB.jpg?imageView2/0/w/500/format/jpg/q/70', 'cropperPosX': 0.3988439306358382, 'cropperPosY': 0.32153179190751446}, 'screenName': '7002女', 'university': '巴黎第一大学', 'hometown': {'city': '安庆', 'province': '安徽'}, 'avatarVerified': 'pass', 'height': 155, 'company': '1234567890', 'job': '公务员', 'industry': '政府机关', 'location': {'country': '中国', 'province': '上海', 'city': '上海', 'district': '上海'}, 'sportHobbies': [], 'visitedCities': ['12345', '12345', '12345', '12345'], 'favFood': [], 'favMovies': [], 'purpose': [], 'progress': 100, 'aboutme': '1234567890', 'interestedEvents': [], 'outlooksOnLove': [{'id': '5ea6d4a39dfe1901c6504d85', 'name': '不接受异地恋', 'gender': 'FEMALE', 'iconEmoji': '🤦🏻\u200d♀️'}, {'id': '5ea6d4a39dfe1901c6504d86', 'name': '相信一见钟情', 'gender': 'FEMALE', 'iconEmoji': '💘'}, {'id': '5ea6d4a39dfe1901c6504d87', 'name': '可以尝试异地恋', 'gender': 'FEMALE', 'iconEmoji': '👌'}], 'lonelyTag': {'id': '5eb2cc955cec6c8287024ec0', 'name': '终于想谈恋爱了'}, 'title': {'prefix': {'id': '5eaa7fc19edf381521a76aa9', 'name': '初来乍到的', 'location': 'prefix'}, 'suffix': {'id': '5eaa7fc19edf381521a76aaa', 'name': '橙里人', 'location': 'suffix'}}, 'album': {'photos': [{'id': '6114de7602243e00124b9051', 'picUrl': 'https://image-qiniu.jellow.site/FtfmYOJEnFQAqObDp6Ot_W_XTVqg.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1728, 'height': 2304, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FtfmYOJEnFQAqObDp6Ot_W_XTVqg.jpeg?imageView2/0/w/500/format/jpg/q/70'}, {'id': '6114d423e9d50c00113cbf99', 'picUrl': 'https://image-qiniu.jellow.site/FgE7jqeEbL6D1qb5WenXzC3in4lm.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1080, 'height': 2340, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FgE7jqeEbL6D1qb5WenXzC3in4lm.jpeg?imageView2/0/w/500/format/jpg/q/70'}, {'id': '6114d40be9d50c00113cbf98', 'picUrl': 'https://image-qiniu.jellow.site/FtfmYOJEnFQAqObDp6Ot_W_XTVqg.jpeg?imageView2/0/w/2000/format/jpg/q/70', 'format': 'IMAGE', 'width': 1728, 'height': 2304, 'thumbnailUrl': 'https://image-qiniu.jellow.site/FtfmYOJEnFQAqObDp6Ot_W_XTVqg.jpeg?imageView2/0/w/500/format/jpg/q/70'}], 'totalCount': 3}, 'wechat': '1****1', 'zodiac': {'name': '处女座', 'symbolLink': 'https://image-qiniu.jellow.site/ic_constellation_virgo%403x.png'}, 'socialActivities': ['喝杯咖啡聊聊天'], 'quiz': {'points': 95, 'matchPointsText': '95%', 'description': '你们是爱与和平的共同体，错过会痛哭流涕呜呜', 'answered': True, 'theyAnswered': True}}</td>
+            <td>可能的原因：
+1、某个参数没加required等于true
+2、参数类型传错了（请联系QA）
+3、真bug</td>
+        </tr>
+            </table>
+            <table id='result_table_succ' class="table table-condensed table-bordered table-hover">
+                <colgroup>
+                    <col align='left' />
+                    <col align='right' />
+                    <col align='right' />
+                    <col align='right' />
+                </colgroup>
+                <tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                    <th>测试时间</th>
+                    <th>测试接口</th>
+                    <th>接口方法</th>
+                    <th>url参数</th>
+                    <th>body内容</th>
+                    <th>预期状态码</th>
+                    <th>测试结果</th>
+                    <th>实际状态码</th>
+                </tr>
+                
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:50</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'status': 'on'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:50</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'status': 'off'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:50</td>
+                <td>/1.0/account/device/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'location': {'lng': '121.50788622989471', 'lat': '31.306750404984403', 'coordType': 'wgs84'}, 'timezone': 'GMT+08:00', 'idfa': '93E036FE-DC4B-49ED-9BAA-25767D2EE334', 'idfv': '69C6EBDF-A0CE-4D32-AB4F-ADE180A10D50', 'instanceid': '53521f80f81070d9', 'guid': '44d7a94f-fc1c-4937-a3ca-232272778852', 'imei': '""', 'oaid': '10719274D1094B9B94D0D5CF3CC6118D8199004036cff2eeacbfacbeb536ed13'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:50</td>
+                <td>/1.0/account/token/update</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'deviceToken': '953C0780BE70310FE698061054E30ED80FA8EF58E733470D5A20D97D22287095', 'vendor': 'OPPO'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:50</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86', 'mobilePhoneNumber': '14012347001'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:50</td>
+                <td>/1.0/badge/getStats</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:50</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'id': '5f20266424a80a052a72f490', 'provider': 'WECHAT_PAY_APP'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:50</td>
+                <td>/1.0/charges/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': '""'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:51</td>
+                <td>/1.0/chargeOptions/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:51</td>
+                <td>/1.0/im/conversation/countUnread</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:51</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'targetId': '6085300844a9310018532233', 'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:51</td>
+                <td>/1.0/im/suggestion/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:51</td>
+                <td>/1.0/im/conversation/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:51</td>
+                <td>/1.0/im/message/requestFillingSocialActivities</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:52</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'payload': {'text': 'test'}, 'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:52</td>
+                <td>/1.0/maleInboxCards/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:52</td>
+                <td>/1.0/match/getNewMatches</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:52</td>
+                <td>/1.0/match/getRecommendInfo</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:52</td>
+                <td>/1.0/matchHistory/listDisliked</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/matchHistory/listLiked</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/orders/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'id': '5f3b43ac01c9692ae135df7c'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{'category': 'encore'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/profile/listPhotos</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{'targetUserId': '5ff70e38df391849e5a2edf7'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/profile/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'voucherType': 'superlike', 'loadMoreKey': '""'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/search/company</td>
+                <td>GET</td>
+                <td>{'input': '一'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/search/university</td>
+                <td>GET</td>
+                <td>{'input': '一'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/time/get</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/stickerGroups/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:53</td>
+                <td>/1.0/wallet/get</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:54</td>
+                <td>/1.0/widgetEvents/list</td>
+                <td>GET</td>
+                <td>{'userId': '5e74c814a2f2e503cebe89be'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:54</td>
+                <td>/1.0/im/conversation/listActive</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:54</td>
+                <td>/1.0/im/message/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:54</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'status': 'fullDuplex'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'status': 'expired'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/match/recommend</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/profile/listPhotos</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'targetUserId': '5ff70e38df391849e5a2edf7'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/profile/getOne</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/search/company</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/search/university</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/widgetEvents/list</td>
+                <td>GET</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/account/toggleGhostMode</td>
+                <td>post</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/account/sms/getCode</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'mobilePhoneNumber': '14012347001'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'verifyCode': '3036', 'areaCode': '+86', 'pageName': '14012347001'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'verifyCode': '3036', 'mobilePhoneNumber': '14012347001', 'pageName': '14012347001'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/account/sms/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'areaCode': '+86', 'mobilePhoneNumber': '14012347001', 'pageName': '14012347001'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/account/email/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'email': ''}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/account/email/loginOrSignUp</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'password': '3036'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:55</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'id': '5f20266424a80a052a72f490'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/charges/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'provider': 'WECHAT_PAY_APP'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/charges/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/charges/validateIAPReceipt</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/config/appGet</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/message/exchangeWechat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'targetId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/interaction/pat</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'conversationId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/conversation/break</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/conversation/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/suggestion/get</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/message/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/conversation/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': {'lastUpdatedAt': '2021-04-08T06:26:11.646Z'}, 'limit': '20'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/conversation/read</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/message/requestFillingSocialActivities</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/conversation/restart</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'payload': {'text': 'test'}}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'type': 'text', 'conversationId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/im/message/send</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'payload': {'text': 'test'}, 'conversationId': '6085300844a9310018532233'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:56</td>
+                <td>/1.0/match/dislike</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/match/like</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'superlike': 'true', 'superlikeReason': 'test'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/match/view</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/orders/create</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/profile/avatarComparison</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/profile/deletePhoto</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/profile/uploadAvatar</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'voucherType': 'superlike'}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/propertyDetails/list</td>
+                <td>POST</td>
+                <td>{}</td>
+                <td>{'loadMoreKey': '""'}</td>
+                <td>400</td>
+                <td>测试成功</td>
+                <td>400</td>
+            </tr>
+            <tr class='failClass warning'>
+                <td>2021-08-17 17:35:57</td>
+                <td>/1.0/products/list</td>
+                <td>GET</td>
+                <td>{'category': 'encore'}</td>
+                <td>{}</td>
+                <td>200</td>
+                <td>测试成功</td>
+                <td>200</td>
+            </tr>
+            </table>
+        </body>
+        </html>

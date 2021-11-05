@@ -18,3 +18,5 @@ requests==2.25.1
 sqlparse==0.4.1
 
 deepdiff~=5.5.0
+mysqlclient==2.0.1
+gunicorn==19.9.0

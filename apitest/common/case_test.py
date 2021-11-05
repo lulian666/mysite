@@ -21,6 +21,7 @@ class TestCaseRequest:
         print('!!!!!我创建了session!!!!!!!')
         self.header = HeaderManage.read_header(product_id)
         self.s.headers = self.header
+        self.s.hooks['response'] = [print_consume_time]
         self.table_tr_fail = self.table_tr_success = ''
         self.num_success = self.num_fail = 0
         self.html = TemplateMixin()
@@ -241,4 +242,8 @@ def replace(name, json_string, api_id, parameters):
     return json_string
 
 
+def print_consume_time(r, *args, **kwargs):
+    print(r.elapsed)
+    # print(args)
+    # print(kwargs)
 
