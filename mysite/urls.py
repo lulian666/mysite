@@ -19,13 +19,9 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/', include('polls.urls')),
     path('apitest/', include('apitest.urls')),
     path('product/', include('product.urls')),
-    path('bug/', include('bug.urls')),
     path('set/', include('set.urls')),
-    path('apptest/', include('apptest.urls')),
-    path('webtest/', include('webtest.urls')),
     path('account/', include('account.urls')),
     path('blog/', include('blog.urls')),
     path('article/', include('article.urls')),

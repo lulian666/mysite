@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, function_view
+from . import views, function_view, view_for_vue
 
 app_name = 'apitest'
 urlpatterns = [
@@ -26,4 +26,6 @@ urlpatterns = [
     path('update_variable_json_path/', function_view.update_variable_json_path, name='update_variable_json_path'),
     path('debug_variable_preparation/', function_view.debug_variable_preparation, name='debug_variable_preparation'),
     path('show_exclude_info/', function_view.show_exclude_info, name='show_exclude_info'),
+
+    path('getproducts/', view_for_vue.get_products, name='get_products'),
 ]

@@ -36,16 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'apitest',
-    'polls.apps.PollsConfig',
     'apitest.apps.ApitestConfig',
     'product.apps.ProductConfig',
-    'bug.apps.BugsConfig',
     'set.apps.SetConfig',
-    'apptest.apps.ApptestConfig',
-    'webtest.apps.WebtestConfig',
     'account.apps.AccountConfig',
     'blog.apps.BlogConfig',
     'article.apps.ArticleConfig',
+    'corsheaders',
+    'rest_framework',
     'bootstrap4',
 ]
 
@@ -56,7 +54,13 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+# 白名单
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8080",
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -78,16 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
